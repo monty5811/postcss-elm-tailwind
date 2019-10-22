@@ -1,0 +1,7 @@
+yarn-error.log
+yarn.lock
+demo/
+node_modules/
+src/
+docs.json
+elm-stuff/

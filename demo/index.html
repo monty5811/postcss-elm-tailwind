@@ -1,0 +1,22 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+</head>
+
+<body>
+  <div id="elm"></div>
+  <script src="dist/app.js"></script>
+  <script>
+      var app = Elm.Main.init({
+        node: document.getElementById('elm')
+      });
+      </script>
+  <style>
+    * {
+      transition: 0.2s all;
+    }
+  </style>
+  <link rel="stylesheet" href="dist/main.css"></link>
+</body>
+</html>

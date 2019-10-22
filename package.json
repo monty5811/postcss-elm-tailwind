@@ -1,0 +1,31 @@
+{
+  "name": "postcss-elm-tailwind",
+  "version": "0.1.0",
+  "description": "PostCSS plugin Tailwind classes for Elm",
+  "keywords": [
+    "postcss",
+    "css",
+    "postcss-plugin",
+    "elm",
+    "tailwind"
+  ],
+  "scripts": {
+    "build-elm-package": "postcss default.css > /dev/null"
+  },
+  "author": "Dean Montgomery",
+  "license": "MIT",
+  "repository": "monty5811/postcss-elm-tailwind",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "elm": "^0.19.1-2",
+    "postcss-cli": "^6.1.3",
+    "tailwindcss": "^1.1.2"
+  },
+  "peerDependencies": {
+    "postcss": "^7.0.18"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
