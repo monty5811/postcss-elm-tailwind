@@ -54,6 +54,8 @@ function fixClass(cls) {
   );
   // remove extras at end
   cls = cls.replace(/\::(placeholder)$/, "");
+  //
+  cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
   cls = cls.replace(/\\([/])/g, "\\\\$1");
   // make \: safe for elm
@@ -66,22 +68,22 @@ function fixClass(cls) {
 }
 
 function toElmName(cls, prefix) {
-  if (!prefix) {
-    prefix = "";
-  }
-  re_neg_with_prefix = new RegExp(`(${prefix})-([p|m])`);
-
   var elm = cls;
   // handle negative with prefix
-  elm = elm.replace(re_neg_with_prefix, "$1neg_$2");
+  if (prefix) {
+    re_neg_with_prefix = new RegExp(`(${prefix})-([p|m])`);
+    elm = elm.replace(re_neg_with_prefix, "$1neg_$2");
+  }
   // handle negative at start of string
   elm = elm.replace(/^-([p|m])/, "_neg_$1");
+  // handle negative with variant
+  elm = elm.replace(/:-([p|m])/, "_neg_$1");
   // replace dashes now we have sorted the negative stuff
   elm = elm.replace(/-/g, "_");
   // replace :
   elm = elm.replace(/:/g, "_");
   // handle fractions
-  elm = elm.replace(/\\\\\//g, "over");
+  elm = elm.replace(/\//g, "over");
   // clean up
   elm = elm.replace(/\\__/g, "_");
   elm = elm.replace(/^_/g, "");

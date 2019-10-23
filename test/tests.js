@@ -19,9 +19,12 @@ describe("fixClass", function() {
   });
   it("with prefix", function() {
     assert.equal(
-      h.fixClass("hover:tw-bg-blue-500:hover"),
+      h.fixClass(".hover:tw-bg-blue-500:hover"),
       "hover:tw-bg-blue-500"
     );
+  });
+  it("ratio", function() {
+    assert.equal(h.fixClass(".w-1\\/2"), "w-1/2");
   });
 });
 
@@ -64,5 +67,14 @@ describe("fixClass -> toElmName", function() {
   });
   it("not-negative with prefix .xl:tw-my-64", function() {
     assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), "-tw"), "xl_tw_my_64");
+  });
+  it("cursor-pointer", function() {
+    assert.equal(
+      h.toElmName(h.fixClass(".cursor-pointer"), ""),
+      "cursor_pointer"
+    );
+  });
+  it("font-medium", function() {
+    assert.equal(h.toElmName(h.fixClass(".font-medium"), ""), "font_medium");
   });
 });
