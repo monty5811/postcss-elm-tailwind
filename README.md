@@ -2,7 +2,7 @@
 
 [tailwind](https://tailwindcss.com) + [elm](http://elm-lang.org) = :rocket:
 
-See the [demo](https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo).
+See the [demo](https://postcss-elm-tailwind-demo.onrender.com/) and [repo](https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo).
 
 [![Actions Status](https://github.com/monty5811/postcss-elm-tailwind/workflows/Node%20CI/badge.svg)](https://github.com/monty5811/postcss-elm-tailwind/actions)
 
