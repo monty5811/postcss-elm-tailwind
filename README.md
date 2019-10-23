@@ -4,6 +4,8 @@
 
 See the [demo](https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo).
 
+[![Actions Status](https://github.com/monty5811/postcss-elm-tailwind/workflows/Node%20CI/badge.svg)](https://github.com/monty5811/postcss-elm-tailwind/actions)
+
 ```elm
 view : Model -> Html Msg
 view model =
