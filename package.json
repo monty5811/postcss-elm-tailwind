@@ -1,6 +1,7 @@
 {
   "name": "postcss-elm-tailwind",
-  "version": "0.2.0",
+  "main": "./index.js",
+  "version": "0.2.1",
   "description": "PostCSS plugin Tailwind classes for Elm",
   "keywords": [
     "postcss",
