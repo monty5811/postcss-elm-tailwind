@@ -12,9 +12,13 @@
     "tailwindcss": "^1.1.2"
   },
   "scripts": {
+    "copy-index": "cp index.html dist/",
     "build-elm": "elm make src/Main.elm --output=dist/app.js",
     "build-tw": "postcss -o dist/main.css main.css",
-    "build": "yarn build-tw && yarn build-elm",
-    "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw"
+    "build": "yarn build-tw && yarn build-elm && yarn copy-index",
+    "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw && yarn copy-index"
+  },
+  "devDependencies": {
+    "@tailwindcss/custom-forms": "^0.2.1"
   }
 }

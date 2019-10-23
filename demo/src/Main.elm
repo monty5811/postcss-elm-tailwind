@@ -2,6 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (sandbox)
 import Html exposing (Html)
+import Html.Attributes as A
 import Html.Events as E
 import TW
 
@@ -53,21 +54,90 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    Html.div [ TW.tw_h_screen, TW.tw_w_screen, TW.tw_flex, TW.tw_justify_center, TW.tw_items_center, TW.tw_bg_gray_200 ]
-        [ Html.div []
-            [ Html.button
-                [ E.onClick Decrement
-                , TW.tw_rounded
-                , TW.tw_px_2
-                , TW.tw_px_4
-                , TW.tw_text_white
-                , TW.tw_bg_blue_500
-                , TW.tw_w_full
-                , TW.hover_tw_bg_blue_700
-                , TW.lg_tw_bg_green_500
-                , TW.lg_hover_tw_bg_green_700
-                , TW.hover_tw_font_bold
+    Html.div
+        [ TW.tw_text_gray_900
+        , TW.tw_max_w_3xl
+        , TW.tw_w_full
+        , TW.tw_mx_auto
+        , TW.tw_px_6
+        , TW.tw_py_12
+        ]
+        [ Html.h1
+            [ TW.tw_text_2xl
+            , TW.tw_font_normal
+            , TW.tw_mb_2
+            ]
+            [ Html.text "Demo: postcss-elm-tailwind"
+            ]
+        , Html.div [ TW.tw_text_gray_700 ]
+            [ Html.a
+                [ A.href "https://github.com/monty5811/postcss-elm-tailwind"
+                , TW.hover_tw_underline
                 ]
+                [ Html.text "github" ]
+            , Html.span [] [ Html.text " | " ]
+            , Html.a
+                [ A.href "https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo"
+                , TW.hover_tw_underline
+                ]
+                [ Html.text "source" ]
+            ]
+        , Html.hr [ TW.tw_my_8 ] []
+        , Html.div []
+            [ Html.h2
+                [ TW.tw_text_xl
+                , TW.tw_font_normal
+                , TW.tw_mb_4
+                ]
+                [ Html.text "Form" ]
+            , Html.label [ TW.tw_block ]
+                [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Name" ]
+                , Html.input
+                    [ TW.tw_form_input, TW.tw_mt_1, TW.tw_block, TW.tw_w_full, A.placeholder "Jane Doe" ]
+                    []
+                ]
+            , Html.div [ TW.tw_mt_4 ]
+                [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Account Type" ]
+                , Html.div [ TW.tw_mt_2 ]
+                    [ Html.label [ TW.tw_inline_flex, TW.tw_items_center ]
+                        [ Html.input [ A.type_ "radio", TW.tw_form_radio, A.name "accountType", A.value "personal" ] []
+                        , Html.span [ TW.tw_ml_2 ] [ Html.text "Personal" ]
+                        ]
+                    , Html.label [ TW.tw_inline_flex, TW.tw_items_center, TW.tw_ml_6 ]
+                        [ Html.input [ A.type_ "radio", TW.tw_form_radio, A.name "accountType", A.value "business" ] []
+                        , Html.span [ TW.tw_ml_2 ] [ Html.text "Business" ]
+                        ]
+                    ]
+                ]
+            , Html.label [ TW.tw_block, TW.tw_mt_4 ]
+                [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Requested Limit" ]
+                , Html.select [ TW.tw_form_select, TW.tw_mt_1, TW.tw_block, TW.tw_w_full ]
+                    [ Html.option [] [ Html.text "$1,000" ]
+                    , Html.option [] [ Html.text "$5,000" ]
+                    , Html.option [] [ Html.text "$10,000" ]
+                    , Html.option [] [ Html.text "$25,000" ]
+                    ]
+                ]
+            , Html.div [ TW.tw_flex, TW.tw_mt_6 ]
+                [ Html.label [ TW.tw_flex, TW.tw_items_center ]
+                    [ Html.input [ A.type_ "checkbox", TW.tw_form_checkbox ] []
+                    , Html.span [ TW.tw_ml_2 ]
+                        [ Html.text "I agree to the "
+                        , Html.span [ TW.tw_underline ] [ Html.text "privacy policy" ]
+                        ]
+                    ]
+                ]
+            ]
+        , Html.hr [ TW.tw_my_8 ] []
+        , Html.div []
+            [ Html.h2
+                [ TW.tw_text_xl
+                , TW.tw_font_normal
+                , TW.tw_mb_4
+                ]
+                [ Html.text "Counter" ]
+            , Html.button
+                (E.onClick Decrement :: buttonCls)
                 [ Html.text "-" ]
             , Html.div
                 [ TW.tw_text_2xl
@@ -76,18 +146,25 @@ view model =
                 ]
                 [ Html.text (String.fromInt model) ]
             , Html.button
-                [ E.onClick Increment
-                , TW.tw_rounded
-                , TW.tw_px_2
-                , TW.tw_px_4
-                , TW.tw_text_white
-                , TW.tw_bg_blue_500
-                , TW.tw_w_full
-                , TW.hover_tw_bg_blue_700
-                , TW.lg_tw_bg_green_500
-                , TW.lg_hover_tw_bg_green_700
-                , TW.hover_tw_font_bold
-                ]
+                (E.onClick Increment :: buttonCls)
                 [ Html.text "+" ]
             ]
         ]
+
+
+buttonCls : List (Html.Attribute msg)
+buttonCls =
+    [ TW.tw_rounded
+    , TW.tw_px_2
+    , TW.tw_px_4
+    , TW.tw_text_white
+    , TW.tw_text_lg
+    , TW.tw_bg_blue_500
+    , TW.hover_tw_bg_blue_700
+    , TW.lg_tw_bg_green_500
+    , TW.lg_hover_tw_bg_green_700
+    , TW.hover_tw_font_bold
+    , TW.tw_mx_auto
+    , TW.tw_block
+    , TW.tw_w_1over4
+    ]
