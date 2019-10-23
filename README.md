@@ -70,8 +70,8 @@ How to use:
 
 ## Caveats
 
-In order to get a small build, you'll need to build Tailwind twice - once
+1. If you have set a `prefix` in your tailwind config, you must tell
+`postcss-elm-tailwind` what it is too in your `postcss.config.js`. [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/postcss.config.js#L15).
+2. In order to get a small build, you'll need to build Tailwind twice - once
 without purgecss to build `TW.elm` with all the classes and once with purgecss
-so that all the unused classes are removed.
-
-The [demo does this](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L18).
+so that all the unused classes are removed. [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L18).

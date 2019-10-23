@@ -65,15 +65,26 @@ function fixClass(cls) {
   return cls;
 }
 
-function toElmName(cls) {
-  var elm = cls.split("\\\\:").join("_");
-  elm = elm.replace(/^-([p|m])/, "neg_$1"); // handle negative at start of string
-  elm = elm.replace(/-([p|m])/, "_neg_$1"); // handle negative with prefix and/or variant
+function toElmName(cls, prefix) {
+  if (!prefix) {
+    prefix = "";
+  }
+  re_neg_with_prefix = new RegExp(`(${prefix})-([p|m])`);
+
+  var elm = cls;
+  // handle negative with prefix
+  elm = elm.replace(re_neg_with_prefix, "$1neg_$2");
+  // handle negative at start of string
+  elm = elm.replace(/^-([p|m])/, "_neg_$1");
+  // replace dashes now we have sorted the negative stuff
   elm = elm.replace(/-/g, "_");
+  // replace :
   elm = elm.replace(/:/g, "_");
+  // handle fractions
   elm = elm.replace(/\\\\\//g, "over");
+  // clean up
   elm = elm.replace(/\\__/g, "_");
-  elm = elm.replace(/__/g, "_"); // cleanup
+  elm = elm.replace(/^_/g, "");
   return elm;
 }
 

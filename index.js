@@ -1,16 +1,21 @@
 const fs = require("fs");
 let postcss = require("postcss");
 
-let h = require('./helpers.js');
+let h = require("./helpers.js");
 
 let classes = new Map();
 let elm_fns = new Array();
 
 module.exports = postcss.plugin(
   "postcss-elm-tailwind",
-  (opts = { elmFile }) => {
+  (opts = { elmFile, prefix }) => {
     // Work with options here
-    opts.elmFile = "src/TW.elm";
+    if (!opts.elmFile) {
+      opts.elmFile = "src/TW.elm";
+    }
+    if (!opts.prefix) {
+      opts.prefix = "";
+    }
 
     return (root, result) => {
       // Transform CSS AST here
@@ -23,7 +28,7 @@ module.exports = postcss.plugin(
         let cls = rule.selector;
 
         cls = h.fixClass(cls);
-        elm = h.toElmName(cls);
+        elm = h.toElmName(cls, opts.prefix);
 
         classes.set(cls, h.elmFunction(cls, elm));
         elm_fns.push(elm);
