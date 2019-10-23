@@ -53,40 +53,40 @@ update msg model =
 
 view : Model -> Html Msg
 view model =
-    Html.div [ TW.h_screen, TW.w_screen, TW.flex, TW.justify_center, TW.items_center, TW.bg_gray_200 ]
+    Html.div [ TW.tw_h_screen, TW.tw_w_screen, TW.tw_flex, TW.tw_justify_center, TW.tw_items_center, TW.tw_bg_gray_200 ]
         [ Html.div []
             [ Html.button
                 [ E.onClick Decrement
-                , TW.rounded
-                , TW.px_2
-                , TW.px_4
-                , TW.text_white
-                , TW.bg_blue_500
-                , TW.w_full
-                , TW.hover_bg_blue_700
-                , TW.lg_bg_green_500
-                , TW.lg_hover_bg_green_700
-                , TW.hover_font_bold
+                , TW.tw_rounded
+                , TW.tw_px_2
+                , TW.tw_px_4
+                , TW.tw_text_white
+                , TW.tw_bg_blue_500
+                , TW.tw_w_full
+                , TW.hover_tw_bg_blue_700
+                , TW.lg_tw_bg_green_500
+                , TW.lg_hover_tw_bg_green_700
+                , TW.hover_tw_font_bold
                 ]
                 [ Html.text "-" ]
             , Html.div
-                [ TW.text_2xl
-                , TW.text_center
-                , TW.my_4
+                [ TW.tw_text_2xl
+                , TW.tw_text_center
+                , TW.tw_my_4
                 ]
                 [ Html.text (String.fromInt model) ]
             , Html.button
                 [ E.onClick Increment
-                , TW.rounded
-                , TW.px_2
-                , TW.px_4
-                , TW.text_white
-                , TW.bg_blue_500
-                , TW.w_full
-                , TW.hover_bg_blue_700
-                , TW.lg_bg_green_500
-                , TW.lg_hover_bg_green_700
-                , TW.hover_font_bold
+                , TW.tw_rounded
+                , TW.tw_px_2
+                , TW.tw_px_4
+                , TW.tw_text_white
+                , TW.tw_bg_blue_500
+                , TW.tw_w_full
+                , TW.hover_tw_bg_blue_700
+                , TW.lg_tw_bg_green_500
+                , TW.lg_hover_tw_bg_green_700
+                , TW.hover_tw_font_bold
                 ]
                 [ Html.text "+" ]
             ]
