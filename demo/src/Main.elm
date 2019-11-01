@@ -4,7 +4,7 @@ import Browser exposing (sandbox)
 import Html exposing (Html)
 import Html.Attributes as A
 import Html.Events as E
-import TW
+import TLWND as TW
 
 
 
@@ -140,10 +140,14 @@ view model =
                 (E.onClick Decrement :: buttonCls)
                 [ Html.text "-" ]
             , Html.div
-                [ TW.tw_text_2xl
-                , TW.tw_text_center
-                , TW.tw_my_4
-                ]
+                (TW.classList
+                    -- make sure classList works ok
+                    [ ( TW.tw_text_2xl, True )
+                    , ( TW.tw_text_center, True )
+                    , ( TW.tw_my_4, True )
+                    , ( TW.tw_text_red_500, model > 5 )
+                    ]
+                )
                 [ Html.text (String.fromInt model) ]
             , Html.button
                 (E.onClick Increment :: buttonCls)

@@ -11,7 +11,8 @@ module.exports = {
   plugins: [
     require("tailwindcss"),
     require("../index.js")({
-      elmFile: "src/TW.elm",
+      elmFile: "src/TLWND.elm",
+      elmModuleName: "TLWND",
       prefix: "tw-"
     }),
     ...(process.env.NODE_ENV === "production" ? [purgecss] : []),

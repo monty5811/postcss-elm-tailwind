@@ -1,25 +1,20 @@
-function elmHeader(elm_fns) {
+function elmHeader(elmModuleName, elm_fns) {
   const s = new Set(elm_fns);
-  const l = Array.from(s.values()).join("\n    , ");
-  const d = Array.from(s.values()).join(", ");
+  let tmp = Array.from(s.values());
+  tmp.push("classList");
+  const l = tmp.join("\n    , ");
 
-  return `module TW exposing
+  return `module ${elmModuleName} exposing
     ( ${l}
     )
 
-{-| This library exports helper utilities - one for each tailwindcss class.
-
-# Example
-
-    Html.div [TW.container, TW.mx_auto] []
-
-will result in a centred container.
-
-@docs ${d}
--}
-
 import Html
 import Html.Attributes as A
+
+
+classList : List (Html.Attribute msg, Bool) -> List (Html.Attribute msg)
+classList classes =
+    List.map Tuple.first <| List.filter Tuple.second classes
 
 `;
 }
@@ -34,9 +29,6 @@ function elmBody(classes) {
 
 function elmFunction(cls, elm) {
   return `
-{-|Tailwind class:
-    ${cls}"
--}
 ${elm} : Html.Attribute msg
 ${elm} =
     A.class "${cls}"
@@ -90,8 +82,30 @@ function toElmName(cls, prefix) {
   return elm;
 }
 
+function cleanOpts(opts) {
+  const defaultOpts = {
+    elmFile: "src/TW.elm",
+    elmModuleName: "TW",
+    prefix: ""
+  };
+  if (opts === undefined) {
+    opts = defaultOpts;
+  }
+  if (!opts.elmFile) {
+    opts.elmFile = defaultOpts.elmFile;
+  }
+  if (!opts.prefix) {
+    opts.prefix = defaultOpts.prefix;
+  }
+  if (!opts.elmModuleName) {
+    opts.elmModuleName = defaultOpts.elmModuleName;
+  }
+  return opts;
+}
+
 exports.elmHeader = elmHeader;
 exports.elmBody = elmBody;
 exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;
 exports.toElmName = toElmName;
+exports.cleanOpts = cleanOpts;
