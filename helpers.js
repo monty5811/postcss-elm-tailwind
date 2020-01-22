@@ -63,13 +63,13 @@ function toElmName(cls, prefix) {
   var elm = cls;
   // handle negative with prefix
   if (prefix) {
-    re_neg_with_prefix = new RegExp(`(${prefix})-([p|m])`);
+    re_neg_with_prefix = new RegExp(`(${prefix})-([a-z])`);
     elm = elm.replace(re_neg_with_prefix, "$1neg_$2");
   }
   // handle negative at start of string
-  elm = elm.replace(/^-([p|m])/, "_neg_$1");
+  elm = elm.replace(/^-([a-z])/, "_neg_$1");
   // handle negative with variant
-  elm = elm.replace(/:-([p|m])/, "_neg_$1");
+  elm = elm.replace(/:-([a-z])/, "_neg_$1");
   // replace dashes now we have sorted the negative stuff
   elm = elm.replace(/-/g, "_");
   // replace :
