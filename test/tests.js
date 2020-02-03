@@ -77,6 +77,9 @@ describe("fixClass -> toElmName", () => {
   it("negative with variant .sm:-m-24", () => {
     assert.equal(h.toElmName(h.fixClass(".sm:-m-24")), "sm_neg_m_24");
   });
+  it("negative with variant .sm:-translate-x-1", () => {
+    assert.equal(h.toElmName(h.fixClass(".sm:-translate-x-1")), "sm_neg_translate_x_1");
+  });
   it("with prefix", () => {
     assert.equal(
       h.toElmName(h.fixClass(".hover:tw-bg-blue-500:hover"), "tw-"),
