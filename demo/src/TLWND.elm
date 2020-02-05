@@ -600,6 +600,7 @@ module TLWND exposing
     , tw_rounded_none
     , tw_rounded_sm
     , tw_rounded
+    , tw_rounded_md
     , tw_rounded_lg
     , tw_rounded_full
     , tw_rounded_t_none
@@ -614,6 +615,10 @@ module TLWND exposing
     , tw_rounded_r
     , tw_rounded_b
     , tw_rounded_l
+    , tw_rounded_t_md
+    , tw_rounded_r_md
+    , tw_rounded_b_md
+    , tw_rounded_l_md
     , tw_rounded_t_lg
     , tw_rounded_r_lg
     , tw_rounded_b_lg
@@ -634,6 +639,10 @@ module TLWND exposing
     , tw_rounded_tr
     , tw_rounded_br
     , tw_rounded_bl
+    , tw_rounded_tl_md
+    , tw_rounded_tr_md
+    , tw_rounded_br_md
+    , tw_rounded_bl_md
     , tw_rounded_tl_lg
     , tw_rounded_tr_lg
     , tw_rounded_br_lg
@@ -672,6 +681,8 @@ module TLWND exposing
     , tw_border_r
     , tw_border_b
     , tw_border_l
+    , tw_box_border
+    , tw_box_content
     , tw_cursor_auto
     , tw_cursor_default
     , tw_cursor_pointer
@@ -684,9 +695,16 @@ module TLWND exposing
     , tw_inline
     , tw_flex
     , tw_inline_flex
+    , tw_grid
     , tw_table
-    , tw_table_row
+    , tw_table_caption
     , tw_table_cell
+    , tw_table_column
+    , tw_table_column_group
+    , tw_table_footer_group
+    , tw_table_header_group
+    , tw_table_row_group
+    , tw_table_row
     , tw_hidden
     , tw_flex_row
     , tw_flex_row_reverse
@@ -710,6 +728,7 @@ module TLWND exposing
     , tw_justify_center
     , tw_justify_between
     , tw_justify_around
+    , tw_justify_evenly
     , tw_content_center
     , tw_content_start
     , tw_content_end
@@ -742,6 +761,9 @@ module TLWND exposing
     , tw_float_left
     , tw_float_none
     , tw_clearfix_after
+    , tw_clear_left
+    , tw_clear_right
+    , tw_clear_both
     , tw_font_sans
     , tw_font_serif
     , tw_font_mono
@@ -794,6 +816,14 @@ module TLWND exposing
     , tw_h_px
     , tw_h_full
     , tw_h_screen
+    , tw_leading_3
+    , tw_leading_4
+    , tw_leading_5
+    , tw_leading_6
+    , tw_leading_7
+    , tw_leading_8
+    , tw_leading_9
+    , tw_leading_10
     , tw_leading_none
     , tw_leading_tight
     , tw_leading_snug
@@ -1073,6 +1103,7 @@ module TLWND exposing
     , tw_neg_ml_px
     , tw_max_h_full
     , tw_max_h_screen
+    , tw_max_w_none
     , tw_max_w_xs
     , tw_max_w_sm
     , tw_max_w_md
@@ -1084,6 +1115,10 @@ module TLWND exposing
     , tw_max_w_5xl
     , tw_max_w_6xl
     , tw_max_w_full
+    , tw_max_w_screen_sm
+    , tw_max_w_screen_md
+    , tw_max_w_screen_lg
+    , tw_max_w_screen_xl
     , tw_min_h_0
     , tw_min_h_full
     , tw_min_h_screen
@@ -1478,6 +1513,8 @@ module TLWND exposing
     , tw_resize_y
     , tw_resize_x
     , tw_resize
+    , tw_shadow_xs
+    , tw_shadow_sm
     , tw_shadow
     , tw_shadow_md
     , tw_shadow_lg
@@ -1486,6 +1523,8 @@ module TLWND exposing
     , tw_shadow_inner
     , tw_shadow_outline
     , tw_shadow_none
+    , hover_tw_shadow_xs
+    , hover_tw_shadow_sm
     , hover_tw_shadow
     , hover_tw_shadow_md
     , hover_tw_shadow_lg
@@ -1494,6 +1533,8 @@ module TLWND exposing
     , hover_tw_shadow_inner
     , hover_tw_shadow_outline
     , hover_tw_shadow_none
+    , focus_tw_shadow_xs
+    , focus_tw_shadow_sm
     , focus_tw_shadow
     , focus_tw_shadow_md
     , focus_tw_shadow_lg
@@ -1504,6 +1545,9 @@ module TLWND exposing
     , focus_tw_shadow_none
     , tw_fill_current
     , tw_stroke_current
+    , tw_stroke_0
+    , tw_stroke_1
+    , tw_stroke_2
     , tw_table_auto
     , tw_table_fixed
     , tw_text_left
@@ -1898,6 +1942,580 @@ module TLWND exposing
     , tw_z_40
     , tw_z_50
     , tw_z_auto
+    , tw_gap_0
+    , tw_gap_1
+    , tw_gap_2
+    , tw_gap_3
+    , tw_gap_4
+    , tw_gap_5
+    , tw_gap_6
+    , tw_gap_8
+    , tw_gap_10
+    , tw_gap_12
+    , tw_gap_16
+    , tw_gap_20
+    , tw_gap_24
+    , tw_gap_32
+    , tw_gap_40
+    , tw_gap_48
+    , tw_gap_56
+    , tw_gap_64
+    , tw_gap_px
+    , tw_col_gap_0
+    , tw_col_gap_1
+    , tw_col_gap_2
+    , tw_col_gap_3
+    , tw_col_gap_4
+    , tw_col_gap_5
+    , tw_col_gap_6
+    , tw_col_gap_8
+    , tw_col_gap_10
+    , tw_col_gap_12
+    , tw_col_gap_16
+    , tw_col_gap_20
+    , tw_col_gap_24
+    , tw_col_gap_32
+    , tw_col_gap_40
+    , tw_col_gap_48
+    , tw_col_gap_56
+    , tw_col_gap_64
+    , tw_col_gap_px
+    , tw_row_gap_0
+    , tw_row_gap_1
+    , tw_row_gap_2
+    , tw_row_gap_3
+    , tw_row_gap_4
+    , tw_row_gap_5
+    , tw_row_gap_6
+    , tw_row_gap_8
+    , tw_row_gap_10
+    , tw_row_gap_12
+    , tw_row_gap_16
+    , tw_row_gap_20
+    , tw_row_gap_24
+    , tw_row_gap_32
+    , tw_row_gap_40
+    , tw_row_gap_48
+    , tw_row_gap_56
+    , tw_row_gap_64
+    , tw_row_gap_px
+    , tw_grid_flow_row
+    , tw_grid_flow_col
+    , tw_grid_flow_row_dense
+    , tw_grid_flow_col_dense
+    , tw_grid_cols_1
+    , tw_grid_cols_2
+    , tw_grid_cols_3
+    , tw_grid_cols_4
+    , tw_grid_cols_5
+    , tw_grid_cols_6
+    , tw_grid_cols_7
+    , tw_grid_cols_8
+    , tw_grid_cols_9
+    , tw_grid_cols_10
+    , tw_grid_cols_11
+    , tw_grid_cols_12
+    , tw_grid_cols_none
+    , tw_col_auto
+    , tw_col_span_1
+    , tw_col_span_2
+    , tw_col_span_3
+    , tw_col_span_4
+    , tw_col_span_5
+    , tw_col_span_6
+    , tw_col_span_7
+    , tw_col_span_8
+    , tw_col_span_9
+    , tw_col_span_10
+    , tw_col_span_11
+    , tw_col_span_12
+    , tw_col_start_1
+    , tw_col_start_2
+    , tw_col_start_3
+    , tw_col_start_4
+    , tw_col_start_5
+    , tw_col_start_6
+    , tw_col_start_7
+    , tw_col_start_8
+    , tw_col_start_9
+    , tw_col_start_10
+    , tw_col_start_11
+    , tw_col_start_12
+    , tw_col_start_13
+    , tw_col_start_auto
+    , tw_col_end_1
+    , tw_col_end_2
+    , tw_col_end_3
+    , tw_col_end_4
+    , tw_col_end_5
+    , tw_col_end_6
+    , tw_col_end_7
+    , tw_col_end_8
+    , tw_col_end_9
+    , tw_col_end_10
+    , tw_col_end_11
+    , tw_col_end_12
+    , tw_col_end_13
+    , tw_col_end_auto
+    , tw_grid_rows_1
+    , tw_grid_rows_2
+    , tw_grid_rows_3
+    , tw_grid_rows_4
+    , tw_grid_rows_5
+    , tw_grid_rows_6
+    , tw_grid_rows_none
+    , tw_row_auto
+    , tw_row_span_1
+    , tw_row_span_2
+    , tw_row_span_3
+    , tw_row_span_4
+    , tw_row_span_5
+    , tw_row_span_6
+    , tw_row_start_1
+    , tw_row_start_2
+    , tw_row_start_3
+    , tw_row_start_4
+    , tw_row_start_5
+    , tw_row_start_6
+    , tw_row_start_7
+    , tw_row_start_auto
+    , tw_row_end_1
+    , tw_row_end_2
+    , tw_row_end_3
+    , tw_row_end_4
+    , tw_row_end_5
+    , tw_row_end_6
+    , tw_row_end_7
+    , tw_row_end_auto
+    , tw_transform
+    , tw_transform_none
+    , tw_origin_center
+    , tw_origin_top
+    , tw_origin_top_right
+    , tw_origin_right
+    , tw_origin_bottom_right
+    , tw_origin_bottom
+    , tw_origin_bottom_left
+    , tw_origin_left
+    , tw_origin_top_left
+    , tw_scale_0
+    , tw_scale_50
+    , tw_scale_75
+    , tw_scale_90
+    , tw_scale_95
+    , tw_scale_100
+    , tw_scale_105
+    , tw_scale_110
+    , tw_scale_125
+    , tw_scale_150
+    , tw_scale_x_0
+    , tw_scale_x_50
+    , tw_scale_x_75
+    , tw_scale_x_90
+    , tw_scale_x_95
+    , tw_scale_x_100
+    , tw_scale_x_105
+    , tw_scale_x_110
+    , tw_scale_x_125
+    , tw_scale_x_150
+    , tw_scale_y_0
+    , tw_scale_y_50
+    , tw_scale_y_75
+    , tw_scale_y_90
+    , tw_scale_y_95
+    , tw_scale_y_100
+    , tw_scale_y_105
+    , tw_scale_y_110
+    , tw_scale_y_125
+    , tw_scale_y_150
+    , hover_tw_scale_0
+    , hover_tw_scale_50
+    , hover_tw_scale_75
+    , hover_tw_scale_90
+    , hover_tw_scale_95
+    , hover_tw_scale_100
+    , hover_tw_scale_105
+    , hover_tw_scale_110
+    , hover_tw_scale_125
+    , hover_tw_scale_150
+    , hover_tw_scale_x_0
+    , hover_tw_scale_x_50
+    , hover_tw_scale_x_75
+    , hover_tw_scale_x_90
+    , hover_tw_scale_x_95
+    , hover_tw_scale_x_100
+    , hover_tw_scale_x_105
+    , hover_tw_scale_x_110
+    , hover_tw_scale_x_125
+    , hover_tw_scale_x_150
+    , hover_tw_scale_y_0
+    , hover_tw_scale_y_50
+    , hover_tw_scale_y_75
+    , hover_tw_scale_y_90
+    , hover_tw_scale_y_95
+    , hover_tw_scale_y_100
+    , hover_tw_scale_y_105
+    , hover_tw_scale_y_110
+    , hover_tw_scale_y_125
+    , hover_tw_scale_y_150
+    , focus_tw_scale_0
+    , focus_tw_scale_50
+    , focus_tw_scale_75
+    , focus_tw_scale_90
+    , focus_tw_scale_95
+    , focus_tw_scale_100
+    , focus_tw_scale_105
+    , focus_tw_scale_110
+    , focus_tw_scale_125
+    , focus_tw_scale_150
+    , focus_tw_scale_x_0
+    , focus_tw_scale_x_50
+    , focus_tw_scale_x_75
+    , focus_tw_scale_x_90
+    , focus_tw_scale_x_95
+    , focus_tw_scale_x_100
+    , focus_tw_scale_x_105
+    , focus_tw_scale_x_110
+    , focus_tw_scale_x_125
+    , focus_tw_scale_x_150
+    , focus_tw_scale_y_0
+    , focus_tw_scale_y_50
+    , focus_tw_scale_y_75
+    , focus_tw_scale_y_90
+    , focus_tw_scale_y_95
+    , focus_tw_scale_y_100
+    , focus_tw_scale_y_105
+    , focus_tw_scale_y_110
+    , focus_tw_scale_y_125
+    , focus_tw_scale_y_150
+    , tw_rotate_0
+    , tw_rotate_45
+    , tw_rotate_90
+    , tw_rotate_180
+    , tw_neg_rotate_180
+    , tw_neg_rotate_90
+    , tw_neg_rotate_45
+    , hover_tw_rotate_0
+    , hover_tw_rotate_45
+    , hover_tw_rotate_90
+    , hover_tw_rotate_180
+    , hover_tw_neg_rotate_180
+    , hover_tw_neg_rotate_90
+    , hover_tw_neg_rotate_45
+    , focus_tw_rotate_0
+    , focus_tw_rotate_45
+    , focus_tw_rotate_90
+    , focus_tw_rotate_180
+    , focus_tw_neg_rotate_180
+    , focus_tw_neg_rotate_90
+    , focus_tw_neg_rotate_45
+    , tw_translate_x_0
+    , tw_translate_x_1
+    , tw_translate_x_2
+    , tw_translate_x_3
+    , tw_translate_x_4
+    , tw_translate_x_5
+    , tw_translate_x_6
+    , tw_translate_x_8
+    , tw_translate_x_10
+    , tw_translate_x_12
+    , tw_translate_x_16
+    , tw_translate_x_20
+    , tw_translate_x_24
+    , tw_translate_x_32
+    , tw_translate_x_40
+    , tw_translate_x_48
+    , tw_translate_x_56
+    , tw_translate_x_64
+    , tw_translate_x_px
+    , tw_neg_translate_x_1
+    , tw_neg_translate_x_2
+    , tw_neg_translate_x_3
+    , tw_neg_translate_x_4
+    , tw_neg_translate_x_5
+    , tw_neg_translate_x_6
+    , tw_neg_translate_x_8
+    , tw_neg_translate_x_10
+    , tw_neg_translate_x_12
+    , tw_neg_translate_x_16
+    , tw_neg_translate_x_20
+    , tw_neg_translate_x_24
+    , tw_neg_translate_x_32
+    , tw_neg_translate_x_40
+    , tw_neg_translate_x_48
+    , tw_neg_translate_x_56
+    , tw_neg_translate_x_64
+    , tw_neg_translate_x_px
+    , tw_neg_translate_x_full
+    , tw_neg_translate_x_1over2
+    , tw_translate_x_1over2
+    , tw_translate_x_full
+    , tw_translate_y_0
+    , tw_translate_y_1
+    , tw_translate_y_2
+    , tw_translate_y_3
+    , tw_translate_y_4
+    , tw_translate_y_5
+    , tw_translate_y_6
+    , tw_translate_y_8
+    , tw_translate_y_10
+    , tw_translate_y_12
+    , tw_translate_y_16
+    , tw_translate_y_20
+    , tw_translate_y_24
+    , tw_translate_y_32
+    , tw_translate_y_40
+    , tw_translate_y_48
+    , tw_translate_y_56
+    , tw_translate_y_64
+    , tw_translate_y_px
+    , tw_neg_translate_y_1
+    , tw_neg_translate_y_2
+    , tw_neg_translate_y_3
+    , tw_neg_translate_y_4
+    , tw_neg_translate_y_5
+    , tw_neg_translate_y_6
+    , tw_neg_translate_y_8
+    , tw_neg_translate_y_10
+    , tw_neg_translate_y_12
+    , tw_neg_translate_y_16
+    , tw_neg_translate_y_20
+    , tw_neg_translate_y_24
+    , tw_neg_translate_y_32
+    , tw_neg_translate_y_40
+    , tw_neg_translate_y_48
+    , tw_neg_translate_y_56
+    , tw_neg_translate_y_64
+    , tw_neg_translate_y_px
+    , tw_neg_translate_y_full
+    , tw_neg_translate_y_1over2
+    , tw_translate_y_1over2
+    , tw_translate_y_full
+    , hover_tw_translate_x_0
+    , hover_tw_translate_x_1
+    , hover_tw_translate_x_2
+    , hover_tw_translate_x_3
+    , hover_tw_translate_x_4
+    , hover_tw_translate_x_5
+    , hover_tw_translate_x_6
+    , hover_tw_translate_x_8
+    , hover_tw_translate_x_10
+    , hover_tw_translate_x_12
+    , hover_tw_translate_x_16
+    , hover_tw_translate_x_20
+    , hover_tw_translate_x_24
+    , hover_tw_translate_x_32
+    , hover_tw_translate_x_40
+    , hover_tw_translate_x_48
+    , hover_tw_translate_x_56
+    , hover_tw_translate_x_64
+    , hover_tw_translate_x_px
+    , hover_tw_neg_translate_x_1
+    , hover_tw_neg_translate_x_2
+    , hover_tw_neg_translate_x_3
+    , hover_tw_neg_translate_x_4
+    , hover_tw_neg_translate_x_5
+    , hover_tw_neg_translate_x_6
+    , hover_tw_neg_translate_x_8
+    , hover_tw_neg_translate_x_10
+    , hover_tw_neg_translate_x_12
+    , hover_tw_neg_translate_x_16
+    , hover_tw_neg_translate_x_20
+    , hover_tw_neg_translate_x_24
+    , hover_tw_neg_translate_x_32
+    , hover_tw_neg_translate_x_40
+    , hover_tw_neg_translate_x_48
+    , hover_tw_neg_translate_x_56
+    , hover_tw_neg_translate_x_64
+    , hover_tw_neg_translate_x_px
+    , hover_tw_neg_translate_x_full
+    , hover_tw_neg_translate_x_1over2
+    , hover_tw_translate_x_1over2
+    , hover_tw_translate_x_full
+    , hover_tw_translate_y_0
+    , hover_tw_translate_y_1
+    , hover_tw_translate_y_2
+    , hover_tw_translate_y_3
+    , hover_tw_translate_y_4
+    , hover_tw_translate_y_5
+    , hover_tw_translate_y_6
+    , hover_tw_translate_y_8
+    , hover_tw_translate_y_10
+    , hover_tw_translate_y_12
+    , hover_tw_translate_y_16
+    , hover_tw_translate_y_20
+    , hover_tw_translate_y_24
+    , hover_tw_translate_y_32
+    , hover_tw_translate_y_40
+    , hover_tw_translate_y_48
+    , hover_tw_translate_y_56
+    , hover_tw_translate_y_64
+    , hover_tw_translate_y_px
+    , hover_tw_neg_translate_y_1
+    , hover_tw_neg_translate_y_2
+    , hover_tw_neg_translate_y_3
+    , hover_tw_neg_translate_y_4
+    , hover_tw_neg_translate_y_5
+    , hover_tw_neg_translate_y_6
+    , hover_tw_neg_translate_y_8
+    , hover_tw_neg_translate_y_10
+    , hover_tw_neg_translate_y_12
+    , hover_tw_neg_translate_y_16
+    , hover_tw_neg_translate_y_20
+    , hover_tw_neg_translate_y_24
+    , hover_tw_neg_translate_y_32
+    , hover_tw_neg_translate_y_40
+    , hover_tw_neg_translate_y_48
+    , hover_tw_neg_translate_y_56
+    , hover_tw_neg_translate_y_64
+    , hover_tw_neg_translate_y_px
+    , hover_tw_neg_translate_y_full
+    , hover_tw_neg_translate_y_1over2
+    , hover_tw_translate_y_1over2
+    , hover_tw_translate_y_full
+    , focus_tw_translate_x_0
+    , focus_tw_translate_x_1
+    , focus_tw_translate_x_2
+    , focus_tw_translate_x_3
+    , focus_tw_translate_x_4
+    , focus_tw_translate_x_5
+    , focus_tw_translate_x_6
+    , focus_tw_translate_x_8
+    , focus_tw_translate_x_10
+    , focus_tw_translate_x_12
+    , focus_tw_translate_x_16
+    , focus_tw_translate_x_20
+    , focus_tw_translate_x_24
+    , focus_tw_translate_x_32
+    , focus_tw_translate_x_40
+    , focus_tw_translate_x_48
+    , focus_tw_translate_x_56
+    , focus_tw_translate_x_64
+    , focus_tw_translate_x_px
+    , focus_tw_neg_translate_x_1
+    , focus_tw_neg_translate_x_2
+    , focus_tw_neg_translate_x_3
+    , focus_tw_neg_translate_x_4
+    , focus_tw_neg_translate_x_5
+    , focus_tw_neg_translate_x_6
+    , focus_tw_neg_translate_x_8
+    , focus_tw_neg_translate_x_10
+    , focus_tw_neg_translate_x_12
+    , focus_tw_neg_translate_x_16
+    , focus_tw_neg_translate_x_20
+    , focus_tw_neg_translate_x_24
+    , focus_tw_neg_translate_x_32
+    , focus_tw_neg_translate_x_40
+    , focus_tw_neg_translate_x_48
+    , focus_tw_neg_translate_x_56
+    , focus_tw_neg_translate_x_64
+    , focus_tw_neg_translate_x_px
+    , focus_tw_neg_translate_x_full
+    , focus_tw_neg_translate_x_1over2
+    , focus_tw_translate_x_1over2
+    , focus_tw_translate_x_full
+    , focus_tw_translate_y_0
+    , focus_tw_translate_y_1
+    , focus_tw_translate_y_2
+    , focus_tw_translate_y_3
+    , focus_tw_translate_y_4
+    , focus_tw_translate_y_5
+    , focus_tw_translate_y_6
+    , focus_tw_translate_y_8
+    , focus_tw_translate_y_10
+    , focus_tw_translate_y_12
+    , focus_tw_translate_y_16
+    , focus_tw_translate_y_20
+    , focus_tw_translate_y_24
+    , focus_tw_translate_y_32
+    , focus_tw_translate_y_40
+    , focus_tw_translate_y_48
+    , focus_tw_translate_y_56
+    , focus_tw_translate_y_64
+    , focus_tw_translate_y_px
+    , focus_tw_neg_translate_y_1
+    , focus_tw_neg_translate_y_2
+    , focus_tw_neg_translate_y_3
+    , focus_tw_neg_translate_y_4
+    , focus_tw_neg_translate_y_5
+    , focus_tw_neg_translate_y_6
+    , focus_tw_neg_translate_y_8
+    , focus_tw_neg_translate_y_10
+    , focus_tw_neg_translate_y_12
+    , focus_tw_neg_translate_y_16
+    , focus_tw_neg_translate_y_20
+    , focus_tw_neg_translate_y_24
+    , focus_tw_neg_translate_y_32
+    , focus_tw_neg_translate_y_40
+    , focus_tw_neg_translate_y_48
+    , focus_tw_neg_translate_y_56
+    , focus_tw_neg_translate_y_64
+    , focus_tw_neg_translate_y_px
+    , focus_tw_neg_translate_y_full
+    , focus_tw_neg_translate_y_1over2
+    , focus_tw_translate_y_1over2
+    , focus_tw_translate_y_full
+    , tw_skew_x_0
+    , tw_skew_x_3
+    , tw_skew_x_6
+    , tw_skew_x_12
+    , tw_neg_skew_x_12
+    , tw_neg_skew_x_6
+    , tw_neg_skew_x_3
+    , tw_skew_y_0
+    , tw_skew_y_3
+    , tw_skew_y_6
+    , tw_skew_y_12
+    , tw_neg_skew_y_12
+    , tw_neg_skew_y_6
+    , tw_neg_skew_y_3
+    , hover_tw_skew_x_0
+    , hover_tw_skew_x_3
+    , hover_tw_skew_x_6
+    , hover_tw_skew_x_12
+    , hover_tw_neg_skew_x_12
+    , hover_tw_neg_skew_x_6
+    , hover_tw_neg_skew_x_3
+    , hover_tw_skew_y_0
+    , hover_tw_skew_y_3
+    , hover_tw_skew_y_6
+    , hover_tw_skew_y_12
+    , hover_tw_neg_skew_y_12
+    , hover_tw_neg_skew_y_6
+    , hover_tw_neg_skew_y_3
+    , focus_tw_skew_x_0
+    , focus_tw_skew_x_3
+    , focus_tw_skew_x_6
+    , focus_tw_skew_x_12
+    , focus_tw_neg_skew_x_12
+    , focus_tw_neg_skew_x_6
+    , focus_tw_neg_skew_x_3
+    , focus_tw_skew_y_0
+    , focus_tw_skew_y_3
+    , focus_tw_skew_y_6
+    , focus_tw_skew_y_12
+    , focus_tw_neg_skew_y_12
+    , focus_tw_neg_skew_y_6
+    , focus_tw_neg_skew_y_3
+    , tw_transition_none
+    , tw_transition_all
+    , tw_transition
+    , tw_transition_colors
+    , tw_transition_opacity
+    , tw_transition_shadow
+    , tw_transition_transform
+    , tw_ease_linear
+    , tw_ease_in
+    , tw_ease_out
+    , tw_ease_in_out
+    , tw_duration_75
+    , tw_duration_100
+    , tw_duration_150
+    , tw_duration_200
+    , tw_duration_300
+    , tw_duration_500
+    , tw_duration_700
+    , tw_duration_1000
     , sm_tw_sr_only
     , sm_tw_not_sr_only
     , sm_focus_tw_sr_only
@@ -2487,6 +3105,7 @@ module TLWND exposing
     , sm_tw_rounded_none
     , sm_tw_rounded_sm
     , sm_tw_rounded
+    , sm_tw_rounded_md
     , sm_tw_rounded_lg
     , sm_tw_rounded_full
     , sm_tw_rounded_t_none
@@ -2501,6 +3120,10 @@ module TLWND exposing
     , sm_tw_rounded_r
     , sm_tw_rounded_b
     , sm_tw_rounded_l
+    , sm_tw_rounded_t_md
+    , sm_tw_rounded_r_md
+    , sm_tw_rounded_b_md
+    , sm_tw_rounded_l_md
     , sm_tw_rounded_t_lg
     , sm_tw_rounded_r_lg
     , sm_tw_rounded_b_lg
@@ -2521,6 +3144,10 @@ module TLWND exposing
     , sm_tw_rounded_tr
     , sm_tw_rounded_br
     , sm_tw_rounded_bl
+    , sm_tw_rounded_tl_md
+    , sm_tw_rounded_tr_md
+    , sm_tw_rounded_br_md
+    , sm_tw_rounded_bl_md
     , sm_tw_rounded_tl_lg
     , sm_tw_rounded_tr_lg
     , sm_tw_rounded_br_lg
@@ -2559,6 +3186,8 @@ module TLWND exposing
     , sm_tw_border_r
     , sm_tw_border_b
     , sm_tw_border_l
+    , sm_tw_box_border
+    , sm_tw_box_content
     , sm_tw_cursor_auto
     , sm_tw_cursor_default
     , sm_tw_cursor_pointer
@@ -2571,9 +3200,16 @@ module TLWND exposing
     , sm_tw_inline
     , sm_tw_flex
     , sm_tw_inline_flex
+    , sm_tw_grid
     , sm_tw_table
-    , sm_tw_table_row
+    , sm_tw_table_caption
     , sm_tw_table_cell
+    , sm_tw_table_column
+    , sm_tw_table_column_group
+    , sm_tw_table_footer_group
+    , sm_tw_table_header_group
+    , sm_tw_table_row_group
+    , sm_tw_table_row
     , sm_tw_hidden
     , sm_tw_flex_row
     , sm_tw_flex_row_reverse
@@ -2597,6 +3233,7 @@ module TLWND exposing
     , sm_tw_justify_center
     , sm_tw_justify_between
     , sm_tw_justify_around
+    , sm_tw_justify_evenly
     , sm_tw_content_center
     , sm_tw_content_start
     , sm_tw_content_end
@@ -2629,6 +3266,9 @@ module TLWND exposing
     , sm_tw_float_left
     , sm_tw_float_none
     , sm_tw_clearfix_after
+    , sm_tw_clear_left
+    , sm_tw_clear_right
+    , sm_tw_clear_both
     , sm_tw_font_sans
     , sm_tw_font_serif
     , sm_tw_font_mono
@@ -2681,6 +3321,14 @@ module TLWND exposing
     , sm_tw_h_px
     , sm_tw_h_full
     , sm_tw_h_screen
+    , sm_tw_leading_3
+    , sm_tw_leading_4
+    , sm_tw_leading_5
+    , sm_tw_leading_6
+    , sm_tw_leading_7
+    , sm_tw_leading_8
+    , sm_tw_leading_9
+    , sm_tw_leading_10
     , sm_tw_leading_none
     , sm_tw_leading_tight
     , sm_tw_leading_snug
@@ -2960,6 +3608,7 @@ module TLWND exposing
     , sm_tw_neg_ml_px
     , sm_tw_max_h_full
     , sm_tw_max_h_screen
+    , sm_tw_max_w_none
     , sm_tw_max_w_xs
     , sm_tw_max_w_sm
     , sm_tw_max_w_md
@@ -2971,6 +3620,10 @@ module TLWND exposing
     , sm_tw_max_w_5xl
     , sm_tw_max_w_6xl
     , sm_tw_max_w_full
+    , sm_tw_max_w_screen_sm
+    , sm_tw_max_w_screen_md
+    , sm_tw_max_w_screen_lg
+    , sm_tw_max_w_screen_xl
     , sm_tw_min_h_0
     , sm_tw_min_h_full
     , sm_tw_min_h_screen
@@ -3365,6 +4018,8 @@ module TLWND exposing
     , sm_tw_resize_y
     , sm_tw_resize_x
     , sm_tw_resize
+    , sm_tw_shadow_xs
+    , sm_tw_shadow_sm
     , sm_tw_shadow
     , sm_tw_shadow_md
     , sm_tw_shadow_lg
@@ -3373,6 +4028,8 @@ module TLWND exposing
     , sm_tw_shadow_inner
     , sm_tw_shadow_outline
     , sm_tw_shadow_none
+    , sm_hover_tw_shadow_xs
+    , sm_hover_tw_shadow_sm
     , sm_hover_tw_shadow
     , sm_hover_tw_shadow_md
     , sm_hover_tw_shadow_lg
@@ -3381,6 +4038,8 @@ module TLWND exposing
     , sm_hover_tw_shadow_inner
     , sm_hover_tw_shadow_outline
     , sm_hover_tw_shadow_none
+    , sm_focus_tw_shadow_xs
+    , sm_focus_tw_shadow_sm
     , sm_focus_tw_shadow
     , sm_focus_tw_shadow_md
     , sm_focus_tw_shadow_lg
@@ -3391,6 +4050,9 @@ module TLWND exposing
     , sm_focus_tw_shadow_none
     , sm_tw_fill_current
     , sm_tw_stroke_current
+    , sm_tw_stroke_0
+    , sm_tw_stroke_1
+    , sm_tw_stroke_2
     , sm_tw_table_auto
     , sm_tw_table_fixed
     , sm_tw_text_left
@@ -3785,6 +4447,580 @@ module TLWND exposing
     , sm_tw_z_40
     , sm_tw_z_50
     , sm_tw_z_auto
+    , sm_tw_gap_0
+    , sm_tw_gap_1
+    , sm_tw_gap_2
+    , sm_tw_gap_3
+    , sm_tw_gap_4
+    , sm_tw_gap_5
+    , sm_tw_gap_6
+    , sm_tw_gap_8
+    , sm_tw_gap_10
+    , sm_tw_gap_12
+    , sm_tw_gap_16
+    , sm_tw_gap_20
+    , sm_tw_gap_24
+    , sm_tw_gap_32
+    , sm_tw_gap_40
+    , sm_tw_gap_48
+    , sm_tw_gap_56
+    , sm_tw_gap_64
+    , sm_tw_gap_px
+    , sm_tw_col_gap_0
+    , sm_tw_col_gap_1
+    , sm_tw_col_gap_2
+    , sm_tw_col_gap_3
+    , sm_tw_col_gap_4
+    , sm_tw_col_gap_5
+    , sm_tw_col_gap_6
+    , sm_tw_col_gap_8
+    , sm_tw_col_gap_10
+    , sm_tw_col_gap_12
+    , sm_tw_col_gap_16
+    , sm_tw_col_gap_20
+    , sm_tw_col_gap_24
+    , sm_tw_col_gap_32
+    , sm_tw_col_gap_40
+    , sm_tw_col_gap_48
+    , sm_tw_col_gap_56
+    , sm_tw_col_gap_64
+    , sm_tw_col_gap_px
+    , sm_tw_row_gap_0
+    , sm_tw_row_gap_1
+    , sm_tw_row_gap_2
+    , sm_tw_row_gap_3
+    , sm_tw_row_gap_4
+    , sm_tw_row_gap_5
+    , sm_tw_row_gap_6
+    , sm_tw_row_gap_8
+    , sm_tw_row_gap_10
+    , sm_tw_row_gap_12
+    , sm_tw_row_gap_16
+    , sm_tw_row_gap_20
+    , sm_tw_row_gap_24
+    , sm_tw_row_gap_32
+    , sm_tw_row_gap_40
+    , sm_tw_row_gap_48
+    , sm_tw_row_gap_56
+    , sm_tw_row_gap_64
+    , sm_tw_row_gap_px
+    , sm_tw_grid_flow_row
+    , sm_tw_grid_flow_col
+    , sm_tw_grid_flow_row_dense
+    , sm_tw_grid_flow_col_dense
+    , sm_tw_grid_cols_1
+    , sm_tw_grid_cols_2
+    , sm_tw_grid_cols_3
+    , sm_tw_grid_cols_4
+    , sm_tw_grid_cols_5
+    , sm_tw_grid_cols_6
+    , sm_tw_grid_cols_7
+    , sm_tw_grid_cols_8
+    , sm_tw_grid_cols_9
+    , sm_tw_grid_cols_10
+    , sm_tw_grid_cols_11
+    , sm_tw_grid_cols_12
+    , sm_tw_grid_cols_none
+    , sm_tw_col_auto
+    , sm_tw_col_span_1
+    , sm_tw_col_span_2
+    , sm_tw_col_span_3
+    , sm_tw_col_span_4
+    , sm_tw_col_span_5
+    , sm_tw_col_span_6
+    , sm_tw_col_span_7
+    , sm_tw_col_span_8
+    , sm_tw_col_span_9
+    , sm_tw_col_span_10
+    , sm_tw_col_span_11
+    , sm_tw_col_span_12
+    , sm_tw_col_start_1
+    , sm_tw_col_start_2
+    , sm_tw_col_start_3
+    , sm_tw_col_start_4
+    , sm_tw_col_start_5
+    , sm_tw_col_start_6
+    , sm_tw_col_start_7
+    , sm_tw_col_start_8
+    , sm_tw_col_start_9
+    , sm_tw_col_start_10
+    , sm_tw_col_start_11
+    , sm_tw_col_start_12
+    , sm_tw_col_start_13
+    , sm_tw_col_start_auto
+    , sm_tw_col_end_1
+    , sm_tw_col_end_2
+    , sm_tw_col_end_3
+    , sm_tw_col_end_4
+    , sm_tw_col_end_5
+    , sm_tw_col_end_6
+    , sm_tw_col_end_7
+    , sm_tw_col_end_8
+    , sm_tw_col_end_9
+    , sm_tw_col_end_10
+    , sm_tw_col_end_11
+    , sm_tw_col_end_12
+    , sm_tw_col_end_13
+    , sm_tw_col_end_auto
+    , sm_tw_grid_rows_1
+    , sm_tw_grid_rows_2
+    , sm_tw_grid_rows_3
+    , sm_tw_grid_rows_4
+    , sm_tw_grid_rows_5
+    , sm_tw_grid_rows_6
+    , sm_tw_grid_rows_none
+    , sm_tw_row_auto
+    , sm_tw_row_span_1
+    , sm_tw_row_span_2
+    , sm_tw_row_span_3
+    , sm_tw_row_span_4
+    , sm_tw_row_span_5
+    , sm_tw_row_span_6
+    , sm_tw_row_start_1
+    , sm_tw_row_start_2
+    , sm_tw_row_start_3
+    , sm_tw_row_start_4
+    , sm_tw_row_start_5
+    , sm_tw_row_start_6
+    , sm_tw_row_start_7
+    , sm_tw_row_start_auto
+    , sm_tw_row_end_1
+    , sm_tw_row_end_2
+    , sm_tw_row_end_3
+    , sm_tw_row_end_4
+    , sm_tw_row_end_5
+    , sm_tw_row_end_6
+    , sm_tw_row_end_7
+    , sm_tw_row_end_auto
+    , sm_tw_transform
+    , sm_tw_transform_none
+    , sm_tw_origin_center
+    , sm_tw_origin_top
+    , sm_tw_origin_top_right
+    , sm_tw_origin_right
+    , sm_tw_origin_bottom_right
+    , sm_tw_origin_bottom
+    , sm_tw_origin_bottom_left
+    , sm_tw_origin_left
+    , sm_tw_origin_top_left
+    , sm_tw_scale_0
+    , sm_tw_scale_50
+    , sm_tw_scale_75
+    , sm_tw_scale_90
+    , sm_tw_scale_95
+    , sm_tw_scale_100
+    , sm_tw_scale_105
+    , sm_tw_scale_110
+    , sm_tw_scale_125
+    , sm_tw_scale_150
+    , sm_tw_scale_x_0
+    , sm_tw_scale_x_50
+    , sm_tw_scale_x_75
+    , sm_tw_scale_x_90
+    , sm_tw_scale_x_95
+    , sm_tw_scale_x_100
+    , sm_tw_scale_x_105
+    , sm_tw_scale_x_110
+    , sm_tw_scale_x_125
+    , sm_tw_scale_x_150
+    , sm_tw_scale_y_0
+    , sm_tw_scale_y_50
+    , sm_tw_scale_y_75
+    , sm_tw_scale_y_90
+    , sm_tw_scale_y_95
+    , sm_tw_scale_y_100
+    , sm_tw_scale_y_105
+    , sm_tw_scale_y_110
+    , sm_tw_scale_y_125
+    , sm_tw_scale_y_150
+    , sm_hover_tw_scale_0
+    , sm_hover_tw_scale_50
+    , sm_hover_tw_scale_75
+    , sm_hover_tw_scale_90
+    , sm_hover_tw_scale_95
+    , sm_hover_tw_scale_100
+    , sm_hover_tw_scale_105
+    , sm_hover_tw_scale_110
+    , sm_hover_tw_scale_125
+    , sm_hover_tw_scale_150
+    , sm_hover_tw_scale_x_0
+    , sm_hover_tw_scale_x_50
+    , sm_hover_tw_scale_x_75
+    , sm_hover_tw_scale_x_90
+    , sm_hover_tw_scale_x_95
+    , sm_hover_tw_scale_x_100
+    , sm_hover_tw_scale_x_105
+    , sm_hover_tw_scale_x_110
+    , sm_hover_tw_scale_x_125
+    , sm_hover_tw_scale_x_150
+    , sm_hover_tw_scale_y_0
+    , sm_hover_tw_scale_y_50
+    , sm_hover_tw_scale_y_75
+    , sm_hover_tw_scale_y_90
+    , sm_hover_tw_scale_y_95
+    , sm_hover_tw_scale_y_100
+    , sm_hover_tw_scale_y_105
+    , sm_hover_tw_scale_y_110
+    , sm_hover_tw_scale_y_125
+    , sm_hover_tw_scale_y_150
+    , sm_focus_tw_scale_0
+    , sm_focus_tw_scale_50
+    , sm_focus_tw_scale_75
+    , sm_focus_tw_scale_90
+    , sm_focus_tw_scale_95
+    , sm_focus_tw_scale_100
+    , sm_focus_tw_scale_105
+    , sm_focus_tw_scale_110
+    , sm_focus_tw_scale_125
+    , sm_focus_tw_scale_150
+    , sm_focus_tw_scale_x_0
+    , sm_focus_tw_scale_x_50
+    , sm_focus_tw_scale_x_75
+    , sm_focus_tw_scale_x_90
+    , sm_focus_tw_scale_x_95
+    , sm_focus_tw_scale_x_100
+    , sm_focus_tw_scale_x_105
+    , sm_focus_tw_scale_x_110
+    , sm_focus_tw_scale_x_125
+    , sm_focus_tw_scale_x_150
+    , sm_focus_tw_scale_y_0
+    , sm_focus_tw_scale_y_50
+    , sm_focus_tw_scale_y_75
+    , sm_focus_tw_scale_y_90
+    , sm_focus_tw_scale_y_95
+    , sm_focus_tw_scale_y_100
+    , sm_focus_tw_scale_y_105
+    , sm_focus_tw_scale_y_110
+    , sm_focus_tw_scale_y_125
+    , sm_focus_tw_scale_y_150
+    , sm_tw_rotate_0
+    , sm_tw_rotate_45
+    , sm_tw_rotate_90
+    , sm_tw_rotate_180
+    , sm_tw_neg_rotate_180
+    , sm_tw_neg_rotate_90
+    , sm_tw_neg_rotate_45
+    , sm_hover_tw_rotate_0
+    , sm_hover_tw_rotate_45
+    , sm_hover_tw_rotate_90
+    , sm_hover_tw_rotate_180
+    , sm_hover_tw_neg_rotate_180
+    , sm_hover_tw_neg_rotate_90
+    , sm_hover_tw_neg_rotate_45
+    , sm_focus_tw_rotate_0
+    , sm_focus_tw_rotate_45
+    , sm_focus_tw_rotate_90
+    , sm_focus_tw_rotate_180
+    , sm_focus_tw_neg_rotate_180
+    , sm_focus_tw_neg_rotate_90
+    , sm_focus_tw_neg_rotate_45
+    , sm_tw_translate_x_0
+    , sm_tw_translate_x_1
+    , sm_tw_translate_x_2
+    , sm_tw_translate_x_3
+    , sm_tw_translate_x_4
+    , sm_tw_translate_x_5
+    , sm_tw_translate_x_6
+    , sm_tw_translate_x_8
+    , sm_tw_translate_x_10
+    , sm_tw_translate_x_12
+    , sm_tw_translate_x_16
+    , sm_tw_translate_x_20
+    , sm_tw_translate_x_24
+    , sm_tw_translate_x_32
+    , sm_tw_translate_x_40
+    , sm_tw_translate_x_48
+    , sm_tw_translate_x_56
+    , sm_tw_translate_x_64
+    , sm_tw_translate_x_px
+    , sm_tw_neg_translate_x_1
+    , sm_tw_neg_translate_x_2
+    , sm_tw_neg_translate_x_3
+    , sm_tw_neg_translate_x_4
+    , sm_tw_neg_translate_x_5
+    , sm_tw_neg_translate_x_6
+    , sm_tw_neg_translate_x_8
+    , sm_tw_neg_translate_x_10
+    , sm_tw_neg_translate_x_12
+    , sm_tw_neg_translate_x_16
+    , sm_tw_neg_translate_x_20
+    , sm_tw_neg_translate_x_24
+    , sm_tw_neg_translate_x_32
+    , sm_tw_neg_translate_x_40
+    , sm_tw_neg_translate_x_48
+    , sm_tw_neg_translate_x_56
+    , sm_tw_neg_translate_x_64
+    , sm_tw_neg_translate_x_px
+    , sm_tw_neg_translate_x_full
+    , sm_tw_neg_translate_x_1over2
+    , sm_tw_translate_x_1over2
+    , sm_tw_translate_x_full
+    , sm_tw_translate_y_0
+    , sm_tw_translate_y_1
+    , sm_tw_translate_y_2
+    , sm_tw_translate_y_3
+    , sm_tw_translate_y_4
+    , sm_tw_translate_y_5
+    , sm_tw_translate_y_6
+    , sm_tw_translate_y_8
+    , sm_tw_translate_y_10
+    , sm_tw_translate_y_12
+    , sm_tw_translate_y_16
+    , sm_tw_translate_y_20
+    , sm_tw_translate_y_24
+    , sm_tw_translate_y_32
+    , sm_tw_translate_y_40
+    , sm_tw_translate_y_48
+    , sm_tw_translate_y_56
+    , sm_tw_translate_y_64
+    , sm_tw_translate_y_px
+    , sm_tw_neg_translate_y_1
+    , sm_tw_neg_translate_y_2
+    , sm_tw_neg_translate_y_3
+    , sm_tw_neg_translate_y_4
+    , sm_tw_neg_translate_y_5
+    , sm_tw_neg_translate_y_6
+    , sm_tw_neg_translate_y_8
+    , sm_tw_neg_translate_y_10
+    , sm_tw_neg_translate_y_12
+    , sm_tw_neg_translate_y_16
+    , sm_tw_neg_translate_y_20
+    , sm_tw_neg_translate_y_24
+    , sm_tw_neg_translate_y_32
+    , sm_tw_neg_translate_y_40
+    , sm_tw_neg_translate_y_48
+    , sm_tw_neg_translate_y_56
+    , sm_tw_neg_translate_y_64
+    , sm_tw_neg_translate_y_px
+    , sm_tw_neg_translate_y_full
+    , sm_tw_neg_translate_y_1over2
+    , sm_tw_translate_y_1over2
+    , sm_tw_translate_y_full
+    , sm_hover_tw_translate_x_0
+    , sm_hover_tw_translate_x_1
+    , sm_hover_tw_translate_x_2
+    , sm_hover_tw_translate_x_3
+    , sm_hover_tw_translate_x_4
+    , sm_hover_tw_translate_x_5
+    , sm_hover_tw_translate_x_6
+    , sm_hover_tw_translate_x_8
+    , sm_hover_tw_translate_x_10
+    , sm_hover_tw_translate_x_12
+    , sm_hover_tw_translate_x_16
+    , sm_hover_tw_translate_x_20
+    , sm_hover_tw_translate_x_24
+    , sm_hover_tw_translate_x_32
+    , sm_hover_tw_translate_x_40
+    , sm_hover_tw_translate_x_48
+    , sm_hover_tw_translate_x_56
+    , sm_hover_tw_translate_x_64
+    , sm_hover_tw_translate_x_px
+    , sm_hover_tw_neg_translate_x_1
+    , sm_hover_tw_neg_translate_x_2
+    , sm_hover_tw_neg_translate_x_3
+    , sm_hover_tw_neg_translate_x_4
+    , sm_hover_tw_neg_translate_x_5
+    , sm_hover_tw_neg_translate_x_6
+    , sm_hover_tw_neg_translate_x_8
+    , sm_hover_tw_neg_translate_x_10
+    , sm_hover_tw_neg_translate_x_12
+    , sm_hover_tw_neg_translate_x_16
+    , sm_hover_tw_neg_translate_x_20
+    , sm_hover_tw_neg_translate_x_24
+    , sm_hover_tw_neg_translate_x_32
+    , sm_hover_tw_neg_translate_x_40
+    , sm_hover_tw_neg_translate_x_48
+    , sm_hover_tw_neg_translate_x_56
+    , sm_hover_tw_neg_translate_x_64
+    , sm_hover_tw_neg_translate_x_px
+    , sm_hover_tw_neg_translate_x_full
+    , sm_hover_tw_neg_translate_x_1over2
+    , sm_hover_tw_translate_x_1over2
+    , sm_hover_tw_translate_x_full
+    , sm_hover_tw_translate_y_0
+    , sm_hover_tw_translate_y_1
+    , sm_hover_tw_translate_y_2
+    , sm_hover_tw_translate_y_3
+    , sm_hover_tw_translate_y_4
+    , sm_hover_tw_translate_y_5
+    , sm_hover_tw_translate_y_6
+    , sm_hover_tw_translate_y_8
+    , sm_hover_tw_translate_y_10
+    , sm_hover_tw_translate_y_12
+    , sm_hover_tw_translate_y_16
+    , sm_hover_tw_translate_y_20
+    , sm_hover_tw_translate_y_24
+    , sm_hover_tw_translate_y_32
+    , sm_hover_tw_translate_y_40
+    , sm_hover_tw_translate_y_48
+    , sm_hover_tw_translate_y_56
+    , sm_hover_tw_translate_y_64
+    , sm_hover_tw_translate_y_px
+    , sm_hover_tw_neg_translate_y_1
+    , sm_hover_tw_neg_translate_y_2
+    , sm_hover_tw_neg_translate_y_3
+    , sm_hover_tw_neg_translate_y_4
+    , sm_hover_tw_neg_translate_y_5
+    , sm_hover_tw_neg_translate_y_6
+    , sm_hover_tw_neg_translate_y_8
+    , sm_hover_tw_neg_translate_y_10
+    , sm_hover_tw_neg_translate_y_12
+    , sm_hover_tw_neg_translate_y_16
+    , sm_hover_tw_neg_translate_y_20
+    , sm_hover_tw_neg_translate_y_24
+    , sm_hover_tw_neg_translate_y_32
+    , sm_hover_tw_neg_translate_y_40
+    , sm_hover_tw_neg_translate_y_48
+    , sm_hover_tw_neg_translate_y_56
+    , sm_hover_tw_neg_translate_y_64
+    , sm_hover_tw_neg_translate_y_px
+    , sm_hover_tw_neg_translate_y_full
+    , sm_hover_tw_neg_translate_y_1over2
+    , sm_hover_tw_translate_y_1over2
+    , sm_hover_tw_translate_y_full
+    , sm_focus_tw_translate_x_0
+    , sm_focus_tw_translate_x_1
+    , sm_focus_tw_translate_x_2
+    , sm_focus_tw_translate_x_3
+    , sm_focus_tw_translate_x_4
+    , sm_focus_tw_translate_x_5
+    , sm_focus_tw_translate_x_6
+    , sm_focus_tw_translate_x_8
+    , sm_focus_tw_translate_x_10
+    , sm_focus_tw_translate_x_12
+    , sm_focus_tw_translate_x_16
+    , sm_focus_tw_translate_x_20
+    , sm_focus_tw_translate_x_24
+    , sm_focus_tw_translate_x_32
+    , sm_focus_tw_translate_x_40
+    , sm_focus_tw_translate_x_48
+    , sm_focus_tw_translate_x_56
+    , sm_focus_tw_translate_x_64
+    , sm_focus_tw_translate_x_px
+    , sm_focus_tw_neg_translate_x_1
+    , sm_focus_tw_neg_translate_x_2
+    , sm_focus_tw_neg_translate_x_3
+    , sm_focus_tw_neg_translate_x_4
+    , sm_focus_tw_neg_translate_x_5
+    , sm_focus_tw_neg_translate_x_6
+    , sm_focus_tw_neg_translate_x_8
+    , sm_focus_tw_neg_translate_x_10
+    , sm_focus_tw_neg_translate_x_12
+    , sm_focus_tw_neg_translate_x_16
+    , sm_focus_tw_neg_translate_x_20
+    , sm_focus_tw_neg_translate_x_24
+    , sm_focus_tw_neg_translate_x_32
+    , sm_focus_tw_neg_translate_x_40
+    , sm_focus_tw_neg_translate_x_48
+    , sm_focus_tw_neg_translate_x_56
+    , sm_focus_tw_neg_translate_x_64
+    , sm_focus_tw_neg_translate_x_px
+    , sm_focus_tw_neg_translate_x_full
+    , sm_focus_tw_neg_translate_x_1over2
+    , sm_focus_tw_translate_x_1over2
+    , sm_focus_tw_translate_x_full
+    , sm_focus_tw_translate_y_0
+    , sm_focus_tw_translate_y_1
+    , sm_focus_tw_translate_y_2
+    , sm_focus_tw_translate_y_3
+    , sm_focus_tw_translate_y_4
+    , sm_focus_tw_translate_y_5
+    , sm_focus_tw_translate_y_6
+    , sm_focus_tw_translate_y_8
+    , sm_focus_tw_translate_y_10
+    , sm_focus_tw_translate_y_12
+    , sm_focus_tw_translate_y_16
+    , sm_focus_tw_translate_y_20
+    , sm_focus_tw_translate_y_24
+    , sm_focus_tw_translate_y_32
+    , sm_focus_tw_translate_y_40
+    , sm_focus_tw_translate_y_48
+    , sm_focus_tw_translate_y_56
+    , sm_focus_tw_translate_y_64
+    , sm_focus_tw_translate_y_px
+    , sm_focus_tw_neg_translate_y_1
+    , sm_focus_tw_neg_translate_y_2
+    , sm_focus_tw_neg_translate_y_3
+    , sm_focus_tw_neg_translate_y_4
+    , sm_focus_tw_neg_translate_y_5
+    , sm_focus_tw_neg_translate_y_6
+    , sm_focus_tw_neg_translate_y_8
+    , sm_focus_tw_neg_translate_y_10
+    , sm_focus_tw_neg_translate_y_12
+    , sm_focus_tw_neg_translate_y_16
+    , sm_focus_tw_neg_translate_y_20
+    , sm_focus_tw_neg_translate_y_24
+    , sm_focus_tw_neg_translate_y_32
+    , sm_focus_tw_neg_translate_y_40
+    , sm_focus_tw_neg_translate_y_48
+    , sm_focus_tw_neg_translate_y_56
+    , sm_focus_tw_neg_translate_y_64
+    , sm_focus_tw_neg_translate_y_px
+    , sm_focus_tw_neg_translate_y_full
+    , sm_focus_tw_neg_translate_y_1over2
+    , sm_focus_tw_translate_y_1over2
+    , sm_focus_tw_translate_y_full
+    , sm_tw_skew_x_0
+    , sm_tw_skew_x_3
+    , sm_tw_skew_x_6
+    , sm_tw_skew_x_12
+    , sm_tw_neg_skew_x_12
+    , sm_tw_neg_skew_x_6
+    , sm_tw_neg_skew_x_3
+    , sm_tw_skew_y_0
+    , sm_tw_skew_y_3
+    , sm_tw_skew_y_6
+    , sm_tw_skew_y_12
+    , sm_tw_neg_skew_y_12
+    , sm_tw_neg_skew_y_6
+    , sm_tw_neg_skew_y_3
+    , sm_hover_tw_skew_x_0
+    , sm_hover_tw_skew_x_3
+    , sm_hover_tw_skew_x_6
+    , sm_hover_tw_skew_x_12
+    , sm_hover_tw_neg_skew_x_12
+    , sm_hover_tw_neg_skew_x_6
+    , sm_hover_tw_neg_skew_x_3
+    , sm_hover_tw_skew_y_0
+    , sm_hover_tw_skew_y_3
+    , sm_hover_tw_skew_y_6
+    , sm_hover_tw_skew_y_12
+    , sm_hover_tw_neg_skew_y_12
+    , sm_hover_tw_neg_skew_y_6
+    , sm_hover_tw_neg_skew_y_3
+    , sm_focus_tw_skew_x_0
+    , sm_focus_tw_skew_x_3
+    , sm_focus_tw_skew_x_6
+    , sm_focus_tw_skew_x_12
+    , sm_focus_tw_neg_skew_x_12
+    , sm_focus_tw_neg_skew_x_6
+    , sm_focus_tw_neg_skew_x_3
+    , sm_focus_tw_skew_y_0
+    , sm_focus_tw_skew_y_3
+    , sm_focus_tw_skew_y_6
+    , sm_focus_tw_skew_y_12
+    , sm_focus_tw_neg_skew_y_12
+    , sm_focus_tw_neg_skew_y_6
+    , sm_focus_tw_neg_skew_y_3
+    , sm_tw_transition_none
+    , sm_tw_transition_all
+    , sm_tw_transition
+    , sm_tw_transition_colors
+    , sm_tw_transition_opacity
+    , sm_tw_transition_shadow
+    , sm_tw_transition_transform
+    , sm_tw_ease_linear
+    , sm_tw_ease_in
+    , sm_tw_ease_out
+    , sm_tw_ease_in_out
+    , sm_tw_duration_75
+    , sm_tw_duration_100
+    , sm_tw_duration_150
+    , sm_tw_duration_200
+    , sm_tw_duration_300
+    , sm_tw_duration_500
+    , sm_tw_duration_700
+    , sm_tw_duration_1000
     , md_tw_sr_only
     , md_tw_not_sr_only
     , md_focus_tw_sr_only
@@ -4374,6 +5610,7 @@ module TLWND exposing
     , md_tw_rounded_none
     , md_tw_rounded_sm
     , md_tw_rounded
+    , md_tw_rounded_md
     , md_tw_rounded_lg
     , md_tw_rounded_full
     , md_tw_rounded_t_none
@@ -4388,6 +5625,10 @@ module TLWND exposing
     , md_tw_rounded_r
     , md_tw_rounded_b
     , md_tw_rounded_l
+    , md_tw_rounded_t_md
+    , md_tw_rounded_r_md
+    , md_tw_rounded_b_md
+    , md_tw_rounded_l_md
     , md_tw_rounded_t_lg
     , md_tw_rounded_r_lg
     , md_tw_rounded_b_lg
@@ -4408,6 +5649,10 @@ module TLWND exposing
     , md_tw_rounded_tr
     , md_tw_rounded_br
     , md_tw_rounded_bl
+    , md_tw_rounded_tl_md
+    , md_tw_rounded_tr_md
+    , md_tw_rounded_br_md
+    , md_tw_rounded_bl_md
     , md_tw_rounded_tl_lg
     , md_tw_rounded_tr_lg
     , md_tw_rounded_br_lg
@@ -4446,6 +5691,8 @@ module TLWND exposing
     , md_tw_border_r
     , md_tw_border_b
     , md_tw_border_l
+    , md_tw_box_border
+    , md_tw_box_content
     , md_tw_cursor_auto
     , md_tw_cursor_default
     , md_tw_cursor_pointer
@@ -4458,9 +5705,16 @@ module TLWND exposing
     , md_tw_inline
     , md_tw_flex
     , md_tw_inline_flex
+    , md_tw_grid
     , md_tw_table
-    , md_tw_table_row
+    , md_tw_table_caption
     , md_tw_table_cell
+    , md_tw_table_column
+    , md_tw_table_column_group
+    , md_tw_table_footer_group
+    , md_tw_table_header_group
+    , md_tw_table_row_group
+    , md_tw_table_row
     , md_tw_hidden
     , md_tw_flex_row
     , md_tw_flex_row_reverse
@@ -4484,6 +5738,7 @@ module TLWND exposing
     , md_tw_justify_center
     , md_tw_justify_between
     , md_tw_justify_around
+    , md_tw_justify_evenly
     , md_tw_content_center
     , md_tw_content_start
     , md_tw_content_end
@@ -4516,6 +5771,9 @@ module TLWND exposing
     , md_tw_float_left
     , md_tw_float_none
     , md_tw_clearfix_after
+    , md_tw_clear_left
+    , md_tw_clear_right
+    , md_tw_clear_both
     , md_tw_font_sans
     , md_tw_font_serif
     , md_tw_font_mono
@@ -4568,6 +5826,14 @@ module TLWND exposing
     , md_tw_h_px
     , md_tw_h_full
     , md_tw_h_screen
+    , md_tw_leading_3
+    , md_tw_leading_4
+    , md_tw_leading_5
+    , md_tw_leading_6
+    , md_tw_leading_7
+    , md_tw_leading_8
+    , md_tw_leading_9
+    , md_tw_leading_10
     , md_tw_leading_none
     , md_tw_leading_tight
     , md_tw_leading_snug
@@ -4847,6 +6113,7 @@ module TLWND exposing
     , md_tw_neg_ml_px
     , md_tw_max_h_full
     , md_tw_max_h_screen
+    , md_tw_max_w_none
     , md_tw_max_w_xs
     , md_tw_max_w_sm
     , md_tw_max_w_md
@@ -4858,6 +6125,10 @@ module TLWND exposing
     , md_tw_max_w_5xl
     , md_tw_max_w_6xl
     , md_tw_max_w_full
+    , md_tw_max_w_screen_sm
+    , md_tw_max_w_screen_md
+    , md_tw_max_w_screen_lg
+    , md_tw_max_w_screen_xl
     , md_tw_min_h_0
     , md_tw_min_h_full
     , md_tw_min_h_screen
@@ -5252,6 +6523,8 @@ module TLWND exposing
     , md_tw_resize_y
     , md_tw_resize_x
     , md_tw_resize
+    , md_tw_shadow_xs
+    , md_tw_shadow_sm
     , md_tw_shadow
     , md_tw_shadow_md
     , md_tw_shadow_lg
@@ -5260,6 +6533,8 @@ module TLWND exposing
     , md_tw_shadow_inner
     , md_tw_shadow_outline
     , md_tw_shadow_none
+    , md_hover_tw_shadow_xs
+    , md_hover_tw_shadow_sm
     , md_hover_tw_shadow
     , md_hover_tw_shadow_md
     , md_hover_tw_shadow_lg
@@ -5268,6 +6543,8 @@ module TLWND exposing
     , md_hover_tw_shadow_inner
     , md_hover_tw_shadow_outline
     , md_hover_tw_shadow_none
+    , md_focus_tw_shadow_xs
+    , md_focus_tw_shadow_sm
     , md_focus_tw_shadow
     , md_focus_tw_shadow_md
     , md_focus_tw_shadow_lg
@@ -5278,6 +6555,9 @@ module TLWND exposing
     , md_focus_tw_shadow_none
     , md_tw_fill_current
     , md_tw_stroke_current
+    , md_tw_stroke_0
+    , md_tw_stroke_1
+    , md_tw_stroke_2
     , md_tw_table_auto
     , md_tw_table_fixed
     , md_tw_text_left
@@ -5672,6 +6952,580 @@ module TLWND exposing
     , md_tw_z_40
     , md_tw_z_50
     , md_tw_z_auto
+    , md_tw_gap_0
+    , md_tw_gap_1
+    , md_tw_gap_2
+    , md_tw_gap_3
+    , md_tw_gap_4
+    , md_tw_gap_5
+    , md_tw_gap_6
+    , md_tw_gap_8
+    , md_tw_gap_10
+    , md_tw_gap_12
+    , md_tw_gap_16
+    , md_tw_gap_20
+    , md_tw_gap_24
+    , md_tw_gap_32
+    , md_tw_gap_40
+    , md_tw_gap_48
+    , md_tw_gap_56
+    , md_tw_gap_64
+    , md_tw_gap_px
+    , md_tw_col_gap_0
+    , md_tw_col_gap_1
+    , md_tw_col_gap_2
+    , md_tw_col_gap_3
+    , md_tw_col_gap_4
+    , md_tw_col_gap_5
+    , md_tw_col_gap_6
+    , md_tw_col_gap_8
+    , md_tw_col_gap_10
+    , md_tw_col_gap_12
+    , md_tw_col_gap_16
+    , md_tw_col_gap_20
+    , md_tw_col_gap_24
+    , md_tw_col_gap_32
+    , md_tw_col_gap_40
+    , md_tw_col_gap_48
+    , md_tw_col_gap_56
+    , md_tw_col_gap_64
+    , md_tw_col_gap_px
+    , md_tw_row_gap_0
+    , md_tw_row_gap_1
+    , md_tw_row_gap_2
+    , md_tw_row_gap_3
+    , md_tw_row_gap_4
+    , md_tw_row_gap_5
+    , md_tw_row_gap_6
+    , md_tw_row_gap_8
+    , md_tw_row_gap_10
+    , md_tw_row_gap_12
+    , md_tw_row_gap_16
+    , md_tw_row_gap_20
+    , md_tw_row_gap_24
+    , md_tw_row_gap_32
+    , md_tw_row_gap_40
+    , md_tw_row_gap_48
+    , md_tw_row_gap_56
+    , md_tw_row_gap_64
+    , md_tw_row_gap_px
+    , md_tw_grid_flow_row
+    , md_tw_grid_flow_col
+    , md_tw_grid_flow_row_dense
+    , md_tw_grid_flow_col_dense
+    , md_tw_grid_cols_1
+    , md_tw_grid_cols_2
+    , md_tw_grid_cols_3
+    , md_tw_grid_cols_4
+    , md_tw_grid_cols_5
+    , md_tw_grid_cols_6
+    , md_tw_grid_cols_7
+    , md_tw_grid_cols_8
+    , md_tw_grid_cols_9
+    , md_tw_grid_cols_10
+    , md_tw_grid_cols_11
+    , md_tw_grid_cols_12
+    , md_tw_grid_cols_none
+    , md_tw_col_auto
+    , md_tw_col_span_1
+    , md_tw_col_span_2
+    , md_tw_col_span_3
+    , md_tw_col_span_4
+    , md_tw_col_span_5
+    , md_tw_col_span_6
+    , md_tw_col_span_7
+    , md_tw_col_span_8
+    , md_tw_col_span_9
+    , md_tw_col_span_10
+    , md_tw_col_span_11
+    , md_tw_col_span_12
+    , md_tw_col_start_1
+    , md_tw_col_start_2
+    , md_tw_col_start_3
+    , md_tw_col_start_4
+    , md_tw_col_start_5
+    , md_tw_col_start_6
+    , md_tw_col_start_7
+    , md_tw_col_start_8
+    , md_tw_col_start_9
+    , md_tw_col_start_10
+    , md_tw_col_start_11
+    , md_tw_col_start_12
+    , md_tw_col_start_13
+    , md_tw_col_start_auto
+    , md_tw_col_end_1
+    , md_tw_col_end_2
+    , md_tw_col_end_3
+    , md_tw_col_end_4
+    , md_tw_col_end_5
+    , md_tw_col_end_6
+    , md_tw_col_end_7
+    , md_tw_col_end_8
+    , md_tw_col_end_9
+    , md_tw_col_end_10
+    , md_tw_col_end_11
+    , md_tw_col_end_12
+    , md_tw_col_end_13
+    , md_tw_col_end_auto
+    , md_tw_grid_rows_1
+    , md_tw_grid_rows_2
+    , md_tw_grid_rows_3
+    , md_tw_grid_rows_4
+    , md_tw_grid_rows_5
+    , md_tw_grid_rows_6
+    , md_tw_grid_rows_none
+    , md_tw_row_auto
+    , md_tw_row_span_1
+    , md_tw_row_span_2
+    , md_tw_row_span_3
+    , md_tw_row_span_4
+    , md_tw_row_span_5
+    , md_tw_row_span_6
+    , md_tw_row_start_1
+    , md_tw_row_start_2
+    , md_tw_row_start_3
+    , md_tw_row_start_4
+    , md_tw_row_start_5
+    , md_tw_row_start_6
+    , md_tw_row_start_7
+    , md_tw_row_start_auto
+    , md_tw_row_end_1
+    , md_tw_row_end_2
+    , md_tw_row_end_3
+    , md_tw_row_end_4
+    , md_tw_row_end_5
+    , md_tw_row_end_6
+    , md_tw_row_end_7
+    , md_tw_row_end_auto
+    , md_tw_transform
+    , md_tw_transform_none
+    , md_tw_origin_center
+    , md_tw_origin_top
+    , md_tw_origin_top_right
+    , md_tw_origin_right
+    , md_tw_origin_bottom_right
+    , md_tw_origin_bottom
+    , md_tw_origin_bottom_left
+    , md_tw_origin_left
+    , md_tw_origin_top_left
+    , md_tw_scale_0
+    , md_tw_scale_50
+    , md_tw_scale_75
+    , md_tw_scale_90
+    , md_tw_scale_95
+    , md_tw_scale_100
+    , md_tw_scale_105
+    , md_tw_scale_110
+    , md_tw_scale_125
+    , md_tw_scale_150
+    , md_tw_scale_x_0
+    , md_tw_scale_x_50
+    , md_tw_scale_x_75
+    , md_tw_scale_x_90
+    , md_tw_scale_x_95
+    , md_tw_scale_x_100
+    , md_tw_scale_x_105
+    , md_tw_scale_x_110
+    , md_tw_scale_x_125
+    , md_tw_scale_x_150
+    , md_tw_scale_y_0
+    , md_tw_scale_y_50
+    , md_tw_scale_y_75
+    , md_tw_scale_y_90
+    , md_tw_scale_y_95
+    , md_tw_scale_y_100
+    , md_tw_scale_y_105
+    , md_tw_scale_y_110
+    , md_tw_scale_y_125
+    , md_tw_scale_y_150
+    , md_hover_tw_scale_0
+    , md_hover_tw_scale_50
+    , md_hover_tw_scale_75
+    , md_hover_tw_scale_90
+    , md_hover_tw_scale_95
+    , md_hover_tw_scale_100
+    , md_hover_tw_scale_105
+    , md_hover_tw_scale_110
+    , md_hover_tw_scale_125
+    , md_hover_tw_scale_150
+    , md_hover_tw_scale_x_0
+    , md_hover_tw_scale_x_50
+    , md_hover_tw_scale_x_75
+    , md_hover_tw_scale_x_90
+    , md_hover_tw_scale_x_95
+    , md_hover_tw_scale_x_100
+    , md_hover_tw_scale_x_105
+    , md_hover_tw_scale_x_110
+    , md_hover_tw_scale_x_125
+    , md_hover_tw_scale_x_150
+    , md_hover_tw_scale_y_0
+    , md_hover_tw_scale_y_50
+    , md_hover_tw_scale_y_75
+    , md_hover_tw_scale_y_90
+    , md_hover_tw_scale_y_95
+    , md_hover_tw_scale_y_100
+    , md_hover_tw_scale_y_105
+    , md_hover_tw_scale_y_110
+    , md_hover_tw_scale_y_125
+    , md_hover_tw_scale_y_150
+    , md_focus_tw_scale_0
+    , md_focus_tw_scale_50
+    , md_focus_tw_scale_75
+    , md_focus_tw_scale_90
+    , md_focus_tw_scale_95
+    , md_focus_tw_scale_100
+    , md_focus_tw_scale_105
+    , md_focus_tw_scale_110
+    , md_focus_tw_scale_125
+    , md_focus_tw_scale_150
+    , md_focus_tw_scale_x_0
+    , md_focus_tw_scale_x_50
+    , md_focus_tw_scale_x_75
+    , md_focus_tw_scale_x_90
+    , md_focus_tw_scale_x_95
+    , md_focus_tw_scale_x_100
+    , md_focus_tw_scale_x_105
+    , md_focus_tw_scale_x_110
+    , md_focus_tw_scale_x_125
+    , md_focus_tw_scale_x_150
+    , md_focus_tw_scale_y_0
+    , md_focus_tw_scale_y_50
+    , md_focus_tw_scale_y_75
+    , md_focus_tw_scale_y_90
+    , md_focus_tw_scale_y_95
+    , md_focus_tw_scale_y_100
+    , md_focus_tw_scale_y_105
+    , md_focus_tw_scale_y_110
+    , md_focus_tw_scale_y_125
+    , md_focus_tw_scale_y_150
+    , md_tw_rotate_0
+    , md_tw_rotate_45
+    , md_tw_rotate_90
+    , md_tw_rotate_180
+    , md_tw_neg_rotate_180
+    , md_tw_neg_rotate_90
+    , md_tw_neg_rotate_45
+    , md_hover_tw_rotate_0
+    , md_hover_tw_rotate_45
+    , md_hover_tw_rotate_90
+    , md_hover_tw_rotate_180
+    , md_hover_tw_neg_rotate_180
+    , md_hover_tw_neg_rotate_90
+    , md_hover_tw_neg_rotate_45
+    , md_focus_tw_rotate_0
+    , md_focus_tw_rotate_45
+    , md_focus_tw_rotate_90
+    , md_focus_tw_rotate_180
+    , md_focus_tw_neg_rotate_180
+    , md_focus_tw_neg_rotate_90
+    , md_focus_tw_neg_rotate_45
+    , md_tw_translate_x_0
+    , md_tw_translate_x_1
+    , md_tw_translate_x_2
+    , md_tw_translate_x_3
+    , md_tw_translate_x_4
+    , md_tw_translate_x_5
+    , md_tw_translate_x_6
+    , md_tw_translate_x_8
+    , md_tw_translate_x_10
+    , md_tw_translate_x_12
+    , md_tw_translate_x_16
+    , md_tw_translate_x_20
+    , md_tw_translate_x_24
+    , md_tw_translate_x_32
+    , md_tw_translate_x_40
+    , md_tw_translate_x_48
+    , md_tw_translate_x_56
+    , md_tw_translate_x_64
+    , md_tw_translate_x_px
+    , md_tw_neg_translate_x_1
+    , md_tw_neg_translate_x_2
+    , md_tw_neg_translate_x_3
+    , md_tw_neg_translate_x_4
+    , md_tw_neg_translate_x_5
+    , md_tw_neg_translate_x_6
+    , md_tw_neg_translate_x_8
+    , md_tw_neg_translate_x_10
+    , md_tw_neg_translate_x_12
+    , md_tw_neg_translate_x_16
+    , md_tw_neg_translate_x_20
+    , md_tw_neg_translate_x_24
+    , md_tw_neg_translate_x_32
+    , md_tw_neg_translate_x_40
+    , md_tw_neg_translate_x_48
+    , md_tw_neg_translate_x_56
+    , md_tw_neg_translate_x_64
+    , md_tw_neg_translate_x_px
+    , md_tw_neg_translate_x_full
+    , md_tw_neg_translate_x_1over2
+    , md_tw_translate_x_1over2
+    , md_tw_translate_x_full
+    , md_tw_translate_y_0
+    , md_tw_translate_y_1
+    , md_tw_translate_y_2
+    , md_tw_translate_y_3
+    , md_tw_translate_y_4
+    , md_tw_translate_y_5
+    , md_tw_translate_y_6
+    , md_tw_translate_y_8
+    , md_tw_translate_y_10
+    , md_tw_translate_y_12
+    , md_tw_translate_y_16
+    , md_tw_translate_y_20
+    , md_tw_translate_y_24
+    , md_tw_translate_y_32
+    , md_tw_translate_y_40
+    , md_tw_translate_y_48
+    , md_tw_translate_y_56
+    , md_tw_translate_y_64
+    , md_tw_translate_y_px
+    , md_tw_neg_translate_y_1
+    , md_tw_neg_translate_y_2
+    , md_tw_neg_translate_y_3
+    , md_tw_neg_translate_y_4
+    , md_tw_neg_translate_y_5
+    , md_tw_neg_translate_y_6
+    , md_tw_neg_translate_y_8
+    , md_tw_neg_translate_y_10
+    , md_tw_neg_translate_y_12
+    , md_tw_neg_translate_y_16
+    , md_tw_neg_translate_y_20
+    , md_tw_neg_translate_y_24
+    , md_tw_neg_translate_y_32
+    , md_tw_neg_translate_y_40
+    , md_tw_neg_translate_y_48
+    , md_tw_neg_translate_y_56
+    , md_tw_neg_translate_y_64
+    , md_tw_neg_translate_y_px
+    , md_tw_neg_translate_y_full
+    , md_tw_neg_translate_y_1over2
+    , md_tw_translate_y_1over2
+    , md_tw_translate_y_full
+    , md_hover_tw_translate_x_0
+    , md_hover_tw_translate_x_1
+    , md_hover_tw_translate_x_2
+    , md_hover_tw_translate_x_3
+    , md_hover_tw_translate_x_4
+    , md_hover_tw_translate_x_5
+    , md_hover_tw_translate_x_6
+    , md_hover_tw_translate_x_8
+    , md_hover_tw_translate_x_10
+    , md_hover_tw_translate_x_12
+    , md_hover_tw_translate_x_16
+    , md_hover_tw_translate_x_20
+    , md_hover_tw_translate_x_24
+    , md_hover_tw_translate_x_32
+    , md_hover_tw_translate_x_40
+    , md_hover_tw_translate_x_48
+    , md_hover_tw_translate_x_56
+    , md_hover_tw_translate_x_64
+    , md_hover_tw_translate_x_px
+    , md_hover_tw_neg_translate_x_1
+    , md_hover_tw_neg_translate_x_2
+    , md_hover_tw_neg_translate_x_3
+    , md_hover_tw_neg_translate_x_4
+    , md_hover_tw_neg_translate_x_5
+    , md_hover_tw_neg_translate_x_6
+    , md_hover_tw_neg_translate_x_8
+    , md_hover_tw_neg_translate_x_10
+    , md_hover_tw_neg_translate_x_12
+    , md_hover_tw_neg_translate_x_16
+    , md_hover_tw_neg_translate_x_20
+    , md_hover_tw_neg_translate_x_24
+    , md_hover_tw_neg_translate_x_32
+    , md_hover_tw_neg_translate_x_40
+    , md_hover_tw_neg_translate_x_48
+    , md_hover_tw_neg_translate_x_56
+    , md_hover_tw_neg_translate_x_64
+    , md_hover_tw_neg_translate_x_px
+    , md_hover_tw_neg_translate_x_full
+    , md_hover_tw_neg_translate_x_1over2
+    , md_hover_tw_translate_x_1over2
+    , md_hover_tw_translate_x_full
+    , md_hover_tw_translate_y_0
+    , md_hover_tw_translate_y_1
+    , md_hover_tw_translate_y_2
+    , md_hover_tw_translate_y_3
+    , md_hover_tw_translate_y_4
+    , md_hover_tw_translate_y_5
+    , md_hover_tw_translate_y_6
+    , md_hover_tw_translate_y_8
+    , md_hover_tw_translate_y_10
+    , md_hover_tw_translate_y_12
+    , md_hover_tw_translate_y_16
+    , md_hover_tw_translate_y_20
+    , md_hover_tw_translate_y_24
+    , md_hover_tw_translate_y_32
+    , md_hover_tw_translate_y_40
+    , md_hover_tw_translate_y_48
+    , md_hover_tw_translate_y_56
+    , md_hover_tw_translate_y_64
+    , md_hover_tw_translate_y_px
+    , md_hover_tw_neg_translate_y_1
+    , md_hover_tw_neg_translate_y_2
+    , md_hover_tw_neg_translate_y_3
+    , md_hover_tw_neg_translate_y_4
+    , md_hover_tw_neg_translate_y_5
+    , md_hover_tw_neg_translate_y_6
+    , md_hover_tw_neg_translate_y_8
+    , md_hover_tw_neg_translate_y_10
+    , md_hover_tw_neg_translate_y_12
+    , md_hover_tw_neg_translate_y_16
+    , md_hover_tw_neg_translate_y_20
+    , md_hover_tw_neg_translate_y_24
+    , md_hover_tw_neg_translate_y_32
+    , md_hover_tw_neg_translate_y_40
+    , md_hover_tw_neg_translate_y_48
+    , md_hover_tw_neg_translate_y_56
+    , md_hover_tw_neg_translate_y_64
+    , md_hover_tw_neg_translate_y_px
+    , md_hover_tw_neg_translate_y_full
+    , md_hover_tw_neg_translate_y_1over2
+    , md_hover_tw_translate_y_1over2
+    , md_hover_tw_translate_y_full
+    , md_focus_tw_translate_x_0
+    , md_focus_tw_translate_x_1
+    , md_focus_tw_translate_x_2
+    , md_focus_tw_translate_x_3
+    , md_focus_tw_translate_x_4
+    , md_focus_tw_translate_x_5
+    , md_focus_tw_translate_x_6
+    , md_focus_tw_translate_x_8
+    , md_focus_tw_translate_x_10
+    , md_focus_tw_translate_x_12
+    , md_focus_tw_translate_x_16
+    , md_focus_tw_translate_x_20
+    , md_focus_tw_translate_x_24
+    , md_focus_tw_translate_x_32
+    , md_focus_tw_translate_x_40
+    , md_focus_tw_translate_x_48
+    , md_focus_tw_translate_x_56
+    , md_focus_tw_translate_x_64
+    , md_focus_tw_translate_x_px
+    , md_focus_tw_neg_translate_x_1
+    , md_focus_tw_neg_translate_x_2
+    , md_focus_tw_neg_translate_x_3
+    , md_focus_tw_neg_translate_x_4
+    , md_focus_tw_neg_translate_x_5
+    , md_focus_tw_neg_translate_x_6
+    , md_focus_tw_neg_translate_x_8
+    , md_focus_tw_neg_translate_x_10
+    , md_focus_tw_neg_translate_x_12
+    , md_focus_tw_neg_translate_x_16
+    , md_focus_tw_neg_translate_x_20
+    , md_focus_tw_neg_translate_x_24
+    , md_focus_tw_neg_translate_x_32
+    , md_focus_tw_neg_translate_x_40
+    , md_focus_tw_neg_translate_x_48
+    , md_focus_tw_neg_translate_x_56
+    , md_focus_tw_neg_translate_x_64
+    , md_focus_tw_neg_translate_x_px
+    , md_focus_tw_neg_translate_x_full
+    , md_focus_tw_neg_translate_x_1over2
+    , md_focus_tw_translate_x_1over2
+    , md_focus_tw_translate_x_full
+    , md_focus_tw_translate_y_0
+    , md_focus_tw_translate_y_1
+    , md_focus_tw_translate_y_2
+    , md_focus_tw_translate_y_3
+    , md_focus_tw_translate_y_4
+    , md_focus_tw_translate_y_5
+    , md_focus_tw_translate_y_6
+    , md_focus_tw_translate_y_8
+    , md_focus_tw_translate_y_10
+    , md_focus_tw_translate_y_12
+    , md_focus_tw_translate_y_16
+    , md_focus_tw_translate_y_20
+    , md_focus_tw_translate_y_24
+    , md_focus_tw_translate_y_32
+    , md_focus_tw_translate_y_40
+    , md_focus_tw_translate_y_48
+    , md_focus_tw_translate_y_56
+    , md_focus_tw_translate_y_64
+    , md_focus_tw_translate_y_px
+    , md_focus_tw_neg_translate_y_1
+    , md_focus_tw_neg_translate_y_2
+    , md_focus_tw_neg_translate_y_3
+    , md_focus_tw_neg_translate_y_4
+    , md_focus_tw_neg_translate_y_5
+    , md_focus_tw_neg_translate_y_6
+    , md_focus_tw_neg_translate_y_8
+    , md_focus_tw_neg_translate_y_10
+    , md_focus_tw_neg_translate_y_12
+    , md_focus_tw_neg_translate_y_16
+    , md_focus_tw_neg_translate_y_20
+    , md_focus_tw_neg_translate_y_24
+    , md_focus_tw_neg_translate_y_32
+    , md_focus_tw_neg_translate_y_40
+    , md_focus_tw_neg_translate_y_48
+    , md_focus_tw_neg_translate_y_56
+    , md_focus_tw_neg_translate_y_64
+    , md_focus_tw_neg_translate_y_px
+    , md_focus_tw_neg_translate_y_full
+    , md_focus_tw_neg_translate_y_1over2
+    , md_focus_tw_translate_y_1over2
+    , md_focus_tw_translate_y_full
+    , md_tw_skew_x_0
+    , md_tw_skew_x_3
+    , md_tw_skew_x_6
+    , md_tw_skew_x_12
+    , md_tw_neg_skew_x_12
+    , md_tw_neg_skew_x_6
+    , md_tw_neg_skew_x_3
+    , md_tw_skew_y_0
+    , md_tw_skew_y_3
+    , md_tw_skew_y_6
+    , md_tw_skew_y_12
+    , md_tw_neg_skew_y_12
+    , md_tw_neg_skew_y_6
+    , md_tw_neg_skew_y_3
+    , md_hover_tw_skew_x_0
+    , md_hover_tw_skew_x_3
+    , md_hover_tw_skew_x_6
+    , md_hover_tw_skew_x_12
+    , md_hover_tw_neg_skew_x_12
+    , md_hover_tw_neg_skew_x_6
+    , md_hover_tw_neg_skew_x_3
+    , md_hover_tw_skew_y_0
+    , md_hover_tw_skew_y_3
+    , md_hover_tw_skew_y_6
+    , md_hover_tw_skew_y_12
+    , md_hover_tw_neg_skew_y_12
+    , md_hover_tw_neg_skew_y_6
+    , md_hover_tw_neg_skew_y_3
+    , md_focus_tw_skew_x_0
+    , md_focus_tw_skew_x_3
+    , md_focus_tw_skew_x_6
+    , md_focus_tw_skew_x_12
+    , md_focus_tw_neg_skew_x_12
+    , md_focus_tw_neg_skew_x_6
+    , md_focus_tw_neg_skew_x_3
+    , md_focus_tw_skew_y_0
+    , md_focus_tw_skew_y_3
+    , md_focus_tw_skew_y_6
+    , md_focus_tw_skew_y_12
+    , md_focus_tw_neg_skew_y_12
+    , md_focus_tw_neg_skew_y_6
+    , md_focus_tw_neg_skew_y_3
+    , md_tw_transition_none
+    , md_tw_transition_all
+    , md_tw_transition
+    , md_tw_transition_colors
+    , md_tw_transition_opacity
+    , md_tw_transition_shadow
+    , md_tw_transition_transform
+    , md_tw_ease_linear
+    , md_tw_ease_in
+    , md_tw_ease_out
+    , md_tw_ease_in_out
+    , md_tw_duration_75
+    , md_tw_duration_100
+    , md_tw_duration_150
+    , md_tw_duration_200
+    , md_tw_duration_300
+    , md_tw_duration_500
+    , md_tw_duration_700
+    , md_tw_duration_1000
     , lg_tw_sr_only
     , lg_tw_not_sr_only
     , lg_focus_tw_sr_only
@@ -6261,6 +8115,7 @@ module TLWND exposing
     , lg_tw_rounded_none
     , lg_tw_rounded_sm
     , lg_tw_rounded
+    , lg_tw_rounded_md
     , lg_tw_rounded_lg
     , lg_tw_rounded_full
     , lg_tw_rounded_t_none
@@ -6275,6 +8130,10 @@ module TLWND exposing
     , lg_tw_rounded_r
     , lg_tw_rounded_b
     , lg_tw_rounded_l
+    , lg_tw_rounded_t_md
+    , lg_tw_rounded_r_md
+    , lg_tw_rounded_b_md
+    , lg_tw_rounded_l_md
     , lg_tw_rounded_t_lg
     , lg_tw_rounded_r_lg
     , lg_tw_rounded_b_lg
@@ -6295,6 +8154,10 @@ module TLWND exposing
     , lg_tw_rounded_tr
     , lg_tw_rounded_br
     , lg_tw_rounded_bl
+    , lg_tw_rounded_tl_md
+    , lg_tw_rounded_tr_md
+    , lg_tw_rounded_br_md
+    , lg_tw_rounded_bl_md
     , lg_tw_rounded_tl_lg
     , lg_tw_rounded_tr_lg
     , lg_tw_rounded_br_lg
@@ -6333,6 +8196,8 @@ module TLWND exposing
     , lg_tw_border_r
     , lg_tw_border_b
     , lg_tw_border_l
+    , lg_tw_box_border
+    , lg_tw_box_content
     , lg_tw_cursor_auto
     , lg_tw_cursor_default
     , lg_tw_cursor_pointer
@@ -6345,9 +8210,16 @@ module TLWND exposing
     , lg_tw_inline
     , lg_tw_flex
     , lg_tw_inline_flex
+    , lg_tw_grid
     , lg_tw_table
-    , lg_tw_table_row
+    , lg_tw_table_caption
     , lg_tw_table_cell
+    , lg_tw_table_column
+    , lg_tw_table_column_group
+    , lg_tw_table_footer_group
+    , lg_tw_table_header_group
+    , lg_tw_table_row_group
+    , lg_tw_table_row
     , lg_tw_hidden
     , lg_tw_flex_row
     , lg_tw_flex_row_reverse
@@ -6371,6 +8243,7 @@ module TLWND exposing
     , lg_tw_justify_center
     , lg_tw_justify_between
     , lg_tw_justify_around
+    , lg_tw_justify_evenly
     , lg_tw_content_center
     , lg_tw_content_start
     , lg_tw_content_end
@@ -6403,6 +8276,9 @@ module TLWND exposing
     , lg_tw_float_left
     , lg_tw_float_none
     , lg_tw_clearfix_after
+    , lg_tw_clear_left
+    , lg_tw_clear_right
+    , lg_tw_clear_both
     , lg_tw_font_sans
     , lg_tw_font_serif
     , lg_tw_font_mono
@@ -6455,6 +8331,14 @@ module TLWND exposing
     , lg_tw_h_px
     , lg_tw_h_full
     , lg_tw_h_screen
+    , lg_tw_leading_3
+    , lg_tw_leading_4
+    , lg_tw_leading_5
+    , lg_tw_leading_6
+    , lg_tw_leading_7
+    , lg_tw_leading_8
+    , lg_tw_leading_9
+    , lg_tw_leading_10
     , lg_tw_leading_none
     , lg_tw_leading_tight
     , lg_tw_leading_snug
@@ -6734,6 +8618,7 @@ module TLWND exposing
     , lg_tw_neg_ml_px
     , lg_tw_max_h_full
     , lg_tw_max_h_screen
+    , lg_tw_max_w_none
     , lg_tw_max_w_xs
     , lg_tw_max_w_sm
     , lg_tw_max_w_md
@@ -6745,6 +8630,10 @@ module TLWND exposing
     , lg_tw_max_w_5xl
     , lg_tw_max_w_6xl
     , lg_tw_max_w_full
+    , lg_tw_max_w_screen_sm
+    , lg_tw_max_w_screen_md
+    , lg_tw_max_w_screen_lg
+    , lg_tw_max_w_screen_xl
     , lg_tw_min_h_0
     , lg_tw_min_h_full
     , lg_tw_min_h_screen
@@ -7139,6 +9028,8 @@ module TLWND exposing
     , lg_tw_resize_y
     , lg_tw_resize_x
     , lg_tw_resize
+    , lg_tw_shadow_xs
+    , lg_tw_shadow_sm
     , lg_tw_shadow
     , lg_tw_shadow_md
     , lg_tw_shadow_lg
@@ -7147,6 +9038,8 @@ module TLWND exposing
     , lg_tw_shadow_inner
     , lg_tw_shadow_outline
     , lg_tw_shadow_none
+    , lg_hover_tw_shadow_xs
+    , lg_hover_tw_shadow_sm
     , lg_hover_tw_shadow
     , lg_hover_tw_shadow_md
     , lg_hover_tw_shadow_lg
@@ -7155,6 +9048,8 @@ module TLWND exposing
     , lg_hover_tw_shadow_inner
     , lg_hover_tw_shadow_outline
     , lg_hover_tw_shadow_none
+    , lg_focus_tw_shadow_xs
+    , lg_focus_tw_shadow_sm
     , lg_focus_tw_shadow
     , lg_focus_tw_shadow_md
     , lg_focus_tw_shadow_lg
@@ -7165,6 +9060,9 @@ module TLWND exposing
     , lg_focus_tw_shadow_none
     , lg_tw_fill_current
     , lg_tw_stroke_current
+    , lg_tw_stroke_0
+    , lg_tw_stroke_1
+    , lg_tw_stroke_2
     , lg_tw_table_auto
     , lg_tw_table_fixed
     , lg_tw_text_left
@@ -7559,6 +9457,580 @@ module TLWND exposing
     , lg_tw_z_40
     , lg_tw_z_50
     , lg_tw_z_auto
+    , lg_tw_gap_0
+    , lg_tw_gap_1
+    , lg_tw_gap_2
+    , lg_tw_gap_3
+    , lg_tw_gap_4
+    , lg_tw_gap_5
+    , lg_tw_gap_6
+    , lg_tw_gap_8
+    , lg_tw_gap_10
+    , lg_tw_gap_12
+    , lg_tw_gap_16
+    , lg_tw_gap_20
+    , lg_tw_gap_24
+    , lg_tw_gap_32
+    , lg_tw_gap_40
+    , lg_tw_gap_48
+    , lg_tw_gap_56
+    , lg_tw_gap_64
+    , lg_tw_gap_px
+    , lg_tw_col_gap_0
+    , lg_tw_col_gap_1
+    , lg_tw_col_gap_2
+    , lg_tw_col_gap_3
+    , lg_tw_col_gap_4
+    , lg_tw_col_gap_5
+    , lg_tw_col_gap_6
+    , lg_tw_col_gap_8
+    , lg_tw_col_gap_10
+    , lg_tw_col_gap_12
+    , lg_tw_col_gap_16
+    , lg_tw_col_gap_20
+    , lg_tw_col_gap_24
+    , lg_tw_col_gap_32
+    , lg_tw_col_gap_40
+    , lg_tw_col_gap_48
+    , lg_tw_col_gap_56
+    , lg_tw_col_gap_64
+    , lg_tw_col_gap_px
+    , lg_tw_row_gap_0
+    , lg_tw_row_gap_1
+    , lg_tw_row_gap_2
+    , lg_tw_row_gap_3
+    , lg_tw_row_gap_4
+    , lg_tw_row_gap_5
+    , lg_tw_row_gap_6
+    , lg_tw_row_gap_8
+    , lg_tw_row_gap_10
+    , lg_tw_row_gap_12
+    , lg_tw_row_gap_16
+    , lg_tw_row_gap_20
+    , lg_tw_row_gap_24
+    , lg_tw_row_gap_32
+    , lg_tw_row_gap_40
+    , lg_tw_row_gap_48
+    , lg_tw_row_gap_56
+    , lg_tw_row_gap_64
+    , lg_tw_row_gap_px
+    , lg_tw_grid_flow_row
+    , lg_tw_grid_flow_col
+    , lg_tw_grid_flow_row_dense
+    , lg_tw_grid_flow_col_dense
+    , lg_tw_grid_cols_1
+    , lg_tw_grid_cols_2
+    , lg_tw_grid_cols_3
+    , lg_tw_grid_cols_4
+    , lg_tw_grid_cols_5
+    , lg_tw_grid_cols_6
+    , lg_tw_grid_cols_7
+    , lg_tw_grid_cols_8
+    , lg_tw_grid_cols_9
+    , lg_tw_grid_cols_10
+    , lg_tw_grid_cols_11
+    , lg_tw_grid_cols_12
+    , lg_tw_grid_cols_none
+    , lg_tw_col_auto
+    , lg_tw_col_span_1
+    , lg_tw_col_span_2
+    , lg_tw_col_span_3
+    , lg_tw_col_span_4
+    , lg_tw_col_span_5
+    , lg_tw_col_span_6
+    , lg_tw_col_span_7
+    , lg_tw_col_span_8
+    , lg_tw_col_span_9
+    , lg_tw_col_span_10
+    , lg_tw_col_span_11
+    , lg_tw_col_span_12
+    , lg_tw_col_start_1
+    , lg_tw_col_start_2
+    , lg_tw_col_start_3
+    , lg_tw_col_start_4
+    , lg_tw_col_start_5
+    , lg_tw_col_start_6
+    , lg_tw_col_start_7
+    , lg_tw_col_start_8
+    , lg_tw_col_start_9
+    , lg_tw_col_start_10
+    , lg_tw_col_start_11
+    , lg_tw_col_start_12
+    , lg_tw_col_start_13
+    , lg_tw_col_start_auto
+    , lg_tw_col_end_1
+    , lg_tw_col_end_2
+    , lg_tw_col_end_3
+    , lg_tw_col_end_4
+    , lg_tw_col_end_5
+    , lg_tw_col_end_6
+    , lg_tw_col_end_7
+    , lg_tw_col_end_8
+    , lg_tw_col_end_9
+    , lg_tw_col_end_10
+    , lg_tw_col_end_11
+    , lg_tw_col_end_12
+    , lg_tw_col_end_13
+    , lg_tw_col_end_auto
+    , lg_tw_grid_rows_1
+    , lg_tw_grid_rows_2
+    , lg_tw_grid_rows_3
+    , lg_tw_grid_rows_4
+    , lg_tw_grid_rows_5
+    , lg_tw_grid_rows_6
+    , lg_tw_grid_rows_none
+    , lg_tw_row_auto
+    , lg_tw_row_span_1
+    , lg_tw_row_span_2
+    , lg_tw_row_span_3
+    , lg_tw_row_span_4
+    , lg_tw_row_span_5
+    , lg_tw_row_span_6
+    , lg_tw_row_start_1
+    , lg_tw_row_start_2
+    , lg_tw_row_start_3
+    , lg_tw_row_start_4
+    , lg_tw_row_start_5
+    , lg_tw_row_start_6
+    , lg_tw_row_start_7
+    , lg_tw_row_start_auto
+    , lg_tw_row_end_1
+    , lg_tw_row_end_2
+    , lg_tw_row_end_3
+    , lg_tw_row_end_4
+    , lg_tw_row_end_5
+    , lg_tw_row_end_6
+    , lg_tw_row_end_7
+    , lg_tw_row_end_auto
+    , lg_tw_transform
+    , lg_tw_transform_none
+    , lg_tw_origin_center
+    , lg_tw_origin_top
+    , lg_tw_origin_top_right
+    , lg_tw_origin_right
+    , lg_tw_origin_bottom_right
+    , lg_tw_origin_bottom
+    , lg_tw_origin_bottom_left
+    , lg_tw_origin_left
+    , lg_tw_origin_top_left
+    , lg_tw_scale_0
+    , lg_tw_scale_50
+    , lg_tw_scale_75
+    , lg_tw_scale_90
+    , lg_tw_scale_95
+    , lg_tw_scale_100
+    , lg_tw_scale_105
+    , lg_tw_scale_110
+    , lg_tw_scale_125
+    , lg_tw_scale_150
+    , lg_tw_scale_x_0
+    , lg_tw_scale_x_50
+    , lg_tw_scale_x_75
+    , lg_tw_scale_x_90
+    , lg_tw_scale_x_95
+    , lg_tw_scale_x_100
+    , lg_tw_scale_x_105
+    , lg_tw_scale_x_110
+    , lg_tw_scale_x_125
+    , lg_tw_scale_x_150
+    , lg_tw_scale_y_0
+    , lg_tw_scale_y_50
+    , lg_tw_scale_y_75
+    , lg_tw_scale_y_90
+    , lg_tw_scale_y_95
+    , lg_tw_scale_y_100
+    , lg_tw_scale_y_105
+    , lg_tw_scale_y_110
+    , lg_tw_scale_y_125
+    , lg_tw_scale_y_150
+    , lg_hover_tw_scale_0
+    , lg_hover_tw_scale_50
+    , lg_hover_tw_scale_75
+    , lg_hover_tw_scale_90
+    , lg_hover_tw_scale_95
+    , lg_hover_tw_scale_100
+    , lg_hover_tw_scale_105
+    , lg_hover_tw_scale_110
+    , lg_hover_tw_scale_125
+    , lg_hover_tw_scale_150
+    , lg_hover_tw_scale_x_0
+    , lg_hover_tw_scale_x_50
+    , lg_hover_tw_scale_x_75
+    , lg_hover_tw_scale_x_90
+    , lg_hover_tw_scale_x_95
+    , lg_hover_tw_scale_x_100
+    , lg_hover_tw_scale_x_105
+    , lg_hover_tw_scale_x_110
+    , lg_hover_tw_scale_x_125
+    , lg_hover_tw_scale_x_150
+    , lg_hover_tw_scale_y_0
+    , lg_hover_tw_scale_y_50
+    , lg_hover_tw_scale_y_75
+    , lg_hover_tw_scale_y_90
+    , lg_hover_tw_scale_y_95
+    , lg_hover_tw_scale_y_100
+    , lg_hover_tw_scale_y_105
+    , lg_hover_tw_scale_y_110
+    , lg_hover_tw_scale_y_125
+    , lg_hover_tw_scale_y_150
+    , lg_focus_tw_scale_0
+    , lg_focus_tw_scale_50
+    , lg_focus_tw_scale_75
+    , lg_focus_tw_scale_90
+    , lg_focus_tw_scale_95
+    , lg_focus_tw_scale_100
+    , lg_focus_tw_scale_105
+    , lg_focus_tw_scale_110
+    , lg_focus_tw_scale_125
+    , lg_focus_tw_scale_150
+    , lg_focus_tw_scale_x_0
+    , lg_focus_tw_scale_x_50
+    , lg_focus_tw_scale_x_75
+    , lg_focus_tw_scale_x_90
+    , lg_focus_tw_scale_x_95
+    , lg_focus_tw_scale_x_100
+    , lg_focus_tw_scale_x_105
+    , lg_focus_tw_scale_x_110
+    , lg_focus_tw_scale_x_125
+    , lg_focus_tw_scale_x_150
+    , lg_focus_tw_scale_y_0
+    , lg_focus_tw_scale_y_50
+    , lg_focus_tw_scale_y_75
+    , lg_focus_tw_scale_y_90
+    , lg_focus_tw_scale_y_95
+    , lg_focus_tw_scale_y_100
+    , lg_focus_tw_scale_y_105
+    , lg_focus_tw_scale_y_110
+    , lg_focus_tw_scale_y_125
+    , lg_focus_tw_scale_y_150
+    , lg_tw_rotate_0
+    , lg_tw_rotate_45
+    , lg_tw_rotate_90
+    , lg_tw_rotate_180
+    , lg_tw_neg_rotate_180
+    , lg_tw_neg_rotate_90
+    , lg_tw_neg_rotate_45
+    , lg_hover_tw_rotate_0
+    , lg_hover_tw_rotate_45
+    , lg_hover_tw_rotate_90
+    , lg_hover_tw_rotate_180
+    , lg_hover_tw_neg_rotate_180
+    , lg_hover_tw_neg_rotate_90
+    , lg_hover_tw_neg_rotate_45
+    , lg_focus_tw_rotate_0
+    , lg_focus_tw_rotate_45
+    , lg_focus_tw_rotate_90
+    , lg_focus_tw_rotate_180
+    , lg_focus_tw_neg_rotate_180
+    , lg_focus_tw_neg_rotate_90
+    , lg_focus_tw_neg_rotate_45
+    , lg_tw_translate_x_0
+    , lg_tw_translate_x_1
+    , lg_tw_translate_x_2
+    , lg_tw_translate_x_3
+    , lg_tw_translate_x_4
+    , lg_tw_translate_x_5
+    , lg_tw_translate_x_6
+    , lg_tw_translate_x_8
+    , lg_tw_translate_x_10
+    , lg_tw_translate_x_12
+    , lg_tw_translate_x_16
+    , lg_tw_translate_x_20
+    , lg_tw_translate_x_24
+    , lg_tw_translate_x_32
+    , lg_tw_translate_x_40
+    , lg_tw_translate_x_48
+    , lg_tw_translate_x_56
+    , lg_tw_translate_x_64
+    , lg_tw_translate_x_px
+    , lg_tw_neg_translate_x_1
+    , lg_tw_neg_translate_x_2
+    , lg_tw_neg_translate_x_3
+    , lg_tw_neg_translate_x_4
+    , lg_tw_neg_translate_x_5
+    , lg_tw_neg_translate_x_6
+    , lg_tw_neg_translate_x_8
+    , lg_tw_neg_translate_x_10
+    , lg_tw_neg_translate_x_12
+    , lg_tw_neg_translate_x_16
+    , lg_tw_neg_translate_x_20
+    , lg_tw_neg_translate_x_24
+    , lg_tw_neg_translate_x_32
+    , lg_tw_neg_translate_x_40
+    , lg_tw_neg_translate_x_48
+    , lg_tw_neg_translate_x_56
+    , lg_tw_neg_translate_x_64
+    , lg_tw_neg_translate_x_px
+    , lg_tw_neg_translate_x_full
+    , lg_tw_neg_translate_x_1over2
+    , lg_tw_translate_x_1over2
+    , lg_tw_translate_x_full
+    , lg_tw_translate_y_0
+    , lg_tw_translate_y_1
+    , lg_tw_translate_y_2
+    , lg_tw_translate_y_3
+    , lg_tw_translate_y_4
+    , lg_tw_translate_y_5
+    , lg_tw_translate_y_6
+    , lg_tw_translate_y_8
+    , lg_tw_translate_y_10
+    , lg_tw_translate_y_12
+    , lg_tw_translate_y_16
+    , lg_tw_translate_y_20
+    , lg_tw_translate_y_24
+    , lg_tw_translate_y_32
+    , lg_tw_translate_y_40
+    , lg_tw_translate_y_48
+    , lg_tw_translate_y_56
+    , lg_tw_translate_y_64
+    , lg_tw_translate_y_px
+    , lg_tw_neg_translate_y_1
+    , lg_tw_neg_translate_y_2
+    , lg_tw_neg_translate_y_3
+    , lg_tw_neg_translate_y_4
+    , lg_tw_neg_translate_y_5
+    , lg_tw_neg_translate_y_6
+    , lg_tw_neg_translate_y_8
+    , lg_tw_neg_translate_y_10
+    , lg_tw_neg_translate_y_12
+    , lg_tw_neg_translate_y_16
+    , lg_tw_neg_translate_y_20
+    , lg_tw_neg_translate_y_24
+    , lg_tw_neg_translate_y_32
+    , lg_tw_neg_translate_y_40
+    , lg_tw_neg_translate_y_48
+    , lg_tw_neg_translate_y_56
+    , lg_tw_neg_translate_y_64
+    , lg_tw_neg_translate_y_px
+    , lg_tw_neg_translate_y_full
+    , lg_tw_neg_translate_y_1over2
+    , lg_tw_translate_y_1over2
+    , lg_tw_translate_y_full
+    , lg_hover_tw_translate_x_0
+    , lg_hover_tw_translate_x_1
+    , lg_hover_tw_translate_x_2
+    , lg_hover_tw_translate_x_3
+    , lg_hover_tw_translate_x_4
+    , lg_hover_tw_translate_x_5
+    , lg_hover_tw_translate_x_6
+    , lg_hover_tw_translate_x_8
+    , lg_hover_tw_translate_x_10
+    , lg_hover_tw_translate_x_12
+    , lg_hover_tw_translate_x_16
+    , lg_hover_tw_translate_x_20
+    , lg_hover_tw_translate_x_24
+    , lg_hover_tw_translate_x_32
+    , lg_hover_tw_translate_x_40
+    , lg_hover_tw_translate_x_48
+    , lg_hover_tw_translate_x_56
+    , lg_hover_tw_translate_x_64
+    , lg_hover_tw_translate_x_px
+    , lg_hover_tw_neg_translate_x_1
+    , lg_hover_tw_neg_translate_x_2
+    , lg_hover_tw_neg_translate_x_3
+    , lg_hover_tw_neg_translate_x_4
+    , lg_hover_tw_neg_translate_x_5
+    , lg_hover_tw_neg_translate_x_6
+    , lg_hover_tw_neg_translate_x_8
+    , lg_hover_tw_neg_translate_x_10
+    , lg_hover_tw_neg_translate_x_12
+    , lg_hover_tw_neg_translate_x_16
+    , lg_hover_tw_neg_translate_x_20
+    , lg_hover_tw_neg_translate_x_24
+    , lg_hover_tw_neg_translate_x_32
+    , lg_hover_tw_neg_translate_x_40
+    , lg_hover_tw_neg_translate_x_48
+    , lg_hover_tw_neg_translate_x_56
+    , lg_hover_tw_neg_translate_x_64
+    , lg_hover_tw_neg_translate_x_px
+    , lg_hover_tw_neg_translate_x_full
+    , lg_hover_tw_neg_translate_x_1over2
+    , lg_hover_tw_translate_x_1over2
+    , lg_hover_tw_translate_x_full
+    , lg_hover_tw_translate_y_0
+    , lg_hover_tw_translate_y_1
+    , lg_hover_tw_translate_y_2
+    , lg_hover_tw_translate_y_3
+    , lg_hover_tw_translate_y_4
+    , lg_hover_tw_translate_y_5
+    , lg_hover_tw_translate_y_6
+    , lg_hover_tw_translate_y_8
+    , lg_hover_tw_translate_y_10
+    , lg_hover_tw_translate_y_12
+    , lg_hover_tw_translate_y_16
+    , lg_hover_tw_translate_y_20
+    , lg_hover_tw_translate_y_24
+    , lg_hover_tw_translate_y_32
+    , lg_hover_tw_translate_y_40
+    , lg_hover_tw_translate_y_48
+    , lg_hover_tw_translate_y_56
+    , lg_hover_tw_translate_y_64
+    , lg_hover_tw_translate_y_px
+    , lg_hover_tw_neg_translate_y_1
+    , lg_hover_tw_neg_translate_y_2
+    , lg_hover_tw_neg_translate_y_3
+    , lg_hover_tw_neg_translate_y_4
+    , lg_hover_tw_neg_translate_y_5
+    , lg_hover_tw_neg_translate_y_6
+    , lg_hover_tw_neg_translate_y_8
+    , lg_hover_tw_neg_translate_y_10
+    , lg_hover_tw_neg_translate_y_12
+    , lg_hover_tw_neg_translate_y_16
+    , lg_hover_tw_neg_translate_y_20
+    , lg_hover_tw_neg_translate_y_24
+    , lg_hover_tw_neg_translate_y_32
+    , lg_hover_tw_neg_translate_y_40
+    , lg_hover_tw_neg_translate_y_48
+    , lg_hover_tw_neg_translate_y_56
+    , lg_hover_tw_neg_translate_y_64
+    , lg_hover_tw_neg_translate_y_px
+    , lg_hover_tw_neg_translate_y_full
+    , lg_hover_tw_neg_translate_y_1over2
+    , lg_hover_tw_translate_y_1over2
+    , lg_hover_tw_translate_y_full
+    , lg_focus_tw_translate_x_0
+    , lg_focus_tw_translate_x_1
+    , lg_focus_tw_translate_x_2
+    , lg_focus_tw_translate_x_3
+    , lg_focus_tw_translate_x_4
+    , lg_focus_tw_translate_x_5
+    , lg_focus_tw_translate_x_6
+    , lg_focus_tw_translate_x_8
+    , lg_focus_tw_translate_x_10
+    , lg_focus_tw_translate_x_12
+    , lg_focus_tw_translate_x_16
+    , lg_focus_tw_translate_x_20
+    , lg_focus_tw_translate_x_24
+    , lg_focus_tw_translate_x_32
+    , lg_focus_tw_translate_x_40
+    , lg_focus_tw_translate_x_48
+    , lg_focus_tw_translate_x_56
+    , lg_focus_tw_translate_x_64
+    , lg_focus_tw_translate_x_px
+    , lg_focus_tw_neg_translate_x_1
+    , lg_focus_tw_neg_translate_x_2
+    , lg_focus_tw_neg_translate_x_3
+    , lg_focus_tw_neg_translate_x_4
+    , lg_focus_tw_neg_translate_x_5
+    , lg_focus_tw_neg_translate_x_6
+    , lg_focus_tw_neg_translate_x_8
+    , lg_focus_tw_neg_translate_x_10
+    , lg_focus_tw_neg_translate_x_12
+    , lg_focus_tw_neg_translate_x_16
+    , lg_focus_tw_neg_translate_x_20
+    , lg_focus_tw_neg_translate_x_24
+    , lg_focus_tw_neg_translate_x_32
+    , lg_focus_tw_neg_translate_x_40
+    , lg_focus_tw_neg_translate_x_48
+    , lg_focus_tw_neg_translate_x_56
+    , lg_focus_tw_neg_translate_x_64
+    , lg_focus_tw_neg_translate_x_px
+    , lg_focus_tw_neg_translate_x_full
+    , lg_focus_tw_neg_translate_x_1over2
+    , lg_focus_tw_translate_x_1over2
+    , lg_focus_tw_translate_x_full
+    , lg_focus_tw_translate_y_0
+    , lg_focus_tw_translate_y_1
+    , lg_focus_tw_translate_y_2
+    , lg_focus_tw_translate_y_3
+    , lg_focus_tw_translate_y_4
+    , lg_focus_tw_translate_y_5
+    , lg_focus_tw_translate_y_6
+    , lg_focus_tw_translate_y_8
+    , lg_focus_tw_translate_y_10
+    , lg_focus_tw_translate_y_12
+    , lg_focus_tw_translate_y_16
+    , lg_focus_tw_translate_y_20
+    , lg_focus_tw_translate_y_24
+    , lg_focus_tw_translate_y_32
+    , lg_focus_tw_translate_y_40
+    , lg_focus_tw_translate_y_48
+    , lg_focus_tw_translate_y_56
+    , lg_focus_tw_translate_y_64
+    , lg_focus_tw_translate_y_px
+    , lg_focus_tw_neg_translate_y_1
+    , lg_focus_tw_neg_translate_y_2
+    , lg_focus_tw_neg_translate_y_3
+    , lg_focus_tw_neg_translate_y_4
+    , lg_focus_tw_neg_translate_y_5
+    , lg_focus_tw_neg_translate_y_6
+    , lg_focus_tw_neg_translate_y_8
+    , lg_focus_tw_neg_translate_y_10
+    , lg_focus_tw_neg_translate_y_12
+    , lg_focus_tw_neg_translate_y_16
+    , lg_focus_tw_neg_translate_y_20
+    , lg_focus_tw_neg_translate_y_24
+    , lg_focus_tw_neg_translate_y_32
+    , lg_focus_tw_neg_translate_y_40
+    , lg_focus_tw_neg_translate_y_48
+    , lg_focus_tw_neg_translate_y_56
+    , lg_focus_tw_neg_translate_y_64
+    , lg_focus_tw_neg_translate_y_px
+    , lg_focus_tw_neg_translate_y_full
+    , lg_focus_tw_neg_translate_y_1over2
+    , lg_focus_tw_translate_y_1over2
+    , lg_focus_tw_translate_y_full
+    , lg_tw_skew_x_0
+    , lg_tw_skew_x_3
+    , lg_tw_skew_x_6
+    , lg_tw_skew_x_12
+    , lg_tw_neg_skew_x_12
+    , lg_tw_neg_skew_x_6
+    , lg_tw_neg_skew_x_3
+    , lg_tw_skew_y_0
+    , lg_tw_skew_y_3
+    , lg_tw_skew_y_6
+    , lg_tw_skew_y_12
+    , lg_tw_neg_skew_y_12
+    , lg_tw_neg_skew_y_6
+    , lg_tw_neg_skew_y_3
+    , lg_hover_tw_skew_x_0
+    , lg_hover_tw_skew_x_3
+    , lg_hover_tw_skew_x_6
+    , lg_hover_tw_skew_x_12
+    , lg_hover_tw_neg_skew_x_12
+    , lg_hover_tw_neg_skew_x_6
+    , lg_hover_tw_neg_skew_x_3
+    , lg_hover_tw_skew_y_0
+    , lg_hover_tw_skew_y_3
+    , lg_hover_tw_skew_y_6
+    , lg_hover_tw_skew_y_12
+    , lg_hover_tw_neg_skew_y_12
+    , lg_hover_tw_neg_skew_y_6
+    , lg_hover_tw_neg_skew_y_3
+    , lg_focus_tw_skew_x_0
+    , lg_focus_tw_skew_x_3
+    , lg_focus_tw_skew_x_6
+    , lg_focus_tw_skew_x_12
+    , lg_focus_tw_neg_skew_x_12
+    , lg_focus_tw_neg_skew_x_6
+    , lg_focus_tw_neg_skew_x_3
+    , lg_focus_tw_skew_y_0
+    , lg_focus_tw_skew_y_3
+    , lg_focus_tw_skew_y_6
+    , lg_focus_tw_skew_y_12
+    , lg_focus_tw_neg_skew_y_12
+    , lg_focus_tw_neg_skew_y_6
+    , lg_focus_tw_neg_skew_y_3
+    , lg_tw_transition_none
+    , lg_tw_transition_all
+    , lg_tw_transition
+    , lg_tw_transition_colors
+    , lg_tw_transition_opacity
+    , lg_tw_transition_shadow
+    , lg_tw_transition_transform
+    , lg_tw_ease_linear
+    , lg_tw_ease_in
+    , lg_tw_ease_out
+    , lg_tw_ease_in_out
+    , lg_tw_duration_75
+    , lg_tw_duration_100
+    , lg_tw_duration_150
+    , lg_tw_duration_200
+    , lg_tw_duration_300
+    , lg_tw_duration_500
+    , lg_tw_duration_700
+    , lg_tw_duration_1000
     , xl_tw_sr_only
     , xl_tw_not_sr_only
     , xl_focus_tw_sr_only
@@ -8148,6 +10620,7 @@ module TLWND exposing
     , xl_tw_rounded_none
     , xl_tw_rounded_sm
     , xl_tw_rounded
+    , xl_tw_rounded_md
     , xl_tw_rounded_lg
     , xl_tw_rounded_full
     , xl_tw_rounded_t_none
@@ -8162,6 +10635,10 @@ module TLWND exposing
     , xl_tw_rounded_r
     , xl_tw_rounded_b
     , xl_tw_rounded_l
+    , xl_tw_rounded_t_md
+    , xl_tw_rounded_r_md
+    , xl_tw_rounded_b_md
+    , xl_tw_rounded_l_md
     , xl_tw_rounded_t_lg
     , xl_tw_rounded_r_lg
     , xl_tw_rounded_b_lg
@@ -8182,6 +10659,10 @@ module TLWND exposing
     , xl_tw_rounded_tr
     , xl_tw_rounded_br
     , xl_tw_rounded_bl
+    , xl_tw_rounded_tl_md
+    , xl_tw_rounded_tr_md
+    , xl_tw_rounded_br_md
+    , xl_tw_rounded_bl_md
     , xl_tw_rounded_tl_lg
     , xl_tw_rounded_tr_lg
     , xl_tw_rounded_br_lg
@@ -8220,6 +10701,8 @@ module TLWND exposing
     , xl_tw_border_r
     , xl_tw_border_b
     , xl_tw_border_l
+    , xl_tw_box_border
+    , xl_tw_box_content
     , xl_tw_cursor_auto
     , xl_tw_cursor_default
     , xl_tw_cursor_pointer
@@ -8232,9 +10715,16 @@ module TLWND exposing
     , xl_tw_inline
     , xl_tw_flex
     , xl_tw_inline_flex
+    , xl_tw_grid
     , xl_tw_table
-    , xl_tw_table_row
+    , xl_tw_table_caption
     , xl_tw_table_cell
+    , xl_tw_table_column
+    , xl_tw_table_column_group
+    , xl_tw_table_footer_group
+    , xl_tw_table_header_group
+    , xl_tw_table_row_group
+    , xl_tw_table_row
     , xl_tw_hidden
     , xl_tw_flex_row
     , xl_tw_flex_row_reverse
@@ -8258,6 +10748,7 @@ module TLWND exposing
     , xl_tw_justify_center
     , xl_tw_justify_between
     , xl_tw_justify_around
+    , xl_tw_justify_evenly
     , xl_tw_content_center
     , xl_tw_content_start
     , xl_tw_content_end
@@ -8290,6 +10781,9 @@ module TLWND exposing
     , xl_tw_float_left
     , xl_tw_float_none
     , xl_tw_clearfix_after
+    , xl_tw_clear_left
+    , xl_tw_clear_right
+    , xl_tw_clear_both
     , xl_tw_font_sans
     , xl_tw_font_serif
     , xl_tw_font_mono
@@ -8342,6 +10836,14 @@ module TLWND exposing
     , xl_tw_h_px
     , xl_tw_h_full
     , xl_tw_h_screen
+    , xl_tw_leading_3
+    , xl_tw_leading_4
+    , xl_tw_leading_5
+    , xl_tw_leading_6
+    , xl_tw_leading_7
+    , xl_tw_leading_8
+    , xl_tw_leading_9
+    , xl_tw_leading_10
     , xl_tw_leading_none
     , xl_tw_leading_tight
     , xl_tw_leading_snug
@@ -8621,6 +11123,7 @@ module TLWND exposing
     , xl_tw_neg_ml_px
     , xl_tw_max_h_full
     , xl_tw_max_h_screen
+    , xl_tw_max_w_none
     , xl_tw_max_w_xs
     , xl_tw_max_w_sm
     , xl_tw_max_w_md
@@ -8632,6 +11135,10 @@ module TLWND exposing
     , xl_tw_max_w_5xl
     , xl_tw_max_w_6xl
     , xl_tw_max_w_full
+    , xl_tw_max_w_screen_sm
+    , xl_tw_max_w_screen_md
+    , xl_tw_max_w_screen_lg
+    , xl_tw_max_w_screen_xl
     , xl_tw_min_h_0
     , xl_tw_min_h_full
     , xl_tw_min_h_screen
@@ -9026,6 +11533,8 @@ module TLWND exposing
     , xl_tw_resize_y
     , xl_tw_resize_x
     , xl_tw_resize
+    , xl_tw_shadow_xs
+    , xl_tw_shadow_sm
     , xl_tw_shadow
     , xl_tw_shadow_md
     , xl_tw_shadow_lg
@@ -9034,6 +11543,8 @@ module TLWND exposing
     , xl_tw_shadow_inner
     , xl_tw_shadow_outline
     , xl_tw_shadow_none
+    , xl_hover_tw_shadow_xs
+    , xl_hover_tw_shadow_sm
     , xl_hover_tw_shadow
     , xl_hover_tw_shadow_md
     , xl_hover_tw_shadow_lg
@@ -9042,6 +11553,8 @@ module TLWND exposing
     , xl_hover_tw_shadow_inner
     , xl_hover_tw_shadow_outline
     , xl_hover_tw_shadow_none
+    , xl_focus_tw_shadow_xs
+    , xl_focus_tw_shadow_sm
     , xl_focus_tw_shadow
     , xl_focus_tw_shadow_md
     , xl_focus_tw_shadow_lg
@@ -9052,6 +11565,9 @@ module TLWND exposing
     , xl_focus_tw_shadow_none
     , xl_tw_fill_current
     , xl_tw_stroke_current
+    , xl_tw_stroke_0
+    , xl_tw_stroke_1
+    , xl_tw_stroke_2
     , xl_tw_table_auto
     , xl_tw_table_fixed
     , xl_tw_text_left
@@ -9446,6 +11962,580 @@ module TLWND exposing
     , xl_tw_z_40
     , xl_tw_z_50
     , xl_tw_z_auto
+    , xl_tw_gap_0
+    , xl_tw_gap_1
+    , xl_tw_gap_2
+    , xl_tw_gap_3
+    , xl_tw_gap_4
+    , xl_tw_gap_5
+    , xl_tw_gap_6
+    , xl_tw_gap_8
+    , xl_tw_gap_10
+    , xl_tw_gap_12
+    , xl_tw_gap_16
+    , xl_tw_gap_20
+    , xl_tw_gap_24
+    , xl_tw_gap_32
+    , xl_tw_gap_40
+    , xl_tw_gap_48
+    , xl_tw_gap_56
+    , xl_tw_gap_64
+    , xl_tw_gap_px
+    , xl_tw_col_gap_0
+    , xl_tw_col_gap_1
+    , xl_tw_col_gap_2
+    , xl_tw_col_gap_3
+    , xl_tw_col_gap_4
+    , xl_tw_col_gap_5
+    , xl_tw_col_gap_6
+    , xl_tw_col_gap_8
+    , xl_tw_col_gap_10
+    , xl_tw_col_gap_12
+    , xl_tw_col_gap_16
+    , xl_tw_col_gap_20
+    , xl_tw_col_gap_24
+    , xl_tw_col_gap_32
+    , xl_tw_col_gap_40
+    , xl_tw_col_gap_48
+    , xl_tw_col_gap_56
+    , xl_tw_col_gap_64
+    , xl_tw_col_gap_px
+    , xl_tw_row_gap_0
+    , xl_tw_row_gap_1
+    , xl_tw_row_gap_2
+    , xl_tw_row_gap_3
+    , xl_tw_row_gap_4
+    , xl_tw_row_gap_5
+    , xl_tw_row_gap_6
+    , xl_tw_row_gap_8
+    , xl_tw_row_gap_10
+    , xl_tw_row_gap_12
+    , xl_tw_row_gap_16
+    , xl_tw_row_gap_20
+    , xl_tw_row_gap_24
+    , xl_tw_row_gap_32
+    , xl_tw_row_gap_40
+    , xl_tw_row_gap_48
+    , xl_tw_row_gap_56
+    , xl_tw_row_gap_64
+    , xl_tw_row_gap_px
+    , xl_tw_grid_flow_row
+    , xl_tw_grid_flow_col
+    , xl_tw_grid_flow_row_dense
+    , xl_tw_grid_flow_col_dense
+    , xl_tw_grid_cols_1
+    , xl_tw_grid_cols_2
+    , xl_tw_grid_cols_3
+    , xl_tw_grid_cols_4
+    , xl_tw_grid_cols_5
+    , xl_tw_grid_cols_6
+    , xl_tw_grid_cols_7
+    , xl_tw_grid_cols_8
+    , xl_tw_grid_cols_9
+    , xl_tw_grid_cols_10
+    , xl_tw_grid_cols_11
+    , xl_tw_grid_cols_12
+    , xl_tw_grid_cols_none
+    , xl_tw_col_auto
+    , xl_tw_col_span_1
+    , xl_tw_col_span_2
+    , xl_tw_col_span_3
+    , xl_tw_col_span_4
+    , xl_tw_col_span_5
+    , xl_tw_col_span_6
+    , xl_tw_col_span_7
+    , xl_tw_col_span_8
+    , xl_tw_col_span_9
+    , xl_tw_col_span_10
+    , xl_tw_col_span_11
+    , xl_tw_col_span_12
+    , xl_tw_col_start_1
+    , xl_tw_col_start_2
+    , xl_tw_col_start_3
+    , xl_tw_col_start_4
+    , xl_tw_col_start_5
+    , xl_tw_col_start_6
+    , xl_tw_col_start_7
+    , xl_tw_col_start_8
+    , xl_tw_col_start_9
+    , xl_tw_col_start_10
+    , xl_tw_col_start_11
+    , xl_tw_col_start_12
+    , xl_tw_col_start_13
+    , xl_tw_col_start_auto
+    , xl_tw_col_end_1
+    , xl_tw_col_end_2
+    , xl_tw_col_end_3
+    , xl_tw_col_end_4
+    , xl_tw_col_end_5
+    , xl_tw_col_end_6
+    , xl_tw_col_end_7
+    , xl_tw_col_end_8
+    , xl_tw_col_end_9
+    , xl_tw_col_end_10
+    , xl_tw_col_end_11
+    , xl_tw_col_end_12
+    , xl_tw_col_end_13
+    , xl_tw_col_end_auto
+    , xl_tw_grid_rows_1
+    , xl_tw_grid_rows_2
+    , xl_tw_grid_rows_3
+    , xl_tw_grid_rows_4
+    , xl_tw_grid_rows_5
+    , xl_tw_grid_rows_6
+    , xl_tw_grid_rows_none
+    , xl_tw_row_auto
+    , xl_tw_row_span_1
+    , xl_tw_row_span_2
+    , xl_tw_row_span_3
+    , xl_tw_row_span_4
+    , xl_tw_row_span_5
+    , xl_tw_row_span_6
+    , xl_tw_row_start_1
+    , xl_tw_row_start_2
+    , xl_tw_row_start_3
+    , xl_tw_row_start_4
+    , xl_tw_row_start_5
+    , xl_tw_row_start_6
+    , xl_tw_row_start_7
+    , xl_tw_row_start_auto
+    , xl_tw_row_end_1
+    , xl_tw_row_end_2
+    , xl_tw_row_end_3
+    , xl_tw_row_end_4
+    , xl_tw_row_end_5
+    , xl_tw_row_end_6
+    , xl_tw_row_end_7
+    , xl_tw_row_end_auto
+    , xl_tw_transform
+    , xl_tw_transform_none
+    , xl_tw_origin_center
+    , xl_tw_origin_top
+    , xl_tw_origin_top_right
+    , xl_tw_origin_right
+    , xl_tw_origin_bottom_right
+    , xl_tw_origin_bottom
+    , xl_tw_origin_bottom_left
+    , xl_tw_origin_left
+    , xl_tw_origin_top_left
+    , xl_tw_scale_0
+    , xl_tw_scale_50
+    , xl_tw_scale_75
+    , xl_tw_scale_90
+    , xl_tw_scale_95
+    , xl_tw_scale_100
+    , xl_tw_scale_105
+    , xl_tw_scale_110
+    , xl_tw_scale_125
+    , xl_tw_scale_150
+    , xl_tw_scale_x_0
+    , xl_tw_scale_x_50
+    , xl_tw_scale_x_75
+    , xl_tw_scale_x_90
+    , xl_tw_scale_x_95
+    , xl_tw_scale_x_100
+    , xl_tw_scale_x_105
+    , xl_tw_scale_x_110
+    , xl_tw_scale_x_125
+    , xl_tw_scale_x_150
+    , xl_tw_scale_y_0
+    , xl_tw_scale_y_50
+    , xl_tw_scale_y_75
+    , xl_tw_scale_y_90
+    , xl_tw_scale_y_95
+    , xl_tw_scale_y_100
+    , xl_tw_scale_y_105
+    , xl_tw_scale_y_110
+    , xl_tw_scale_y_125
+    , xl_tw_scale_y_150
+    , xl_hover_tw_scale_0
+    , xl_hover_tw_scale_50
+    , xl_hover_tw_scale_75
+    , xl_hover_tw_scale_90
+    , xl_hover_tw_scale_95
+    , xl_hover_tw_scale_100
+    , xl_hover_tw_scale_105
+    , xl_hover_tw_scale_110
+    , xl_hover_tw_scale_125
+    , xl_hover_tw_scale_150
+    , xl_hover_tw_scale_x_0
+    , xl_hover_tw_scale_x_50
+    , xl_hover_tw_scale_x_75
+    , xl_hover_tw_scale_x_90
+    , xl_hover_tw_scale_x_95
+    , xl_hover_tw_scale_x_100
+    , xl_hover_tw_scale_x_105
+    , xl_hover_tw_scale_x_110
+    , xl_hover_tw_scale_x_125
+    , xl_hover_tw_scale_x_150
+    , xl_hover_tw_scale_y_0
+    , xl_hover_tw_scale_y_50
+    , xl_hover_tw_scale_y_75
+    , xl_hover_tw_scale_y_90
+    , xl_hover_tw_scale_y_95
+    , xl_hover_tw_scale_y_100
+    , xl_hover_tw_scale_y_105
+    , xl_hover_tw_scale_y_110
+    , xl_hover_tw_scale_y_125
+    , xl_hover_tw_scale_y_150
+    , xl_focus_tw_scale_0
+    , xl_focus_tw_scale_50
+    , xl_focus_tw_scale_75
+    , xl_focus_tw_scale_90
+    , xl_focus_tw_scale_95
+    , xl_focus_tw_scale_100
+    , xl_focus_tw_scale_105
+    , xl_focus_tw_scale_110
+    , xl_focus_tw_scale_125
+    , xl_focus_tw_scale_150
+    , xl_focus_tw_scale_x_0
+    , xl_focus_tw_scale_x_50
+    , xl_focus_tw_scale_x_75
+    , xl_focus_tw_scale_x_90
+    , xl_focus_tw_scale_x_95
+    , xl_focus_tw_scale_x_100
+    , xl_focus_tw_scale_x_105
+    , xl_focus_tw_scale_x_110
+    , xl_focus_tw_scale_x_125
+    , xl_focus_tw_scale_x_150
+    , xl_focus_tw_scale_y_0
+    , xl_focus_tw_scale_y_50
+    , xl_focus_tw_scale_y_75
+    , xl_focus_tw_scale_y_90
+    , xl_focus_tw_scale_y_95
+    , xl_focus_tw_scale_y_100
+    , xl_focus_tw_scale_y_105
+    , xl_focus_tw_scale_y_110
+    , xl_focus_tw_scale_y_125
+    , xl_focus_tw_scale_y_150
+    , xl_tw_rotate_0
+    , xl_tw_rotate_45
+    , xl_tw_rotate_90
+    , xl_tw_rotate_180
+    , xl_tw_neg_rotate_180
+    , xl_tw_neg_rotate_90
+    , xl_tw_neg_rotate_45
+    , xl_hover_tw_rotate_0
+    , xl_hover_tw_rotate_45
+    , xl_hover_tw_rotate_90
+    , xl_hover_tw_rotate_180
+    , xl_hover_tw_neg_rotate_180
+    , xl_hover_tw_neg_rotate_90
+    , xl_hover_tw_neg_rotate_45
+    , xl_focus_tw_rotate_0
+    , xl_focus_tw_rotate_45
+    , xl_focus_tw_rotate_90
+    , xl_focus_tw_rotate_180
+    , xl_focus_tw_neg_rotate_180
+    , xl_focus_tw_neg_rotate_90
+    , xl_focus_tw_neg_rotate_45
+    , xl_tw_translate_x_0
+    , xl_tw_translate_x_1
+    , xl_tw_translate_x_2
+    , xl_tw_translate_x_3
+    , xl_tw_translate_x_4
+    , xl_tw_translate_x_5
+    , xl_tw_translate_x_6
+    , xl_tw_translate_x_8
+    , xl_tw_translate_x_10
+    , xl_tw_translate_x_12
+    , xl_tw_translate_x_16
+    , xl_tw_translate_x_20
+    , xl_tw_translate_x_24
+    , xl_tw_translate_x_32
+    , xl_tw_translate_x_40
+    , xl_tw_translate_x_48
+    , xl_tw_translate_x_56
+    , xl_tw_translate_x_64
+    , xl_tw_translate_x_px
+    , xl_tw_neg_translate_x_1
+    , xl_tw_neg_translate_x_2
+    , xl_tw_neg_translate_x_3
+    , xl_tw_neg_translate_x_4
+    , xl_tw_neg_translate_x_5
+    , xl_tw_neg_translate_x_6
+    , xl_tw_neg_translate_x_8
+    , xl_tw_neg_translate_x_10
+    , xl_tw_neg_translate_x_12
+    , xl_tw_neg_translate_x_16
+    , xl_tw_neg_translate_x_20
+    , xl_tw_neg_translate_x_24
+    , xl_tw_neg_translate_x_32
+    , xl_tw_neg_translate_x_40
+    , xl_tw_neg_translate_x_48
+    , xl_tw_neg_translate_x_56
+    , xl_tw_neg_translate_x_64
+    , xl_tw_neg_translate_x_px
+    , xl_tw_neg_translate_x_full
+    , xl_tw_neg_translate_x_1over2
+    , xl_tw_translate_x_1over2
+    , xl_tw_translate_x_full
+    , xl_tw_translate_y_0
+    , xl_tw_translate_y_1
+    , xl_tw_translate_y_2
+    , xl_tw_translate_y_3
+    , xl_tw_translate_y_4
+    , xl_tw_translate_y_5
+    , xl_tw_translate_y_6
+    , xl_tw_translate_y_8
+    , xl_tw_translate_y_10
+    , xl_tw_translate_y_12
+    , xl_tw_translate_y_16
+    , xl_tw_translate_y_20
+    , xl_tw_translate_y_24
+    , xl_tw_translate_y_32
+    , xl_tw_translate_y_40
+    , xl_tw_translate_y_48
+    , xl_tw_translate_y_56
+    , xl_tw_translate_y_64
+    , xl_tw_translate_y_px
+    , xl_tw_neg_translate_y_1
+    , xl_tw_neg_translate_y_2
+    , xl_tw_neg_translate_y_3
+    , xl_tw_neg_translate_y_4
+    , xl_tw_neg_translate_y_5
+    , xl_tw_neg_translate_y_6
+    , xl_tw_neg_translate_y_8
+    , xl_tw_neg_translate_y_10
+    , xl_tw_neg_translate_y_12
+    , xl_tw_neg_translate_y_16
+    , xl_tw_neg_translate_y_20
+    , xl_tw_neg_translate_y_24
+    , xl_tw_neg_translate_y_32
+    , xl_tw_neg_translate_y_40
+    , xl_tw_neg_translate_y_48
+    , xl_tw_neg_translate_y_56
+    , xl_tw_neg_translate_y_64
+    , xl_tw_neg_translate_y_px
+    , xl_tw_neg_translate_y_full
+    , xl_tw_neg_translate_y_1over2
+    , xl_tw_translate_y_1over2
+    , xl_tw_translate_y_full
+    , xl_hover_tw_translate_x_0
+    , xl_hover_tw_translate_x_1
+    , xl_hover_tw_translate_x_2
+    , xl_hover_tw_translate_x_3
+    , xl_hover_tw_translate_x_4
+    , xl_hover_tw_translate_x_5
+    , xl_hover_tw_translate_x_6
+    , xl_hover_tw_translate_x_8
+    , xl_hover_tw_translate_x_10
+    , xl_hover_tw_translate_x_12
+    , xl_hover_tw_translate_x_16
+    , xl_hover_tw_translate_x_20
+    , xl_hover_tw_translate_x_24
+    , xl_hover_tw_translate_x_32
+    , xl_hover_tw_translate_x_40
+    , xl_hover_tw_translate_x_48
+    , xl_hover_tw_translate_x_56
+    , xl_hover_tw_translate_x_64
+    , xl_hover_tw_translate_x_px
+    , xl_hover_tw_neg_translate_x_1
+    , xl_hover_tw_neg_translate_x_2
+    , xl_hover_tw_neg_translate_x_3
+    , xl_hover_tw_neg_translate_x_4
+    , xl_hover_tw_neg_translate_x_5
+    , xl_hover_tw_neg_translate_x_6
+    , xl_hover_tw_neg_translate_x_8
+    , xl_hover_tw_neg_translate_x_10
+    , xl_hover_tw_neg_translate_x_12
+    , xl_hover_tw_neg_translate_x_16
+    , xl_hover_tw_neg_translate_x_20
+    , xl_hover_tw_neg_translate_x_24
+    , xl_hover_tw_neg_translate_x_32
+    , xl_hover_tw_neg_translate_x_40
+    , xl_hover_tw_neg_translate_x_48
+    , xl_hover_tw_neg_translate_x_56
+    , xl_hover_tw_neg_translate_x_64
+    , xl_hover_tw_neg_translate_x_px
+    , xl_hover_tw_neg_translate_x_full
+    , xl_hover_tw_neg_translate_x_1over2
+    , xl_hover_tw_translate_x_1over2
+    , xl_hover_tw_translate_x_full
+    , xl_hover_tw_translate_y_0
+    , xl_hover_tw_translate_y_1
+    , xl_hover_tw_translate_y_2
+    , xl_hover_tw_translate_y_3
+    , xl_hover_tw_translate_y_4
+    , xl_hover_tw_translate_y_5
+    , xl_hover_tw_translate_y_6
+    , xl_hover_tw_translate_y_8
+    , xl_hover_tw_translate_y_10
+    , xl_hover_tw_translate_y_12
+    , xl_hover_tw_translate_y_16
+    , xl_hover_tw_translate_y_20
+    , xl_hover_tw_translate_y_24
+    , xl_hover_tw_translate_y_32
+    , xl_hover_tw_translate_y_40
+    , xl_hover_tw_translate_y_48
+    , xl_hover_tw_translate_y_56
+    , xl_hover_tw_translate_y_64
+    , xl_hover_tw_translate_y_px
+    , xl_hover_tw_neg_translate_y_1
+    , xl_hover_tw_neg_translate_y_2
+    , xl_hover_tw_neg_translate_y_3
+    , xl_hover_tw_neg_translate_y_4
+    , xl_hover_tw_neg_translate_y_5
+    , xl_hover_tw_neg_translate_y_6
+    , xl_hover_tw_neg_translate_y_8
+    , xl_hover_tw_neg_translate_y_10
+    , xl_hover_tw_neg_translate_y_12
+    , xl_hover_tw_neg_translate_y_16
+    , xl_hover_tw_neg_translate_y_20
+    , xl_hover_tw_neg_translate_y_24
+    , xl_hover_tw_neg_translate_y_32
+    , xl_hover_tw_neg_translate_y_40
+    , xl_hover_tw_neg_translate_y_48
+    , xl_hover_tw_neg_translate_y_56
+    , xl_hover_tw_neg_translate_y_64
+    , xl_hover_tw_neg_translate_y_px
+    , xl_hover_tw_neg_translate_y_full
+    , xl_hover_tw_neg_translate_y_1over2
+    , xl_hover_tw_translate_y_1over2
+    , xl_hover_tw_translate_y_full
+    , xl_focus_tw_translate_x_0
+    , xl_focus_tw_translate_x_1
+    , xl_focus_tw_translate_x_2
+    , xl_focus_tw_translate_x_3
+    , xl_focus_tw_translate_x_4
+    , xl_focus_tw_translate_x_5
+    , xl_focus_tw_translate_x_6
+    , xl_focus_tw_translate_x_8
+    , xl_focus_tw_translate_x_10
+    , xl_focus_tw_translate_x_12
+    , xl_focus_tw_translate_x_16
+    , xl_focus_tw_translate_x_20
+    , xl_focus_tw_translate_x_24
+    , xl_focus_tw_translate_x_32
+    , xl_focus_tw_translate_x_40
+    , xl_focus_tw_translate_x_48
+    , xl_focus_tw_translate_x_56
+    , xl_focus_tw_translate_x_64
+    , xl_focus_tw_translate_x_px
+    , xl_focus_tw_neg_translate_x_1
+    , xl_focus_tw_neg_translate_x_2
+    , xl_focus_tw_neg_translate_x_3
+    , xl_focus_tw_neg_translate_x_4
+    , xl_focus_tw_neg_translate_x_5
+    , xl_focus_tw_neg_translate_x_6
+    , xl_focus_tw_neg_translate_x_8
+    , xl_focus_tw_neg_translate_x_10
+    , xl_focus_tw_neg_translate_x_12
+    , xl_focus_tw_neg_translate_x_16
+    , xl_focus_tw_neg_translate_x_20
+    , xl_focus_tw_neg_translate_x_24
+    , xl_focus_tw_neg_translate_x_32
+    , xl_focus_tw_neg_translate_x_40
+    , xl_focus_tw_neg_translate_x_48
+    , xl_focus_tw_neg_translate_x_56
+    , xl_focus_tw_neg_translate_x_64
+    , xl_focus_tw_neg_translate_x_px
+    , xl_focus_tw_neg_translate_x_full
+    , xl_focus_tw_neg_translate_x_1over2
+    , xl_focus_tw_translate_x_1over2
+    , xl_focus_tw_translate_x_full
+    , xl_focus_tw_translate_y_0
+    , xl_focus_tw_translate_y_1
+    , xl_focus_tw_translate_y_2
+    , xl_focus_tw_translate_y_3
+    , xl_focus_tw_translate_y_4
+    , xl_focus_tw_translate_y_5
+    , xl_focus_tw_translate_y_6
+    , xl_focus_tw_translate_y_8
+    , xl_focus_tw_translate_y_10
+    , xl_focus_tw_translate_y_12
+    , xl_focus_tw_translate_y_16
+    , xl_focus_tw_translate_y_20
+    , xl_focus_tw_translate_y_24
+    , xl_focus_tw_translate_y_32
+    , xl_focus_tw_translate_y_40
+    , xl_focus_tw_translate_y_48
+    , xl_focus_tw_translate_y_56
+    , xl_focus_tw_translate_y_64
+    , xl_focus_tw_translate_y_px
+    , xl_focus_tw_neg_translate_y_1
+    , xl_focus_tw_neg_translate_y_2
+    , xl_focus_tw_neg_translate_y_3
+    , xl_focus_tw_neg_translate_y_4
+    , xl_focus_tw_neg_translate_y_5
+    , xl_focus_tw_neg_translate_y_6
+    , xl_focus_tw_neg_translate_y_8
+    , xl_focus_tw_neg_translate_y_10
+    , xl_focus_tw_neg_translate_y_12
+    , xl_focus_tw_neg_translate_y_16
+    , xl_focus_tw_neg_translate_y_20
+    , xl_focus_tw_neg_translate_y_24
+    , xl_focus_tw_neg_translate_y_32
+    , xl_focus_tw_neg_translate_y_40
+    , xl_focus_tw_neg_translate_y_48
+    , xl_focus_tw_neg_translate_y_56
+    , xl_focus_tw_neg_translate_y_64
+    , xl_focus_tw_neg_translate_y_px
+    , xl_focus_tw_neg_translate_y_full
+    , xl_focus_tw_neg_translate_y_1over2
+    , xl_focus_tw_translate_y_1over2
+    , xl_focus_tw_translate_y_full
+    , xl_tw_skew_x_0
+    , xl_tw_skew_x_3
+    , xl_tw_skew_x_6
+    , xl_tw_skew_x_12
+    , xl_tw_neg_skew_x_12
+    , xl_tw_neg_skew_x_6
+    , xl_tw_neg_skew_x_3
+    , xl_tw_skew_y_0
+    , xl_tw_skew_y_3
+    , xl_tw_skew_y_6
+    , xl_tw_skew_y_12
+    , xl_tw_neg_skew_y_12
+    , xl_tw_neg_skew_y_6
+    , xl_tw_neg_skew_y_3
+    , xl_hover_tw_skew_x_0
+    , xl_hover_tw_skew_x_3
+    , xl_hover_tw_skew_x_6
+    , xl_hover_tw_skew_x_12
+    , xl_hover_tw_neg_skew_x_12
+    , xl_hover_tw_neg_skew_x_6
+    , xl_hover_tw_neg_skew_x_3
+    , xl_hover_tw_skew_y_0
+    , xl_hover_tw_skew_y_3
+    , xl_hover_tw_skew_y_6
+    , xl_hover_tw_skew_y_12
+    , xl_hover_tw_neg_skew_y_12
+    , xl_hover_tw_neg_skew_y_6
+    , xl_hover_tw_neg_skew_y_3
+    , xl_focus_tw_skew_x_0
+    , xl_focus_tw_skew_x_3
+    , xl_focus_tw_skew_x_6
+    , xl_focus_tw_skew_x_12
+    , xl_focus_tw_neg_skew_x_12
+    , xl_focus_tw_neg_skew_x_6
+    , xl_focus_tw_neg_skew_x_3
+    , xl_focus_tw_skew_y_0
+    , xl_focus_tw_skew_y_3
+    , xl_focus_tw_skew_y_6
+    , xl_focus_tw_skew_y_12
+    , xl_focus_tw_neg_skew_y_12
+    , xl_focus_tw_neg_skew_y_6
+    , xl_focus_tw_neg_skew_y_3
+    , xl_tw_transition_none
+    , xl_tw_transition_all
+    , xl_tw_transition
+    , xl_tw_transition_colors
+    , xl_tw_transition_opacity
+    , xl_tw_transition_shadow
+    , xl_tw_transition_transform
+    , xl_tw_ease_linear
+    , xl_tw_ease_in
+    , xl_tw_ease_out
+    , xl_tw_ease_in_out
+    , xl_tw_duration_75
+    , xl_tw_duration_100
+    , xl_tw_duration_150
+    , xl_tw_duration_200
+    , xl_tw_duration_300
+    , xl_tw_duration_500
+    , xl_tw_duration_700
+    , xl_tw_duration_1000
     , classList
     )
 
@@ -12463,6 +15553,11 @@ tw_rounded =
     A.class "tw-rounded"
 
 
+tw_rounded_md : Html.Attribute msg
+tw_rounded_md =
+    A.class "tw-rounded-md"
+
+
 tw_rounded_lg : Html.Attribute msg
 tw_rounded_lg =
     A.class "tw-rounded-lg"
@@ -12531,6 +15626,26 @@ tw_rounded_b =
 tw_rounded_l : Html.Attribute msg
 tw_rounded_l =
     A.class "tw-rounded-l"
+
+
+tw_rounded_t_md : Html.Attribute msg
+tw_rounded_t_md =
+    A.class "tw-rounded-t-md"
+
+
+tw_rounded_r_md : Html.Attribute msg
+tw_rounded_r_md =
+    A.class "tw-rounded-r-md"
+
+
+tw_rounded_b_md : Html.Attribute msg
+tw_rounded_b_md =
+    A.class "tw-rounded-b-md"
+
+
+tw_rounded_l_md : Html.Attribute msg
+tw_rounded_l_md =
+    A.class "tw-rounded-l-md"
 
 
 tw_rounded_t_lg : Html.Attribute msg
@@ -12631,6 +15746,26 @@ tw_rounded_br =
 tw_rounded_bl : Html.Attribute msg
 tw_rounded_bl =
     A.class "tw-rounded-bl"
+
+
+tw_rounded_tl_md : Html.Attribute msg
+tw_rounded_tl_md =
+    A.class "tw-rounded-tl-md"
+
+
+tw_rounded_tr_md : Html.Attribute msg
+tw_rounded_tr_md =
+    A.class "tw-rounded-tr-md"
+
+
+tw_rounded_br_md : Html.Attribute msg
+tw_rounded_br_md =
+    A.class "tw-rounded-br-md"
+
+
+tw_rounded_bl_md : Html.Attribute msg
+tw_rounded_bl_md =
+    A.class "tw-rounded-bl-md"
 
 
 tw_rounded_tl_lg : Html.Attribute msg
@@ -12823,6 +15958,16 @@ tw_border_l =
     A.class "tw-border-l"
 
 
+tw_box_border : Html.Attribute msg
+tw_box_border =
+    A.class "tw-box-border"
+
+
+tw_box_content : Html.Attribute msg
+tw_box_content =
+    A.class "tw-box-content"
+
+
 tw_cursor_auto : Html.Attribute msg
 tw_cursor_auto =
     A.class "tw-cursor-auto"
@@ -12883,19 +16028,54 @@ tw_inline_flex =
     A.class "tw-inline-flex"
 
 
+tw_grid : Html.Attribute msg
+tw_grid =
+    A.class "tw-grid"
+
+
 tw_table : Html.Attribute msg
 tw_table =
     A.class "tw-table"
 
 
-tw_table_row : Html.Attribute msg
-tw_table_row =
-    A.class "tw-table-row"
+tw_table_caption : Html.Attribute msg
+tw_table_caption =
+    A.class "tw-table-caption"
 
 
 tw_table_cell : Html.Attribute msg
 tw_table_cell =
     A.class "tw-table-cell"
+
+
+tw_table_column : Html.Attribute msg
+tw_table_column =
+    A.class "tw-table-column"
+
+
+tw_table_column_group : Html.Attribute msg
+tw_table_column_group =
+    A.class "tw-table-column-group"
+
+
+tw_table_footer_group : Html.Attribute msg
+tw_table_footer_group =
+    A.class "tw-table-footer-group"
+
+
+tw_table_header_group : Html.Attribute msg
+tw_table_header_group =
+    A.class "tw-table-header-group"
+
+
+tw_table_row_group : Html.Attribute msg
+tw_table_row_group =
+    A.class "tw-table-row-group"
+
+
+tw_table_row : Html.Attribute msg
+tw_table_row =
+    A.class "tw-table-row"
 
 
 tw_hidden : Html.Attribute msg
@@ -13011,6 +16191,11 @@ tw_justify_between =
 tw_justify_around : Html.Attribute msg
 tw_justify_around =
     A.class "tw-justify-around"
+
+
+tw_justify_evenly : Html.Attribute msg
+tw_justify_evenly =
+    A.class "tw-justify-evenly"
 
 
 tw_content_center : Html.Attribute msg
@@ -13171,6 +16356,21 @@ tw_float_none =
 tw_clearfix_after : Html.Attribute msg
 tw_clearfix_after =
     A.class "tw-clearfix:after"
+
+
+tw_clear_left : Html.Attribute msg
+tw_clear_left =
+    A.class "tw-clear-left"
+
+
+tw_clear_right : Html.Attribute msg
+tw_clear_right =
+    A.class "tw-clear-right"
+
+
+tw_clear_both : Html.Attribute msg
+tw_clear_both =
+    A.class "tw-clear-both"
 
 
 tw_font_sans : Html.Attribute msg
@@ -13431,6 +16631,46 @@ tw_h_full =
 tw_h_screen : Html.Attribute msg
 tw_h_screen =
     A.class "tw-h-screen"
+
+
+tw_leading_3 : Html.Attribute msg
+tw_leading_3 =
+    A.class "tw-leading-3"
+
+
+tw_leading_4 : Html.Attribute msg
+tw_leading_4 =
+    A.class "tw-leading-4"
+
+
+tw_leading_5 : Html.Attribute msg
+tw_leading_5 =
+    A.class "tw-leading-5"
+
+
+tw_leading_6 : Html.Attribute msg
+tw_leading_6 =
+    A.class "tw-leading-6"
+
+
+tw_leading_7 : Html.Attribute msg
+tw_leading_7 =
+    A.class "tw-leading-7"
+
+
+tw_leading_8 : Html.Attribute msg
+tw_leading_8 =
+    A.class "tw-leading-8"
+
+
+tw_leading_9 : Html.Attribute msg
+tw_leading_9 =
+    A.class "tw-leading-9"
+
+
+tw_leading_10 : Html.Attribute msg
+tw_leading_10 =
+    A.class "tw-leading-10"
 
 
 tw_leading_none : Html.Attribute msg
@@ -14828,6 +18068,11 @@ tw_max_h_screen =
     A.class "tw-max-h-screen"
 
 
+tw_max_w_none : Html.Attribute msg
+tw_max_w_none =
+    A.class "tw-max-w-none"
+
+
 tw_max_w_xs : Html.Attribute msg
 tw_max_w_xs =
     A.class "tw-max-w-xs"
@@ -14881,6 +18126,26 @@ tw_max_w_6xl =
 tw_max_w_full : Html.Attribute msg
 tw_max_w_full =
     A.class "tw-max-w-full"
+
+
+tw_max_w_screen_sm : Html.Attribute msg
+tw_max_w_screen_sm =
+    A.class "tw-max-w-screen-sm"
+
+
+tw_max_w_screen_md : Html.Attribute msg
+tw_max_w_screen_md =
+    A.class "tw-max-w-screen-md"
+
+
+tw_max_w_screen_lg : Html.Attribute msg
+tw_max_w_screen_lg =
+    A.class "tw-max-w-screen-lg"
+
+
+tw_max_w_screen_xl : Html.Attribute msg
+tw_max_w_screen_xl =
+    A.class "tw-max-w-screen-xl"
 
 
 tw_min_h_0 : Html.Attribute msg
@@ -16853,6 +20118,16 @@ tw_resize =
     A.class "tw-resize"
 
 
+tw_shadow_xs : Html.Attribute msg
+tw_shadow_xs =
+    A.class "tw-shadow-xs"
+
+
+tw_shadow_sm : Html.Attribute msg
+tw_shadow_sm =
+    A.class "tw-shadow-sm"
+
+
 tw_shadow : Html.Attribute msg
 tw_shadow =
     A.class "tw-shadow"
@@ -16893,6 +20168,16 @@ tw_shadow_none =
     A.class "tw-shadow-none"
 
 
+hover_tw_shadow_xs : Html.Attribute msg
+hover_tw_shadow_xs =
+    A.class "hover:tw-shadow-xs"
+
+
+hover_tw_shadow_sm : Html.Attribute msg
+hover_tw_shadow_sm =
+    A.class "hover:tw-shadow-sm"
+
+
 hover_tw_shadow : Html.Attribute msg
 hover_tw_shadow =
     A.class "hover:tw-shadow"
@@ -16931,6 +20216,16 @@ hover_tw_shadow_outline =
 hover_tw_shadow_none : Html.Attribute msg
 hover_tw_shadow_none =
     A.class "hover:tw-shadow-none"
+
+
+focus_tw_shadow_xs : Html.Attribute msg
+focus_tw_shadow_xs =
+    A.class "focus:tw-shadow-xs"
+
+
+focus_tw_shadow_sm : Html.Attribute msg
+focus_tw_shadow_sm =
+    A.class "focus:tw-shadow-sm"
 
 
 focus_tw_shadow : Html.Attribute msg
@@ -16981,6 +20276,21 @@ tw_fill_current =
 tw_stroke_current : Html.Attribute msg
 tw_stroke_current =
     A.class "tw-stroke-current"
+
+
+tw_stroke_0 : Html.Attribute msg
+tw_stroke_0 =
+    A.class "tw-stroke-0"
+
+
+tw_stroke_1 : Html.Attribute msg
+tw_stroke_1 =
+    A.class "tw-stroke-1"
+
+
+tw_stroke_2 : Html.Attribute msg
+tw_stroke_2 =
+    A.class "tw-stroke-2"
 
 
 tw_table_auto : Html.Attribute msg
@@ -18951,6 +22261,2876 @@ tw_z_50 =
 tw_z_auto : Html.Attribute msg
 tw_z_auto =
     A.class "tw-z-auto"
+
+
+tw_gap_0 : Html.Attribute msg
+tw_gap_0 =
+    A.class "tw-gap-0"
+
+
+tw_gap_1 : Html.Attribute msg
+tw_gap_1 =
+    A.class "tw-gap-1"
+
+
+tw_gap_2 : Html.Attribute msg
+tw_gap_2 =
+    A.class "tw-gap-2"
+
+
+tw_gap_3 : Html.Attribute msg
+tw_gap_3 =
+    A.class "tw-gap-3"
+
+
+tw_gap_4 : Html.Attribute msg
+tw_gap_4 =
+    A.class "tw-gap-4"
+
+
+tw_gap_5 : Html.Attribute msg
+tw_gap_5 =
+    A.class "tw-gap-5"
+
+
+tw_gap_6 : Html.Attribute msg
+tw_gap_6 =
+    A.class "tw-gap-6"
+
+
+tw_gap_8 : Html.Attribute msg
+tw_gap_8 =
+    A.class "tw-gap-8"
+
+
+tw_gap_10 : Html.Attribute msg
+tw_gap_10 =
+    A.class "tw-gap-10"
+
+
+tw_gap_12 : Html.Attribute msg
+tw_gap_12 =
+    A.class "tw-gap-12"
+
+
+tw_gap_16 : Html.Attribute msg
+tw_gap_16 =
+    A.class "tw-gap-16"
+
+
+tw_gap_20 : Html.Attribute msg
+tw_gap_20 =
+    A.class "tw-gap-20"
+
+
+tw_gap_24 : Html.Attribute msg
+tw_gap_24 =
+    A.class "tw-gap-24"
+
+
+tw_gap_32 : Html.Attribute msg
+tw_gap_32 =
+    A.class "tw-gap-32"
+
+
+tw_gap_40 : Html.Attribute msg
+tw_gap_40 =
+    A.class "tw-gap-40"
+
+
+tw_gap_48 : Html.Attribute msg
+tw_gap_48 =
+    A.class "tw-gap-48"
+
+
+tw_gap_56 : Html.Attribute msg
+tw_gap_56 =
+    A.class "tw-gap-56"
+
+
+tw_gap_64 : Html.Attribute msg
+tw_gap_64 =
+    A.class "tw-gap-64"
+
+
+tw_gap_px : Html.Attribute msg
+tw_gap_px =
+    A.class "tw-gap-px"
+
+
+tw_col_gap_0 : Html.Attribute msg
+tw_col_gap_0 =
+    A.class "tw-col-gap-0"
+
+
+tw_col_gap_1 : Html.Attribute msg
+tw_col_gap_1 =
+    A.class "tw-col-gap-1"
+
+
+tw_col_gap_2 : Html.Attribute msg
+tw_col_gap_2 =
+    A.class "tw-col-gap-2"
+
+
+tw_col_gap_3 : Html.Attribute msg
+tw_col_gap_3 =
+    A.class "tw-col-gap-3"
+
+
+tw_col_gap_4 : Html.Attribute msg
+tw_col_gap_4 =
+    A.class "tw-col-gap-4"
+
+
+tw_col_gap_5 : Html.Attribute msg
+tw_col_gap_5 =
+    A.class "tw-col-gap-5"
+
+
+tw_col_gap_6 : Html.Attribute msg
+tw_col_gap_6 =
+    A.class "tw-col-gap-6"
+
+
+tw_col_gap_8 : Html.Attribute msg
+tw_col_gap_8 =
+    A.class "tw-col-gap-8"
+
+
+tw_col_gap_10 : Html.Attribute msg
+tw_col_gap_10 =
+    A.class "tw-col-gap-10"
+
+
+tw_col_gap_12 : Html.Attribute msg
+tw_col_gap_12 =
+    A.class "tw-col-gap-12"
+
+
+tw_col_gap_16 : Html.Attribute msg
+tw_col_gap_16 =
+    A.class "tw-col-gap-16"
+
+
+tw_col_gap_20 : Html.Attribute msg
+tw_col_gap_20 =
+    A.class "tw-col-gap-20"
+
+
+tw_col_gap_24 : Html.Attribute msg
+tw_col_gap_24 =
+    A.class "tw-col-gap-24"
+
+
+tw_col_gap_32 : Html.Attribute msg
+tw_col_gap_32 =
+    A.class "tw-col-gap-32"
+
+
+tw_col_gap_40 : Html.Attribute msg
+tw_col_gap_40 =
+    A.class "tw-col-gap-40"
+
+
+tw_col_gap_48 : Html.Attribute msg
+tw_col_gap_48 =
+    A.class "tw-col-gap-48"
+
+
+tw_col_gap_56 : Html.Attribute msg
+tw_col_gap_56 =
+    A.class "tw-col-gap-56"
+
+
+tw_col_gap_64 : Html.Attribute msg
+tw_col_gap_64 =
+    A.class "tw-col-gap-64"
+
+
+tw_col_gap_px : Html.Attribute msg
+tw_col_gap_px =
+    A.class "tw-col-gap-px"
+
+
+tw_row_gap_0 : Html.Attribute msg
+tw_row_gap_0 =
+    A.class "tw-row-gap-0"
+
+
+tw_row_gap_1 : Html.Attribute msg
+tw_row_gap_1 =
+    A.class "tw-row-gap-1"
+
+
+tw_row_gap_2 : Html.Attribute msg
+tw_row_gap_2 =
+    A.class "tw-row-gap-2"
+
+
+tw_row_gap_3 : Html.Attribute msg
+tw_row_gap_3 =
+    A.class "tw-row-gap-3"
+
+
+tw_row_gap_4 : Html.Attribute msg
+tw_row_gap_4 =
+    A.class "tw-row-gap-4"
+
+
+tw_row_gap_5 : Html.Attribute msg
+tw_row_gap_5 =
+    A.class "tw-row-gap-5"
+
+
+tw_row_gap_6 : Html.Attribute msg
+tw_row_gap_6 =
+    A.class "tw-row-gap-6"
+
+
+tw_row_gap_8 : Html.Attribute msg
+tw_row_gap_8 =
+    A.class "tw-row-gap-8"
+
+
+tw_row_gap_10 : Html.Attribute msg
+tw_row_gap_10 =
+    A.class "tw-row-gap-10"
+
+
+tw_row_gap_12 : Html.Attribute msg
+tw_row_gap_12 =
+    A.class "tw-row-gap-12"
+
+
+tw_row_gap_16 : Html.Attribute msg
+tw_row_gap_16 =
+    A.class "tw-row-gap-16"
+
+
+tw_row_gap_20 : Html.Attribute msg
+tw_row_gap_20 =
+    A.class "tw-row-gap-20"
+
+
+tw_row_gap_24 : Html.Attribute msg
+tw_row_gap_24 =
+    A.class "tw-row-gap-24"
+
+
+tw_row_gap_32 : Html.Attribute msg
+tw_row_gap_32 =
+    A.class "tw-row-gap-32"
+
+
+tw_row_gap_40 : Html.Attribute msg
+tw_row_gap_40 =
+    A.class "tw-row-gap-40"
+
+
+tw_row_gap_48 : Html.Attribute msg
+tw_row_gap_48 =
+    A.class "tw-row-gap-48"
+
+
+tw_row_gap_56 : Html.Attribute msg
+tw_row_gap_56 =
+    A.class "tw-row-gap-56"
+
+
+tw_row_gap_64 : Html.Attribute msg
+tw_row_gap_64 =
+    A.class "tw-row-gap-64"
+
+
+tw_row_gap_px : Html.Attribute msg
+tw_row_gap_px =
+    A.class "tw-row-gap-px"
+
+
+tw_grid_flow_row : Html.Attribute msg
+tw_grid_flow_row =
+    A.class "tw-grid-flow-row"
+
+
+tw_grid_flow_col : Html.Attribute msg
+tw_grid_flow_col =
+    A.class "tw-grid-flow-col"
+
+
+tw_grid_flow_row_dense : Html.Attribute msg
+tw_grid_flow_row_dense =
+    A.class "tw-grid-flow-row-dense"
+
+
+tw_grid_flow_col_dense : Html.Attribute msg
+tw_grid_flow_col_dense =
+    A.class "tw-grid-flow-col-dense"
+
+
+tw_grid_cols_1 : Html.Attribute msg
+tw_grid_cols_1 =
+    A.class "tw-grid-cols-1"
+
+
+tw_grid_cols_2 : Html.Attribute msg
+tw_grid_cols_2 =
+    A.class "tw-grid-cols-2"
+
+
+tw_grid_cols_3 : Html.Attribute msg
+tw_grid_cols_3 =
+    A.class "tw-grid-cols-3"
+
+
+tw_grid_cols_4 : Html.Attribute msg
+tw_grid_cols_4 =
+    A.class "tw-grid-cols-4"
+
+
+tw_grid_cols_5 : Html.Attribute msg
+tw_grid_cols_5 =
+    A.class "tw-grid-cols-5"
+
+
+tw_grid_cols_6 : Html.Attribute msg
+tw_grid_cols_6 =
+    A.class "tw-grid-cols-6"
+
+
+tw_grid_cols_7 : Html.Attribute msg
+tw_grid_cols_7 =
+    A.class "tw-grid-cols-7"
+
+
+tw_grid_cols_8 : Html.Attribute msg
+tw_grid_cols_8 =
+    A.class "tw-grid-cols-8"
+
+
+tw_grid_cols_9 : Html.Attribute msg
+tw_grid_cols_9 =
+    A.class "tw-grid-cols-9"
+
+
+tw_grid_cols_10 : Html.Attribute msg
+tw_grid_cols_10 =
+    A.class "tw-grid-cols-10"
+
+
+tw_grid_cols_11 : Html.Attribute msg
+tw_grid_cols_11 =
+    A.class "tw-grid-cols-11"
+
+
+tw_grid_cols_12 : Html.Attribute msg
+tw_grid_cols_12 =
+    A.class "tw-grid-cols-12"
+
+
+tw_grid_cols_none : Html.Attribute msg
+tw_grid_cols_none =
+    A.class "tw-grid-cols-none"
+
+
+tw_col_auto : Html.Attribute msg
+tw_col_auto =
+    A.class "tw-col-auto"
+
+
+tw_col_span_1 : Html.Attribute msg
+tw_col_span_1 =
+    A.class "tw-col-span-1"
+
+
+tw_col_span_2 : Html.Attribute msg
+tw_col_span_2 =
+    A.class "tw-col-span-2"
+
+
+tw_col_span_3 : Html.Attribute msg
+tw_col_span_3 =
+    A.class "tw-col-span-3"
+
+
+tw_col_span_4 : Html.Attribute msg
+tw_col_span_4 =
+    A.class "tw-col-span-4"
+
+
+tw_col_span_5 : Html.Attribute msg
+tw_col_span_5 =
+    A.class "tw-col-span-5"
+
+
+tw_col_span_6 : Html.Attribute msg
+tw_col_span_6 =
+    A.class "tw-col-span-6"
+
+
+tw_col_span_7 : Html.Attribute msg
+tw_col_span_7 =
+    A.class "tw-col-span-7"
+
+
+tw_col_span_8 : Html.Attribute msg
+tw_col_span_8 =
+    A.class "tw-col-span-8"
+
+
+tw_col_span_9 : Html.Attribute msg
+tw_col_span_9 =
+    A.class "tw-col-span-9"
+
+
+tw_col_span_10 : Html.Attribute msg
+tw_col_span_10 =
+    A.class "tw-col-span-10"
+
+
+tw_col_span_11 : Html.Attribute msg
+tw_col_span_11 =
+    A.class "tw-col-span-11"
+
+
+tw_col_span_12 : Html.Attribute msg
+tw_col_span_12 =
+    A.class "tw-col-span-12"
+
+
+tw_col_start_1 : Html.Attribute msg
+tw_col_start_1 =
+    A.class "tw-col-start-1"
+
+
+tw_col_start_2 : Html.Attribute msg
+tw_col_start_2 =
+    A.class "tw-col-start-2"
+
+
+tw_col_start_3 : Html.Attribute msg
+tw_col_start_3 =
+    A.class "tw-col-start-3"
+
+
+tw_col_start_4 : Html.Attribute msg
+tw_col_start_4 =
+    A.class "tw-col-start-4"
+
+
+tw_col_start_5 : Html.Attribute msg
+tw_col_start_5 =
+    A.class "tw-col-start-5"
+
+
+tw_col_start_6 : Html.Attribute msg
+tw_col_start_6 =
+    A.class "tw-col-start-6"
+
+
+tw_col_start_7 : Html.Attribute msg
+tw_col_start_7 =
+    A.class "tw-col-start-7"
+
+
+tw_col_start_8 : Html.Attribute msg
+tw_col_start_8 =
+    A.class "tw-col-start-8"
+
+
+tw_col_start_9 : Html.Attribute msg
+tw_col_start_9 =
+    A.class "tw-col-start-9"
+
+
+tw_col_start_10 : Html.Attribute msg
+tw_col_start_10 =
+    A.class "tw-col-start-10"
+
+
+tw_col_start_11 : Html.Attribute msg
+tw_col_start_11 =
+    A.class "tw-col-start-11"
+
+
+tw_col_start_12 : Html.Attribute msg
+tw_col_start_12 =
+    A.class "tw-col-start-12"
+
+
+tw_col_start_13 : Html.Attribute msg
+tw_col_start_13 =
+    A.class "tw-col-start-13"
+
+
+tw_col_start_auto : Html.Attribute msg
+tw_col_start_auto =
+    A.class "tw-col-start-auto"
+
+
+tw_col_end_1 : Html.Attribute msg
+tw_col_end_1 =
+    A.class "tw-col-end-1"
+
+
+tw_col_end_2 : Html.Attribute msg
+tw_col_end_2 =
+    A.class "tw-col-end-2"
+
+
+tw_col_end_3 : Html.Attribute msg
+tw_col_end_3 =
+    A.class "tw-col-end-3"
+
+
+tw_col_end_4 : Html.Attribute msg
+tw_col_end_4 =
+    A.class "tw-col-end-4"
+
+
+tw_col_end_5 : Html.Attribute msg
+tw_col_end_5 =
+    A.class "tw-col-end-5"
+
+
+tw_col_end_6 : Html.Attribute msg
+tw_col_end_6 =
+    A.class "tw-col-end-6"
+
+
+tw_col_end_7 : Html.Attribute msg
+tw_col_end_7 =
+    A.class "tw-col-end-7"
+
+
+tw_col_end_8 : Html.Attribute msg
+tw_col_end_8 =
+    A.class "tw-col-end-8"
+
+
+tw_col_end_9 : Html.Attribute msg
+tw_col_end_9 =
+    A.class "tw-col-end-9"
+
+
+tw_col_end_10 : Html.Attribute msg
+tw_col_end_10 =
+    A.class "tw-col-end-10"
+
+
+tw_col_end_11 : Html.Attribute msg
+tw_col_end_11 =
+    A.class "tw-col-end-11"
+
+
+tw_col_end_12 : Html.Attribute msg
+tw_col_end_12 =
+    A.class "tw-col-end-12"
+
+
+tw_col_end_13 : Html.Attribute msg
+tw_col_end_13 =
+    A.class "tw-col-end-13"
+
+
+tw_col_end_auto : Html.Attribute msg
+tw_col_end_auto =
+    A.class "tw-col-end-auto"
+
+
+tw_grid_rows_1 : Html.Attribute msg
+tw_grid_rows_1 =
+    A.class "tw-grid-rows-1"
+
+
+tw_grid_rows_2 : Html.Attribute msg
+tw_grid_rows_2 =
+    A.class "tw-grid-rows-2"
+
+
+tw_grid_rows_3 : Html.Attribute msg
+tw_grid_rows_3 =
+    A.class "tw-grid-rows-3"
+
+
+tw_grid_rows_4 : Html.Attribute msg
+tw_grid_rows_4 =
+    A.class "tw-grid-rows-4"
+
+
+tw_grid_rows_5 : Html.Attribute msg
+tw_grid_rows_5 =
+    A.class "tw-grid-rows-5"
+
+
+tw_grid_rows_6 : Html.Attribute msg
+tw_grid_rows_6 =
+    A.class "tw-grid-rows-6"
+
+
+tw_grid_rows_none : Html.Attribute msg
+tw_grid_rows_none =
+    A.class "tw-grid-rows-none"
+
+
+tw_row_auto : Html.Attribute msg
+tw_row_auto =
+    A.class "tw-row-auto"
+
+
+tw_row_span_1 : Html.Attribute msg
+tw_row_span_1 =
+    A.class "tw-row-span-1"
+
+
+tw_row_span_2 : Html.Attribute msg
+tw_row_span_2 =
+    A.class "tw-row-span-2"
+
+
+tw_row_span_3 : Html.Attribute msg
+tw_row_span_3 =
+    A.class "tw-row-span-3"
+
+
+tw_row_span_4 : Html.Attribute msg
+tw_row_span_4 =
+    A.class "tw-row-span-4"
+
+
+tw_row_span_5 : Html.Attribute msg
+tw_row_span_5 =
+    A.class "tw-row-span-5"
+
+
+tw_row_span_6 : Html.Attribute msg
+tw_row_span_6 =
+    A.class "tw-row-span-6"
+
+
+tw_row_start_1 : Html.Attribute msg
+tw_row_start_1 =
+    A.class "tw-row-start-1"
+
+
+tw_row_start_2 : Html.Attribute msg
+tw_row_start_2 =
+    A.class "tw-row-start-2"
+
+
+tw_row_start_3 : Html.Attribute msg
+tw_row_start_3 =
+    A.class "tw-row-start-3"
+
+
+tw_row_start_4 : Html.Attribute msg
+tw_row_start_4 =
+    A.class "tw-row-start-4"
+
+
+tw_row_start_5 : Html.Attribute msg
+tw_row_start_5 =
+    A.class "tw-row-start-5"
+
+
+tw_row_start_6 : Html.Attribute msg
+tw_row_start_6 =
+    A.class "tw-row-start-6"
+
+
+tw_row_start_7 : Html.Attribute msg
+tw_row_start_7 =
+    A.class "tw-row-start-7"
+
+
+tw_row_start_auto : Html.Attribute msg
+tw_row_start_auto =
+    A.class "tw-row-start-auto"
+
+
+tw_row_end_1 : Html.Attribute msg
+tw_row_end_1 =
+    A.class "tw-row-end-1"
+
+
+tw_row_end_2 : Html.Attribute msg
+tw_row_end_2 =
+    A.class "tw-row-end-2"
+
+
+tw_row_end_3 : Html.Attribute msg
+tw_row_end_3 =
+    A.class "tw-row-end-3"
+
+
+tw_row_end_4 : Html.Attribute msg
+tw_row_end_4 =
+    A.class "tw-row-end-4"
+
+
+tw_row_end_5 : Html.Attribute msg
+tw_row_end_5 =
+    A.class "tw-row-end-5"
+
+
+tw_row_end_6 : Html.Attribute msg
+tw_row_end_6 =
+    A.class "tw-row-end-6"
+
+
+tw_row_end_7 : Html.Attribute msg
+tw_row_end_7 =
+    A.class "tw-row-end-7"
+
+
+tw_row_end_auto : Html.Attribute msg
+tw_row_end_auto =
+    A.class "tw-row-end-auto"
+
+
+tw_transform : Html.Attribute msg
+tw_transform =
+    A.class "tw-transform"
+
+
+tw_transform_none : Html.Attribute msg
+tw_transform_none =
+    A.class "tw-transform-none"
+
+
+tw_origin_center : Html.Attribute msg
+tw_origin_center =
+    A.class "tw-origin-center"
+
+
+tw_origin_top : Html.Attribute msg
+tw_origin_top =
+    A.class "tw-origin-top"
+
+
+tw_origin_top_right : Html.Attribute msg
+tw_origin_top_right =
+    A.class "tw-origin-top-right"
+
+
+tw_origin_right : Html.Attribute msg
+tw_origin_right =
+    A.class "tw-origin-right"
+
+
+tw_origin_bottom_right : Html.Attribute msg
+tw_origin_bottom_right =
+    A.class "tw-origin-bottom-right"
+
+
+tw_origin_bottom : Html.Attribute msg
+tw_origin_bottom =
+    A.class "tw-origin-bottom"
+
+
+tw_origin_bottom_left : Html.Attribute msg
+tw_origin_bottom_left =
+    A.class "tw-origin-bottom-left"
+
+
+tw_origin_left : Html.Attribute msg
+tw_origin_left =
+    A.class "tw-origin-left"
+
+
+tw_origin_top_left : Html.Attribute msg
+tw_origin_top_left =
+    A.class "tw-origin-top-left"
+
+
+tw_scale_0 : Html.Attribute msg
+tw_scale_0 =
+    A.class "tw-scale-0"
+
+
+tw_scale_50 : Html.Attribute msg
+tw_scale_50 =
+    A.class "tw-scale-50"
+
+
+tw_scale_75 : Html.Attribute msg
+tw_scale_75 =
+    A.class "tw-scale-75"
+
+
+tw_scale_90 : Html.Attribute msg
+tw_scale_90 =
+    A.class "tw-scale-90"
+
+
+tw_scale_95 : Html.Attribute msg
+tw_scale_95 =
+    A.class "tw-scale-95"
+
+
+tw_scale_100 : Html.Attribute msg
+tw_scale_100 =
+    A.class "tw-scale-100"
+
+
+tw_scale_105 : Html.Attribute msg
+tw_scale_105 =
+    A.class "tw-scale-105"
+
+
+tw_scale_110 : Html.Attribute msg
+tw_scale_110 =
+    A.class "tw-scale-110"
+
+
+tw_scale_125 : Html.Attribute msg
+tw_scale_125 =
+    A.class "tw-scale-125"
+
+
+tw_scale_150 : Html.Attribute msg
+tw_scale_150 =
+    A.class "tw-scale-150"
+
+
+tw_scale_x_0 : Html.Attribute msg
+tw_scale_x_0 =
+    A.class "tw-scale-x-0"
+
+
+tw_scale_x_50 : Html.Attribute msg
+tw_scale_x_50 =
+    A.class "tw-scale-x-50"
+
+
+tw_scale_x_75 : Html.Attribute msg
+tw_scale_x_75 =
+    A.class "tw-scale-x-75"
+
+
+tw_scale_x_90 : Html.Attribute msg
+tw_scale_x_90 =
+    A.class "tw-scale-x-90"
+
+
+tw_scale_x_95 : Html.Attribute msg
+tw_scale_x_95 =
+    A.class "tw-scale-x-95"
+
+
+tw_scale_x_100 : Html.Attribute msg
+tw_scale_x_100 =
+    A.class "tw-scale-x-100"
+
+
+tw_scale_x_105 : Html.Attribute msg
+tw_scale_x_105 =
+    A.class "tw-scale-x-105"
+
+
+tw_scale_x_110 : Html.Attribute msg
+tw_scale_x_110 =
+    A.class "tw-scale-x-110"
+
+
+tw_scale_x_125 : Html.Attribute msg
+tw_scale_x_125 =
+    A.class "tw-scale-x-125"
+
+
+tw_scale_x_150 : Html.Attribute msg
+tw_scale_x_150 =
+    A.class "tw-scale-x-150"
+
+
+tw_scale_y_0 : Html.Attribute msg
+tw_scale_y_0 =
+    A.class "tw-scale-y-0"
+
+
+tw_scale_y_50 : Html.Attribute msg
+tw_scale_y_50 =
+    A.class "tw-scale-y-50"
+
+
+tw_scale_y_75 : Html.Attribute msg
+tw_scale_y_75 =
+    A.class "tw-scale-y-75"
+
+
+tw_scale_y_90 : Html.Attribute msg
+tw_scale_y_90 =
+    A.class "tw-scale-y-90"
+
+
+tw_scale_y_95 : Html.Attribute msg
+tw_scale_y_95 =
+    A.class "tw-scale-y-95"
+
+
+tw_scale_y_100 : Html.Attribute msg
+tw_scale_y_100 =
+    A.class "tw-scale-y-100"
+
+
+tw_scale_y_105 : Html.Attribute msg
+tw_scale_y_105 =
+    A.class "tw-scale-y-105"
+
+
+tw_scale_y_110 : Html.Attribute msg
+tw_scale_y_110 =
+    A.class "tw-scale-y-110"
+
+
+tw_scale_y_125 : Html.Attribute msg
+tw_scale_y_125 =
+    A.class "tw-scale-y-125"
+
+
+tw_scale_y_150 : Html.Attribute msg
+tw_scale_y_150 =
+    A.class "tw-scale-y-150"
+
+
+hover_tw_scale_0 : Html.Attribute msg
+hover_tw_scale_0 =
+    A.class "hover:tw-scale-0"
+
+
+hover_tw_scale_50 : Html.Attribute msg
+hover_tw_scale_50 =
+    A.class "hover:tw-scale-50"
+
+
+hover_tw_scale_75 : Html.Attribute msg
+hover_tw_scale_75 =
+    A.class "hover:tw-scale-75"
+
+
+hover_tw_scale_90 : Html.Attribute msg
+hover_tw_scale_90 =
+    A.class "hover:tw-scale-90"
+
+
+hover_tw_scale_95 : Html.Attribute msg
+hover_tw_scale_95 =
+    A.class "hover:tw-scale-95"
+
+
+hover_tw_scale_100 : Html.Attribute msg
+hover_tw_scale_100 =
+    A.class "hover:tw-scale-100"
+
+
+hover_tw_scale_105 : Html.Attribute msg
+hover_tw_scale_105 =
+    A.class "hover:tw-scale-105"
+
+
+hover_tw_scale_110 : Html.Attribute msg
+hover_tw_scale_110 =
+    A.class "hover:tw-scale-110"
+
+
+hover_tw_scale_125 : Html.Attribute msg
+hover_tw_scale_125 =
+    A.class "hover:tw-scale-125"
+
+
+hover_tw_scale_150 : Html.Attribute msg
+hover_tw_scale_150 =
+    A.class "hover:tw-scale-150"
+
+
+hover_tw_scale_x_0 : Html.Attribute msg
+hover_tw_scale_x_0 =
+    A.class "hover:tw-scale-x-0"
+
+
+hover_tw_scale_x_50 : Html.Attribute msg
+hover_tw_scale_x_50 =
+    A.class "hover:tw-scale-x-50"
+
+
+hover_tw_scale_x_75 : Html.Attribute msg
+hover_tw_scale_x_75 =
+    A.class "hover:tw-scale-x-75"
+
+
+hover_tw_scale_x_90 : Html.Attribute msg
+hover_tw_scale_x_90 =
+    A.class "hover:tw-scale-x-90"
+
+
+hover_tw_scale_x_95 : Html.Attribute msg
+hover_tw_scale_x_95 =
+    A.class "hover:tw-scale-x-95"
+
+
+hover_tw_scale_x_100 : Html.Attribute msg
+hover_tw_scale_x_100 =
+    A.class "hover:tw-scale-x-100"
+
+
+hover_tw_scale_x_105 : Html.Attribute msg
+hover_tw_scale_x_105 =
+    A.class "hover:tw-scale-x-105"
+
+
+hover_tw_scale_x_110 : Html.Attribute msg
+hover_tw_scale_x_110 =
+    A.class "hover:tw-scale-x-110"
+
+
+hover_tw_scale_x_125 : Html.Attribute msg
+hover_tw_scale_x_125 =
+    A.class "hover:tw-scale-x-125"
+
+
+hover_tw_scale_x_150 : Html.Attribute msg
+hover_tw_scale_x_150 =
+    A.class "hover:tw-scale-x-150"
+
+
+hover_tw_scale_y_0 : Html.Attribute msg
+hover_tw_scale_y_0 =
+    A.class "hover:tw-scale-y-0"
+
+
+hover_tw_scale_y_50 : Html.Attribute msg
+hover_tw_scale_y_50 =
+    A.class "hover:tw-scale-y-50"
+
+
+hover_tw_scale_y_75 : Html.Attribute msg
+hover_tw_scale_y_75 =
+    A.class "hover:tw-scale-y-75"
+
+
+hover_tw_scale_y_90 : Html.Attribute msg
+hover_tw_scale_y_90 =
+    A.class "hover:tw-scale-y-90"
+
+
+hover_tw_scale_y_95 : Html.Attribute msg
+hover_tw_scale_y_95 =
+    A.class "hover:tw-scale-y-95"
+
+
+hover_tw_scale_y_100 : Html.Attribute msg
+hover_tw_scale_y_100 =
+    A.class "hover:tw-scale-y-100"
+
+
+hover_tw_scale_y_105 : Html.Attribute msg
+hover_tw_scale_y_105 =
+    A.class "hover:tw-scale-y-105"
+
+
+hover_tw_scale_y_110 : Html.Attribute msg
+hover_tw_scale_y_110 =
+    A.class "hover:tw-scale-y-110"
+
+
+hover_tw_scale_y_125 : Html.Attribute msg
+hover_tw_scale_y_125 =
+    A.class "hover:tw-scale-y-125"
+
+
+hover_tw_scale_y_150 : Html.Attribute msg
+hover_tw_scale_y_150 =
+    A.class "hover:tw-scale-y-150"
+
+
+focus_tw_scale_0 : Html.Attribute msg
+focus_tw_scale_0 =
+    A.class "focus:tw-scale-0"
+
+
+focus_tw_scale_50 : Html.Attribute msg
+focus_tw_scale_50 =
+    A.class "focus:tw-scale-50"
+
+
+focus_tw_scale_75 : Html.Attribute msg
+focus_tw_scale_75 =
+    A.class "focus:tw-scale-75"
+
+
+focus_tw_scale_90 : Html.Attribute msg
+focus_tw_scale_90 =
+    A.class "focus:tw-scale-90"
+
+
+focus_tw_scale_95 : Html.Attribute msg
+focus_tw_scale_95 =
+    A.class "focus:tw-scale-95"
+
+
+focus_tw_scale_100 : Html.Attribute msg
+focus_tw_scale_100 =
+    A.class "focus:tw-scale-100"
+
+
+focus_tw_scale_105 : Html.Attribute msg
+focus_tw_scale_105 =
+    A.class "focus:tw-scale-105"
+
+
+focus_tw_scale_110 : Html.Attribute msg
+focus_tw_scale_110 =
+    A.class "focus:tw-scale-110"
+
+
+focus_tw_scale_125 : Html.Attribute msg
+focus_tw_scale_125 =
+    A.class "focus:tw-scale-125"
+
+
+focus_tw_scale_150 : Html.Attribute msg
+focus_tw_scale_150 =
+    A.class "focus:tw-scale-150"
+
+
+focus_tw_scale_x_0 : Html.Attribute msg
+focus_tw_scale_x_0 =
+    A.class "focus:tw-scale-x-0"
+
+
+focus_tw_scale_x_50 : Html.Attribute msg
+focus_tw_scale_x_50 =
+    A.class "focus:tw-scale-x-50"
+
+
+focus_tw_scale_x_75 : Html.Attribute msg
+focus_tw_scale_x_75 =
+    A.class "focus:tw-scale-x-75"
+
+
+focus_tw_scale_x_90 : Html.Attribute msg
+focus_tw_scale_x_90 =
+    A.class "focus:tw-scale-x-90"
+
+
+focus_tw_scale_x_95 : Html.Attribute msg
+focus_tw_scale_x_95 =
+    A.class "focus:tw-scale-x-95"
+
+
+focus_tw_scale_x_100 : Html.Attribute msg
+focus_tw_scale_x_100 =
+    A.class "focus:tw-scale-x-100"
+
+
+focus_tw_scale_x_105 : Html.Attribute msg
+focus_tw_scale_x_105 =
+    A.class "focus:tw-scale-x-105"
+
+
+focus_tw_scale_x_110 : Html.Attribute msg
+focus_tw_scale_x_110 =
+    A.class "focus:tw-scale-x-110"
+
+
+focus_tw_scale_x_125 : Html.Attribute msg
+focus_tw_scale_x_125 =
+    A.class "focus:tw-scale-x-125"
+
+
+focus_tw_scale_x_150 : Html.Attribute msg
+focus_tw_scale_x_150 =
+    A.class "focus:tw-scale-x-150"
+
+
+focus_tw_scale_y_0 : Html.Attribute msg
+focus_tw_scale_y_0 =
+    A.class "focus:tw-scale-y-0"
+
+
+focus_tw_scale_y_50 : Html.Attribute msg
+focus_tw_scale_y_50 =
+    A.class "focus:tw-scale-y-50"
+
+
+focus_tw_scale_y_75 : Html.Attribute msg
+focus_tw_scale_y_75 =
+    A.class "focus:tw-scale-y-75"
+
+
+focus_tw_scale_y_90 : Html.Attribute msg
+focus_tw_scale_y_90 =
+    A.class "focus:tw-scale-y-90"
+
+
+focus_tw_scale_y_95 : Html.Attribute msg
+focus_tw_scale_y_95 =
+    A.class "focus:tw-scale-y-95"
+
+
+focus_tw_scale_y_100 : Html.Attribute msg
+focus_tw_scale_y_100 =
+    A.class "focus:tw-scale-y-100"
+
+
+focus_tw_scale_y_105 : Html.Attribute msg
+focus_tw_scale_y_105 =
+    A.class "focus:tw-scale-y-105"
+
+
+focus_tw_scale_y_110 : Html.Attribute msg
+focus_tw_scale_y_110 =
+    A.class "focus:tw-scale-y-110"
+
+
+focus_tw_scale_y_125 : Html.Attribute msg
+focus_tw_scale_y_125 =
+    A.class "focus:tw-scale-y-125"
+
+
+focus_tw_scale_y_150 : Html.Attribute msg
+focus_tw_scale_y_150 =
+    A.class "focus:tw-scale-y-150"
+
+
+tw_rotate_0 : Html.Attribute msg
+tw_rotate_0 =
+    A.class "tw-rotate-0"
+
+
+tw_rotate_45 : Html.Attribute msg
+tw_rotate_45 =
+    A.class "tw-rotate-45"
+
+
+tw_rotate_90 : Html.Attribute msg
+tw_rotate_90 =
+    A.class "tw-rotate-90"
+
+
+tw_rotate_180 : Html.Attribute msg
+tw_rotate_180 =
+    A.class "tw-rotate-180"
+
+
+tw_neg_rotate_180 : Html.Attribute msg
+tw_neg_rotate_180 =
+    A.class "tw--rotate-180"
+
+
+tw_neg_rotate_90 : Html.Attribute msg
+tw_neg_rotate_90 =
+    A.class "tw--rotate-90"
+
+
+tw_neg_rotate_45 : Html.Attribute msg
+tw_neg_rotate_45 =
+    A.class "tw--rotate-45"
+
+
+hover_tw_rotate_0 : Html.Attribute msg
+hover_tw_rotate_0 =
+    A.class "hover:tw-rotate-0"
+
+
+hover_tw_rotate_45 : Html.Attribute msg
+hover_tw_rotate_45 =
+    A.class "hover:tw-rotate-45"
+
+
+hover_tw_rotate_90 : Html.Attribute msg
+hover_tw_rotate_90 =
+    A.class "hover:tw-rotate-90"
+
+
+hover_tw_rotate_180 : Html.Attribute msg
+hover_tw_rotate_180 =
+    A.class "hover:tw-rotate-180"
+
+
+hover_tw_neg_rotate_180 : Html.Attribute msg
+hover_tw_neg_rotate_180 =
+    A.class "hover:tw--rotate-180"
+
+
+hover_tw_neg_rotate_90 : Html.Attribute msg
+hover_tw_neg_rotate_90 =
+    A.class "hover:tw--rotate-90"
+
+
+hover_tw_neg_rotate_45 : Html.Attribute msg
+hover_tw_neg_rotate_45 =
+    A.class "hover:tw--rotate-45"
+
+
+focus_tw_rotate_0 : Html.Attribute msg
+focus_tw_rotate_0 =
+    A.class "focus:tw-rotate-0"
+
+
+focus_tw_rotate_45 : Html.Attribute msg
+focus_tw_rotate_45 =
+    A.class "focus:tw-rotate-45"
+
+
+focus_tw_rotate_90 : Html.Attribute msg
+focus_tw_rotate_90 =
+    A.class "focus:tw-rotate-90"
+
+
+focus_tw_rotate_180 : Html.Attribute msg
+focus_tw_rotate_180 =
+    A.class "focus:tw-rotate-180"
+
+
+focus_tw_neg_rotate_180 : Html.Attribute msg
+focus_tw_neg_rotate_180 =
+    A.class "focus:tw--rotate-180"
+
+
+focus_tw_neg_rotate_90 : Html.Attribute msg
+focus_tw_neg_rotate_90 =
+    A.class "focus:tw--rotate-90"
+
+
+focus_tw_neg_rotate_45 : Html.Attribute msg
+focus_tw_neg_rotate_45 =
+    A.class "focus:tw--rotate-45"
+
+
+tw_translate_x_0 : Html.Attribute msg
+tw_translate_x_0 =
+    A.class "tw-translate-x-0"
+
+
+tw_translate_x_1 : Html.Attribute msg
+tw_translate_x_1 =
+    A.class "tw-translate-x-1"
+
+
+tw_translate_x_2 : Html.Attribute msg
+tw_translate_x_2 =
+    A.class "tw-translate-x-2"
+
+
+tw_translate_x_3 : Html.Attribute msg
+tw_translate_x_3 =
+    A.class "tw-translate-x-3"
+
+
+tw_translate_x_4 : Html.Attribute msg
+tw_translate_x_4 =
+    A.class "tw-translate-x-4"
+
+
+tw_translate_x_5 : Html.Attribute msg
+tw_translate_x_5 =
+    A.class "tw-translate-x-5"
+
+
+tw_translate_x_6 : Html.Attribute msg
+tw_translate_x_6 =
+    A.class "tw-translate-x-6"
+
+
+tw_translate_x_8 : Html.Attribute msg
+tw_translate_x_8 =
+    A.class "tw-translate-x-8"
+
+
+tw_translate_x_10 : Html.Attribute msg
+tw_translate_x_10 =
+    A.class "tw-translate-x-10"
+
+
+tw_translate_x_12 : Html.Attribute msg
+tw_translate_x_12 =
+    A.class "tw-translate-x-12"
+
+
+tw_translate_x_16 : Html.Attribute msg
+tw_translate_x_16 =
+    A.class "tw-translate-x-16"
+
+
+tw_translate_x_20 : Html.Attribute msg
+tw_translate_x_20 =
+    A.class "tw-translate-x-20"
+
+
+tw_translate_x_24 : Html.Attribute msg
+tw_translate_x_24 =
+    A.class "tw-translate-x-24"
+
+
+tw_translate_x_32 : Html.Attribute msg
+tw_translate_x_32 =
+    A.class "tw-translate-x-32"
+
+
+tw_translate_x_40 : Html.Attribute msg
+tw_translate_x_40 =
+    A.class "tw-translate-x-40"
+
+
+tw_translate_x_48 : Html.Attribute msg
+tw_translate_x_48 =
+    A.class "tw-translate-x-48"
+
+
+tw_translate_x_56 : Html.Attribute msg
+tw_translate_x_56 =
+    A.class "tw-translate-x-56"
+
+
+tw_translate_x_64 : Html.Attribute msg
+tw_translate_x_64 =
+    A.class "tw-translate-x-64"
+
+
+tw_translate_x_px : Html.Attribute msg
+tw_translate_x_px =
+    A.class "tw-translate-x-px"
+
+
+tw_neg_translate_x_1 : Html.Attribute msg
+tw_neg_translate_x_1 =
+    A.class "tw--translate-x-1"
+
+
+tw_neg_translate_x_2 : Html.Attribute msg
+tw_neg_translate_x_2 =
+    A.class "tw--translate-x-2"
+
+
+tw_neg_translate_x_3 : Html.Attribute msg
+tw_neg_translate_x_3 =
+    A.class "tw--translate-x-3"
+
+
+tw_neg_translate_x_4 : Html.Attribute msg
+tw_neg_translate_x_4 =
+    A.class "tw--translate-x-4"
+
+
+tw_neg_translate_x_5 : Html.Attribute msg
+tw_neg_translate_x_5 =
+    A.class "tw--translate-x-5"
+
+
+tw_neg_translate_x_6 : Html.Attribute msg
+tw_neg_translate_x_6 =
+    A.class "tw--translate-x-6"
+
+
+tw_neg_translate_x_8 : Html.Attribute msg
+tw_neg_translate_x_8 =
+    A.class "tw--translate-x-8"
+
+
+tw_neg_translate_x_10 : Html.Attribute msg
+tw_neg_translate_x_10 =
+    A.class "tw--translate-x-10"
+
+
+tw_neg_translate_x_12 : Html.Attribute msg
+tw_neg_translate_x_12 =
+    A.class "tw--translate-x-12"
+
+
+tw_neg_translate_x_16 : Html.Attribute msg
+tw_neg_translate_x_16 =
+    A.class "tw--translate-x-16"
+
+
+tw_neg_translate_x_20 : Html.Attribute msg
+tw_neg_translate_x_20 =
+    A.class "tw--translate-x-20"
+
+
+tw_neg_translate_x_24 : Html.Attribute msg
+tw_neg_translate_x_24 =
+    A.class "tw--translate-x-24"
+
+
+tw_neg_translate_x_32 : Html.Attribute msg
+tw_neg_translate_x_32 =
+    A.class "tw--translate-x-32"
+
+
+tw_neg_translate_x_40 : Html.Attribute msg
+tw_neg_translate_x_40 =
+    A.class "tw--translate-x-40"
+
+
+tw_neg_translate_x_48 : Html.Attribute msg
+tw_neg_translate_x_48 =
+    A.class "tw--translate-x-48"
+
+
+tw_neg_translate_x_56 : Html.Attribute msg
+tw_neg_translate_x_56 =
+    A.class "tw--translate-x-56"
+
+
+tw_neg_translate_x_64 : Html.Attribute msg
+tw_neg_translate_x_64 =
+    A.class "tw--translate-x-64"
+
+
+tw_neg_translate_x_px : Html.Attribute msg
+tw_neg_translate_x_px =
+    A.class "tw--translate-x-px"
+
+
+tw_neg_translate_x_full : Html.Attribute msg
+tw_neg_translate_x_full =
+    A.class "tw--translate-x-full"
+
+
+tw_neg_translate_x_1over2 : Html.Attribute msg
+tw_neg_translate_x_1over2 =
+    A.class "tw--translate-x-1/2"
+
+
+tw_translate_x_1over2 : Html.Attribute msg
+tw_translate_x_1over2 =
+    A.class "tw-translate-x-1/2"
+
+
+tw_translate_x_full : Html.Attribute msg
+tw_translate_x_full =
+    A.class "tw-translate-x-full"
+
+
+tw_translate_y_0 : Html.Attribute msg
+tw_translate_y_0 =
+    A.class "tw-translate-y-0"
+
+
+tw_translate_y_1 : Html.Attribute msg
+tw_translate_y_1 =
+    A.class "tw-translate-y-1"
+
+
+tw_translate_y_2 : Html.Attribute msg
+tw_translate_y_2 =
+    A.class "tw-translate-y-2"
+
+
+tw_translate_y_3 : Html.Attribute msg
+tw_translate_y_3 =
+    A.class "tw-translate-y-3"
+
+
+tw_translate_y_4 : Html.Attribute msg
+tw_translate_y_4 =
+    A.class "tw-translate-y-4"
+
+
+tw_translate_y_5 : Html.Attribute msg
+tw_translate_y_5 =
+    A.class "tw-translate-y-5"
+
+
+tw_translate_y_6 : Html.Attribute msg
+tw_translate_y_6 =
+    A.class "tw-translate-y-6"
+
+
+tw_translate_y_8 : Html.Attribute msg
+tw_translate_y_8 =
+    A.class "tw-translate-y-8"
+
+
+tw_translate_y_10 : Html.Attribute msg
+tw_translate_y_10 =
+    A.class "tw-translate-y-10"
+
+
+tw_translate_y_12 : Html.Attribute msg
+tw_translate_y_12 =
+    A.class "tw-translate-y-12"
+
+
+tw_translate_y_16 : Html.Attribute msg
+tw_translate_y_16 =
+    A.class "tw-translate-y-16"
+
+
+tw_translate_y_20 : Html.Attribute msg
+tw_translate_y_20 =
+    A.class "tw-translate-y-20"
+
+
+tw_translate_y_24 : Html.Attribute msg
+tw_translate_y_24 =
+    A.class "tw-translate-y-24"
+
+
+tw_translate_y_32 : Html.Attribute msg
+tw_translate_y_32 =
+    A.class "tw-translate-y-32"
+
+
+tw_translate_y_40 : Html.Attribute msg
+tw_translate_y_40 =
+    A.class "tw-translate-y-40"
+
+
+tw_translate_y_48 : Html.Attribute msg
+tw_translate_y_48 =
+    A.class "tw-translate-y-48"
+
+
+tw_translate_y_56 : Html.Attribute msg
+tw_translate_y_56 =
+    A.class "tw-translate-y-56"
+
+
+tw_translate_y_64 : Html.Attribute msg
+tw_translate_y_64 =
+    A.class "tw-translate-y-64"
+
+
+tw_translate_y_px : Html.Attribute msg
+tw_translate_y_px =
+    A.class "tw-translate-y-px"
+
+
+tw_neg_translate_y_1 : Html.Attribute msg
+tw_neg_translate_y_1 =
+    A.class "tw--translate-y-1"
+
+
+tw_neg_translate_y_2 : Html.Attribute msg
+tw_neg_translate_y_2 =
+    A.class "tw--translate-y-2"
+
+
+tw_neg_translate_y_3 : Html.Attribute msg
+tw_neg_translate_y_3 =
+    A.class "tw--translate-y-3"
+
+
+tw_neg_translate_y_4 : Html.Attribute msg
+tw_neg_translate_y_4 =
+    A.class "tw--translate-y-4"
+
+
+tw_neg_translate_y_5 : Html.Attribute msg
+tw_neg_translate_y_5 =
+    A.class "tw--translate-y-5"
+
+
+tw_neg_translate_y_6 : Html.Attribute msg
+tw_neg_translate_y_6 =
+    A.class "tw--translate-y-6"
+
+
+tw_neg_translate_y_8 : Html.Attribute msg
+tw_neg_translate_y_8 =
+    A.class "tw--translate-y-8"
+
+
+tw_neg_translate_y_10 : Html.Attribute msg
+tw_neg_translate_y_10 =
+    A.class "tw--translate-y-10"
+
+
+tw_neg_translate_y_12 : Html.Attribute msg
+tw_neg_translate_y_12 =
+    A.class "tw--translate-y-12"
+
+
+tw_neg_translate_y_16 : Html.Attribute msg
+tw_neg_translate_y_16 =
+    A.class "tw--translate-y-16"
+
+
+tw_neg_translate_y_20 : Html.Attribute msg
+tw_neg_translate_y_20 =
+    A.class "tw--translate-y-20"
+
+
+tw_neg_translate_y_24 : Html.Attribute msg
+tw_neg_translate_y_24 =
+    A.class "tw--translate-y-24"
+
+
+tw_neg_translate_y_32 : Html.Attribute msg
+tw_neg_translate_y_32 =
+    A.class "tw--translate-y-32"
+
+
+tw_neg_translate_y_40 : Html.Attribute msg
+tw_neg_translate_y_40 =
+    A.class "tw--translate-y-40"
+
+
+tw_neg_translate_y_48 : Html.Attribute msg
+tw_neg_translate_y_48 =
+    A.class "tw--translate-y-48"
+
+
+tw_neg_translate_y_56 : Html.Attribute msg
+tw_neg_translate_y_56 =
+    A.class "tw--translate-y-56"
+
+
+tw_neg_translate_y_64 : Html.Attribute msg
+tw_neg_translate_y_64 =
+    A.class "tw--translate-y-64"
+
+
+tw_neg_translate_y_px : Html.Attribute msg
+tw_neg_translate_y_px =
+    A.class "tw--translate-y-px"
+
+
+tw_neg_translate_y_full : Html.Attribute msg
+tw_neg_translate_y_full =
+    A.class "tw--translate-y-full"
+
+
+tw_neg_translate_y_1over2 : Html.Attribute msg
+tw_neg_translate_y_1over2 =
+    A.class "tw--translate-y-1/2"
+
+
+tw_translate_y_1over2 : Html.Attribute msg
+tw_translate_y_1over2 =
+    A.class "tw-translate-y-1/2"
+
+
+tw_translate_y_full : Html.Attribute msg
+tw_translate_y_full =
+    A.class "tw-translate-y-full"
+
+
+hover_tw_translate_x_0 : Html.Attribute msg
+hover_tw_translate_x_0 =
+    A.class "hover:tw-translate-x-0"
+
+
+hover_tw_translate_x_1 : Html.Attribute msg
+hover_tw_translate_x_1 =
+    A.class "hover:tw-translate-x-1"
+
+
+hover_tw_translate_x_2 : Html.Attribute msg
+hover_tw_translate_x_2 =
+    A.class "hover:tw-translate-x-2"
+
+
+hover_tw_translate_x_3 : Html.Attribute msg
+hover_tw_translate_x_3 =
+    A.class "hover:tw-translate-x-3"
+
+
+hover_tw_translate_x_4 : Html.Attribute msg
+hover_tw_translate_x_4 =
+    A.class "hover:tw-translate-x-4"
+
+
+hover_tw_translate_x_5 : Html.Attribute msg
+hover_tw_translate_x_5 =
+    A.class "hover:tw-translate-x-5"
+
+
+hover_tw_translate_x_6 : Html.Attribute msg
+hover_tw_translate_x_6 =
+    A.class "hover:tw-translate-x-6"
+
+
+hover_tw_translate_x_8 : Html.Attribute msg
+hover_tw_translate_x_8 =
+    A.class "hover:tw-translate-x-8"
+
+
+hover_tw_translate_x_10 : Html.Attribute msg
+hover_tw_translate_x_10 =
+    A.class "hover:tw-translate-x-10"
+
+
+hover_tw_translate_x_12 : Html.Attribute msg
+hover_tw_translate_x_12 =
+    A.class "hover:tw-translate-x-12"
+
+
+hover_tw_translate_x_16 : Html.Attribute msg
+hover_tw_translate_x_16 =
+    A.class "hover:tw-translate-x-16"
+
+
+hover_tw_translate_x_20 : Html.Attribute msg
+hover_tw_translate_x_20 =
+    A.class "hover:tw-translate-x-20"
+
+
+hover_tw_translate_x_24 : Html.Attribute msg
+hover_tw_translate_x_24 =
+    A.class "hover:tw-translate-x-24"
+
+
+hover_tw_translate_x_32 : Html.Attribute msg
+hover_tw_translate_x_32 =
+    A.class "hover:tw-translate-x-32"
+
+
+hover_tw_translate_x_40 : Html.Attribute msg
+hover_tw_translate_x_40 =
+    A.class "hover:tw-translate-x-40"
+
+
+hover_tw_translate_x_48 : Html.Attribute msg
+hover_tw_translate_x_48 =
+    A.class "hover:tw-translate-x-48"
+
+
+hover_tw_translate_x_56 : Html.Attribute msg
+hover_tw_translate_x_56 =
+    A.class "hover:tw-translate-x-56"
+
+
+hover_tw_translate_x_64 : Html.Attribute msg
+hover_tw_translate_x_64 =
+    A.class "hover:tw-translate-x-64"
+
+
+hover_tw_translate_x_px : Html.Attribute msg
+hover_tw_translate_x_px =
+    A.class "hover:tw-translate-x-px"
+
+
+hover_tw_neg_translate_x_1 : Html.Attribute msg
+hover_tw_neg_translate_x_1 =
+    A.class "hover:tw--translate-x-1"
+
+
+hover_tw_neg_translate_x_2 : Html.Attribute msg
+hover_tw_neg_translate_x_2 =
+    A.class "hover:tw--translate-x-2"
+
+
+hover_tw_neg_translate_x_3 : Html.Attribute msg
+hover_tw_neg_translate_x_3 =
+    A.class "hover:tw--translate-x-3"
+
+
+hover_tw_neg_translate_x_4 : Html.Attribute msg
+hover_tw_neg_translate_x_4 =
+    A.class "hover:tw--translate-x-4"
+
+
+hover_tw_neg_translate_x_5 : Html.Attribute msg
+hover_tw_neg_translate_x_5 =
+    A.class "hover:tw--translate-x-5"
+
+
+hover_tw_neg_translate_x_6 : Html.Attribute msg
+hover_tw_neg_translate_x_6 =
+    A.class "hover:tw--translate-x-6"
+
+
+hover_tw_neg_translate_x_8 : Html.Attribute msg
+hover_tw_neg_translate_x_8 =
+    A.class "hover:tw--translate-x-8"
+
+
+hover_tw_neg_translate_x_10 : Html.Attribute msg
+hover_tw_neg_translate_x_10 =
+    A.class "hover:tw--translate-x-10"
+
+
+hover_tw_neg_translate_x_12 : Html.Attribute msg
+hover_tw_neg_translate_x_12 =
+    A.class "hover:tw--translate-x-12"
+
+
+hover_tw_neg_translate_x_16 : Html.Attribute msg
+hover_tw_neg_translate_x_16 =
+    A.class "hover:tw--translate-x-16"
+
+
+hover_tw_neg_translate_x_20 : Html.Attribute msg
+hover_tw_neg_translate_x_20 =
+    A.class "hover:tw--translate-x-20"
+
+
+hover_tw_neg_translate_x_24 : Html.Attribute msg
+hover_tw_neg_translate_x_24 =
+    A.class "hover:tw--translate-x-24"
+
+
+hover_tw_neg_translate_x_32 : Html.Attribute msg
+hover_tw_neg_translate_x_32 =
+    A.class "hover:tw--translate-x-32"
+
+
+hover_tw_neg_translate_x_40 : Html.Attribute msg
+hover_tw_neg_translate_x_40 =
+    A.class "hover:tw--translate-x-40"
+
+
+hover_tw_neg_translate_x_48 : Html.Attribute msg
+hover_tw_neg_translate_x_48 =
+    A.class "hover:tw--translate-x-48"
+
+
+hover_tw_neg_translate_x_56 : Html.Attribute msg
+hover_tw_neg_translate_x_56 =
+    A.class "hover:tw--translate-x-56"
+
+
+hover_tw_neg_translate_x_64 : Html.Attribute msg
+hover_tw_neg_translate_x_64 =
+    A.class "hover:tw--translate-x-64"
+
+
+hover_tw_neg_translate_x_px : Html.Attribute msg
+hover_tw_neg_translate_x_px =
+    A.class "hover:tw--translate-x-px"
+
+
+hover_tw_neg_translate_x_full : Html.Attribute msg
+hover_tw_neg_translate_x_full =
+    A.class "hover:tw--translate-x-full"
+
+
+hover_tw_neg_translate_x_1over2 : Html.Attribute msg
+hover_tw_neg_translate_x_1over2 =
+    A.class "hover:tw--translate-x-1/2"
+
+
+hover_tw_translate_x_1over2 : Html.Attribute msg
+hover_tw_translate_x_1over2 =
+    A.class "hover:tw-translate-x-1/2"
+
+
+hover_tw_translate_x_full : Html.Attribute msg
+hover_tw_translate_x_full =
+    A.class "hover:tw-translate-x-full"
+
+
+hover_tw_translate_y_0 : Html.Attribute msg
+hover_tw_translate_y_0 =
+    A.class "hover:tw-translate-y-0"
+
+
+hover_tw_translate_y_1 : Html.Attribute msg
+hover_tw_translate_y_1 =
+    A.class "hover:tw-translate-y-1"
+
+
+hover_tw_translate_y_2 : Html.Attribute msg
+hover_tw_translate_y_2 =
+    A.class "hover:tw-translate-y-2"
+
+
+hover_tw_translate_y_3 : Html.Attribute msg
+hover_tw_translate_y_3 =
+    A.class "hover:tw-translate-y-3"
+
+
+hover_tw_translate_y_4 : Html.Attribute msg
+hover_tw_translate_y_4 =
+    A.class "hover:tw-translate-y-4"
+
+
+hover_tw_translate_y_5 : Html.Attribute msg
+hover_tw_translate_y_5 =
+    A.class "hover:tw-translate-y-5"
+
+
+hover_tw_translate_y_6 : Html.Attribute msg
+hover_tw_translate_y_6 =
+    A.class "hover:tw-translate-y-6"
+
+
+hover_tw_translate_y_8 : Html.Attribute msg
+hover_tw_translate_y_8 =
+    A.class "hover:tw-translate-y-8"
+
+
+hover_tw_translate_y_10 : Html.Attribute msg
+hover_tw_translate_y_10 =
+    A.class "hover:tw-translate-y-10"
+
+
+hover_tw_translate_y_12 : Html.Attribute msg
+hover_tw_translate_y_12 =
+    A.class "hover:tw-translate-y-12"
+
+
+hover_tw_translate_y_16 : Html.Attribute msg
+hover_tw_translate_y_16 =
+    A.class "hover:tw-translate-y-16"
+
+
+hover_tw_translate_y_20 : Html.Attribute msg
+hover_tw_translate_y_20 =
+    A.class "hover:tw-translate-y-20"
+
+
+hover_tw_translate_y_24 : Html.Attribute msg
+hover_tw_translate_y_24 =
+    A.class "hover:tw-translate-y-24"
+
+
+hover_tw_translate_y_32 : Html.Attribute msg
+hover_tw_translate_y_32 =
+    A.class "hover:tw-translate-y-32"
+
+
+hover_tw_translate_y_40 : Html.Attribute msg
+hover_tw_translate_y_40 =
+    A.class "hover:tw-translate-y-40"
+
+
+hover_tw_translate_y_48 : Html.Attribute msg
+hover_tw_translate_y_48 =
+    A.class "hover:tw-translate-y-48"
+
+
+hover_tw_translate_y_56 : Html.Attribute msg
+hover_tw_translate_y_56 =
+    A.class "hover:tw-translate-y-56"
+
+
+hover_tw_translate_y_64 : Html.Attribute msg
+hover_tw_translate_y_64 =
+    A.class "hover:tw-translate-y-64"
+
+
+hover_tw_translate_y_px : Html.Attribute msg
+hover_tw_translate_y_px =
+    A.class "hover:tw-translate-y-px"
+
+
+hover_tw_neg_translate_y_1 : Html.Attribute msg
+hover_tw_neg_translate_y_1 =
+    A.class "hover:tw--translate-y-1"
+
+
+hover_tw_neg_translate_y_2 : Html.Attribute msg
+hover_tw_neg_translate_y_2 =
+    A.class "hover:tw--translate-y-2"
+
+
+hover_tw_neg_translate_y_3 : Html.Attribute msg
+hover_tw_neg_translate_y_3 =
+    A.class "hover:tw--translate-y-3"
+
+
+hover_tw_neg_translate_y_4 : Html.Attribute msg
+hover_tw_neg_translate_y_4 =
+    A.class "hover:tw--translate-y-4"
+
+
+hover_tw_neg_translate_y_5 : Html.Attribute msg
+hover_tw_neg_translate_y_5 =
+    A.class "hover:tw--translate-y-5"
+
+
+hover_tw_neg_translate_y_6 : Html.Attribute msg
+hover_tw_neg_translate_y_6 =
+    A.class "hover:tw--translate-y-6"
+
+
+hover_tw_neg_translate_y_8 : Html.Attribute msg
+hover_tw_neg_translate_y_8 =
+    A.class "hover:tw--translate-y-8"
+
+
+hover_tw_neg_translate_y_10 : Html.Attribute msg
+hover_tw_neg_translate_y_10 =
+    A.class "hover:tw--translate-y-10"
+
+
+hover_tw_neg_translate_y_12 : Html.Attribute msg
+hover_tw_neg_translate_y_12 =
+    A.class "hover:tw--translate-y-12"
+
+
+hover_tw_neg_translate_y_16 : Html.Attribute msg
+hover_tw_neg_translate_y_16 =
+    A.class "hover:tw--translate-y-16"
+
+
+hover_tw_neg_translate_y_20 : Html.Attribute msg
+hover_tw_neg_translate_y_20 =
+    A.class "hover:tw--translate-y-20"
+
+
+hover_tw_neg_translate_y_24 : Html.Attribute msg
+hover_tw_neg_translate_y_24 =
+    A.class "hover:tw--translate-y-24"
+
+
+hover_tw_neg_translate_y_32 : Html.Attribute msg
+hover_tw_neg_translate_y_32 =
+    A.class "hover:tw--translate-y-32"
+
+
+hover_tw_neg_translate_y_40 : Html.Attribute msg
+hover_tw_neg_translate_y_40 =
+    A.class "hover:tw--translate-y-40"
+
+
+hover_tw_neg_translate_y_48 : Html.Attribute msg
+hover_tw_neg_translate_y_48 =
+    A.class "hover:tw--translate-y-48"
+
+
+hover_tw_neg_translate_y_56 : Html.Attribute msg
+hover_tw_neg_translate_y_56 =
+    A.class "hover:tw--translate-y-56"
+
+
+hover_tw_neg_translate_y_64 : Html.Attribute msg
+hover_tw_neg_translate_y_64 =
+    A.class "hover:tw--translate-y-64"
+
+
+hover_tw_neg_translate_y_px : Html.Attribute msg
+hover_tw_neg_translate_y_px =
+    A.class "hover:tw--translate-y-px"
+
+
+hover_tw_neg_translate_y_full : Html.Attribute msg
+hover_tw_neg_translate_y_full =
+    A.class "hover:tw--translate-y-full"
+
+
+hover_tw_neg_translate_y_1over2 : Html.Attribute msg
+hover_tw_neg_translate_y_1over2 =
+    A.class "hover:tw--translate-y-1/2"
+
+
+hover_tw_translate_y_1over2 : Html.Attribute msg
+hover_tw_translate_y_1over2 =
+    A.class "hover:tw-translate-y-1/2"
+
+
+hover_tw_translate_y_full : Html.Attribute msg
+hover_tw_translate_y_full =
+    A.class "hover:tw-translate-y-full"
+
+
+focus_tw_translate_x_0 : Html.Attribute msg
+focus_tw_translate_x_0 =
+    A.class "focus:tw-translate-x-0"
+
+
+focus_tw_translate_x_1 : Html.Attribute msg
+focus_tw_translate_x_1 =
+    A.class "focus:tw-translate-x-1"
+
+
+focus_tw_translate_x_2 : Html.Attribute msg
+focus_tw_translate_x_2 =
+    A.class "focus:tw-translate-x-2"
+
+
+focus_tw_translate_x_3 : Html.Attribute msg
+focus_tw_translate_x_3 =
+    A.class "focus:tw-translate-x-3"
+
+
+focus_tw_translate_x_4 : Html.Attribute msg
+focus_tw_translate_x_4 =
+    A.class "focus:tw-translate-x-4"
+
+
+focus_tw_translate_x_5 : Html.Attribute msg
+focus_tw_translate_x_5 =
+    A.class "focus:tw-translate-x-5"
+
+
+focus_tw_translate_x_6 : Html.Attribute msg
+focus_tw_translate_x_6 =
+    A.class "focus:tw-translate-x-6"
+
+
+focus_tw_translate_x_8 : Html.Attribute msg
+focus_tw_translate_x_8 =
+    A.class "focus:tw-translate-x-8"
+
+
+focus_tw_translate_x_10 : Html.Attribute msg
+focus_tw_translate_x_10 =
+    A.class "focus:tw-translate-x-10"
+
+
+focus_tw_translate_x_12 : Html.Attribute msg
+focus_tw_translate_x_12 =
+    A.class "focus:tw-translate-x-12"
+
+
+focus_tw_translate_x_16 : Html.Attribute msg
+focus_tw_translate_x_16 =
+    A.class "focus:tw-translate-x-16"
+
+
+focus_tw_translate_x_20 : Html.Attribute msg
+focus_tw_translate_x_20 =
+    A.class "focus:tw-translate-x-20"
+
+
+focus_tw_translate_x_24 : Html.Attribute msg
+focus_tw_translate_x_24 =
+    A.class "focus:tw-translate-x-24"
+
+
+focus_tw_translate_x_32 : Html.Attribute msg
+focus_tw_translate_x_32 =
+    A.class "focus:tw-translate-x-32"
+
+
+focus_tw_translate_x_40 : Html.Attribute msg
+focus_tw_translate_x_40 =
+    A.class "focus:tw-translate-x-40"
+
+
+focus_tw_translate_x_48 : Html.Attribute msg
+focus_tw_translate_x_48 =
+    A.class "focus:tw-translate-x-48"
+
+
+focus_tw_translate_x_56 : Html.Attribute msg
+focus_tw_translate_x_56 =
+    A.class "focus:tw-translate-x-56"
+
+
+focus_tw_translate_x_64 : Html.Attribute msg
+focus_tw_translate_x_64 =
+    A.class "focus:tw-translate-x-64"
+
+
+focus_tw_translate_x_px : Html.Attribute msg
+focus_tw_translate_x_px =
+    A.class "focus:tw-translate-x-px"
+
+
+focus_tw_neg_translate_x_1 : Html.Attribute msg
+focus_tw_neg_translate_x_1 =
+    A.class "focus:tw--translate-x-1"
+
+
+focus_tw_neg_translate_x_2 : Html.Attribute msg
+focus_tw_neg_translate_x_2 =
+    A.class "focus:tw--translate-x-2"
+
+
+focus_tw_neg_translate_x_3 : Html.Attribute msg
+focus_tw_neg_translate_x_3 =
+    A.class "focus:tw--translate-x-3"
+
+
+focus_tw_neg_translate_x_4 : Html.Attribute msg
+focus_tw_neg_translate_x_4 =
+    A.class "focus:tw--translate-x-4"
+
+
+focus_tw_neg_translate_x_5 : Html.Attribute msg
+focus_tw_neg_translate_x_5 =
+    A.class "focus:tw--translate-x-5"
+
+
+focus_tw_neg_translate_x_6 : Html.Attribute msg
+focus_tw_neg_translate_x_6 =
+    A.class "focus:tw--translate-x-6"
+
+
+focus_tw_neg_translate_x_8 : Html.Attribute msg
+focus_tw_neg_translate_x_8 =
+    A.class "focus:tw--translate-x-8"
+
+
+focus_tw_neg_translate_x_10 : Html.Attribute msg
+focus_tw_neg_translate_x_10 =
+    A.class "focus:tw--translate-x-10"
+
+
+focus_tw_neg_translate_x_12 : Html.Attribute msg
+focus_tw_neg_translate_x_12 =
+    A.class "focus:tw--translate-x-12"
+
+
+focus_tw_neg_translate_x_16 : Html.Attribute msg
+focus_tw_neg_translate_x_16 =
+    A.class "focus:tw--translate-x-16"
+
+
+focus_tw_neg_translate_x_20 : Html.Attribute msg
+focus_tw_neg_translate_x_20 =
+    A.class "focus:tw--translate-x-20"
+
+
+focus_tw_neg_translate_x_24 : Html.Attribute msg
+focus_tw_neg_translate_x_24 =
+    A.class "focus:tw--translate-x-24"
+
+
+focus_tw_neg_translate_x_32 : Html.Attribute msg
+focus_tw_neg_translate_x_32 =
+    A.class "focus:tw--translate-x-32"
+
+
+focus_tw_neg_translate_x_40 : Html.Attribute msg
+focus_tw_neg_translate_x_40 =
+    A.class "focus:tw--translate-x-40"
+
+
+focus_tw_neg_translate_x_48 : Html.Attribute msg
+focus_tw_neg_translate_x_48 =
+    A.class "focus:tw--translate-x-48"
+
+
+focus_tw_neg_translate_x_56 : Html.Attribute msg
+focus_tw_neg_translate_x_56 =
+    A.class "focus:tw--translate-x-56"
+
+
+focus_tw_neg_translate_x_64 : Html.Attribute msg
+focus_tw_neg_translate_x_64 =
+    A.class "focus:tw--translate-x-64"
+
+
+focus_tw_neg_translate_x_px : Html.Attribute msg
+focus_tw_neg_translate_x_px =
+    A.class "focus:tw--translate-x-px"
+
+
+focus_tw_neg_translate_x_full : Html.Attribute msg
+focus_tw_neg_translate_x_full =
+    A.class "focus:tw--translate-x-full"
+
+
+focus_tw_neg_translate_x_1over2 : Html.Attribute msg
+focus_tw_neg_translate_x_1over2 =
+    A.class "focus:tw--translate-x-1/2"
+
+
+focus_tw_translate_x_1over2 : Html.Attribute msg
+focus_tw_translate_x_1over2 =
+    A.class "focus:tw-translate-x-1/2"
+
+
+focus_tw_translate_x_full : Html.Attribute msg
+focus_tw_translate_x_full =
+    A.class "focus:tw-translate-x-full"
+
+
+focus_tw_translate_y_0 : Html.Attribute msg
+focus_tw_translate_y_0 =
+    A.class "focus:tw-translate-y-0"
+
+
+focus_tw_translate_y_1 : Html.Attribute msg
+focus_tw_translate_y_1 =
+    A.class "focus:tw-translate-y-1"
+
+
+focus_tw_translate_y_2 : Html.Attribute msg
+focus_tw_translate_y_2 =
+    A.class "focus:tw-translate-y-2"
+
+
+focus_tw_translate_y_3 : Html.Attribute msg
+focus_tw_translate_y_3 =
+    A.class "focus:tw-translate-y-3"
+
+
+focus_tw_translate_y_4 : Html.Attribute msg
+focus_tw_translate_y_4 =
+    A.class "focus:tw-translate-y-4"
+
+
+focus_tw_translate_y_5 : Html.Attribute msg
+focus_tw_translate_y_5 =
+    A.class "focus:tw-translate-y-5"
+
+
+focus_tw_translate_y_6 : Html.Attribute msg
+focus_tw_translate_y_6 =
+    A.class "focus:tw-translate-y-6"
+
+
+focus_tw_translate_y_8 : Html.Attribute msg
+focus_tw_translate_y_8 =
+    A.class "focus:tw-translate-y-8"
+
+
+focus_tw_translate_y_10 : Html.Attribute msg
+focus_tw_translate_y_10 =
+    A.class "focus:tw-translate-y-10"
+
+
+focus_tw_translate_y_12 : Html.Attribute msg
+focus_tw_translate_y_12 =
+    A.class "focus:tw-translate-y-12"
+
+
+focus_tw_translate_y_16 : Html.Attribute msg
+focus_tw_translate_y_16 =
+    A.class "focus:tw-translate-y-16"
+
+
+focus_tw_translate_y_20 : Html.Attribute msg
+focus_tw_translate_y_20 =
+    A.class "focus:tw-translate-y-20"
+
+
+focus_tw_translate_y_24 : Html.Attribute msg
+focus_tw_translate_y_24 =
+    A.class "focus:tw-translate-y-24"
+
+
+focus_tw_translate_y_32 : Html.Attribute msg
+focus_tw_translate_y_32 =
+    A.class "focus:tw-translate-y-32"
+
+
+focus_tw_translate_y_40 : Html.Attribute msg
+focus_tw_translate_y_40 =
+    A.class "focus:tw-translate-y-40"
+
+
+focus_tw_translate_y_48 : Html.Attribute msg
+focus_tw_translate_y_48 =
+    A.class "focus:tw-translate-y-48"
+
+
+focus_tw_translate_y_56 : Html.Attribute msg
+focus_tw_translate_y_56 =
+    A.class "focus:tw-translate-y-56"
+
+
+focus_tw_translate_y_64 : Html.Attribute msg
+focus_tw_translate_y_64 =
+    A.class "focus:tw-translate-y-64"
+
+
+focus_tw_translate_y_px : Html.Attribute msg
+focus_tw_translate_y_px =
+    A.class "focus:tw-translate-y-px"
+
+
+focus_tw_neg_translate_y_1 : Html.Attribute msg
+focus_tw_neg_translate_y_1 =
+    A.class "focus:tw--translate-y-1"
+
+
+focus_tw_neg_translate_y_2 : Html.Attribute msg
+focus_tw_neg_translate_y_2 =
+    A.class "focus:tw--translate-y-2"
+
+
+focus_tw_neg_translate_y_3 : Html.Attribute msg
+focus_tw_neg_translate_y_3 =
+    A.class "focus:tw--translate-y-3"
+
+
+focus_tw_neg_translate_y_4 : Html.Attribute msg
+focus_tw_neg_translate_y_4 =
+    A.class "focus:tw--translate-y-4"
+
+
+focus_tw_neg_translate_y_5 : Html.Attribute msg
+focus_tw_neg_translate_y_5 =
+    A.class "focus:tw--translate-y-5"
+
+
+focus_tw_neg_translate_y_6 : Html.Attribute msg
+focus_tw_neg_translate_y_6 =
+    A.class "focus:tw--translate-y-6"
+
+
+focus_tw_neg_translate_y_8 : Html.Attribute msg
+focus_tw_neg_translate_y_8 =
+    A.class "focus:tw--translate-y-8"
+
+
+focus_tw_neg_translate_y_10 : Html.Attribute msg
+focus_tw_neg_translate_y_10 =
+    A.class "focus:tw--translate-y-10"
+
+
+focus_tw_neg_translate_y_12 : Html.Attribute msg
+focus_tw_neg_translate_y_12 =
+    A.class "focus:tw--translate-y-12"
+
+
+focus_tw_neg_translate_y_16 : Html.Attribute msg
+focus_tw_neg_translate_y_16 =
+    A.class "focus:tw--translate-y-16"
+
+
+focus_tw_neg_translate_y_20 : Html.Attribute msg
+focus_tw_neg_translate_y_20 =
+    A.class "focus:tw--translate-y-20"
+
+
+focus_tw_neg_translate_y_24 : Html.Attribute msg
+focus_tw_neg_translate_y_24 =
+    A.class "focus:tw--translate-y-24"
+
+
+focus_tw_neg_translate_y_32 : Html.Attribute msg
+focus_tw_neg_translate_y_32 =
+    A.class "focus:tw--translate-y-32"
+
+
+focus_tw_neg_translate_y_40 : Html.Attribute msg
+focus_tw_neg_translate_y_40 =
+    A.class "focus:tw--translate-y-40"
+
+
+focus_tw_neg_translate_y_48 : Html.Attribute msg
+focus_tw_neg_translate_y_48 =
+    A.class "focus:tw--translate-y-48"
+
+
+focus_tw_neg_translate_y_56 : Html.Attribute msg
+focus_tw_neg_translate_y_56 =
+    A.class "focus:tw--translate-y-56"
+
+
+focus_tw_neg_translate_y_64 : Html.Attribute msg
+focus_tw_neg_translate_y_64 =
+    A.class "focus:tw--translate-y-64"
+
+
+focus_tw_neg_translate_y_px : Html.Attribute msg
+focus_tw_neg_translate_y_px =
+    A.class "focus:tw--translate-y-px"
+
+
+focus_tw_neg_translate_y_full : Html.Attribute msg
+focus_tw_neg_translate_y_full =
+    A.class "focus:tw--translate-y-full"
+
+
+focus_tw_neg_translate_y_1over2 : Html.Attribute msg
+focus_tw_neg_translate_y_1over2 =
+    A.class "focus:tw--translate-y-1/2"
+
+
+focus_tw_translate_y_1over2 : Html.Attribute msg
+focus_tw_translate_y_1over2 =
+    A.class "focus:tw-translate-y-1/2"
+
+
+focus_tw_translate_y_full : Html.Attribute msg
+focus_tw_translate_y_full =
+    A.class "focus:tw-translate-y-full"
+
+
+tw_skew_x_0 : Html.Attribute msg
+tw_skew_x_0 =
+    A.class "tw-skew-x-0"
+
+
+tw_skew_x_3 : Html.Attribute msg
+tw_skew_x_3 =
+    A.class "tw-skew-x-3"
+
+
+tw_skew_x_6 : Html.Attribute msg
+tw_skew_x_6 =
+    A.class "tw-skew-x-6"
+
+
+tw_skew_x_12 : Html.Attribute msg
+tw_skew_x_12 =
+    A.class "tw-skew-x-12"
+
+
+tw_neg_skew_x_12 : Html.Attribute msg
+tw_neg_skew_x_12 =
+    A.class "tw--skew-x-12"
+
+
+tw_neg_skew_x_6 : Html.Attribute msg
+tw_neg_skew_x_6 =
+    A.class "tw--skew-x-6"
+
+
+tw_neg_skew_x_3 : Html.Attribute msg
+tw_neg_skew_x_3 =
+    A.class "tw--skew-x-3"
+
+
+tw_skew_y_0 : Html.Attribute msg
+tw_skew_y_0 =
+    A.class "tw-skew-y-0"
+
+
+tw_skew_y_3 : Html.Attribute msg
+tw_skew_y_3 =
+    A.class "tw-skew-y-3"
+
+
+tw_skew_y_6 : Html.Attribute msg
+tw_skew_y_6 =
+    A.class "tw-skew-y-6"
+
+
+tw_skew_y_12 : Html.Attribute msg
+tw_skew_y_12 =
+    A.class "tw-skew-y-12"
+
+
+tw_neg_skew_y_12 : Html.Attribute msg
+tw_neg_skew_y_12 =
+    A.class "tw--skew-y-12"
+
+
+tw_neg_skew_y_6 : Html.Attribute msg
+tw_neg_skew_y_6 =
+    A.class "tw--skew-y-6"
+
+
+tw_neg_skew_y_3 : Html.Attribute msg
+tw_neg_skew_y_3 =
+    A.class "tw--skew-y-3"
+
+
+hover_tw_skew_x_0 : Html.Attribute msg
+hover_tw_skew_x_0 =
+    A.class "hover:tw-skew-x-0"
+
+
+hover_tw_skew_x_3 : Html.Attribute msg
+hover_tw_skew_x_3 =
+    A.class "hover:tw-skew-x-3"
+
+
+hover_tw_skew_x_6 : Html.Attribute msg
+hover_tw_skew_x_6 =
+    A.class "hover:tw-skew-x-6"
+
+
+hover_tw_skew_x_12 : Html.Attribute msg
+hover_tw_skew_x_12 =
+    A.class "hover:tw-skew-x-12"
+
+
+hover_tw_neg_skew_x_12 : Html.Attribute msg
+hover_tw_neg_skew_x_12 =
+    A.class "hover:tw--skew-x-12"
+
+
+hover_tw_neg_skew_x_6 : Html.Attribute msg
+hover_tw_neg_skew_x_6 =
+    A.class "hover:tw--skew-x-6"
+
+
+hover_tw_neg_skew_x_3 : Html.Attribute msg
+hover_tw_neg_skew_x_3 =
+    A.class "hover:tw--skew-x-3"
+
+
+hover_tw_skew_y_0 : Html.Attribute msg
+hover_tw_skew_y_0 =
+    A.class "hover:tw-skew-y-0"
+
+
+hover_tw_skew_y_3 : Html.Attribute msg
+hover_tw_skew_y_3 =
+    A.class "hover:tw-skew-y-3"
+
+
+hover_tw_skew_y_6 : Html.Attribute msg
+hover_tw_skew_y_6 =
+    A.class "hover:tw-skew-y-6"
+
+
+hover_tw_skew_y_12 : Html.Attribute msg
+hover_tw_skew_y_12 =
+    A.class "hover:tw-skew-y-12"
+
+
+hover_tw_neg_skew_y_12 : Html.Attribute msg
+hover_tw_neg_skew_y_12 =
+    A.class "hover:tw--skew-y-12"
+
+
+hover_tw_neg_skew_y_6 : Html.Attribute msg
+hover_tw_neg_skew_y_6 =
+    A.class "hover:tw--skew-y-6"
+
+
+hover_tw_neg_skew_y_3 : Html.Attribute msg
+hover_tw_neg_skew_y_3 =
+    A.class "hover:tw--skew-y-3"
+
+
+focus_tw_skew_x_0 : Html.Attribute msg
+focus_tw_skew_x_0 =
+    A.class "focus:tw-skew-x-0"
+
+
+focus_tw_skew_x_3 : Html.Attribute msg
+focus_tw_skew_x_3 =
+    A.class "focus:tw-skew-x-3"
+
+
+focus_tw_skew_x_6 : Html.Attribute msg
+focus_tw_skew_x_6 =
+    A.class "focus:tw-skew-x-6"
+
+
+focus_tw_skew_x_12 : Html.Attribute msg
+focus_tw_skew_x_12 =
+    A.class "focus:tw-skew-x-12"
+
+
+focus_tw_neg_skew_x_12 : Html.Attribute msg
+focus_tw_neg_skew_x_12 =
+    A.class "focus:tw--skew-x-12"
+
+
+focus_tw_neg_skew_x_6 : Html.Attribute msg
+focus_tw_neg_skew_x_6 =
+    A.class "focus:tw--skew-x-6"
+
+
+focus_tw_neg_skew_x_3 : Html.Attribute msg
+focus_tw_neg_skew_x_3 =
+    A.class "focus:tw--skew-x-3"
+
+
+focus_tw_skew_y_0 : Html.Attribute msg
+focus_tw_skew_y_0 =
+    A.class "focus:tw-skew-y-0"
+
+
+focus_tw_skew_y_3 : Html.Attribute msg
+focus_tw_skew_y_3 =
+    A.class "focus:tw-skew-y-3"
+
+
+focus_tw_skew_y_6 : Html.Attribute msg
+focus_tw_skew_y_6 =
+    A.class "focus:tw-skew-y-6"
+
+
+focus_tw_skew_y_12 : Html.Attribute msg
+focus_tw_skew_y_12 =
+    A.class "focus:tw-skew-y-12"
+
+
+focus_tw_neg_skew_y_12 : Html.Attribute msg
+focus_tw_neg_skew_y_12 =
+    A.class "focus:tw--skew-y-12"
+
+
+focus_tw_neg_skew_y_6 : Html.Attribute msg
+focus_tw_neg_skew_y_6 =
+    A.class "focus:tw--skew-y-6"
+
+
+focus_tw_neg_skew_y_3 : Html.Attribute msg
+focus_tw_neg_skew_y_3 =
+    A.class "focus:tw--skew-y-3"
+
+
+tw_transition_none : Html.Attribute msg
+tw_transition_none =
+    A.class "tw-transition-none"
+
+
+tw_transition_all : Html.Attribute msg
+tw_transition_all =
+    A.class "tw-transition-all"
+
+
+tw_transition : Html.Attribute msg
+tw_transition =
+    A.class "tw-transition"
+
+
+tw_transition_colors : Html.Attribute msg
+tw_transition_colors =
+    A.class "tw-transition-colors"
+
+
+tw_transition_opacity : Html.Attribute msg
+tw_transition_opacity =
+    A.class "tw-transition-opacity"
+
+
+tw_transition_shadow : Html.Attribute msg
+tw_transition_shadow =
+    A.class "tw-transition-shadow"
+
+
+tw_transition_transform : Html.Attribute msg
+tw_transition_transform =
+    A.class "tw-transition-transform"
+
+
+tw_ease_linear : Html.Attribute msg
+tw_ease_linear =
+    A.class "tw-ease-linear"
+
+
+tw_ease_in : Html.Attribute msg
+tw_ease_in =
+    A.class "tw-ease-in"
+
+
+tw_ease_out : Html.Attribute msg
+tw_ease_out =
+    A.class "tw-ease-out"
+
+
+tw_ease_in_out : Html.Attribute msg
+tw_ease_in_out =
+    A.class "tw-ease-in-out"
+
+
+tw_duration_75 : Html.Attribute msg
+tw_duration_75 =
+    A.class "tw-duration-75"
+
+
+tw_duration_100 : Html.Attribute msg
+tw_duration_100 =
+    A.class "tw-duration-100"
+
+
+tw_duration_150 : Html.Attribute msg
+tw_duration_150 =
+    A.class "tw-duration-150"
+
+
+tw_duration_200 : Html.Attribute msg
+tw_duration_200 =
+    A.class "tw-duration-200"
+
+
+tw_duration_300 : Html.Attribute msg
+tw_duration_300 =
+    A.class "tw-duration-300"
+
+
+tw_duration_500 : Html.Attribute msg
+tw_duration_500 =
+    A.class "tw-duration-500"
+
+
+tw_duration_700 : Html.Attribute msg
+tw_duration_700 =
+    A.class "tw-duration-700"
+
+
+tw_duration_1000 : Html.Attribute msg
+tw_duration_1000 =
+    A.class "tw-duration-1000"
 
 
 sm_tw_sr_only : Html.Attribute msg
@@ -21898,6 +28078,11 @@ sm_tw_rounded =
     A.class "sm:tw-rounded"
 
 
+sm_tw_rounded_md : Html.Attribute msg
+sm_tw_rounded_md =
+    A.class "sm:tw-rounded-md"
+
+
 sm_tw_rounded_lg : Html.Attribute msg
 sm_tw_rounded_lg =
     A.class "sm:tw-rounded-lg"
@@ -21966,6 +28151,26 @@ sm_tw_rounded_b =
 sm_tw_rounded_l : Html.Attribute msg
 sm_tw_rounded_l =
     A.class "sm:tw-rounded-l"
+
+
+sm_tw_rounded_t_md : Html.Attribute msg
+sm_tw_rounded_t_md =
+    A.class "sm:tw-rounded-t-md"
+
+
+sm_tw_rounded_r_md : Html.Attribute msg
+sm_tw_rounded_r_md =
+    A.class "sm:tw-rounded-r-md"
+
+
+sm_tw_rounded_b_md : Html.Attribute msg
+sm_tw_rounded_b_md =
+    A.class "sm:tw-rounded-b-md"
+
+
+sm_tw_rounded_l_md : Html.Attribute msg
+sm_tw_rounded_l_md =
+    A.class "sm:tw-rounded-l-md"
 
 
 sm_tw_rounded_t_lg : Html.Attribute msg
@@ -22066,6 +28271,26 @@ sm_tw_rounded_br =
 sm_tw_rounded_bl : Html.Attribute msg
 sm_tw_rounded_bl =
     A.class "sm:tw-rounded-bl"
+
+
+sm_tw_rounded_tl_md : Html.Attribute msg
+sm_tw_rounded_tl_md =
+    A.class "sm:tw-rounded-tl-md"
+
+
+sm_tw_rounded_tr_md : Html.Attribute msg
+sm_tw_rounded_tr_md =
+    A.class "sm:tw-rounded-tr-md"
+
+
+sm_tw_rounded_br_md : Html.Attribute msg
+sm_tw_rounded_br_md =
+    A.class "sm:tw-rounded-br-md"
+
+
+sm_tw_rounded_bl_md : Html.Attribute msg
+sm_tw_rounded_bl_md =
+    A.class "sm:tw-rounded-bl-md"
 
 
 sm_tw_rounded_tl_lg : Html.Attribute msg
@@ -22258,6 +28483,16 @@ sm_tw_border_l =
     A.class "sm:tw-border-l"
 
 
+sm_tw_box_border : Html.Attribute msg
+sm_tw_box_border =
+    A.class "sm:tw-box-border"
+
+
+sm_tw_box_content : Html.Attribute msg
+sm_tw_box_content =
+    A.class "sm:tw-box-content"
+
+
 sm_tw_cursor_auto : Html.Attribute msg
 sm_tw_cursor_auto =
     A.class "sm:tw-cursor-auto"
@@ -22318,19 +28553,54 @@ sm_tw_inline_flex =
     A.class "sm:tw-inline-flex"
 
 
+sm_tw_grid : Html.Attribute msg
+sm_tw_grid =
+    A.class "sm:tw-grid"
+
+
 sm_tw_table : Html.Attribute msg
 sm_tw_table =
     A.class "sm:tw-table"
 
 
-sm_tw_table_row : Html.Attribute msg
-sm_tw_table_row =
-    A.class "sm:tw-table-row"
+sm_tw_table_caption : Html.Attribute msg
+sm_tw_table_caption =
+    A.class "sm:tw-table-caption"
 
 
 sm_tw_table_cell : Html.Attribute msg
 sm_tw_table_cell =
     A.class "sm:tw-table-cell"
+
+
+sm_tw_table_column : Html.Attribute msg
+sm_tw_table_column =
+    A.class "sm:tw-table-column"
+
+
+sm_tw_table_column_group : Html.Attribute msg
+sm_tw_table_column_group =
+    A.class "sm:tw-table-column-group"
+
+
+sm_tw_table_footer_group : Html.Attribute msg
+sm_tw_table_footer_group =
+    A.class "sm:tw-table-footer-group"
+
+
+sm_tw_table_header_group : Html.Attribute msg
+sm_tw_table_header_group =
+    A.class "sm:tw-table-header-group"
+
+
+sm_tw_table_row_group : Html.Attribute msg
+sm_tw_table_row_group =
+    A.class "sm:tw-table-row-group"
+
+
+sm_tw_table_row : Html.Attribute msg
+sm_tw_table_row =
+    A.class "sm:tw-table-row"
 
 
 sm_tw_hidden : Html.Attribute msg
@@ -22446,6 +28716,11 @@ sm_tw_justify_between =
 sm_tw_justify_around : Html.Attribute msg
 sm_tw_justify_around =
     A.class "sm:tw-justify-around"
+
+
+sm_tw_justify_evenly : Html.Attribute msg
+sm_tw_justify_evenly =
+    A.class "sm:tw-justify-evenly"
 
 
 sm_tw_content_center : Html.Attribute msg
@@ -22606,6 +28881,21 @@ sm_tw_float_none =
 sm_tw_clearfix_after : Html.Attribute msg
 sm_tw_clearfix_after =
     A.class "sm:tw-clearfix:after"
+
+
+sm_tw_clear_left : Html.Attribute msg
+sm_tw_clear_left =
+    A.class "sm:tw-clear-left"
+
+
+sm_tw_clear_right : Html.Attribute msg
+sm_tw_clear_right =
+    A.class "sm:tw-clear-right"
+
+
+sm_tw_clear_both : Html.Attribute msg
+sm_tw_clear_both =
+    A.class "sm:tw-clear-both"
 
 
 sm_tw_font_sans : Html.Attribute msg
@@ -22866,6 +29156,46 @@ sm_tw_h_full =
 sm_tw_h_screen : Html.Attribute msg
 sm_tw_h_screen =
     A.class "sm:tw-h-screen"
+
+
+sm_tw_leading_3 : Html.Attribute msg
+sm_tw_leading_3 =
+    A.class "sm:tw-leading-3"
+
+
+sm_tw_leading_4 : Html.Attribute msg
+sm_tw_leading_4 =
+    A.class "sm:tw-leading-4"
+
+
+sm_tw_leading_5 : Html.Attribute msg
+sm_tw_leading_5 =
+    A.class "sm:tw-leading-5"
+
+
+sm_tw_leading_6 : Html.Attribute msg
+sm_tw_leading_6 =
+    A.class "sm:tw-leading-6"
+
+
+sm_tw_leading_7 : Html.Attribute msg
+sm_tw_leading_7 =
+    A.class "sm:tw-leading-7"
+
+
+sm_tw_leading_8 : Html.Attribute msg
+sm_tw_leading_8 =
+    A.class "sm:tw-leading-8"
+
+
+sm_tw_leading_9 : Html.Attribute msg
+sm_tw_leading_9 =
+    A.class "sm:tw-leading-9"
+
+
+sm_tw_leading_10 : Html.Attribute msg
+sm_tw_leading_10 =
+    A.class "sm:tw-leading-10"
 
 
 sm_tw_leading_none : Html.Attribute msg
@@ -24263,6 +30593,11 @@ sm_tw_max_h_screen =
     A.class "sm:tw-max-h-screen"
 
 
+sm_tw_max_w_none : Html.Attribute msg
+sm_tw_max_w_none =
+    A.class "sm:tw-max-w-none"
+
+
 sm_tw_max_w_xs : Html.Attribute msg
 sm_tw_max_w_xs =
     A.class "sm:tw-max-w-xs"
@@ -24316,6 +30651,26 @@ sm_tw_max_w_6xl =
 sm_tw_max_w_full : Html.Attribute msg
 sm_tw_max_w_full =
     A.class "sm:tw-max-w-full"
+
+
+sm_tw_max_w_screen_sm : Html.Attribute msg
+sm_tw_max_w_screen_sm =
+    A.class "sm:tw-max-w-screen-sm"
+
+
+sm_tw_max_w_screen_md : Html.Attribute msg
+sm_tw_max_w_screen_md =
+    A.class "sm:tw-max-w-screen-md"
+
+
+sm_tw_max_w_screen_lg : Html.Attribute msg
+sm_tw_max_w_screen_lg =
+    A.class "sm:tw-max-w-screen-lg"
+
+
+sm_tw_max_w_screen_xl : Html.Attribute msg
+sm_tw_max_w_screen_xl =
+    A.class "sm:tw-max-w-screen-xl"
 
 
 sm_tw_min_h_0 : Html.Attribute msg
@@ -26288,6 +32643,16 @@ sm_tw_resize =
     A.class "sm:tw-resize"
 
 
+sm_tw_shadow_xs : Html.Attribute msg
+sm_tw_shadow_xs =
+    A.class "sm:tw-shadow-xs"
+
+
+sm_tw_shadow_sm : Html.Attribute msg
+sm_tw_shadow_sm =
+    A.class "sm:tw-shadow-sm"
+
+
 sm_tw_shadow : Html.Attribute msg
 sm_tw_shadow =
     A.class "sm:tw-shadow"
@@ -26328,6 +32693,16 @@ sm_tw_shadow_none =
     A.class "sm:tw-shadow-none"
 
 
+sm_hover_tw_shadow_xs : Html.Attribute msg
+sm_hover_tw_shadow_xs =
+    A.class "sm:hover:tw-shadow-xs"
+
+
+sm_hover_tw_shadow_sm : Html.Attribute msg
+sm_hover_tw_shadow_sm =
+    A.class "sm:hover:tw-shadow-sm"
+
+
 sm_hover_tw_shadow : Html.Attribute msg
 sm_hover_tw_shadow =
     A.class "sm:hover:tw-shadow"
@@ -26366,6 +32741,16 @@ sm_hover_tw_shadow_outline =
 sm_hover_tw_shadow_none : Html.Attribute msg
 sm_hover_tw_shadow_none =
     A.class "sm:hover:tw-shadow-none"
+
+
+sm_focus_tw_shadow_xs : Html.Attribute msg
+sm_focus_tw_shadow_xs =
+    A.class "sm:focus:tw-shadow-xs"
+
+
+sm_focus_tw_shadow_sm : Html.Attribute msg
+sm_focus_tw_shadow_sm =
+    A.class "sm:focus:tw-shadow-sm"
 
 
 sm_focus_tw_shadow : Html.Attribute msg
@@ -26416,6 +32801,21 @@ sm_tw_fill_current =
 sm_tw_stroke_current : Html.Attribute msg
 sm_tw_stroke_current =
     A.class "sm:tw-stroke-current"
+
+
+sm_tw_stroke_0 : Html.Attribute msg
+sm_tw_stroke_0 =
+    A.class "sm:tw-stroke-0"
+
+
+sm_tw_stroke_1 : Html.Attribute msg
+sm_tw_stroke_1 =
+    A.class "sm:tw-stroke-1"
+
+
+sm_tw_stroke_2 : Html.Attribute msg
+sm_tw_stroke_2 =
+    A.class "sm:tw-stroke-2"
 
 
 sm_tw_table_auto : Html.Attribute msg
@@ -28386,6 +34786,2876 @@ sm_tw_z_50 =
 sm_tw_z_auto : Html.Attribute msg
 sm_tw_z_auto =
     A.class "sm:tw-z-auto"
+
+
+sm_tw_gap_0 : Html.Attribute msg
+sm_tw_gap_0 =
+    A.class "sm:tw-gap-0"
+
+
+sm_tw_gap_1 : Html.Attribute msg
+sm_tw_gap_1 =
+    A.class "sm:tw-gap-1"
+
+
+sm_tw_gap_2 : Html.Attribute msg
+sm_tw_gap_2 =
+    A.class "sm:tw-gap-2"
+
+
+sm_tw_gap_3 : Html.Attribute msg
+sm_tw_gap_3 =
+    A.class "sm:tw-gap-3"
+
+
+sm_tw_gap_4 : Html.Attribute msg
+sm_tw_gap_4 =
+    A.class "sm:tw-gap-4"
+
+
+sm_tw_gap_5 : Html.Attribute msg
+sm_tw_gap_5 =
+    A.class "sm:tw-gap-5"
+
+
+sm_tw_gap_6 : Html.Attribute msg
+sm_tw_gap_6 =
+    A.class "sm:tw-gap-6"
+
+
+sm_tw_gap_8 : Html.Attribute msg
+sm_tw_gap_8 =
+    A.class "sm:tw-gap-8"
+
+
+sm_tw_gap_10 : Html.Attribute msg
+sm_tw_gap_10 =
+    A.class "sm:tw-gap-10"
+
+
+sm_tw_gap_12 : Html.Attribute msg
+sm_tw_gap_12 =
+    A.class "sm:tw-gap-12"
+
+
+sm_tw_gap_16 : Html.Attribute msg
+sm_tw_gap_16 =
+    A.class "sm:tw-gap-16"
+
+
+sm_tw_gap_20 : Html.Attribute msg
+sm_tw_gap_20 =
+    A.class "sm:tw-gap-20"
+
+
+sm_tw_gap_24 : Html.Attribute msg
+sm_tw_gap_24 =
+    A.class "sm:tw-gap-24"
+
+
+sm_tw_gap_32 : Html.Attribute msg
+sm_tw_gap_32 =
+    A.class "sm:tw-gap-32"
+
+
+sm_tw_gap_40 : Html.Attribute msg
+sm_tw_gap_40 =
+    A.class "sm:tw-gap-40"
+
+
+sm_tw_gap_48 : Html.Attribute msg
+sm_tw_gap_48 =
+    A.class "sm:tw-gap-48"
+
+
+sm_tw_gap_56 : Html.Attribute msg
+sm_tw_gap_56 =
+    A.class "sm:tw-gap-56"
+
+
+sm_tw_gap_64 : Html.Attribute msg
+sm_tw_gap_64 =
+    A.class "sm:tw-gap-64"
+
+
+sm_tw_gap_px : Html.Attribute msg
+sm_tw_gap_px =
+    A.class "sm:tw-gap-px"
+
+
+sm_tw_col_gap_0 : Html.Attribute msg
+sm_tw_col_gap_0 =
+    A.class "sm:tw-col-gap-0"
+
+
+sm_tw_col_gap_1 : Html.Attribute msg
+sm_tw_col_gap_1 =
+    A.class "sm:tw-col-gap-1"
+
+
+sm_tw_col_gap_2 : Html.Attribute msg
+sm_tw_col_gap_2 =
+    A.class "sm:tw-col-gap-2"
+
+
+sm_tw_col_gap_3 : Html.Attribute msg
+sm_tw_col_gap_3 =
+    A.class "sm:tw-col-gap-3"
+
+
+sm_tw_col_gap_4 : Html.Attribute msg
+sm_tw_col_gap_4 =
+    A.class "sm:tw-col-gap-4"
+
+
+sm_tw_col_gap_5 : Html.Attribute msg
+sm_tw_col_gap_5 =
+    A.class "sm:tw-col-gap-5"
+
+
+sm_tw_col_gap_6 : Html.Attribute msg
+sm_tw_col_gap_6 =
+    A.class "sm:tw-col-gap-6"
+
+
+sm_tw_col_gap_8 : Html.Attribute msg
+sm_tw_col_gap_8 =
+    A.class "sm:tw-col-gap-8"
+
+
+sm_tw_col_gap_10 : Html.Attribute msg
+sm_tw_col_gap_10 =
+    A.class "sm:tw-col-gap-10"
+
+
+sm_tw_col_gap_12 : Html.Attribute msg
+sm_tw_col_gap_12 =
+    A.class "sm:tw-col-gap-12"
+
+
+sm_tw_col_gap_16 : Html.Attribute msg
+sm_tw_col_gap_16 =
+    A.class "sm:tw-col-gap-16"
+
+
+sm_tw_col_gap_20 : Html.Attribute msg
+sm_tw_col_gap_20 =
+    A.class "sm:tw-col-gap-20"
+
+
+sm_tw_col_gap_24 : Html.Attribute msg
+sm_tw_col_gap_24 =
+    A.class "sm:tw-col-gap-24"
+
+
+sm_tw_col_gap_32 : Html.Attribute msg
+sm_tw_col_gap_32 =
+    A.class "sm:tw-col-gap-32"
+
+
+sm_tw_col_gap_40 : Html.Attribute msg
+sm_tw_col_gap_40 =
+    A.class "sm:tw-col-gap-40"
+
+
+sm_tw_col_gap_48 : Html.Attribute msg
+sm_tw_col_gap_48 =
+    A.class "sm:tw-col-gap-48"
+
+
+sm_tw_col_gap_56 : Html.Attribute msg
+sm_tw_col_gap_56 =
+    A.class "sm:tw-col-gap-56"
+
+
+sm_tw_col_gap_64 : Html.Attribute msg
+sm_tw_col_gap_64 =
+    A.class "sm:tw-col-gap-64"
+
+
+sm_tw_col_gap_px : Html.Attribute msg
+sm_tw_col_gap_px =
+    A.class "sm:tw-col-gap-px"
+
+
+sm_tw_row_gap_0 : Html.Attribute msg
+sm_tw_row_gap_0 =
+    A.class "sm:tw-row-gap-0"
+
+
+sm_tw_row_gap_1 : Html.Attribute msg
+sm_tw_row_gap_1 =
+    A.class "sm:tw-row-gap-1"
+
+
+sm_tw_row_gap_2 : Html.Attribute msg
+sm_tw_row_gap_2 =
+    A.class "sm:tw-row-gap-2"
+
+
+sm_tw_row_gap_3 : Html.Attribute msg
+sm_tw_row_gap_3 =
+    A.class "sm:tw-row-gap-3"
+
+
+sm_tw_row_gap_4 : Html.Attribute msg
+sm_tw_row_gap_4 =
+    A.class "sm:tw-row-gap-4"
+
+
+sm_tw_row_gap_5 : Html.Attribute msg
+sm_tw_row_gap_5 =
+    A.class "sm:tw-row-gap-5"
+
+
+sm_tw_row_gap_6 : Html.Attribute msg
+sm_tw_row_gap_6 =
+    A.class "sm:tw-row-gap-6"
+
+
+sm_tw_row_gap_8 : Html.Attribute msg
+sm_tw_row_gap_8 =
+    A.class "sm:tw-row-gap-8"
+
+
+sm_tw_row_gap_10 : Html.Attribute msg
+sm_tw_row_gap_10 =
+    A.class "sm:tw-row-gap-10"
+
+
+sm_tw_row_gap_12 : Html.Attribute msg
+sm_tw_row_gap_12 =
+    A.class "sm:tw-row-gap-12"
+
+
+sm_tw_row_gap_16 : Html.Attribute msg
+sm_tw_row_gap_16 =
+    A.class "sm:tw-row-gap-16"
+
+
+sm_tw_row_gap_20 : Html.Attribute msg
+sm_tw_row_gap_20 =
+    A.class "sm:tw-row-gap-20"
+
+
+sm_tw_row_gap_24 : Html.Attribute msg
+sm_tw_row_gap_24 =
+    A.class "sm:tw-row-gap-24"
+
+
+sm_tw_row_gap_32 : Html.Attribute msg
+sm_tw_row_gap_32 =
+    A.class "sm:tw-row-gap-32"
+
+
+sm_tw_row_gap_40 : Html.Attribute msg
+sm_tw_row_gap_40 =
+    A.class "sm:tw-row-gap-40"
+
+
+sm_tw_row_gap_48 : Html.Attribute msg
+sm_tw_row_gap_48 =
+    A.class "sm:tw-row-gap-48"
+
+
+sm_tw_row_gap_56 : Html.Attribute msg
+sm_tw_row_gap_56 =
+    A.class "sm:tw-row-gap-56"
+
+
+sm_tw_row_gap_64 : Html.Attribute msg
+sm_tw_row_gap_64 =
+    A.class "sm:tw-row-gap-64"
+
+
+sm_tw_row_gap_px : Html.Attribute msg
+sm_tw_row_gap_px =
+    A.class "sm:tw-row-gap-px"
+
+
+sm_tw_grid_flow_row : Html.Attribute msg
+sm_tw_grid_flow_row =
+    A.class "sm:tw-grid-flow-row"
+
+
+sm_tw_grid_flow_col : Html.Attribute msg
+sm_tw_grid_flow_col =
+    A.class "sm:tw-grid-flow-col"
+
+
+sm_tw_grid_flow_row_dense : Html.Attribute msg
+sm_tw_grid_flow_row_dense =
+    A.class "sm:tw-grid-flow-row-dense"
+
+
+sm_tw_grid_flow_col_dense : Html.Attribute msg
+sm_tw_grid_flow_col_dense =
+    A.class "sm:tw-grid-flow-col-dense"
+
+
+sm_tw_grid_cols_1 : Html.Attribute msg
+sm_tw_grid_cols_1 =
+    A.class "sm:tw-grid-cols-1"
+
+
+sm_tw_grid_cols_2 : Html.Attribute msg
+sm_tw_grid_cols_2 =
+    A.class "sm:tw-grid-cols-2"
+
+
+sm_tw_grid_cols_3 : Html.Attribute msg
+sm_tw_grid_cols_3 =
+    A.class "sm:tw-grid-cols-3"
+
+
+sm_tw_grid_cols_4 : Html.Attribute msg
+sm_tw_grid_cols_4 =
+    A.class "sm:tw-grid-cols-4"
+
+
+sm_tw_grid_cols_5 : Html.Attribute msg
+sm_tw_grid_cols_5 =
+    A.class "sm:tw-grid-cols-5"
+
+
+sm_tw_grid_cols_6 : Html.Attribute msg
+sm_tw_grid_cols_6 =
+    A.class "sm:tw-grid-cols-6"
+
+
+sm_tw_grid_cols_7 : Html.Attribute msg
+sm_tw_grid_cols_7 =
+    A.class "sm:tw-grid-cols-7"
+
+
+sm_tw_grid_cols_8 : Html.Attribute msg
+sm_tw_grid_cols_8 =
+    A.class "sm:tw-grid-cols-8"
+
+
+sm_tw_grid_cols_9 : Html.Attribute msg
+sm_tw_grid_cols_9 =
+    A.class "sm:tw-grid-cols-9"
+
+
+sm_tw_grid_cols_10 : Html.Attribute msg
+sm_tw_grid_cols_10 =
+    A.class "sm:tw-grid-cols-10"
+
+
+sm_tw_grid_cols_11 : Html.Attribute msg
+sm_tw_grid_cols_11 =
+    A.class "sm:tw-grid-cols-11"
+
+
+sm_tw_grid_cols_12 : Html.Attribute msg
+sm_tw_grid_cols_12 =
+    A.class "sm:tw-grid-cols-12"
+
+
+sm_tw_grid_cols_none : Html.Attribute msg
+sm_tw_grid_cols_none =
+    A.class "sm:tw-grid-cols-none"
+
+
+sm_tw_col_auto : Html.Attribute msg
+sm_tw_col_auto =
+    A.class "sm:tw-col-auto"
+
+
+sm_tw_col_span_1 : Html.Attribute msg
+sm_tw_col_span_1 =
+    A.class "sm:tw-col-span-1"
+
+
+sm_tw_col_span_2 : Html.Attribute msg
+sm_tw_col_span_2 =
+    A.class "sm:tw-col-span-2"
+
+
+sm_tw_col_span_3 : Html.Attribute msg
+sm_tw_col_span_3 =
+    A.class "sm:tw-col-span-3"
+
+
+sm_tw_col_span_4 : Html.Attribute msg
+sm_tw_col_span_4 =
+    A.class "sm:tw-col-span-4"
+
+
+sm_tw_col_span_5 : Html.Attribute msg
+sm_tw_col_span_5 =
+    A.class "sm:tw-col-span-5"
+
+
+sm_tw_col_span_6 : Html.Attribute msg
+sm_tw_col_span_6 =
+    A.class "sm:tw-col-span-6"
+
+
+sm_tw_col_span_7 : Html.Attribute msg
+sm_tw_col_span_7 =
+    A.class "sm:tw-col-span-7"
+
+
+sm_tw_col_span_8 : Html.Attribute msg
+sm_tw_col_span_8 =
+    A.class "sm:tw-col-span-8"
+
+
+sm_tw_col_span_9 : Html.Attribute msg
+sm_tw_col_span_9 =
+    A.class "sm:tw-col-span-9"
+
+
+sm_tw_col_span_10 : Html.Attribute msg
+sm_tw_col_span_10 =
+    A.class "sm:tw-col-span-10"
+
+
+sm_tw_col_span_11 : Html.Attribute msg
+sm_tw_col_span_11 =
+    A.class "sm:tw-col-span-11"
+
+
+sm_tw_col_span_12 : Html.Attribute msg
+sm_tw_col_span_12 =
+    A.class "sm:tw-col-span-12"
+
+
+sm_tw_col_start_1 : Html.Attribute msg
+sm_tw_col_start_1 =
+    A.class "sm:tw-col-start-1"
+
+
+sm_tw_col_start_2 : Html.Attribute msg
+sm_tw_col_start_2 =
+    A.class "sm:tw-col-start-2"
+
+
+sm_tw_col_start_3 : Html.Attribute msg
+sm_tw_col_start_3 =
+    A.class "sm:tw-col-start-3"
+
+
+sm_tw_col_start_4 : Html.Attribute msg
+sm_tw_col_start_4 =
+    A.class "sm:tw-col-start-4"
+
+
+sm_tw_col_start_5 : Html.Attribute msg
+sm_tw_col_start_5 =
+    A.class "sm:tw-col-start-5"
+
+
+sm_tw_col_start_6 : Html.Attribute msg
+sm_tw_col_start_6 =
+    A.class "sm:tw-col-start-6"
+
+
+sm_tw_col_start_7 : Html.Attribute msg
+sm_tw_col_start_7 =
+    A.class "sm:tw-col-start-7"
+
+
+sm_tw_col_start_8 : Html.Attribute msg
+sm_tw_col_start_8 =
+    A.class "sm:tw-col-start-8"
+
+
+sm_tw_col_start_9 : Html.Attribute msg
+sm_tw_col_start_9 =
+    A.class "sm:tw-col-start-9"
+
+
+sm_tw_col_start_10 : Html.Attribute msg
+sm_tw_col_start_10 =
+    A.class "sm:tw-col-start-10"
+
+
+sm_tw_col_start_11 : Html.Attribute msg
+sm_tw_col_start_11 =
+    A.class "sm:tw-col-start-11"
+
+
+sm_tw_col_start_12 : Html.Attribute msg
+sm_tw_col_start_12 =
+    A.class "sm:tw-col-start-12"
+
+
+sm_tw_col_start_13 : Html.Attribute msg
+sm_tw_col_start_13 =
+    A.class "sm:tw-col-start-13"
+
+
+sm_tw_col_start_auto : Html.Attribute msg
+sm_tw_col_start_auto =
+    A.class "sm:tw-col-start-auto"
+
+
+sm_tw_col_end_1 : Html.Attribute msg
+sm_tw_col_end_1 =
+    A.class "sm:tw-col-end-1"
+
+
+sm_tw_col_end_2 : Html.Attribute msg
+sm_tw_col_end_2 =
+    A.class "sm:tw-col-end-2"
+
+
+sm_tw_col_end_3 : Html.Attribute msg
+sm_tw_col_end_3 =
+    A.class "sm:tw-col-end-3"
+
+
+sm_tw_col_end_4 : Html.Attribute msg
+sm_tw_col_end_4 =
+    A.class "sm:tw-col-end-4"
+
+
+sm_tw_col_end_5 : Html.Attribute msg
+sm_tw_col_end_5 =
+    A.class "sm:tw-col-end-5"
+
+
+sm_tw_col_end_6 : Html.Attribute msg
+sm_tw_col_end_6 =
+    A.class "sm:tw-col-end-6"
+
+
+sm_tw_col_end_7 : Html.Attribute msg
+sm_tw_col_end_7 =
+    A.class "sm:tw-col-end-7"
+
+
+sm_tw_col_end_8 : Html.Attribute msg
+sm_tw_col_end_8 =
+    A.class "sm:tw-col-end-8"
+
+
+sm_tw_col_end_9 : Html.Attribute msg
+sm_tw_col_end_9 =
+    A.class "sm:tw-col-end-9"
+
+
+sm_tw_col_end_10 : Html.Attribute msg
+sm_tw_col_end_10 =
+    A.class "sm:tw-col-end-10"
+
+
+sm_tw_col_end_11 : Html.Attribute msg
+sm_tw_col_end_11 =
+    A.class "sm:tw-col-end-11"
+
+
+sm_tw_col_end_12 : Html.Attribute msg
+sm_tw_col_end_12 =
+    A.class "sm:tw-col-end-12"
+
+
+sm_tw_col_end_13 : Html.Attribute msg
+sm_tw_col_end_13 =
+    A.class "sm:tw-col-end-13"
+
+
+sm_tw_col_end_auto : Html.Attribute msg
+sm_tw_col_end_auto =
+    A.class "sm:tw-col-end-auto"
+
+
+sm_tw_grid_rows_1 : Html.Attribute msg
+sm_tw_grid_rows_1 =
+    A.class "sm:tw-grid-rows-1"
+
+
+sm_tw_grid_rows_2 : Html.Attribute msg
+sm_tw_grid_rows_2 =
+    A.class "sm:tw-grid-rows-2"
+
+
+sm_tw_grid_rows_3 : Html.Attribute msg
+sm_tw_grid_rows_3 =
+    A.class "sm:tw-grid-rows-3"
+
+
+sm_tw_grid_rows_4 : Html.Attribute msg
+sm_tw_grid_rows_4 =
+    A.class "sm:tw-grid-rows-4"
+
+
+sm_tw_grid_rows_5 : Html.Attribute msg
+sm_tw_grid_rows_5 =
+    A.class "sm:tw-grid-rows-5"
+
+
+sm_tw_grid_rows_6 : Html.Attribute msg
+sm_tw_grid_rows_6 =
+    A.class "sm:tw-grid-rows-6"
+
+
+sm_tw_grid_rows_none : Html.Attribute msg
+sm_tw_grid_rows_none =
+    A.class "sm:tw-grid-rows-none"
+
+
+sm_tw_row_auto : Html.Attribute msg
+sm_tw_row_auto =
+    A.class "sm:tw-row-auto"
+
+
+sm_tw_row_span_1 : Html.Attribute msg
+sm_tw_row_span_1 =
+    A.class "sm:tw-row-span-1"
+
+
+sm_tw_row_span_2 : Html.Attribute msg
+sm_tw_row_span_2 =
+    A.class "sm:tw-row-span-2"
+
+
+sm_tw_row_span_3 : Html.Attribute msg
+sm_tw_row_span_3 =
+    A.class "sm:tw-row-span-3"
+
+
+sm_tw_row_span_4 : Html.Attribute msg
+sm_tw_row_span_4 =
+    A.class "sm:tw-row-span-4"
+
+
+sm_tw_row_span_5 : Html.Attribute msg
+sm_tw_row_span_5 =
+    A.class "sm:tw-row-span-5"
+
+
+sm_tw_row_span_6 : Html.Attribute msg
+sm_tw_row_span_6 =
+    A.class "sm:tw-row-span-6"
+
+
+sm_tw_row_start_1 : Html.Attribute msg
+sm_tw_row_start_1 =
+    A.class "sm:tw-row-start-1"
+
+
+sm_tw_row_start_2 : Html.Attribute msg
+sm_tw_row_start_2 =
+    A.class "sm:tw-row-start-2"
+
+
+sm_tw_row_start_3 : Html.Attribute msg
+sm_tw_row_start_3 =
+    A.class "sm:tw-row-start-3"
+
+
+sm_tw_row_start_4 : Html.Attribute msg
+sm_tw_row_start_4 =
+    A.class "sm:tw-row-start-4"
+
+
+sm_tw_row_start_5 : Html.Attribute msg
+sm_tw_row_start_5 =
+    A.class "sm:tw-row-start-5"
+
+
+sm_tw_row_start_6 : Html.Attribute msg
+sm_tw_row_start_6 =
+    A.class "sm:tw-row-start-6"
+
+
+sm_tw_row_start_7 : Html.Attribute msg
+sm_tw_row_start_7 =
+    A.class "sm:tw-row-start-7"
+
+
+sm_tw_row_start_auto : Html.Attribute msg
+sm_tw_row_start_auto =
+    A.class "sm:tw-row-start-auto"
+
+
+sm_tw_row_end_1 : Html.Attribute msg
+sm_tw_row_end_1 =
+    A.class "sm:tw-row-end-1"
+
+
+sm_tw_row_end_2 : Html.Attribute msg
+sm_tw_row_end_2 =
+    A.class "sm:tw-row-end-2"
+
+
+sm_tw_row_end_3 : Html.Attribute msg
+sm_tw_row_end_3 =
+    A.class "sm:tw-row-end-3"
+
+
+sm_tw_row_end_4 : Html.Attribute msg
+sm_tw_row_end_4 =
+    A.class "sm:tw-row-end-4"
+
+
+sm_tw_row_end_5 : Html.Attribute msg
+sm_tw_row_end_5 =
+    A.class "sm:tw-row-end-5"
+
+
+sm_tw_row_end_6 : Html.Attribute msg
+sm_tw_row_end_6 =
+    A.class "sm:tw-row-end-6"
+
+
+sm_tw_row_end_7 : Html.Attribute msg
+sm_tw_row_end_7 =
+    A.class "sm:tw-row-end-7"
+
+
+sm_tw_row_end_auto : Html.Attribute msg
+sm_tw_row_end_auto =
+    A.class "sm:tw-row-end-auto"
+
+
+sm_tw_transform : Html.Attribute msg
+sm_tw_transform =
+    A.class "sm:tw-transform"
+
+
+sm_tw_transform_none : Html.Attribute msg
+sm_tw_transform_none =
+    A.class "sm:tw-transform-none"
+
+
+sm_tw_origin_center : Html.Attribute msg
+sm_tw_origin_center =
+    A.class "sm:tw-origin-center"
+
+
+sm_tw_origin_top : Html.Attribute msg
+sm_tw_origin_top =
+    A.class "sm:tw-origin-top"
+
+
+sm_tw_origin_top_right : Html.Attribute msg
+sm_tw_origin_top_right =
+    A.class "sm:tw-origin-top-right"
+
+
+sm_tw_origin_right : Html.Attribute msg
+sm_tw_origin_right =
+    A.class "sm:tw-origin-right"
+
+
+sm_tw_origin_bottom_right : Html.Attribute msg
+sm_tw_origin_bottom_right =
+    A.class "sm:tw-origin-bottom-right"
+
+
+sm_tw_origin_bottom : Html.Attribute msg
+sm_tw_origin_bottom =
+    A.class "sm:tw-origin-bottom"
+
+
+sm_tw_origin_bottom_left : Html.Attribute msg
+sm_tw_origin_bottom_left =
+    A.class "sm:tw-origin-bottom-left"
+
+
+sm_tw_origin_left : Html.Attribute msg
+sm_tw_origin_left =
+    A.class "sm:tw-origin-left"
+
+
+sm_tw_origin_top_left : Html.Attribute msg
+sm_tw_origin_top_left =
+    A.class "sm:tw-origin-top-left"
+
+
+sm_tw_scale_0 : Html.Attribute msg
+sm_tw_scale_0 =
+    A.class "sm:tw-scale-0"
+
+
+sm_tw_scale_50 : Html.Attribute msg
+sm_tw_scale_50 =
+    A.class "sm:tw-scale-50"
+
+
+sm_tw_scale_75 : Html.Attribute msg
+sm_tw_scale_75 =
+    A.class "sm:tw-scale-75"
+
+
+sm_tw_scale_90 : Html.Attribute msg
+sm_tw_scale_90 =
+    A.class "sm:tw-scale-90"
+
+
+sm_tw_scale_95 : Html.Attribute msg
+sm_tw_scale_95 =
+    A.class "sm:tw-scale-95"
+
+
+sm_tw_scale_100 : Html.Attribute msg
+sm_tw_scale_100 =
+    A.class "sm:tw-scale-100"
+
+
+sm_tw_scale_105 : Html.Attribute msg
+sm_tw_scale_105 =
+    A.class "sm:tw-scale-105"
+
+
+sm_tw_scale_110 : Html.Attribute msg
+sm_tw_scale_110 =
+    A.class "sm:tw-scale-110"
+
+
+sm_tw_scale_125 : Html.Attribute msg
+sm_tw_scale_125 =
+    A.class "sm:tw-scale-125"
+
+
+sm_tw_scale_150 : Html.Attribute msg
+sm_tw_scale_150 =
+    A.class "sm:tw-scale-150"
+
+
+sm_tw_scale_x_0 : Html.Attribute msg
+sm_tw_scale_x_0 =
+    A.class "sm:tw-scale-x-0"
+
+
+sm_tw_scale_x_50 : Html.Attribute msg
+sm_tw_scale_x_50 =
+    A.class "sm:tw-scale-x-50"
+
+
+sm_tw_scale_x_75 : Html.Attribute msg
+sm_tw_scale_x_75 =
+    A.class "sm:tw-scale-x-75"
+
+
+sm_tw_scale_x_90 : Html.Attribute msg
+sm_tw_scale_x_90 =
+    A.class "sm:tw-scale-x-90"
+
+
+sm_tw_scale_x_95 : Html.Attribute msg
+sm_tw_scale_x_95 =
+    A.class "sm:tw-scale-x-95"
+
+
+sm_tw_scale_x_100 : Html.Attribute msg
+sm_tw_scale_x_100 =
+    A.class "sm:tw-scale-x-100"
+
+
+sm_tw_scale_x_105 : Html.Attribute msg
+sm_tw_scale_x_105 =
+    A.class "sm:tw-scale-x-105"
+
+
+sm_tw_scale_x_110 : Html.Attribute msg
+sm_tw_scale_x_110 =
+    A.class "sm:tw-scale-x-110"
+
+
+sm_tw_scale_x_125 : Html.Attribute msg
+sm_tw_scale_x_125 =
+    A.class "sm:tw-scale-x-125"
+
+
+sm_tw_scale_x_150 : Html.Attribute msg
+sm_tw_scale_x_150 =
+    A.class "sm:tw-scale-x-150"
+
+
+sm_tw_scale_y_0 : Html.Attribute msg
+sm_tw_scale_y_0 =
+    A.class "sm:tw-scale-y-0"
+
+
+sm_tw_scale_y_50 : Html.Attribute msg
+sm_tw_scale_y_50 =
+    A.class "sm:tw-scale-y-50"
+
+
+sm_tw_scale_y_75 : Html.Attribute msg
+sm_tw_scale_y_75 =
+    A.class "sm:tw-scale-y-75"
+
+
+sm_tw_scale_y_90 : Html.Attribute msg
+sm_tw_scale_y_90 =
+    A.class "sm:tw-scale-y-90"
+
+
+sm_tw_scale_y_95 : Html.Attribute msg
+sm_tw_scale_y_95 =
+    A.class "sm:tw-scale-y-95"
+
+
+sm_tw_scale_y_100 : Html.Attribute msg
+sm_tw_scale_y_100 =
+    A.class "sm:tw-scale-y-100"
+
+
+sm_tw_scale_y_105 : Html.Attribute msg
+sm_tw_scale_y_105 =
+    A.class "sm:tw-scale-y-105"
+
+
+sm_tw_scale_y_110 : Html.Attribute msg
+sm_tw_scale_y_110 =
+    A.class "sm:tw-scale-y-110"
+
+
+sm_tw_scale_y_125 : Html.Attribute msg
+sm_tw_scale_y_125 =
+    A.class "sm:tw-scale-y-125"
+
+
+sm_tw_scale_y_150 : Html.Attribute msg
+sm_tw_scale_y_150 =
+    A.class "sm:tw-scale-y-150"
+
+
+sm_hover_tw_scale_0 : Html.Attribute msg
+sm_hover_tw_scale_0 =
+    A.class "sm:hover:tw-scale-0"
+
+
+sm_hover_tw_scale_50 : Html.Attribute msg
+sm_hover_tw_scale_50 =
+    A.class "sm:hover:tw-scale-50"
+
+
+sm_hover_tw_scale_75 : Html.Attribute msg
+sm_hover_tw_scale_75 =
+    A.class "sm:hover:tw-scale-75"
+
+
+sm_hover_tw_scale_90 : Html.Attribute msg
+sm_hover_tw_scale_90 =
+    A.class "sm:hover:tw-scale-90"
+
+
+sm_hover_tw_scale_95 : Html.Attribute msg
+sm_hover_tw_scale_95 =
+    A.class "sm:hover:tw-scale-95"
+
+
+sm_hover_tw_scale_100 : Html.Attribute msg
+sm_hover_tw_scale_100 =
+    A.class "sm:hover:tw-scale-100"
+
+
+sm_hover_tw_scale_105 : Html.Attribute msg
+sm_hover_tw_scale_105 =
+    A.class "sm:hover:tw-scale-105"
+
+
+sm_hover_tw_scale_110 : Html.Attribute msg
+sm_hover_tw_scale_110 =
+    A.class "sm:hover:tw-scale-110"
+
+
+sm_hover_tw_scale_125 : Html.Attribute msg
+sm_hover_tw_scale_125 =
+    A.class "sm:hover:tw-scale-125"
+
+
+sm_hover_tw_scale_150 : Html.Attribute msg
+sm_hover_tw_scale_150 =
+    A.class "sm:hover:tw-scale-150"
+
+
+sm_hover_tw_scale_x_0 : Html.Attribute msg
+sm_hover_tw_scale_x_0 =
+    A.class "sm:hover:tw-scale-x-0"
+
+
+sm_hover_tw_scale_x_50 : Html.Attribute msg
+sm_hover_tw_scale_x_50 =
+    A.class "sm:hover:tw-scale-x-50"
+
+
+sm_hover_tw_scale_x_75 : Html.Attribute msg
+sm_hover_tw_scale_x_75 =
+    A.class "sm:hover:tw-scale-x-75"
+
+
+sm_hover_tw_scale_x_90 : Html.Attribute msg
+sm_hover_tw_scale_x_90 =
+    A.class "sm:hover:tw-scale-x-90"
+
+
+sm_hover_tw_scale_x_95 : Html.Attribute msg
+sm_hover_tw_scale_x_95 =
+    A.class "sm:hover:tw-scale-x-95"
+
+
+sm_hover_tw_scale_x_100 : Html.Attribute msg
+sm_hover_tw_scale_x_100 =
+    A.class "sm:hover:tw-scale-x-100"
+
+
+sm_hover_tw_scale_x_105 : Html.Attribute msg
+sm_hover_tw_scale_x_105 =
+    A.class "sm:hover:tw-scale-x-105"
+
+
+sm_hover_tw_scale_x_110 : Html.Attribute msg
+sm_hover_tw_scale_x_110 =
+    A.class "sm:hover:tw-scale-x-110"
+
+
+sm_hover_tw_scale_x_125 : Html.Attribute msg
+sm_hover_tw_scale_x_125 =
+    A.class "sm:hover:tw-scale-x-125"
+
+
+sm_hover_tw_scale_x_150 : Html.Attribute msg
+sm_hover_tw_scale_x_150 =
+    A.class "sm:hover:tw-scale-x-150"
+
+
+sm_hover_tw_scale_y_0 : Html.Attribute msg
+sm_hover_tw_scale_y_0 =
+    A.class "sm:hover:tw-scale-y-0"
+
+
+sm_hover_tw_scale_y_50 : Html.Attribute msg
+sm_hover_tw_scale_y_50 =
+    A.class "sm:hover:tw-scale-y-50"
+
+
+sm_hover_tw_scale_y_75 : Html.Attribute msg
+sm_hover_tw_scale_y_75 =
+    A.class "sm:hover:tw-scale-y-75"
+
+
+sm_hover_tw_scale_y_90 : Html.Attribute msg
+sm_hover_tw_scale_y_90 =
+    A.class "sm:hover:tw-scale-y-90"
+
+
+sm_hover_tw_scale_y_95 : Html.Attribute msg
+sm_hover_tw_scale_y_95 =
+    A.class "sm:hover:tw-scale-y-95"
+
+
+sm_hover_tw_scale_y_100 : Html.Attribute msg
+sm_hover_tw_scale_y_100 =
+    A.class "sm:hover:tw-scale-y-100"
+
+
+sm_hover_tw_scale_y_105 : Html.Attribute msg
+sm_hover_tw_scale_y_105 =
+    A.class "sm:hover:tw-scale-y-105"
+
+
+sm_hover_tw_scale_y_110 : Html.Attribute msg
+sm_hover_tw_scale_y_110 =
+    A.class "sm:hover:tw-scale-y-110"
+
+
+sm_hover_tw_scale_y_125 : Html.Attribute msg
+sm_hover_tw_scale_y_125 =
+    A.class "sm:hover:tw-scale-y-125"
+
+
+sm_hover_tw_scale_y_150 : Html.Attribute msg
+sm_hover_tw_scale_y_150 =
+    A.class "sm:hover:tw-scale-y-150"
+
+
+sm_focus_tw_scale_0 : Html.Attribute msg
+sm_focus_tw_scale_0 =
+    A.class "sm:focus:tw-scale-0"
+
+
+sm_focus_tw_scale_50 : Html.Attribute msg
+sm_focus_tw_scale_50 =
+    A.class "sm:focus:tw-scale-50"
+
+
+sm_focus_tw_scale_75 : Html.Attribute msg
+sm_focus_tw_scale_75 =
+    A.class "sm:focus:tw-scale-75"
+
+
+sm_focus_tw_scale_90 : Html.Attribute msg
+sm_focus_tw_scale_90 =
+    A.class "sm:focus:tw-scale-90"
+
+
+sm_focus_tw_scale_95 : Html.Attribute msg
+sm_focus_tw_scale_95 =
+    A.class "sm:focus:tw-scale-95"
+
+
+sm_focus_tw_scale_100 : Html.Attribute msg
+sm_focus_tw_scale_100 =
+    A.class "sm:focus:tw-scale-100"
+
+
+sm_focus_tw_scale_105 : Html.Attribute msg
+sm_focus_tw_scale_105 =
+    A.class "sm:focus:tw-scale-105"
+
+
+sm_focus_tw_scale_110 : Html.Attribute msg
+sm_focus_tw_scale_110 =
+    A.class "sm:focus:tw-scale-110"
+
+
+sm_focus_tw_scale_125 : Html.Attribute msg
+sm_focus_tw_scale_125 =
+    A.class "sm:focus:tw-scale-125"
+
+
+sm_focus_tw_scale_150 : Html.Attribute msg
+sm_focus_tw_scale_150 =
+    A.class "sm:focus:tw-scale-150"
+
+
+sm_focus_tw_scale_x_0 : Html.Attribute msg
+sm_focus_tw_scale_x_0 =
+    A.class "sm:focus:tw-scale-x-0"
+
+
+sm_focus_tw_scale_x_50 : Html.Attribute msg
+sm_focus_tw_scale_x_50 =
+    A.class "sm:focus:tw-scale-x-50"
+
+
+sm_focus_tw_scale_x_75 : Html.Attribute msg
+sm_focus_tw_scale_x_75 =
+    A.class "sm:focus:tw-scale-x-75"
+
+
+sm_focus_tw_scale_x_90 : Html.Attribute msg
+sm_focus_tw_scale_x_90 =
+    A.class "sm:focus:tw-scale-x-90"
+
+
+sm_focus_tw_scale_x_95 : Html.Attribute msg
+sm_focus_tw_scale_x_95 =
+    A.class "sm:focus:tw-scale-x-95"
+
+
+sm_focus_tw_scale_x_100 : Html.Attribute msg
+sm_focus_tw_scale_x_100 =
+    A.class "sm:focus:tw-scale-x-100"
+
+
+sm_focus_tw_scale_x_105 : Html.Attribute msg
+sm_focus_tw_scale_x_105 =
+    A.class "sm:focus:tw-scale-x-105"
+
+
+sm_focus_tw_scale_x_110 : Html.Attribute msg
+sm_focus_tw_scale_x_110 =
+    A.class "sm:focus:tw-scale-x-110"
+
+
+sm_focus_tw_scale_x_125 : Html.Attribute msg
+sm_focus_tw_scale_x_125 =
+    A.class "sm:focus:tw-scale-x-125"
+
+
+sm_focus_tw_scale_x_150 : Html.Attribute msg
+sm_focus_tw_scale_x_150 =
+    A.class "sm:focus:tw-scale-x-150"
+
+
+sm_focus_tw_scale_y_0 : Html.Attribute msg
+sm_focus_tw_scale_y_0 =
+    A.class "sm:focus:tw-scale-y-0"
+
+
+sm_focus_tw_scale_y_50 : Html.Attribute msg
+sm_focus_tw_scale_y_50 =
+    A.class "sm:focus:tw-scale-y-50"
+
+
+sm_focus_tw_scale_y_75 : Html.Attribute msg
+sm_focus_tw_scale_y_75 =
+    A.class "sm:focus:tw-scale-y-75"
+
+
+sm_focus_tw_scale_y_90 : Html.Attribute msg
+sm_focus_tw_scale_y_90 =
+    A.class "sm:focus:tw-scale-y-90"
+
+
+sm_focus_tw_scale_y_95 : Html.Attribute msg
+sm_focus_tw_scale_y_95 =
+    A.class "sm:focus:tw-scale-y-95"
+
+
+sm_focus_tw_scale_y_100 : Html.Attribute msg
+sm_focus_tw_scale_y_100 =
+    A.class "sm:focus:tw-scale-y-100"
+
+
+sm_focus_tw_scale_y_105 : Html.Attribute msg
+sm_focus_tw_scale_y_105 =
+    A.class "sm:focus:tw-scale-y-105"
+
+
+sm_focus_tw_scale_y_110 : Html.Attribute msg
+sm_focus_tw_scale_y_110 =
+    A.class "sm:focus:tw-scale-y-110"
+
+
+sm_focus_tw_scale_y_125 : Html.Attribute msg
+sm_focus_tw_scale_y_125 =
+    A.class "sm:focus:tw-scale-y-125"
+
+
+sm_focus_tw_scale_y_150 : Html.Attribute msg
+sm_focus_tw_scale_y_150 =
+    A.class "sm:focus:tw-scale-y-150"
+
+
+sm_tw_rotate_0 : Html.Attribute msg
+sm_tw_rotate_0 =
+    A.class "sm:tw-rotate-0"
+
+
+sm_tw_rotate_45 : Html.Attribute msg
+sm_tw_rotate_45 =
+    A.class "sm:tw-rotate-45"
+
+
+sm_tw_rotate_90 : Html.Attribute msg
+sm_tw_rotate_90 =
+    A.class "sm:tw-rotate-90"
+
+
+sm_tw_rotate_180 : Html.Attribute msg
+sm_tw_rotate_180 =
+    A.class "sm:tw-rotate-180"
+
+
+sm_tw_neg_rotate_180 : Html.Attribute msg
+sm_tw_neg_rotate_180 =
+    A.class "sm:tw--rotate-180"
+
+
+sm_tw_neg_rotate_90 : Html.Attribute msg
+sm_tw_neg_rotate_90 =
+    A.class "sm:tw--rotate-90"
+
+
+sm_tw_neg_rotate_45 : Html.Attribute msg
+sm_tw_neg_rotate_45 =
+    A.class "sm:tw--rotate-45"
+
+
+sm_hover_tw_rotate_0 : Html.Attribute msg
+sm_hover_tw_rotate_0 =
+    A.class "sm:hover:tw-rotate-0"
+
+
+sm_hover_tw_rotate_45 : Html.Attribute msg
+sm_hover_tw_rotate_45 =
+    A.class "sm:hover:tw-rotate-45"
+
+
+sm_hover_tw_rotate_90 : Html.Attribute msg
+sm_hover_tw_rotate_90 =
+    A.class "sm:hover:tw-rotate-90"
+
+
+sm_hover_tw_rotate_180 : Html.Attribute msg
+sm_hover_tw_rotate_180 =
+    A.class "sm:hover:tw-rotate-180"
+
+
+sm_hover_tw_neg_rotate_180 : Html.Attribute msg
+sm_hover_tw_neg_rotate_180 =
+    A.class "sm:hover:tw--rotate-180"
+
+
+sm_hover_tw_neg_rotate_90 : Html.Attribute msg
+sm_hover_tw_neg_rotate_90 =
+    A.class "sm:hover:tw--rotate-90"
+
+
+sm_hover_tw_neg_rotate_45 : Html.Attribute msg
+sm_hover_tw_neg_rotate_45 =
+    A.class "sm:hover:tw--rotate-45"
+
+
+sm_focus_tw_rotate_0 : Html.Attribute msg
+sm_focus_tw_rotate_0 =
+    A.class "sm:focus:tw-rotate-0"
+
+
+sm_focus_tw_rotate_45 : Html.Attribute msg
+sm_focus_tw_rotate_45 =
+    A.class "sm:focus:tw-rotate-45"
+
+
+sm_focus_tw_rotate_90 : Html.Attribute msg
+sm_focus_tw_rotate_90 =
+    A.class "sm:focus:tw-rotate-90"
+
+
+sm_focus_tw_rotate_180 : Html.Attribute msg
+sm_focus_tw_rotate_180 =
+    A.class "sm:focus:tw-rotate-180"
+
+
+sm_focus_tw_neg_rotate_180 : Html.Attribute msg
+sm_focus_tw_neg_rotate_180 =
+    A.class "sm:focus:tw--rotate-180"
+
+
+sm_focus_tw_neg_rotate_90 : Html.Attribute msg
+sm_focus_tw_neg_rotate_90 =
+    A.class "sm:focus:tw--rotate-90"
+
+
+sm_focus_tw_neg_rotate_45 : Html.Attribute msg
+sm_focus_tw_neg_rotate_45 =
+    A.class "sm:focus:tw--rotate-45"
+
+
+sm_tw_translate_x_0 : Html.Attribute msg
+sm_tw_translate_x_0 =
+    A.class "sm:tw-translate-x-0"
+
+
+sm_tw_translate_x_1 : Html.Attribute msg
+sm_tw_translate_x_1 =
+    A.class "sm:tw-translate-x-1"
+
+
+sm_tw_translate_x_2 : Html.Attribute msg
+sm_tw_translate_x_2 =
+    A.class "sm:tw-translate-x-2"
+
+
+sm_tw_translate_x_3 : Html.Attribute msg
+sm_tw_translate_x_3 =
+    A.class "sm:tw-translate-x-3"
+
+
+sm_tw_translate_x_4 : Html.Attribute msg
+sm_tw_translate_x_4 =
+    A.class "sm:tw-translate-x-4"
+
+
+sm_tw_translate_x_5 : Html.Attribute msg
+sm_tw_translate_x_5 =
+    A.class "sm:tw-translate-x-5"
+
+
+sm_tw_translate_x_6 : Html.Attribute msg
+sm_tw_translate_x_6 =
+    A.class "sm:tw-translate-x-6"
+
+
+sm_tw_translate_x_8 : Html.Attribute msg
+sm_tw_translate_x_8 =
+    A.class "sm:tw-translate-x-8"
+
+
+sm_tw_translate_x_10 : Html.Attribute msg
+sm_tw_translate_x_10 =
+    A.class "sm:tw-translate-x-10"
+
+
+sm_tw_translate_x_12 : Html.Attribute msg
+sm_tw_translate_x_12 =
+    A.class "sm:tw-translate-x-12"
+
+
+sm_tw_translate_x_16 : Html.Attribute msg
+sm_tw_translate_x_16 =
+    A.class "sm:tw-translate-x-16"
+
+
+sm_tw_translate_x_20 : Html.Attribute msg
+sm_tw_translate_x_20 =
+    A.class "sm:tw-translate-x-20"
+
+
+sm_tw_translate_x_24 : Html.Attribute msg
+sm_tw_translate_x_24 =
+    A.class "sm:tw-translate-x-24"
+
+
+sm_tw_translate_x_32 : Html.Attribute msg
+sm_tw_translate_x_32 =
+    A.class "sm:tw-translate-x-32"
+
+
+sm_tw_translate_x_40 : Html.Attribute msg
+sm_tw_translate_x_40 =
+    A.class "sm:tw-translate-x-40"
+
+
+sm_tw_translate_x_48 : Html.Attribute msg
+sm_tw_translate_x_48 =
+    A.class "sm:tw-translate-x-48"
+
+
+sm_tw_translate_x_56 : Html.Attribute msg
+sm_tw_translate_x_56 =
+    A.class "sm:tw-translate-x-56"
+
+
+sm_tw_translate_x_64 : Html.Attribute msg
+sm_tw_translate_x_64 =
+    A.class "sm:tw-translate-x-64"
+
+
+sm_tw_translate_x_px : Html.Attribute msg
+sm_tw_translate_x_px =
+    A.class "sm:tw-translate-x-px"
+
+
+sm_tw_neg_translate_x_1 : Html.Attribute msg
+sm_tw_neg_translate_x_1 =
+    A.class "sm:tw--translate-x-1"
+
+
+sm_tw_neg_translate_x_2 : Html.Attribute msg
+sm_tw_neg_translate_x_2 =
+    A.class "sm:tw--translate-x-2"
+
+
+sm_tw_neg_translate_x_3 : Html.Attribute msg
+sm_tw_neg_translate_x_3 =
+    A.class "sm:tw--translate-x-3"
+
+
+sm_tw_neg_translate_x_4 : Html.Attribute msg
+sm_tw_neg_translate_x_4 =
+    A.class "sm:tw--translate-x-4"
+
+
+sm_tw_neg_translate_x_5 : Html.Attribute msg
+sm_tw_neg_translate_x_5 =
+    A.class "sm:tw--translate-x-5"
+
+
+sm_tw_neg_translate_x_6 : Html.Attribute msg
+sm_tw_neg_translate_x_6 =
+    A.class "sm:tw--translate-x-6"
+
+
+sm_tw_neg_translate_x_8 : Html.Attribute msg
+sm_tw_neg_translate_x_8 =
+    A.class "sm:tw--translate-x-8"
+
+
+sm_tw_neg_translate_x_10 : Html.Attribute msg
+sm_tw_neg_translate_x_10 =
+    A.class "sm:tw--translate-x-10"
+
+
+sm_tw_neg_translate_x_12 : Html.Attribute msg
+sm_tw_neg_translate_x_12 =
+    A.class "sm:tw--translate-x-12"
+
+
+sm_tw_neg_translate_x_16 : Html.Attribute msg
+sm_tw_neg_translate_x_16 =
+    A.class "sm:tw--translate-x-16"
+
+
+sm_tw_neg_translate_x_20 : Html.Attribute msg
+sm_tw_neg_translate_x_20 =
+    A.class "sm:tw--translate-x-20"
+
+
+sm_tw_neg_translate_x_24 : Html.Attribute msg
+sm_tw_neg_translate_x_24 =
+    A.class "sm:tw--translate-x-24"
+
+
+sm_tw_neg_translate_x_32 : Html.Attribute msg
+sm_tw_neg_translate_x_32 =
+    A.class "sm:tw--translate-x-32"
+
+
+sm_tw_neg_translate_x_40 : Html.Attribute msg
+sm_tw_neg_translate_x_40 =
+    A.class "sm:tw--translate-x-40"
+
+
+sm_tw_neg_translate_x_48 : Html.Attribute msg
+sm_tw_neg_translate_x_48 =
+    A.class "sm:tw--translate-x-48"
+
+
+sm_tw_neg_translate_x_56 : Html.Attribute msg
+sm_tw_neg_translate_x_56 =
+    A.class "sm:tw--translate-x-56"
+
+
+sm_tw_neg_translate_x_64 : Html.Attribute msg
+sm_tw_neg_translate_x_64 =
+    A.class "sm:tw--translate-x-64"
+
+
+sm_tw_neg_translate_x_px : Html.Attribute msg
+sm_tw_neg_translate_x_px =
+    A.class "sm:tw--translate-x-px"
+
+
+sm_tw_neg_translate_x_full : Html.Attribute msg
+sm_tw_neg_translate_x_full =
+    A.class "sm:tw--translate-x-full"
+
+
+sm_tw_neg_translate_x_1over2 : Html.Attribute msg
+sm_tw_neg_translate_x_1over2 =
+    A.class "sm:tw--translate-x-1/2"
+
+
+sm_tw_translate_x_1over2 : Html.Attribute msg
+sm_tw_translate_x_1over2 =
+    A.class "sm:tw-translate-x-1/2"
+
+
+sm_tw_translate_x_full : Html.Attribute msg
+sm_tw_translate_x_full =
+    A.class "sm:tw-translate-x-full"
+
+
+sm_tw_translate_y_0 : Html.Attribute msg
+sm_tw_translate_y_0 =
+    A.class "sm:tw-translate-y-0"
+
+
+sm_tw_translate_y_1 : Html.Attribute msg
+sm_tw_translate_y_1 =
+    A.class "sm:tw-translate-y-1"
+
+
+sm_tw_translate_y_2 : Html.Attribute msg
+sm_tw_translate_y_2 =
+    A.class "sm:tw-translate-y-2"
+
+
+sm_tw_translate_y_3 : Html.Attribute msg
+sm_tw_translate_y_3 =
+    A.class "sm:tw-translate-y-3"
+
+
+sm_tw_translate_y_4 : Html.Attribute msg
+sm_tw_translate_y_4 =
+    A.class "sm:tw-translate-y-4"
+
+
+sm_tw_translate_y_5 : Html.Attribute msg
+sm_tw_translate_y_5 =
+    A.class "sm:tw-translate-y-5"
+
+
+sm_tw_translate_y_6 : Html.Attribute msg
+sm_tw_translate_y_6 =
+    A.class "sm:tw-translate-y-6"
+
+
+sm_tw_translate_y_8 : Html.Attribute msg
+sm_tw_translate_y_8 =
+    A.class "sm:tw-translate-y-8"
+
+
+sm_tw_translate_y_10 : Html.Attribute msg
+sm_tw_translate_y_10 =
+    A.class "sm:tw-translate-y-10"
+
+
+sm_tw_translate_y_12 : Html.Attribute msg
+sm_tw_translate_y_12 =
+    A.class "sm:tw-translate-y-12"
+
+
+sm_tw_translate_y_16 : Html.Attribute msg
+sm_tw_translate_y_16 =
+    A.class "sm:tw-translate-y-16"
+
+
+sm_tw_translate_y_20 : Html.Attribute msg
+sm_tw_translate_y_20 =
+    A.class "sm:tw-translate-y-20"
+
+
+sm_tw_translate_y_24 : Html.Attribute msg
+sm_tw_translate_y_24 =
+    A.class "sm:tw-translate-y-24"
+
+
+sm_tw_translate_y_32 : Html.Attribute msg
+sm_tw_translate_y_32 =
+    A.class "sm:tw-translate-y-32"
+
+
+sm_tw_translate_y_40 : Html.Attribute msg
+sm_tw_translate_y_40 =
+    A.class "sm:tw-translate-y-40"
+
+
+sm_tw_translate_y_48 : Html.Attribute msg
+sm_tw_translate_y_48 =
+    A.class "sm:tw-translate-y-48"
+
+
+sm_tw_translate_y_56 : Html.Attribute msg
+sm_tw_translate_y_56 =
+    A.class "sm:tw-translate-y-56"
+
+
+sm_tw_translate_y_64 : Html.Attribute msg
+sm_tw_translate_y_64 =
+    A.class "sm:tw-translate-y-64"
+
+
+sm_tw_translate_y_px : Html.Attribute msg
+sm_tw_translate_y_px =
+    A.class "sm:tw-translate-y-px"
+
+
+sm_tw_neg_translate_y_1 : Html.Attribute msg
+sm_tw_neg_translate_y_1 =
+    A.class "sm:tw--translate-y-1"
+
+
+sm_tw_neg_translate_y_2 : Html.Attribute msg
+sm_tw_neg_translate_y_2 =
+    A.class "sm:tw--translate-y-2"
+
+
+sm_tw_neg_translate_y_3 : Html.Attribute msg
+sm_tw_neg_translate_y_3 =
+    A.class "sm:tw--translate-y-3"
+
+
+sm_tw_neg_translate_y_4 : Html.Attribute msg
+sm_tw_neg_translate_y_4 =
+    A.class "sm:tw--translate-y-4"
+
+
+sm_tw_neg_translate_y_5 : Html.Attribute msg
+sm_tw_neg_translate_y_5 =
+    A.class "sm:tw--translate-y-5"
+
+
+sm_tw_neg_translate_y_6 : Html.Attribute msg
+sm_tw_neg_translate_y_6 =
+    A.class "sm:tw--translate-y-6"
+
+
+sm_tw_neg_translate_y_8 : Html.Attribute msg
+sm_tw_neg_translate_y_8 =
+    A.class "sm:tw--translate-y-8"
+
+
+sm_tw_neg_translate_y_10 : Html.Attribute msg
+sm_tw_neg_translate_y_10 =
+    A.class "sm:tw--translate-y-10"
+
+
+sm_tw_neg_translate_y_12 : Html.Attribute msg
+sm_tw_neg_translate_y_12 =
+    A.class "sm:tw--translate-y-12"
+
+
+sm_tw_neg_translate_y_16 : Html.Attribute msg
+sm_tw_neg_translate_y_16 =
+    A.class "sm:tw--translate-y-16"
+
+
+sm_tw_neg_translate_y_20 : Html.Attribute msg
+sm_tw_neg_translate_y_20 =
+    A.class "sm:tw--translate-y-20"
+
+
+sm_tw_neg_translate_y_24 : Html.Attribute msg
+sm_tw_neg_translate_y_24 =
+    A.class "sm:tw--translate-y-24"
+
+
+sm_tw_neg_translate_y_32 : Html.Attribute msg
+sm_tw_neg_translate_y_32 =
+    A.class "sm:tw--translate-y-32"
+
+
+sm_tw_neg_translate_y_40 : Html.Attribute msg
+sm_tw_neg_translate_y_40 =
+    A.class "sm:tw--translate-y-40"
+
+
+sm_tw_neg_translate_y_48 : Html.Attribute msg
+sm_tw_neg_translate_y_48 =
+    A.class "sm:tw--translate-y-48"
+
+
+sm_tw_neg_translate_y_56 : Html.Attribute msg
+sm_tw_neg_translate_y_56 =
+    A.class "sm:tw--translate-y-56"
+
+
+sm_tw_neg_translate_y_64 : Html.Attribute msg
+sm_tw_neg_translate_y_64 =
+    A.class "sm:tw--translate-y-64"
+
+
+sm_tw_neg_translate_y_px : Html.Attribute msg
+sm_tw_neg_translate_y_px =
+    A.class "sm:tw--translate-y-px"
+
+
+sm_tw_neg_translate_y_full : Html.Attribute msg
+sm_tw_neg_translate_y_full =
+    A.class "sm:tw--translate-y-full"
+
+
+sm_tw_neg_translate_y_1over2 : Html.Attribute msg
+sm_tw_neg_translate_y_1over2 =
+    A.class "sm:tw--translate-y-1/2"
+
+
+sm_tw_translate_y_1over2 : Html.Attribute msg
+sm_tw_translate_y_1over2 =
+    A.class "sm:tw-translate-y-1/2"
+
+
+sm_tw_translate_y_full : Html.Attribute msg
+sm_tw_translate_y_full =
+    A.class "sm:tw-translate-y-full"
+
+
+sm_hover_tw_translate_x_0 : Html.Attribute msg
+sm_hover_tw_translate_x_0 =
+    A.class "sm:hover:tw-translate-x-0"
+
+
+sm_hover_tw_translate_x_1 : Html.Attribute msg
+sm_hover_tw_translate_x_1 =
+    A.class "sm:hover:tw-translate-x-1"
+
+
+sm_hover_tw_translate_x_2 : Html.Attribute msg
+sm_hover_tw_translate_x_2 =
+    A.class "sm:hover:tw-translate-x-2"
+
+
+sm_hover_tw_translate_x_3 : Html.Attribute msg
+sm_hover_tw_translate_x_3 =
+    A.class "sm:hover:tw-translate-x-3"
+
+
+sm_hover_tw_translate_x_4 : Html.Attribute msg
+sm_hover_tw_translate_x_4 =
+    A.class "sm:hover:tw-translate-x-4"
+
+
+sm_hover_tw_translate_x_5 : Html.Attribute msg
+sm_hover_tw_translate_x_5 =
+    A.class "sm:hover:tw-translate-x-5"
+
+
+sm_hover_tw_translate_x_6 : Html.Attribute msg
+sm_hover_tw_translate_x_6 =
+    A.class "sm:hover:tw-translate-x-6"
+
+
+sm_hover_tw_translate_x_8 : Html.Attribute msg
+sm_hover_tw_translate_x_8 =
+    A.class "sm:hover:tw-translate-x-8"
+
+
+sm_hover_tw_translate_x_10 : Html.Attribute msg
+sm_hover_tw_translate_x_10 =
+    A.class "sm:hover:tw-translate-x-10"
+
+
+sm_hover_tw_translate_x_12 : Html.Attribute msg
+sm_hover_tw_translate_x_12 =
+    A.class "sm:hover:tw-translate-x-12"
+
+
+sm_hover_tw_translate_x_16 : Html.Attribute msg
+sm_hover_tw_translate_x_16 =
+    A.class "sm:hover:tw-translate-x-16"
+
+
+sm_hover_tw_translate_x_20 : Html.Attribute msg
+sm_hover_tw_translate_x_20 =
+    A.class "sm:hover:tw-translate-x-20"
+
+
+sm_hover_tw_translate_x_24 : Html.Attribute msg
+sm_hover_tw_translate_x_24 =
+    A.class "sm:hover:tw-translate-x-24"
+
+
+sm_hover_tw_translate_x_32 : Html.Attribute msg
+sm_hover_tw_translate_x_32 =
+    A.class "sm:hover:tw-translate-x-32"
+
+
+sm_hover_tw_translate_x_40 : Html.Attribute msg
+sm_hover_tw_translate_x_40 =
+    A.class "sm:hover:tw-translate-x-40"
+
+
+sm_hover_tw_translate_x_48 : Html.Attribute msg
+sm_hover_tw_translate_x_48 =
+    A.class "sm:hover:tw-translate-x-48"
+
+
+sm_hover_tw_translate_x_56 : Html.Attribute msg
+sm_hover_tw_translate_x_56 =
+    A.class "sm:hover:tw-translate-x-56"
+
+
+sm_hover_tw_translate_x_64 : Html.Attribute msg
+sm_hover_tw_translate_x_64 =
+    A.class "sm:hover:tw-translate-x-64"
+
+
+sm_hover_tw_translate_x_px : Html.Attribute msg
+sm_hover_tw_translate_x_px =
+    A.class "sm:hover:tw-translate-x-px"
+
+
+sm_hover_tw_neg_translate_x_1 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_1 =
+    A.class "sm:hover:tw--translate-x-1"
+
+
+sm_hover_tw_neg_translate_x_2 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_2 =
+    A.class "sm:hover:tw--translate-x-2"
+
+
+sm_hover_tw_neg_translate_x_3 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_3 =
+    A.class "sm:hover:tw--translate-x-3"
+
+
+sm_hover_tw_neg_translate_x_4 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_4 =
+    A.class "sm:hover:tw--translate-x-4"
+
+
+sm_hover_tw_neg_translate_x_5 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_5 =
+    A.class "sm:hover:tw--translate-x-5"
+
+
+sm_hover_tw_neg_translate_x_6 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_6 =
+    A.class "sm:hover:tw--translate-x-6"
+
+
+sm_hover_tw_neg_translate_x_8 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_8 =
+    A.class "sm:hover:tw--translate-x-8"
+
+
+sm_hover_tw_neg_translate_x_10 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_10 =
+    A.class "sm:hover:tw--translate-x-10"
+
+
+sm_hover_tw_neg_translate_x_12 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_12 =
+    A.class "sm:hover:tw--translate-x-12"
+
+
+sm_hover_tw_neg_translate_x_16 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_16 =
+    A.class "sm:hover:tw--translate-x-16"
+
+
+sm_hover_tw_neg_translate_x_20 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_20 =
+    A.class "sm:hover:tw--translate-x-20"
+
+
+sm_hover_tw_neg_translate_x_24 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_24 =
+    A.class "sm:hover:tw--translate-x-24"
+
+
+sm_hover_tw_neg_translate_x_32 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_32 =
+    A.class "sm:hover:tw--translate-x-32"
+
+
+sm_hover_tw_neg_translate_x_40 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_40 =
+    A.class "sm:hover:tw--translate-x-40"
+
+
+sm_hover_tw_neg_translate_x_48 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_48 =
+    A.class "sm:hover:tw--translate-x-48"
+
+
+sm_hover_tw_neg_translate_x_56 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_56 =
+    A.class "sm:hover:tw--translate-x-56"
+
+
+sm_hover_tw_neg_translate_x_64 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_64 =
+    A.class "sm:hover:tw--translate-x-64"
+
+
+sm_hover_tw_neg_translate_x_px : Html.Attribute msg
+sm_hover_tw_neg_translate_x_px =
+    A.class "sm:hover:tw--translate-x-px"
+
+
+sm_hover_tw_neg_translate_x_full : Html.Attribute msg
+sm_hover_tw_neg_translate_x_full =
+    A.class "sm:hover:tw--translate-x-full"
+
+
+sm_hover_tw_neg_translate_x_1over2 : Html.Attribute msg
+sm_hover_tw_neg_translate_x_1over2 =
+    A.class "sm:hover:tw--translate-x-1/2"
+
+
+sm_hover_tw_translate_x_1over2 : Html.Attribute msg
+sm_hover_tw_translate_x_1over2 =
+    A.class "sm:hover:tw-translate-x-1/2"
+
+
+sm_hover_tw_translate_x_full : Html.Attribute msg
+sm_hover_tw_translate_x_full =
+    A.class "sm:hover:tw-translate-x-full"
+
+
+sm_hover_tw_translate_y_0 : Html.Attribute msg
+sm_hover_tw_translate_y_0 =
+    A.class "sm:hover:tw-translate-y-0"
+
+
+sm_hover_tw_translate_y_1 : Html.Attribute msg
+sm_hover_tw_translate_y_1 =
+    A.class "sm:hover:tw-translate-y-1"
+
+
+sm_hover_tw_translate_y_2 : Html.Attribute msg
+sm_hover_tw_translate_y_2 =
+    A.class "sm:hover:tw-translate-y-2"
+
+
+sm_hover_tw_translate_y_3 : Html.Attribute msg
+sm_hover_tw_translate_y_3 =
+    A.class "sm:hover:tw-translate-y-3"
+
+
+sm_hover_tw_translate_y_4 : Html.Attribute msg
+sm_hover_tw_translate_y_4 =
+    A.class "sm:hover:tw-translate-y-4"
+
+
+sm_hover_tw_translate_y_5 : Html.Attribute msg
+sm_hover_tw_translate_y_5 =
+    A.class "sm:hover:tw-translate-y-5"
+
+
+sm_hover_tw_translate_y_6 : Html.Attribute msg
+sm_hover_tw_translate_y_6 =
+    A.class "sm:hover:tw-translate-y-6"
+
+
+sm_hover_tw_translate_y_8 : Html.Attribute msg
+sm_hover_tw_translate_y_8 =
+    A.class "sm:hover:tw-translate-y-8"
+
+
+sm_hover_tw_translate_y_10 : Html.Attribute msg
+sm_hover_tw_translate_y_10 =
+    A.class "sm:hover:tw-translate-y-10"
+
+
+sm_hover_tw_translate_y_12 : Html.Attribute msg
+sm_hover_tw_translate_y_12 =
+    A.class "sm:hover:tw-translate-y-12"
+
+
+sm_hover_tw_translate_y_16 : Html.Attribute msg
+sm_hover_tw_translate_y_16 =
+    A.class "sm:hover:tw-translate-y-16"
+
+
+sm_hover_tw_translate_y_20 : Html.Attribute msg
+sm_hover_tw_translate_y_20 =
+    A.class "sm:hover:tw-translate-y-20"
+
+
+sm_hover_tw_translate_y_24 : Html.Attribute msg
+sm_hover_tw_translate_y_24 =
+    A.class "sm:hover:tw-translate-y-24"
+
+
+sm_hover_tw_translate_y_32 : Html.Attribute msg
+sm_hover_tw_translate_y_32 =
+    A.class "sm:hover:tw-translate-y-32"
+
+
+sm_hover_tw_translate_y_40 : Html.Attribute msg
+sm_hover_tw_translate_y_40 =
+    A.class "sm:hover:tw-translate-y-40"
+
+
+sm_hover_tw_translate_y_48 : Html.Attribute msg
+sm_hover_tw_translate_y_48 =
+    A.class "sm:hover:tw-translate-y-48"
+
+
+sm_hover_tw_translate_y_56 : Html.Attribute msg
+sm_hover_tw_translate_y_56 =
+    A.class "sm:hover:tw-translate-y-56"
+
+
+sm_hover_tw_translate_y_64 : Html.Attribute msg
+sm_hover_tw_translate_y_64 =
+    A.class "sm:hover:tw-translate-y-64"
+
+
+sm_hover_tw_translate_y_px : Html.Attribute msg
+sm_hover_tw_translate_y_px =
+    A.class "sm:hover:tw-translate-y-px"
+
+
+sm_hover_tw_neg_translate_y_1 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_1 =
+    A.class "sm:hover:tw--translate-y-1"
+
+
+sm_hover_tw_neg_translate_y_2 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_2 =
+    A.class "sm:hover:tw--translate-y-2"
+
+
+sm_hover_tw_neg_translate_y_3 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_3 =
+    A.class "sm:hover:tw--translate-y-3"
+
+
+sm_hover_tw_neg_translate_y_4 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_4 =
+    A.class "sm:hover:tw--translate-y-4"
+
+
+sm_hover_tw_neg_translate_y_5 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_5 =
+    A.class "sm:hover:tw--translate-y-5"
+
+
+sm_hover_tw_neg_translate_y_6 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_6 =
+    A.class "sm:hover:tw--translate-y-6"
+
+
+sm_hover_tw_neg_translate_y_8 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_8 =
+    A.class "sm:hover:tw--translate-y-8"
+
+
+sm_hover_tw_neg_translate_y_10 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_10 =
+    A.class "sm:hover:tw--translate-y-10"
+
+
+sm_hover_tw_neg_translate_y_12 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_12 =
+    A.class "sm:hover:tw--translate-y-12"
+
+
+sm_hover_tw_neg_translate_y_16 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_16 =
+    A.class "sm:hover:tw--translate-y-16"
+
+
+sm_hover_tw_neg_translate_y_20 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_20 =
+    A.class "sm:hover:tw--translate-y-20"
+
+
+sm_hover_tw_neg_translate_y_24 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_24 =
+    A.class "sm:hover:tw--translate-y-24"
+
+
+sm_hover_tw_neg_translate_y_32 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_32 =
+    A.class "sm:hover:tw--translate-y-32"
+
+
+sm_hover_tw_neg_translate_y_40 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_40 =
+    A.class "sm:hover:tw--translate-y-40"
+
+
+sm_hover_tw_neg_translate_y_48 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_48 =
+    A.class "sm:hover:tw--translate-y-48"
+
+
+sm_hover_tw_neg_translate_y_56 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_56 =
+    A.class "sm:hover:tw--translate-y-56"
+
+
+sm_hover_tw_neg_translate_y_64 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_64 =
+    A.class "sm:hover:tw--translate-y-64"
+
+
+sm_hover_tw_neg_translate_y_px : Html.Attribute msg
+sm_hover_tw_neg_translate_y_px =
+    A.class "sm:hover:tw--translate-y-px"
+
+
+sm_hover_tw_neg_translate_y_full : Html.Attribute msg
+sm_hover_tw_neg_translate_y_full =
+    A.class "sm:hover:tw--translate-y-full"
+
+
+sm_hover_tw_neg_translate_y_1over2 : Html.Attribute msg
+sm_hover_tw_neg_translate_y_1over2 =
+    A.class "sm:hover:tw--translate-y-1/2"
+
+
+sm_hover_tw_translate_y_1over2 : Html.Attribute msg
+sm_hover_tw_translate_y_1over2 =
+    A.class "sm:hover:tw-translate-y-1/2"
+
+
+sm_hover_tw_translate_y_full : Html.Attribute msg
+sm_hover_tw_translate_y_full =
+    A.class "sm:hover:tw-translate-y-full"
+
+
+sm_focus_tw_translate_x_0 : Html.Attribute msg
+sm_focus_tw_translate_x_0 =
+    A.class "sm:focus:tw-translate-x-0"
+
+
+sm_focus_tw_translate_x_1 : Html.Attribute msg
+sm_focus_tw_translate_x_1 =
+    A.class "sm:focus:tw-translate-x-1"
+
+
+sm_focus_tw_translate_x_2 : Html.Attribute msg
+sm_focus_tw_translate_x_2 =
+    A.class "sm:focus:tw-translate-x-2"
+
+
+sm_focus_tw_translate_x_3 : Html.Attribute msg
+sm_focus_tw_translate_x_3 =
+    A.class "sm:focus:tw-translate-x-3"
+
+
+sm_focus_tw_translate_x_4 : Html.Attribute msg
+sm_focus_tw_translate_x_4 =
+    A.class "sm:focus:tw-translate-x-4"
+
+
+sm_focus_tw_translate_x_5 : Html.Attribute msg
+sm_focus_tw_translate_x_5 =
+    A.class "sm:focus:tw-translate-x-5"
+
+
+sm_focus_tw_translate_x_6 : Html.Attribute msg
+sm_focus_tw_translate_x_6 =
+    A.class "sm:focus:tw-translate-x-6"
+
+
+sm_focus_tw_translate_x_8 : Html.Attribute msg
+sm_focus_tw_translate_x_8 =
+    A.class "sm:focus:tw-translate-x-8"
+
+
+sm_focus_tw_translate_x_10 : Html.Attribute msg
+sm_focus_tw_translate_x_10 =
+    A.class "sm:focus:tw-translate-x-10"
+
+
+sm_focus_tw_translate_x_12 : Html.Attribute msg
+sm_focus_tw_translate_x_12 =
+    A.class "sm:focus:tw-translate-x-12"
+
+
+sm_focus_tw_translate_x_16 : Html.Attribute msg
+sm_focus_tw_translate_x_16 =
+    A.class "sm:focus:tw-translate-x-16"
+
+
+sm_focus_tw_translate_x_20 : Html.Attribute msg
+sm_focus_tw_translate_x_20 =
+    A.class "sm:focus:tw-translate-x-20"
+
+
+sm_focus_tw_translate_x_24 : Html.Attribute msg
+sm_focus_tw_translate_x_24 =
+    A.class "sm:focus:tw-translate-x-24"
+
+
+sm_focus_tw_translate_x_32 : Html.Attribute msg
+sm_focus_tw_translate_x_32 =
+    A.class "sm:focus:tw-translate-x-32"
+
+
+sm_focus_tw_translate_x_40 : Html.Attribute msg
+sm_focus_tw_translate_x_40 =
+    A.class "sm:focus:tw-translate-x-40"
+
+
+sm_focus_tw_translate_x_48 : Html.Attribute msg
+sm_focus_tw_translate_x_48 =
+    A.class "sm:focus:tw-translate-x-48"
+
+
+sm_focus_tw_translate_x_56 : Html.Attribute msg
+sm_focus_tw_translate_x_56 =
+    A.class "sm:focus:tw-translate-x-56"
+
+
+sm_focus_tw_translate_x_64 : Html.Attribute msg
+sm_focus_tw_translate_x_64 =
+    A.class "sm:focus:tw-translate-x-64"
+
+
+sm_focus_tw_translate_x_px : Html.Attribute msg
+sm_focus_tw_translate_x_px =
+    A.class "sm:focus:tw-translate-x-px"
+
+
+sm_focus_tw_neg_translate_x_1 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_1 =
+    A.class "sm:focus:tw--translate-x-1"
+
+
+sm_focus_tw_neg_translate_x_2 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_2 =
+    A.class "sm:focus:tw--translate-x-2"
+
+
+sm_focus_tw_neg_translate_x_3 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_3 =
+    A.class "sm:focus:tw--translate-x-3"
+
+
+sm_focus_tw_neg_translate_x_4 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_4 =
+    A.class "sm:focus:tw--translate-x-4"
+
+
+sm_focus_tw_neg_translate_x_5 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_5 =
+    A.class "sm:focus:tw--translate-x-5"
+
+
+sm_focus_tw_neg_translate_x_6 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_6 =
+    A.class "sm:focus:tw--translate-x-6"
+
+
+sm_focus_tw_neg_translate_x_8 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_8 =
+    A.class "sm:focus:tw--translate-x-8"
+
+
+sm_focus_tw_neg_translate_x_10 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_10 =
+    A.class "sm:focus:tw--translate-x-10"
+
+
+sm_focus_tw_neg_translate_x_12 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_12 =
+    A.class "sm:focus:tw--translate-x-12"
+
+
+sm_focus_tw_neg_translate_x_16 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_16 =
+    A.class "sm:focus:tw--translate-x-16"
+
+
+sm_focus_tw_neg_translate_x_20 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_20 =
+    A.class "sm:focus:tw--translate-x-20"
+
+
+sm_focus_tw_neg_translate_x_24 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_24 =
+    A.class "sm:focus:tw--translate-x-24"
+
+
+sm_focus_tw_neg_translate_x_32 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_32 =
+    A.class "sm:focus:tw--translate-x-32"
+
+
+sm_focus_tw_neg_translate_x_40 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_40 =
+    A.class "sm:focus:tw--translate-x-40"
+
+
+sm_focus_tw_neg_translate_x_48 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_48 =
+    A.class "sm:focus:tw--translate-x-48"
+
+
+sm_focus_tw_neg_translate_x_56 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_56 =
+    A.class "sm:focus:tw--translate-x-56"
+
+
+sm_focus_tw_neg_translate_x_64 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_64 =
+    A.class "sm:focus:tw--translate-x-64"
+
+
+sm_focus_tw_neg_translate_x_px : Html.Attribute msg
+sm_focus_tw_neg_translate_x_px =
+    A.class "sm:focus:tw--translate-x-px"
+
+
+sm_focus_tw_neg_translate_x_full : Html.Attribute msg
+sm_focus_tw_neg_translate_x_full =
+    A.class "sm:focus:tw--translate-x-full"
+
+
+sm_focus_tw_neg_translate_x_1over2 : Html.Attribute msg
+sm_focus_tw_neg_translate_x_1over2 =
+    A.class "sm:focus:tw--translate-x-1/2"
+
+
+sm_focus_tw_translate_x_1over2 : Html.Attribute msg
+sm_focus_tw_translate_x_1over2 =
+    A.class "sm:focus:tw-translate-x-1/2"
+
+
+sm_focus_tw_translate_x_full : Html.Attribute msg
+sm_focus_tw_translate_x_full =
+    A.class "sm:focus:tw-translate-x-full"
+
+
+sm_focus_tw_translate_y_0 : Html.Attribute msg
+sm_focus_tw_translate_y_0 =
+    A.class "sm:focus:tw-translate-y-0"
+
+
+sm_focus_tw_translate_y_1 : Html.Attribute msg
+sm_focus_tw_translate_y_1 =
+    A.class "sm:focus:tw-translate-y-1"
+
+
+sm_focus_tw_translate_y_2 : Html.Attribute msg
+sm_focus_tw_translate_y_2 =
+    A.class "sm:focus:tw-translate-y-2"
+
+
+sm_focus_tw_translate_y_3 : Html.Attribute msg
+sm_focus_tw_translate_y_3 =
+    A.class "sm:focus:tw-translate-y-3"
+
+
+sm_focus_tw_translate_y_4 : Html.Attribute msg
+sm_focus_tw_translate_y_4 =
+    A.class "sm:focus:tw-translate-y-4"
+
+
+sm_focus_tw_translate_y_5 : Html.Attribute msg
+sm_focus_tw_translate_y_5 =
+    A.class "sm:focus:tw-translate-y-5"
+
+
+sm_focus_tw_translate_y_6 : Html.Attribute msg
+sm_focus_tw_translate_y_6 =
+    A.class "sm:focus:tw-translate-y-6"
+
+
+sm_focus_tw_translate_y_8 : Html.Attribute msg
+sm_focus_tw_translate_y_8 =
+    A.class "sm:focus:tw-translate-y-8"
+
+
+sm_focus_tw_translate_y_10 : Html.Attribute msg
+sm_focus_tw_translate_y_10 =
+    A.class "sm:focus:tw-translate-y-10"
+
+
+sm_focus_tw_translate_y_12 : Html.Attribute msg
+sm_focus_tw_translate_y_12 =
+    A.class "sm:focus:tw-translate-y-12"
+
+
+sm_focus_tw_translate_y_16 : Html.Attribute msg
+sm_focus_tw_translate_y_16 =
+    A.class "sm:focus:tw-translate-y-16"
+
+
+sm_focus_tw_translate_y_20 : Html.Attribute msg
+sm_focus_tw_translate_y_20 =
+    A.class "sm:focus:tw-translate-y-20"
+
+
+sm_focus_tw_translate_y_24 : Html.Attribute msg
+sm_focus_tw_translate_y_24 =
+    A.class "sm:focus:tw-translate-y-24"
+
+
+sm_focus_tw_translate_y_32 : Html.Attribute msg
+sm_focus_tw_translate_y_32 =
+    A.class "sm:focus:tw-translate-y-32"
+
+
+sm_focus_tw_translate_y_40 : Html.Attribute msg
+sm_focus_tw_translate_y_40 =
+    A.class "sm:focus:tw-translate-y-40"
+
+
+sm_focus_tw_translate_y_48 : Html.Attribute msg
+sm_focus_tw_translate_y_48 =
+    A.class "sm:focus:tw-translate-y-48"
+
+
+sm_focus_tw_translate_y_56 : Html.Attribute msg
+sm_focus_tw_translate_y_56 =
+    A.class "sm:focus:tw-translate-y-56"
+
+
+sm_focus_tw_translate_y_64 : Html.Attribute msg
+sm_focus_tw_translate_y_64 =
+    A.class "sm:focus:tw-translate-y-64"
+
+
+sm_focus_tw_translate_y_px : Html.Attribute msg
+sm_focus_tw_translate_y_px =
+    A.class "sm:focus:tw-translate-y-px"
+
+
+sm_focus_tw_neg_translate_y_1 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_1 =
+    A.class "sm:focus:tw--translate-y-1"
+
+
+sm_focus_tw_neg_translate_y_2 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_2 =
+    A.class "sm:focus:tw--translate-y-2"
+
+
+sm_focus_tw_neg_translate_y_3 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_3 =
+    A.class "sm:focus:tw--translate-y-3"
+
+
+sm_focus_tw_neg_translate_y_4 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_4 =
+    A.class "sm:focus:tw--translate-y-4"
+
+
+sm_focus_tw_neg_translate_y_5 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_5 =
+    A.class "sm:focus:tw--translate-y-5"
+
+
+sm_focus_tw_neg_translate_y_6 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_6 =
+    A.class "sm:focus:tw--translate-y-6"
+
+
+sm_focus_tw_neg_translate_y_8 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_8 =
+    A.class "sm:focus:tw--translate-y-8"
+
+
+sm_focus_tw_neg_translate_y_10 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_10 =
+    A.class "sm:focus:tw--translate-y-10"
+
+
+sm_focus_tw_neg_translate_y_12 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_12 =
+    A.class "sm:focus:tw--translate-y-12"
+
+
+sm_focus_tw_neg_translate_y_16 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_16 =
+    A.class "sm:focus:tw--translate-y-16"
+
+
+sm_focus_tw_neg_translate_y_20 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_20 =
+    A.class "sm:focus:tw--translate-y-20"
+
+
+sm_focus_tw_neg_translate_y_24 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_24 =
+    A.class "sm:focus:tw--translate-y-24"
+
+
+sm_focus_tw_neg_translate_y_32 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_32 =
+    A.class "sm:focus:tw--translate-y-32"
+
+
+sm_focus_tw_neg_translate_y_40 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_40 =
+    A.class "sm:focus:tw--translate-y-40"
+
+
+sm_focus_tw_neg_translate_y_48 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_48 =
+    A.class "sm:focus:tw--translate-y-48"
+
+
+sm_focus_tw_neg_translate_y_56 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_56 =
+    A.class "sm:focus:tw--translate-y-56"
+
+
+sm_focus_tw_neg_translate_y_64 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_64 =
+    A.class "sm:focus:tw--translate-y-64"
+
+
+sm_focus_tw_neg_translate_y_px : Html.Attribute msg
+sm_focus_tw_neg_translate_y_px =
+    A.class "sm:focus:tw--translate-y-px"
+
+
+sm_focus_tw_neg_translate_y_full : Html.Attribute msg
+sm_focus_tw_neg_translate_y_full =
+    A.class "sm:focus:tw--translate-y-full"
+
+
+sm_focus_tw_neg_translate_y_1over2 : Html.Attribute msg
+sm_focus_tw_neg_translate_y_1over2 =
+    A.class "sm:focus:tw--translate-y-1/2"
+
+
+sm_focus_tw_translate_y_1over2 : Html.Attribute msg
+sm_focus_tw_translate_y_1over2 =
+    A.class "sm:focus:tw-translate-y-1/2"
+
+
+sm_focus_tw_translate_y_full : Html.Attribute msg
+sm_focus_tw_translate_y_full =
+    A.class "sm:focus:tw-translate-y-full"
+
+
+sm_tw_skew_x_0 : Html.Attribute msg
+sm_tw_skew_x_0 =
+    A.class "sm:tw-skew-x-0"
+
+
+sm_tw_skew_x_3 : Html.Attribute msg
+sm_tw_skew_x_3 =
+    A.class "sm:tw-skew-x-3"
+
+
+sm_tw_skew_x_6 : Html.Attribute msg
+sm_tw_skew_x_6 =
+    A.class "sm:tw-skew-x-6"
+
+
+sm_tw_skew_x_12 : Html.Attribute msg
+sm_tw_skew_x_12 =
+    A.class "sm:tw-skew-x-12"
+
+
+sm_tw_neg_skew_x_12 : Html.Attribute msg
+sm_tw_neg_skew_x_12 =
+    A.class "sm:tw--skew-x-12"
+
+
+sm_tw_neg_skew_x_6 : Html.Attribute msg
+sm_tw_neg_skew_x_6 =
+    A.class "sm:tw--skew-x-6"
+
+
+sm_tw_neg_skew_x_3 : Html.Attribute msg
+sm_tw_neg_skew_x_3 =
+    A.class "sm:tw--skew-x-3"
+
+
+sm_tw_skew_y_0 : Html.Attribute msg
+sm_tw_skew_y_0 =
+    A.class "sm:tw-skew-y-0"
+
+
+sm_tw_skew_y_3 : Html.Attribute msg
+sm_tw_skew_y_3 =
+    A.class "sm:tw-skew-y-3"
+
+
+sm_tw_skew_y_6 : Html.Attribute msg
+sm_tw_skew_y_6 =
+    A.class "sm:tw-skew-y-6"
+
+
+sm_tw_skew_y_12 : Html.Attribute msg
+sm_tw_skew_y_12 =
+    A.class "sm:tw-skew-y-12"
+
+
+sm_tw_neg_skew_y_12 : Html.Attribute msg
+sm_tw_neg_skew_y_12 =
+    A.class "sm:tw--skew-y-12"
+
+
+sm_tw_neg_skew_y_6 : Html.Attribute msg
+sm_tw_neg_skew_y_6 =
+    A.class "sm:tw--skew-y-6"
+
+
+sm_tw_neg_skew_y_3 : Html.Attribute msg
+sm_tw_neg_skew_y_3 =
+    A.class "sm:tw--skew-y-3"
+
+
+sm_hover_tw_skew_x_0 : Html.Attribute msg
+sm_hover_tw_skew_x_0 =
+    A.class "sm:hover:tw-skew-x-0"
+
+
+sm_hover_tw_skew_x_3 : Html.Attribute msg
+sm_hover_tw_skew_x_3 =
+    A.class "sm:hover:tw-skew-x-3"
+
+
+sm_hover_tw_skew_x_6 : Html.Attribute msg
+sm_hover_tw_skew_x_6 =
+    A.class "sm:hover:tw-skew-x-6"
+
+
+sm_hover_tw_skew_x_12 : Html.Attribute msg
+sm_hover_tw_skew_x_12 =
+    A.class "sm:hover:tw-skew-x-12"
+
+
+sm_hover_tw_neg_skew_x_12 : Html.Attribute msg
+sm_hover_tw_neg_skew_x_12 =
+    A.class "sm:hover:tw--skew-x-12"
+
+
+sm_hover_tw_neg_skew_x_6 : Html.Attribute msg
+sm_hover_tw_neg_skew_x_6 =
+    A.class "sm:hover:tw--skew-x-6"
+
+
+sm_hover_tw_neg_skew_x_3 : Html.Attribute msg
+sm_hover_tw_neg_skew_x_3 =
+    A.class "sm:hover:tw--skew-x-3"
+
+
+sm_hover_tw_skew_y_0 : Html.Attribute msg
+sm_hover_tw_skew_y_0 =
+    A.class "sm:hover:tw-skew-y-0"
+
+
+sm_hover_tw_skew_y_3 : Html.Attribute msg
+sm_hover_tw_skew_y_3 =
+    A.class "sm:hover:tw-skew-y-3"
+
+
+sm_hover_tw_skew_y_6 : Html.Attribute msg
+sm_hover_tw_skew_y_6 =
+    A.class "sm:hover:tw-skew-y-6"
+
+
+sm_hover_tw_skew_y_12 : Html.Attribute msg
+sm_hover_tw_skew_y_12 =
+    A.class "sm:hover:tw-skew-y-12"
+
+
+sm_hover_tw_neg_skew_y_12 : Html.Attribute msg
+sm_hover_tw_neg_skew_y_12 =
+    A.class "sm:hover:tw--skew-y-12"
+
+
+sm_hover_tw_neg_skew_y_6 : Html.Attribute msg
+sm_hover_tw_neg_skew_y_6 =
+    A.class "sm:hover:tw--skew-y-6"
+
+
+sm_hover_tw_neg_skew_y_3 : Html.Attribute msg
+sm_hover_tw_neg_skew_y_3 =
+    A.class "sm:hover:tw--skew-y-3"
+
+
+sm_focus_tw_skew_x_0 : Html.Attribute msg
+sm_focus_tw_skew_x_0 =
+    A.class "sm:focus:tw-skew-x-0"
+
+
+sm_focus_tw_skew_x_3 : Html.Attribute msg
+sm_focus_tw_skew_x_3 =
+    A.class "sm:focus:tw-skew-x-3"
+
+
+sm_focus_tw_skew_x_6 : Html.Attribute msg
+sm_focus_tw_skew_x_6 =
+    A.class "sm:focus:tw-skew-x-6"
+
+
+sm_focus_tw_skew_x_12 : Html.Attribute msg
+sm_focus_tw_skew_x_12 =
+    A.class "sm:focus:tw-skew-x-12"
+
+
+sm_focus_tw_neg_skew_x_12 : Html.Attribute msg
+sm_focus_tw_neg_skew_x_12 =
+    A.class "sm:focus:tw--skew-x-12"
+
+
+sm_focus_tw_neg_skew_x_6 : Html.Attribute msg
+sm_focus_tw_neg_skew_x_6 =
+    A.class "sm:focus:tw--skew-x-6"
+
+
+sm_focus_tw_neg_skew_x_3 : Html.Attribute msg
+sm_focus_tw_neg_skew_x_3 =
+    A.class "sm:focus:tw--skew-x-3"
+
+
+sm_focus_tw_skew_y_0 : Html.Attribute msg
+sm_focus_tw_skew_y_0 =
+    A.class "sm:focus:tw-skew-y-0"
+
+
+sm_focus_tw_skew_y_3 : Html.Attribute msg
+sm_focus_tw_skew_y_3 =
+    A.class "sm:focus:tw-skew-y-3"
+
+
+sm_focus_tw_skew_y_6 : Html.Attribute msg
+sm_focus_tw_skew_y_6 =
+    A.class "sm:focus:tw-skew-y-6"
+
+
+sm_focus_tw_skew_y_12 : Html.Attribute msg
+sm_focus_tw_skew_y_12 =
+    A.class "sm:focus:tw-skew-y-12"
+
+
+sm_focus_tw_neg_skew_y_12 : Html.Attribute msg
+sm_focus_tw_neg_skew_y_12 =
+    A.class "sm:focus:tw--skew-y-12"
+
+
+sm_focus_tw_neg_skew_y_6 : Html.Attribute msg
+sm_focus_tw_neg_skew_y_6 =
+    A.class "sm:focus:tw--skew-y-6"
+
+
+sm_focus_tw_neg_skew_y_3 : Html.Attribute msg
+sm_focus_tw_neg_skew_y_3 =
+    A.class "sm:focus:tw--skew-y-3"
+
+
+sm_tw_transition_none : Html.Attribute msg
+sm_tw_transition_none =
+    A.class "sm:tw-transition-none"
+
+
+sm_tw_transition_all : Html.Attribute msg
+sm_tw_transition_all =
+    A.class "sm:tw-transition-all"
+
+
+sm_tw_transition : Html.Attribute msg
+sm_tw_transition =
+    A.class "sm:tw-transition"
+
+
+sm_tw_transition_colors : Html.Attribute msg
+sm_tw_transition_colors =
+    A.class "sm:tw-transition-colors"
+
+
+sm_tw_transition_opacity : Html.Attribute msg
+sm_tw_transition_opacity =
+    A.class "sm:tw-transition-opacity"
+
+
+sm_tw_transition_shadow : Html.Attribute msg
+sm_tw_transition_shadow =
+    A.class "sm:tw-transition-shadow"
+
+
+sm_tw_transition_transform : Html.Attribute msg
+sm_tw_transition_transform =
+    A.class "sm:tw-transition-transform"
+
+
+sm_tw_ease_linear : Html.Attribute msg
+sm_tw_ease_linear =
+    A.class "sm:tw-ease-linear"
+
+
+sm_tw_ease_in : Html.Attribute msg
+sm_tw_ease_in =
+    A.class "sm:tw-ease-in"
+
+
+sm_tw_ease_out : Html.Attribute msg
+sm_tw_ease_out =
+    A.class "sm:tw-ease-out"
+
+
+sm_tw_ease_in_out : Html.Attribute msg
+sm_tw_ease_in_out =
+    A.class "sm:tw-ease-in-out"
+
+
+sm_tw_duration_75 : Html.Attribute msg
+sm_tw_duration_75 =
+    A.class "sm:tw-duration-75"
+
+
+sm_tw_duration_100 : Html.Attribute msg
+sm_tw_duration_100 =
+    A.class "sm:tw-duration-100"
+
+
+sm_tw_duration_150 : Html.Attribute msg
+sm_tw_duration_150 =
+    A.class "sm:tw-duration-150"
+
+
+sm_tw_duration_200 : Html.Attribute msg
+sm_tw_duration_200 =
+    A.class "sm:tw-duration-200"
+
+
+sm_tw_duration_300 : Html.Attribute msg
+sm_tw_duration_300 =
+    A.class "sm:tw-duration-300"
+
+
+sm_tw_duration_500 : Html.Attribute msg
+sm_tw_duration_500 =
+    A.class "sm:tw-duration-500"
+
+
+sm_tw_duration_700 : Html.Attribute msg
+sm_tw_duration_700 =
+    A.class "sm:tw-duration-700"
+
+
+sm_tw_duration_1000 : Html.Attribute msg
+sm_tw_duration_1000 =
+    A.class "sm:tw-duration-1000"
 
 
 md_tw_sr_only : Html.Attribute msg
@@ -31333,6 +40603,11 @@ md_tw_rounded =
     A.class "md:tw-rounded"
 
 
+md_tw_rounded_md : Html.Attribute msg
+md_tw_rounded_md =
+    A.class "md:tw-rounded-md"
+
+
 md_tw_rounded_lg : Html.Attribute msg
 md_tw_rounded_lg =
     A.class "md:tw-rounded-lg"
@@ -31401,6 +40676,26 @@ md_tw_rounded_b =
 md_tw_rounded_l : Html.Attribute msg
 md_tw_rounded_l =
     A.class "md:tw-rounded-l"
+
+
+md_tw_rounded_t_md : Html.Attribute msg
+md_tw_rounded_t_md =
+    A.class "md:tw-rounded-t-md"
+
+
+md_tw_rounded_r_md : Html.Attribute msg
+md_tw_rounded_r_md =
+    A.class "md:tw-rounded-r-md"
+
+
+md_tw_rounded_b_md : Html.Attribute msg
+md_tw_rounded_b_md =
+    A.class "md:tw-rounded-b-md"
+
+
+md_tw_rounded_l_md : Html.Attribute msg
+md_tw_rounded_l_md =
+    A.class "md:tw-rounded-l-md"
 
 
 md_tw_rounded_t_lg : Html.Attribute msg
@@ -31501,6 +40796,26 @@ md_tw_rounded_br =
 md_tw_rounded_bl : Html.Attribute msg
 md_tw_rounded_bl =
     A.class "md:tw-rounded-bl"
+
+
+md_tw_rounded_tl_md : Html.Attribute msg
+md_tw_rounded_tl_md =
+    A.class "md:tw-rounded-tl-md"
+
+
+md_tw_rounded_tr_md : Html.Attribute msg
+md_tw_rounded_tr_md =
+    A.class "md:tw-rounded-tr-md"
+
+
+md_tw_rounded_br_md : Html.Attribute msg
+md_tw_rounded_br_md =
+    A.class "md:tw-rounded-br-md"
+
+
+md_tw_rounded_bl_md : Html.Attribute msg
+md_tw_rounded_bl_md =
+    A.class "md:tw-rounded-bl-md"
 
 
 md_tw_rounded_tl_lg : Html.Attribute msg
@@ -31693,6 +41008,16 @@ md_tw_border_l =
     A.class "md:tw-border-l"
 
 
+md_tw_box_border : Html.Attribute msg
+md_tw_box_border =
+    A.class "md:tw-box-border"
+
+
+md_tw_box_content : Html.Attribute msg
+md_tw_box_content =
+    A.class "md:tw-box-content"
+
+
 md_tw_cursor_auto : Html.Attribute msg
 md_tw_cursor_auto =
     A.class "md:tw-cursor-auto"
@@ -31753,19 +41078,54 @@ md_tw_inline_flex =
     A.class "md:tw-inline-flex"
 
 
+md_tw_grid : Html.Attribute msg
+md_tw_grid =
+    A.class "md:tw-grid"
+
+
 md_tw_table : Html.Attribute msg
 md_tw_table =
     A.class "md:tw-table"
 
 
-md_tw_table_row : Html.Attribute msg
-md_tw_table_row =
-    A.class "md:tw-table-row"
+md_tw_table_caption : Html.Attribute msg
+md_tw_table_caption =
+    A.class "md:tw-table-caption"
 
 
 md_tw_table_cell : Html.Attribute msg
 md_tw_table_cell =
     A.class "md:tw-table-cell"
+
+
+md_tw_table_column : Html.Attribute msg
+md_tw_table_column =
+    A.class "md:tw-table-column"
+
+
+md_tw_table_column_group : Html.Attribute msg
+md_tw_table_column_group =
+    A.class "md:tw-table-column-group"
+
+
+md_tw_table_footer_group : Html.Attribute msg
+md_tw_table_footer_group =
+    A.class "md:tw-table-footer-group"
+
+
+md_tw_table_header_group : Html.Attribute msg
+md_tw_table_header_group =
+    A.class "md:tw-table-header-group"
+
+
+md_tw_table_row_group : Html.Attribute msg
+md_tw_table_row_group =
+    A.class "md:tw-table-row-group"
+
+
+md_tw_table_row : Html.Attribute msg
+md_tw_table_row =
+    A.class "md:tw-table-row"
 
 
 md_tw_hidden : Html.Attribute msg
@@ -31881,6 +41241,11 @@ md_tw_justify_between =
 md_tw_justify_around : Html.Attribute msg
 md_tw_justify_around =
     A.class "md:tw-justify-around"
+
+
+md_tw_justify_evenly : Html.Attribute msg
+md_tw_justify_evenly =
+    A.class "md:tw-justify-evenly"
 
 
 md_tw_content_center : Html.Attribute msg
@@ -32041,6 +41406,21 @@ md_tw_float_none =
 md_tw_clearfix_after : Html.Attribute msg
 md_tw_clearfix_after =
     A.class "md:tw-clearfix:after"
+
+
+md_tw_clear_left : Html.Attribute msg
+md_tw_clear_left =
+    A.class "md:tw-clear-left"
+
+
+md_tw_clear_right : Html.Attribute msg
+md_tw_clear_right =
+    A.class "md:tw-clear-right"
+
+
+md_tw_clear_both : Html.Attribute msg
+md_tw_clear_both =
+    A.class "md:tw-clear-both"
 
 
 md_tw_font_sans : Html.Attribute msg
@@ -32301,6 +41681,46 @@ md_tw_h_full =
 md_tw_h_screen : Html.Attribute msg
 md_tw_h_screen =
     A.class "md:tw-h-screen"
+
+
+md_tw_leading_3 : Html.Attribute msg
+md_tw_leading_3 =
+    A.class "md:tw-leading-3"
+
+
+md_tw_leading_4 : Html.Attribute msg
+md_tw_leading_4 =
+    A.class "md:tw-leading-4"
+
+
+md_tw_leading_5 : Html.Attribute msg
+md_tw_leading_5 =
+    A.class "md:tw-leading-5"
+
+
+md_tw_leading_6 : Html.Attribute msg
+md_tw_leading_6 =
+    A.class "md:tw-leading-6"
+
+
+md_tw_leading_7 : Html.Attribute msg
+md_tw_leading_7 =
+    A.class "md:tw-leading-7"
+
+
+md_tw_leading_8 : Html.Attribute msg
+md_tw_leading_8 =
+    A.class "md:tw-leading-8"
+
+
+md_tw_leading_9 : Html.Attribute msg
+md_tw_leading_9 =
+    A.class "md:tw-leading-9"
+
+
+md_tw_leading_10 : Html.Attribute msg
+md_tw_leading_10 =
+    A.class "md:tw-leading-10"
 
 
 md_tw_leading_none : Html.Attribute msg
@@ -33698,6 +43118,11 @@ md_tw_max_h_screen =
     A.class "md:tw-max-h-screen"
 
 
+md_tw_max_w_none : Html.Attribute msg
+md_tw_max_w_none =
+    A.class "md:tw-max-w-none"
+
+
 md_tw_max_w_xs : Html.Attribute msg
 md_tw_max_w_xs =
     A.class "md:tw-max-w-xs"
@@ -33751,6 +43176,26 @@ md_tw_max_w_6xl =
 md_tw_max_w_full : Html.Attribute msg
 md_tw_max_w_full =
     A.class "md:tw-max-w-full"
+
+
+md_tw_max_w_screen_sm : Html.Attribute msg
+md_tw_max_w_screen_sm =
+    A.class "md:tw-max-w-screen-sm"
+
+
+md_tw_max_w_screen_md : Html.Attribute msg
+md_tw_max_w_screen_md =
+    A.class "md:tw-max-w-screen-md"
+
+
+md_tw_max_w_screen_lg : Html.Attribute msg
+md_tw_max_w_screen_lg =
+    A.class "md:tw-max-w-screen-lg"
+
+
+md_tw_max_w_screen_xl : Html.Attribute msg
+md_tw_max_w_screen_xl =
+    A.class "md:tw-max-w-screen-xl"
 
 
 md_tw_min_h_0 : Html.Attribute msg
@@ -35723,6 +45168,16 @@ md_tw_resize =
     A.class "md:tw-resize"
 
 
+md_tw_shadow_xs : Html.Attribute msg
+md_tw_shadow_xs =
+    A.class "md:tw-shadow-xs"
+
+
+md_tw_shadow_sm : Html.Attribute msg
+md_tw_shadow_sm =
+    A.class "md:tw-shadow-sm"
+
+
 md_tw_shadow : Html.Attribute msg
 md_tw_shadow =
     A.class "md:tw-shadow"
@@ -35763,6 +45218,16 @@ md_tw_shadow_none =
     A.class "md:tw-shadow-none"
 
 
+md_hover_tw_shadow_xs : Html.Attribute msg
+md_hover_tw_shadow_xs =
+    A.class "md:hover:tw-shadow-xs"
+
+
+md_hover_tw_shadow_sm : Html.Attribute msg
+md_hover_tw_shadow_sm =
+    A.class "md:hover:tw-shadow-sm"
+
+
 md_hover_tw_shadow : Html.Attribute msg
 md_hover_tw_shadow =
     A.class "md:hover:tw-shadow"
@@ -35801,6 +45266,16 @@ md_hover_tw_shadow_outline =
 md_hover_tw_shadow_none : Html.Attribute msg
 md_hover_tw_shadow_none =
     A.class "md:hover:tw-shadow-none"
+
+
+md_focus_tw_shadow_xs : Html.Attribute msg
+md_focus_tw_shadow_xs =
+    A.class "md:focus:tw-shadow-xs"
+
+
+md_focus_tw_shadow_sm : Html.Attribute msg
+md_focus_tw_shadow_sm =
+    A.class "md:focus:tw-shadow-sm"
 
 
 md_focus_tw_shadow : Html.Attribute msg
@@ -35851,6 +45326,21 @@ md_tw_fill_current =
 md_tw_stroke_current : Html.Attribute msg
 md_tw_stroke_current =
     A.class "md:tw-stroke-current"
+
+
+md_tw_stroke_0 : Html.Attribute msg
+md_tw_stroke_0 =
+    A.class "md:tw-stroke-0"
+
+
+md_tw_stroke_1 : Html.Attribute msg
+md_tw_stroke_1 =
+    A.class "md:tw-stroke-1"
+
+
+md_tw_stroke_2 : Html.Attribute msg
+md_tw_stroke_2 =
+    A.class "md:tw-stroke-2"
 
 
 md_tw_table_auto : Html.Attribute msg
@@ -37821,6 +47311,2876 @@ md_tw_z_50 =
 md_tw_z_auto : Html.Attribute msg
 md_tw_z_auto =
     A.class "md:tw-z-auto"
+
+
+md_tw_gap_0 : Html.Attribute msg
+md_tw_gap_0 =
+    A.class "md:tw-gap-0"
+
+
+md_tw_gap_1 : Html.Attribute msg
+md_tw_gap_1 =
+    A.class "md:tw-gap-1"
+
+
+md_tw_gap_2 : Html.Attribute msg
+md_tw_gap_2 =
+    A.class "md:tw-gap-2"
+
+
+md_tw_gap_3 : Html.Attribute msg
+md_tw_gap_3 =
+    A.class "md:tw-gap-3"
+
+
+md_tw_gap_4 : Html.Attribute msg
+md_tw_gap_4 =
+    A.class "md:tw-gap-4"
+
+
+md_tw_gap_5 : Html.Attribute msg
+md_tw_gap_5 =
+    A.class "md:tw-gap-5"
+
+
+md_tw_gap_6 : Html.Attribute msg
+md_tw_gap_6 =
+    A.class "md:tw-gap-6"
+
+
+md_tw_gap_8 : Html.Attribute msg
+md_tw_gap_8 =
+    A.class "md:tw-gap-8"
+
+
+md_tw_gap_10 : Html.Attribute msg
+md_tw_gap_10 =
+    A.class "md:tw-gap-10"
+
+
+md_tw_gap_12 : Html.Attribute msg
+md_tw_gap_12 =
+    A.class "md:tw-gap-12"
+
+
+md_tw_gap_16 : Html.Attribute msg
+md_tw_gap_16 =
+    A.class "md:tw-gap-16"
+
+
+md_tw_gap_20 : Html.Attribute msg
+md_tw_gap_20 =
+    A.class "md:tw-gap-20"
+
+
+md_tw_gap_24 : Html.Attribute msg
+md_tw_gap_24 =
+    A.class "md:tw-gap-24"
+
+
+md_tw_gap_32 : Html.Attribute msg
+md_tw_gap_32 =
+    A.class "md:tw-gap-32"
+
+
+md_tw_gap_40 : Html.Attribute msg
+md_tw_gap_40 =
+    A.class "md:tw-gap-40"
+
+
+md_tw_gap_48 : Html.Attribute msg
+md_tw_gap_48 =
+    A.class "md:tw-gap-48"
+
+
+md_tw_gap_56 : Html.Attribute msg
+md_tw_gap_56 =
+    A.class "md:tw-gap-56"
+
+
+md_tw_gap_64 : Html.Attribute msg
+md_tw_gap_64 =
+    A.class "md:tw-gap-64"
+
+
+md_tw_gap_px : Html.Attribute msg
+md_tw_gap_px =
+    A.class "md:tw-gap-px"
+
+
+md_tw_col_gap_0 : Html.Attribute msg
+md_tw_col_gap_0 =
+    A.class "md:tw-col-gap-0"
+
+
+md_tw_col_gap_1 : Html.Attribute msg
+md_tw_col_gap_1 =
+    A.class "md:tw-col-gap-1"
+
+
+md_tw_col_gap_2 : Html.Attribute msg
+md_tw_col_gap_2 =
+    A.class "md:tw-col-gap-2"
+
+
+md_tw_col_gap_3 : Html.Attribute msg
+md_tw_col_gap_3 =
+    A.class "md:tw-col-gap-3"
+
+
+md_tw_col_gap_4 : Html.Attribute msg
+md_tw_col_gap_4 =
+    A.class "md:tw-col-gap-4"
+
+
+md_tw_col_gap_5 : Html.Attribute msg
+md_tw_col_gap_5 =
+    A.class "md:tw-col-gap-5"
+
+
+md_tw_col_gap_6 : Html.Attribute msg
+md_tw_col_gap_6 =
+    A.class "md:tw-col-gap-6"
+
+
+md_tw_col_gap_8 : Html.Attribute msg
+md_tw_col_gap_8 =
+    A.class "md:tw-col-gap-8"
+
+
+md_tw_col_gap_10 : Html.Attribute msg
+md_tw_col_gap_10 =
+    A.class "md:tw-col-gap-10"
+
+
+md_tw_col_gap_12 : Html.Attribute msg
+md_tw_col_gap_12 =
+    A.class "md:tw-col-gap-12"
+
+
+md_tw_col_gap_16 : Html.Attribute msg
+md_tw_col_gap_16 =
+    A.class "md:tw-col-gap-16"
+
+
+md_tw_col_gap_20 : Html.Attribute msg
+md_tw_col_gap_20 =
+    A.class "md:tw-col-gap-20"
+
+
+md_tw_col_gap_24 : Html.Attribute msg
+md_tw_col_gap_24 =
+    A.class "md:tw-col-gap-24"
+
+
+md_tw_col_gap_32 : Html.Attribute msg
+md_tw_col_gap_32 =
+    A.class "md:tw-col-gap-32"
+
+
+md_tw_col_gap_40 : Html.Attribute msg
+md_tw_col_gap_40 =
+    A.class "md:tw-col-gap-40"
+
+
+md_tw_col_gap_48 : Html.Attribute msg
+md_tw_col_gap_48 =
+    A.class "md:tw-col-gap-48"
+
+
+md_tw_col_gap_56 : Html.Attribute msg
+md_tw_col_gap_56 =
+    A.class "md:tw-col-gap-56"
+
+
+md_tw_col_gap_64 : Html.Attribute msg
+md_tw_col_gap_64 =
+    A.class "md:tw-col-gap-64"
+
+
+md_tw_col_gap_px : Html.Attribute msg
+md_tw_col_gap_px =
+    A.class "md:tw-col-gap-px"
+
+
+md_tw_row_gap_0 : Html.Attribute msg
+md_tw_row_gap_0 =
+    A.class "md:tw-row-gap-0"
+
+
+md_tw_row_gap_1 : Html.Attribute msg
+md_tw_row_gap_1 =
+    A.class "md:tw-row-gap-1"
+
+
+md_tw_row_gap_2 : Html.Attribute msg
+md_tw_row_gap_2 =
+    A.class "md:tw-row-gap-2"
+
+
+md_tw_row_gap_3 : Html.Attribute msg
+md_tw_row_gap_3 =
+    A.class "md:tw-row-gap-3"
+
+
+md_tw_row_gap_4 : Html.Attribute msg
+md_tw_row_gap_4 =
+    A.class "md:tw-row-gap-4"
+
+
+md_tw_row_gap_5 : Html.Attribute msg
+md_tw_row_gap_5 =
+    A.class "md:tw-row-gap-5"
+
+
+md_tw_row_gap_6 : Html.Attribute msg
+md_tw_row_gap_6 =
+    A.class "md:tw-row-gap-6"
+
+
+md_tw_row_gap_8 : Html.Attribute msg
+md_tw_row_gap_8 =
+    A.class "md:tw-row-gap-8"
+
+
+md_tw_row_gap_10 : Html.Attribute msg
+md_tw_row_gap_10 =
+    A.class "md:tw-row-gap-10"
+
+
+md_tw_row_gap_12 : Html.Attribute msg
+md_tw_row_gap_12 =
+    A.class "md:tw-row-gap-12"
+
+
+md_tw_row_gap_16 : Html.Attribute msg
+md_tw_row_gap_16 =
+    A.class "md:tw-row-gap-16"
+
+
+md_tw_row_gap_20 : Html.Attribute msg
+md_tw_row_gap_20 =
+    A.class "md:tw-row-gap-20"
+
+
+md_tw_row_gap_24 : Html.Attribute msg
+md_tw_row_gap_24 =
+    A.class "md:tw-row-gap-24"
+
+
+md_tw_row_gap_32 : Html.Attribute msg
+md_tw_row_gap_32 =
+    A.class "md:tw-row-gap-32"
+
+
+md_tw_row_gap_40 : Html.Attribute msg
+md_tw_row_gap_40 =
+    A.class "md:tw-row-gap-40"
+
+
+md_tw_row_gap_48 : Html.Attribute msg
+md_tw_row_gap_48 =
+    A.class "md:tw-row-gap-48"
+
+
+md_tw_row_gap_56 : Html.Attribute msg
+md_tw_row_gap_56 =
+    A.class "md:tw-row-gap-56"
+
+
+md_tw_row_gap_64 : Html.Attribute msg
+md_tw_row_gap_64 =
+    A.class "md:tw-row-gap-64"
+
+
+md_tw_row_gap_px : Html.Attribute msg
+md_tw_row_gap_px =
+    A.class "md:tw-row-gap-px"
+
+
+md_tw_grid_flow_row : Html.Attribute msg
+md_tw_grid_flow_row =
+    A.class "md:tw-grid-flow-row"
+
+
+md_tw_grid_flow_col : Html.Attribute msg
+md_tw_grid_flow_col =
+    A.class "md:tw-grid-flow-col"
+
+
+md_tw_grid_flow_row_dense : Html.Attribute msg
+md_tw_grid_flow_row_dense =
+    A.class "md:tw-grid-flow-row-dense"
+
+
+md_tw_grid_flow_col_dense : Html.Attribute msg
+md_tw_grid_flow_col_dense =
+    A.class "md:tw-grid-flow-col-dense"
+
+
+md_tw_grid_cols_1 : Html.Attribute msg
+md_tw_grid_cols_1 =
+    A.class "md:tw-grid-cols-1"
+
+
+md_tw_grid_cols_2 : Html.Attribute msg
+md_tw_grid_cols_2 =
+    A.class "md:tw-grid-cols-2"
+
+
+md_tw_grid_cols_3 : Html.Attribute msg
+md_tw_grid_cols_3 =
+    A.class "md:tw-grid-cols-3"
+
+
+md_tw_grid_cols_4 : Html.Attribute msg
+md_tw_grid_cols_4 =
+    A.class "md:tw-grid-cols-4"
+
+
+md_tw_grid_cols_5 : Html.Attribute msg
+md_tw_grid_cols_5 =
+    A.class "md:tw-grid-cols-5"
+
+
+md_tw_grid_cols_6 : Html.Attribute msg
+md_tw_grid_cols_6 =
+    A.class "md:tw-grid-cols-6"
+
+
+md_tw_grid_cols_7 : Html.Attribute msg
+md_tw_grid_cols_7 =
+    A.class "md:tw-grid-cols-7"
+
+
+md_tw_grid_cols_8 : Html.Attribute msg
+md_tw_grid_cols_8 =
+    A.class "md:tw-grid-cols-8"
+
+
+md_tw_grid_cols_9 : Html.Attribute msg
+md_tw_grid_cols_9 =
+    A.class "md:tw-grid-cols-9"
+
+
+md_tw_grid_cols_10 : Html.Attribute msg
+md_tw_grid_cols_10 =
+    A.class "md:tw-grid-cols-10"
+
+
+md_tw_grid_cols_11 : Html.Attribute msg
+md_tw_grid_cols_11 =
+    A.class "md:tw-grid-cols-11"
+
+
+md_tw_grid_cols_12 : Html.Attribute msg
+md_tw_grid_cols_12 =
+    A.class "md:tw-grid-cols-12"
+
+
+md_tw_grid_cols_none : Html.Attribute msg
+md_tw_grid_cols_none =
+    A.class "md:tw-grid-cols-none"
+
+
+md_tw_col_auto : Html.Attribute msg
+md_tw_col_auto =
+    A.class "md:tw-col-auto"
+
+
+md_tw_col_span_1 : Html.Attribute msg
+md_tw_col_span_1 =
+    A.class "md:tw-col-span-1"
+
+
+md_tw_col_span_2 : Html.Attribute msg
+md_tw_col_span_2 =
+    A.class "md:tw-col-span-2"
+
+
+md_tw_col_span_3 : Html.Attribute msg
+md_tw_col_span_3 =
+    A.class "md:tw-col-span-3"
+
+
+md_tw_col_span_4 : Html.Attribute msg
+md_tw_col_span_4 =
+    A.class "md:tw-col-span-4"
+
+
+md_tw_col_span_5 : Html.Attribute msg
+md_tw_col_span_5 =
+    A.class "md:tw-col-span-5"
+
+
+md_tw_col_span_6 : Html.Attribute msg
+md_tw_col_span_6 =
+    A.class "md:tw-col-span-6"
+
+
+md_tw_col_span_7 : Html.Attribute msg
+md_tw_col_span_7 =
+    A.class "md:tw-col-span-7"
+
+
+md_tw_col_span_8 : Html.Attribute msg
+md_tw_col_span_8 =
+    A.class "md:tw-col-span-8"
+
+
+md_tw_col_span_9 : Html.Attribute msg
+md_tw_col_span_9 =
+    A.class "md:tw-col-span-9"
+
+
+md_tw_col_span_10 : Html.Attribute msg
+md_tw_col_span_10 =
+    A.class "md:tw-col-span-10"
+
+
+md_tw_col_span_11 : Html.Attribute msg
+md_tw_col_span_11 =
+    A.class "md:tw-col-span-11"
+
+
+md_tw_col_span_12 : Html.Attribute msg
+md_tw_col_span_12 =
+    A.class "md:tw-col-span-12"
+
+
+md_tw_col_start_1 : Html.Attribute msg
+md_tw_col_start_1 =
+    A.class "md:tw-col-start-1"
+
+
+md_tw_col_start_2 : Html.Attribute msg
+md_tw_col_start_2 =
+    A.class "md:tw-col-start-2"
+
+
+md_tw_col_start_3 : Html.Attribute msg
+md_tw_col_start_3 =
+    A.class "md:tw-col-start-3"
+
+
+md_tw_col_start_4 : Html.Attribute msg
+md_tw_col_start_4 =
+    A.class "md:tw-col-start-4"
+
+
+md_tw_col_start_5 : Html.Attribute msg
+md_tw_col_start_5 =
+    A.class "md:tw-col-start-5"
+
+
+md_tw_col_start_6 : Html.Attribute msg
+md_tw_col_start_6 =
+    A.class "md:tw-col-start-6"
+
+
+md_tw_col_start_7 : Html.Attribute msg
+md_tw_col_start_7 =
+    A.class "md:tw-col-start-7"
+
+
+md_tw_col_start_8 : Html.Attribute msg
+md_tw_col_start_8 =
+    A.class "md:tw-col-start-8"
+
+
+md_tw_col_start_9 : Html.Attribute msg
+md_tw_col_start_9 =
+    A.class "md:tw-col-start-9"
+
+
+md_tw_col_start_10 : Html.Attribute msg
+md_tw_col_start_10 =
+    A.class "md:tw-col-start-10"
+
+
+md_tw_col_start_11 : Html.Attribute msg
+md_tw_col_start_11 =
+    A.class "md:tw-col-start-11"
+
+
+md_tw_col_start_12 : Html.Attribute msg
+md_tw_col_start_12 =
+    A.class "md:tw-col-start-12"
+
+
+md_tw_col_start_13 : Html.Attribute msg
+md_tw_col_start_13 =
+    A.class "md:tw-col-start-13"
+
+
+md_tw_col_start_auto : Html.Attribute msg
+md_tw_col_start_auto =
+    A.class "md:tw-col-start-auto"
+
+
+md_tw_col_end_1 : Html.Attribute msg
+md_tw_col_end_1 =
+    A.class "md:tw-col-end-1"
+
+
+md_tw_col_end_2 : Html.Attribute msg
+md_tw_col_end_2 =
+    A.class "md:tw-col-end-2"
+
+
+md_tw_col_end_3 : Html.Attribute msg
+md_tw_col_end_3 =
+    A.class "md:tw-col-end-3"
+
+
+md_tw_col_end_4 : Html.Attribute msg
+md_tw_col_end_4 =
+    A.class "md:tw-col-end-4"
+
+
+md_tw_col_end_5 : Html.Attribute msg
+md_tw_col_end_5 =
+    A.class "md:tw-col-end-5"
+
+
+md_tw_col_end_6 : Html.Attribute msg
+md_tw_col_end_6 =
+    A.class "md:tw-col-end-6"
+
+
+md_tw_col_end_7 : Html.Attribute msg
+md_tw_col_end_7 =
+    A.class "md:tw-col-end-7"
+
+
+md_tw_col_end_8 : Html.Attribute msg
+md_tw_col_end_8 =
+    A.class "md:tw-col-end-8"
+
+
+md_tw_col_end_9 : Html.Attribute msg
+md_tw_col_end_9 =
+    A.class "md:tw-col-end-9"
+
+
+md_tw_col_end_10 : Html.Attribute msg
+md_tw_col_end_10 =
+    A.class "md:tw-col-end-10"
+
+
+md_tw_col_end_11 : Html.Attribute msg
+md_tw_col_end_11 =
+    A.class "md:tw-col-end-11"
+
+
+md_tw_col_end_12 : Html.Attribute msg
+md_tw_col_end_12 =
+    A.class "md:tw-col-end-12"
+
+
+md_tw_col_end_13 : Html.Attribute msg
+md_tw_col_end_13 =
+    A.class "md:tw-col-end-13"
+
+
+md_tw_col_end_auto : Html.Attribute msg
+md_tw_col_end_auto =
+    A.class "md:tw-col-end-auto"
+
+
+md_tw_grid_rows_1 : Html.Attribute msg
+md_tw_grid_rows_1 =
+    A.class "md:tw-grid-rows-1"
+
+
+md_tw_grid_rows_2 : Html.Attribute msg
+md_tw_grid_rows_2 =
+    A.class "md:tw-grid-rows-2"
+
+
+md_tw_grid_rows_3 : Html.Attribute msg
+md_tw_grid_rows_3 =
+    A.class "md:tw-grid-rows-3"
+
+
+md_tw_grid_rows_4 : Html.Attribute msg
+md_tw_grid_rows_4 =
+    A.class "md:tw-grid-rows-4"
+
+
+md_tw_grid_rows_5 : Html.Attribute msg
+md_tw_grid_rows_5 =
+    A.class "md:tw-grid-rows-5"
+
+
+md_tw_grid_rows_6 : Html.Attribute msg
+md_tw_grid_rows_6 =
+    A.class "md:tw-grid-rows-6"
+
+
+md_tw_grid_rows_none : Html.Attribute msg
+md_tw_grid_rows_none =
+    A.class "md:tw-grid-rows-none"
+
+
+md_tw_row_auto : Html.Attribute msg
+md_tw_row_auto =
+    A.class "md:tw-row-auto"
+
+
+md_tw_row_span_1 : Html.Attribute msg
+md_tw_row_span_1 =
+    A.class "md:tw-row-span-1"
+
+
+md_tw_row_span_2 : Html.Attribute msg
+md_tw_row_span_2 =
+    A.class "md:tw-row-span-2"
+
+
+md_tw_row_span_3 : Html.Attribute msg
+md_tw_row_span_3 =
+    A.class "md:tw-row-span-3"
+
+
+md_tw_row_span_4 : Html.Attribute msg
+md_tw_row_span_4 =
+    A.class "md:tw-row-span-4"
+
+
+md_tw_row_span_5 : Html.Attribute msg
+md_tw_row_span_5 =
+    A.class "md:tw-row-span-5"
+
+
+md_tw_row_span_6 : Html.Attribute msg
+md_tw_row_span_6 =
+    A.class "md:tw-row-span-6"
+
+
+md_tw_row_start_1 : Html.Attribute msg
+md_tw_row_start_1 =
+    A.class "md:tw-row-start-1"
+
+
+md_tw_row_start_2 : Html.Attribute msg
+md_tw_row_start_2 =
+    A.class "md:tw-row-start-2"
+
+
+md_tw_row_start_3 : Html.Attribute msg
+md_tw_row_start_3 =
+    A.class "md:tw-row-start-3"
+
+
+md_tw_row_start_4 : Html.Attribute msg
+md_tw_row_start_4 =
+    A.class "md:tw-row-start-4"
+
+
+md_tw_row_start_5 : Html.Attribute msg
+md_tw_row_start_5 =
+    A.class "md:tw-row-start-5"
+
+
+md_tw_row_start_6 : Html.Attribute msg
+md_tw_row_start_6 =
+    A.class "md:tw-row-start-6"
+
+
+md_tw_row_start_7 : Html.Attribute msg
+md_tw_row_start_7 =
+    A.class "md:tw-row-start-7"
+
+
+md_tw_row_start_auto : Html.Attribute msg
+md_tw_row_start_auto =
+    A.class "md:tw-row-start-auto"
+
+
+md_tw_row_end_1 : Html.Attribute msg
+md_tw_row_end_1 =
+    A.class "md:tw-row-end-1"
+
+
+md_tw_row_end_2 : Html.Attribute msg
+md_tw_row_end_2 =
+    A.class "md:tw-row-end-2"
+
+
+md_tw_row_end_3 : Html.Attribute msg
+md_tw_row_end_3 =
+    A.class "md:tw-row-end-3"
+
+
+md_tw_row_end_4 : Html.Attribute msg
+md_tw_row_end_4 =
+    A.class "md:tw-row-end-4"
+
+
+md_tw_row_end_5 : Html.Attribute msg
+md_tw_row_end_5 =
+    A.class "md:tw-row-end-5"
+
+
+md_tw_row_end_6 : Html.Attribute msg
+md_tw_row_end_6 =
+    A.class "md:tw-row-end-6"
+
+
+md_tw_row_end_7 : Html.Attribute msg
+md_tw_row_end_7 =
+    A.class "md:tw-row-end-7"
+
+
+md_tw_row_end_auto : Html.Attribute msg
+md_tw_row_end_auto =
+    A.class "md:tw-row-end-auto"
+
+
+md_tw_transform : Html.Attribute msg
+md_tw_transform =
+    A.class "md:tw-transform"
+
+
+md_tw_transform_none : Html.Attribute msg
+md_tw_transform_none =
+    A.class "md:tw-transform-none"
+
+
+md_tw_origin_center : Html.Attribute msg
+md_tw_origin_center =
+    A.class "md:tw-origin-center"
+
+
+md_tw_origin_top : Html.Attribute msg
+md_tw_origin_top =
+    A.class "md:tw-origin-top"
+
+
+md_tw_origin_top_right : Html.Attribute msg
+md_tw_origin_top_right =
+    A.class "md:tw-origin-top-right"
+
+
+md_tw_origin_right : Html.Attribute msg
+md_tw_origin_right =
+    A.class "md:tw-origin-right"
+
+
+md_tw_origin_bottom_right : Html.Attribute msg
+md_tw_origin_bottom_right =
+    A.class "md:tw-origin-bottom-right"
+
+
+md_tw_origin_bottom : Html.Attribute msg
+md_tw_origin_bottom =
+    A.class "md:tw-origin-bottom"
+
+
+md_tw_origin_bottom_left : Html.Attribute msg
+md_tw_origin_bottom_left =
+    A.class "md:tw-origin-bottom-left"
+
+
+md_tw_origin_left : Html.Attribute msg
+md_tw_origin_left =
+    A.class "md:tw-origin-left"
+
+
+md_tw_origin_top_left : Html.Attribute msg
+md_tw_origin_top_left =
+    A.class "md:tw-origin-top-left"
+
+
+md_tw_scale_0 : Html.Attribute msg
+md_tw_scale_0 =
+    A.class "md:tw-scale-0"
+
+
+md_tw_scale_50 : Html.Attribute msg
+md_tw_scale_50 =
+    A.class "md:tw-scale-50"
+
+
+md_tw_scale_75 : Html.Attribute msg
+md_tw_scale_75 =
+    A.class "md:tw-scale-75"
+
+
+md_tw_scale_90 : Html.Attribute msg
+md_tw_scale_90 =
+    A.class "md:tw-scale-90"
+
+
+md_tw_scale_95 : Html.Attribute msg
+md_tw_scale_95 =
+    A.class "md:tw-scale-95"
+
+
+md_tw_scale_100 : Html.Attribute msg
+md_tw_scale_100 =
+    A.class "md:tw-scale-100"
+
+
+md_tw_scale_105 : Html.Attribute msg
+md_tw_scale_105 =
+    A.class "md:tw-scale-105"
+
+
+md_tw_scale_110 : Html.Attribute msg
+md_tw_scale_110 =
+    A.class "md:tw-scale-110"
+
+
+md_tw_scale_125 : Html.Attribute msg
+md_tw_scale_125 =
+    A.class "md:tw-scale-125"
+
+
+md_tw_scale_150 : Html.Attribute msg
+md_tw_scale_150 =
+    A.class "md:tw-scale-150"
+
+
+md_tw_scale_x_0 : Html.Attribute msg
+md_tw_scale_x_0 =
+    A.class "md:tw-scale-x-0"
+
+
+md_tw_scale_x_50 : Html.Attribute msg
+md_tw_scale_x_50 =
+    A.class "md:tw-scale-x-50"
+
+
+md_tw_scale_x_75 : Html.Attribute msg
+md_tw_scale_x_75 =
+    A.class "md:tw-scale-x-75"
+
+
+md_tw_scale_x_90 : Html.Attribute msg
+md_tw_scale_x_90 =
+    A.class "md:tw-scale-x-90"
+
+
+md_tw_scale_x_95 : Html.Attribute msg
+md_tw_scale_x_95 =
+    A.class "md:tw-scale-x-95"
+
+
+md_tw_scale_x_100 : Html.Attribute msg
+md_tw_scale_x_100 =
+    A.class "md:tw-scale-x-100"
+
+
+md_tw_scale_x_105 : Html.Attribute msg
+md_tw_scale_x_105 =
+    A.class "md:tw-scale-x-105"
+
+
+md_tw_scale_x_110 : Html.Attribute msg
+md_tw_scale_x_110 =
+    A.class "md:tw-scale-x-110"
+
+
+md_tw_scale_x_125 : Html.Attribute msg
+md_tw_scale_x_125 =
+    A.class "md:tw-scale-x-125"
+
+
+md_tw_scale_x_150 : Html.Attribute msg
+md_tw_scale_x_150 =
+    A.class "md:tw-scale-x-150"
+
+
+md_tw_scale_y_0 : Html.Attribute msg
+md_tw_scale_y_0 =
+    A.class "md:tw-scale-y-0"
+
+
+md_tw_scale_y_50 : Html.Attribute msg
+md_tw_scale_y_50 =
+    A.class "md:tw-scale-y-50"
+
+
+md_tw_scale_y_75 : Html.Attribute msg
+md_tw_scale_y_75 =
+    A.class "md:tw-scale-y-75"
+
+
+md_tw_scale_y_90 : Html.Attribute msg
+md_tw_scale_y_90 =
+    A.class "md:tw-scale-y-90"
+
+
+md_tw_scale_y_95 : Html.Attribute msg
+md_tw_scale_y_95 =
+    A.class "md:tw-scale-y-95"
+
+
+md_tw_scale_y_100 : Html.Attribute msg
+md_tw_scale_y_100 =
+    A.class "md:tw-scale-y-100"
+
+
+md_tw_scale_y_105 : Html.Attribute msg
+md_tw_scale_y_105 =
+    A.class "md:tw-scale-y-105"
+
+
+md_tw_scale_y_110 : Html.Attribute msg
+md_tw_scale_y_110 =
+    A.class "md:tw-scale-y-110"
+
+
+md_tw_scale_y_125 : Html.Attribute msg
+md_tw_scale_y_125 =
+    A.class "md:tw-scale-y-125"
+
+
+md_tw_scale_y_150 : Html.Attribute msg
+md_tw_scale_y_150 =
+    A.class "md:tw-scale-y-150"
+
+
+md_hover_tw_scale_0 : Html.Attribute msg
+md_hover_tw_scale_0 =
+    A.class "md:hover:tw-scale-0"
+
+
+md_hover_tw_scale_50 : Html.Attribute msg
+md_hover_tw_scale_50 =
+    A.class "md:hover:tw-scale-50"
+
+
+md_hover_tw_scale_75 : Html.Attribute msg
+md_hover_tw_scale_75 =
+    A.class "md:hover:tw-scale-75"
+
+
+md_hover_tw_scale_90 : Html.Attribute msg
+md_hover_tw_scale_90 =
+    A.class "md:hover:tw-scale-90"
+
+
+md_hover_tw_scale_95 : Html.Attribute msg
+md_hover_tw_scale_95 =
+    A.class "md:hover:tw-scale-95"
+
+
+md_hover_tw_scale_100 : Html.Attribute msg
+md_hover_tw_scale_100 =
+    A.class "md:hover:tw-scale-100"
+
+
+md_hover_tw_scale_105 : Html.Attribute msg
+md_hover_tw_scale_105 =
+    A.class "md:hover:tw-scale-105"
+
+
+md_hover_tw_scale_110 : Html.Attribute msg
+md_hover_tw_scale_110 =
+    A.class "md:hover:tw-scale-110"
+
+
+md_hover_tw_scale_125 : Html.Attribute msg
+md_hover_tw_scale_125 =
+    A.class "md:hover:tw-scale-125"
+
+
+md_hover_tw_scale_150 : Html.Attribute msg
+md_hover_tw_scale_150 =
+    A.class "md:hover:tw-scale-150"
+
+
+md_hover_tw_scale_x_0 : Html.Attribute msg
+md_hover_tw_scale_x_0 =
+    A.class "md:hover:tw-scale-x-0"
+
+
+md_hover_tw_scale_x_50 : Html.Attribute msg
+md_hover_tw_scale_x_50 =
+    A.class "md:hover:tw-scale-x-50"
+
+
+md_hover_tw_scale_x_75 : Html.Attribute msg
+md_hover_tw_scale_x_75 =
+    A.class "md:hover:tw-scale-x-75"
+
+
+md_hover_tw_scale_x_90 : Html.Attribute msg
+md_hover_tw_scale_x_90 =
+    A.class "md:hover:tw-scale-x-90"
+
+
+md_hover_tw_scale_x_95 : Html.Attribute msg
+md_hover_tw_scale_x_95 =
+    A.class "md:hover:tw-scale-x-95"
+
+
+md_hover_tw_scale_x_100 : Html.Attribute msg
+md_hover_tw_scale_x_100 =
+    A.class "md:hover:tw-scale-x-100"
+
+
+md_hover_tw_scale_x_105 : Html.Attribute msg
+md_hover_tw_scale_x_105 =
+    A.class "md:hover:tw-scale-x-105"
+
+
+md_hover_tw_scale_x_110 : Html.Attribute msg
+md_hover_tw_scale_x_110 =
+    A.class "md:hover:tw-scale-x-110"
+
+
+md_hover_tw_scale_x_125 : Html.Attribute msg
+md_hover_tw_scale_x_125 =
+    A.class "md:hover:tw-scale-x-125"
+
+
+md_hover_tw_scale_x_150 : Html.Attribute msg
+md_hover_tw_scale_x_150 =
+    A.class "md:hover:tw-scale-x-150"
+
+
+md_hover_tw_scale_y_0 : Html.Attribute msg
+md_hover_tw_scale_y_0 =
+    A.class "md:hover:tw-scale-y-0"
+
+
+md_hover_tw_scale_y_50 : Html.Attribute msg
+md_hover_tw_scale_y_50 =
+    A.class "md:hover:tw-scale-y-50"
+
+
+md_hover_tw_scale_y_75 : Html.Attribute msg
+md_hover_tw_scale_y_75 =
+    A.class "md:hover:tw-scale-y-75"
+
+
+md_hover_tw_scale_y_90 : Html.Attribute msg
+md_hover_tw_scale_y_90 =
+    A.class "md:hover:tw-scale-y-90"
+
+
+md_hover_tw_scale_y_95 : Html.Attribute msg
+md_hover_tw_scale_y_95 =
+    A.class "md:hover:tw-scale-y-95"
+
+
+md_hover_tw_scale_y_100 : Html.Attribute msg
+md_hover_tw_scale_y_100 =
+    A.class "md:hover:tw-scale-y-100"
+
+
+md_hover_tw_scale_y_105 : Html.Attribute msg
+md_hover_tw_scale_y_105 =
+    A.class "md:hover:tw-scale-y-105"
+
+
+md_hover_tw_scale_y_110 : Html.Attribute msg
+md_hover_tw_scale_y_110 =
+    A.class "md:hover:tw-scale-y-110"
+
+
+md_hover_tw_scale_y_125 : Html.Attribute msg
+md_hover_tw_scale_y_125 =
+    A.class "md:hover:tw-scale-y-125"
+
+
+md_hover_tw_scale_y_150 : Html.Attribute msg
+md_hover_tw_scale_y_150 =
+    A.class "md:hover:tw-scale-y-150"
+
+
+md_focus_tw_scale_0 : Html.Attribute msg
+md_focus_tw_scale_0 =
+    A.class "md:focus:tw-scale-0"
+
+
+md_focus_tw_scale_50 : Html.Attribute msg
+md_focus_tw_scale_50 =
+    A.class "md:focus:tw-scale-50"
+
+
+md_focus_tw_scale_75 : Html.Attribute msg
+md_focus_tw_scale_75 =
+    A.class "md:focus:tw-scale-75"
+
+
+md_focus_tw_scale_90 : Html.Attribute msg
+md_focus_tw_scale_90 =
+    A.class "md:focus:tw-scale-90"
+
+
+md_focus_tw_scale_95 : Html.Attribute msg
+md_focus_tw_scale_95 =
+    A.class "md:focus:tw-scale-95"
+
+
+md_focus_tw_scale_100 : Html.Attribute msg
+md_focus_tw_scale_100 =
+    A.class "md:focus:tw-scale-100"
+
+
+md_focus_tw_scale_105 : Html.Attribute msg
+md_focus_tw_scale_105 =
+    A.class "md:focus:tw-scale-105"
+
+
+md_focus_tw_scale_110 : Html.Attribute msg
+md_focus_tw_scale_110 =
+    A.class "md:focus:tw-scale-110"
+
+
+md_focus_tw_scale_125 : Html.Attribute msg
+md_focus_tw_scale_125 =
+    A.class "md:focus:tw-scale-125"
+
+
+md_focus_tw_scale_150 : Html.Attribute msg
+md_focus_tw_scale_150 =
+    A.class "md:focus:tw-scale-150"
+
+
+md_focus_tw_scale_x_0 : Html.Attribute msg
+md_focus_tw_scale_x_0 =
+    A.class "md:focus:tw-scale-x-0"
+
+
+md_focus_tw_scale_x_50 : Html.Attribute msg
+md_focus_tw_scale_x_50 =
+    A.class "md:focus:tw-scale-x-50"
+
+
+md_focus_tw_scale_x_75 : Html.Attribute msg
+md_focus_tw_scale_x_75 =
+    A.class "md:focus:tw-scale-x-75"
+
+
+md_focus_tw_scale_x_90 : Html.Attribute msg
+md_focus_tw_scale_x_90 =
+    A.class "md:focus:tw-scale-x-90"
+
+
+md_focus_tw_scale_x_95 : Html.Attribute msg
+md_focus_tw_scale_x_95 =
+    A.class "md:focus:tw-scale-x-95"
+
+
+md_focus_tw_scale_x_100 : Html.Attribute msg
+md_focus_tw_scale_x_100 =
+    A.class "md:focus:tw-scale-x-100"
+
+
+md_focus_tw_scale_x_105 : Html.Attribute msg
+md_focus_tw_scale_x_105 =
+    A.class "md:focus:tw-scale-x-105"
+
+
+md_focus_tw_scale_x_110 : Html.Attribute msg
+md_focus_tw_scale_x_110 =
+    A.class "md:focus:tw-scale-x-110"
+
+
+md_focus_tw_scale_x_125 : Html.Attribute msg
+md_focus_tw_scale_x_125 =
+    A.class "md:focus:tw-scale-x-125"
+
+
+md_focus_tw_scale_x_150 : Html.Attribute msg
+md_focus_tw_scale_x_150 =
+    A.class "md:focus:tw-scale-x-150"
+
+
+md_focus_tw_scale_y_0 : Html.Attribute msg
+md_focus_tw_scale_y_0 =
+    A.class "md:focus:tw-scale-y-0"
+
+
+md_focus_tw_scale_y_50 : Html.Attribute msg
+md_focus_tw_scale_y_50 =
+    A.class "md:focus:tw-scale-y-50"
+
+
+md_focus_tw_scale_y_75 : Html.Attribute msg
+md_focus_tw_scale_y_75 =
+    A.class "md:focus:tw-scale-y-75"
+
+
+md_focus_tw_scale_y_90 : Html.Attribute msg
+md_focus_tw_scale_y_90 =
+    A.class "md:focus:tw-scale-y-90"
+
+
+md_focus_tw_scale_y_95 : Html.Attribute msg
+md_focus_tw_scale_y_95 =
+    A.class "md:focus:tw-scale-y-95"
+
+
+md_focus_tw_scale_y_100 : Html.Attribute msg
+md_focus_tw_scale_y_100 =
+    A.class "md:focus:tw-scale-y-100"
+
+
+md_focus_tw_scale_y_105 : Html.Attribute msg
+md_focus_tw_scale_y_105 =
+    A.class "md:focus:tw-scale-y-105"
+
+
+md_focus_tw_scale_y_110 : Html.Attribute msg
+md_focus_tw_scale_y_110 =
+    A.class "md:focus:tw-scale-y-110"
+
+
+md_focus_tw_scale_y_125 : Html.Attribute msg
+md_focus_tw_scale_y_125 =
+    A.class "md:focus:tw-scale-y-125"
+
+
+md_focus_tw_scale_y_150 : Html.Attribute msg
+md_focus_tw_scale_y_150 =
+    A.class "md:focus:tw-scale-y-150"
+
+
+md_tw_rotate_0 : Html.Attribute msg
+md_tw_rotate_0 =
+    A.class "md:tw-rotate-0"
+
+
+md_tw_rotate_45 : Html.Attribute msg
+md_tw_rotate_45 =
+    A.class "md:tw-rotate-45"
+
+
+md_tw_rotate_90 : Html.Attribute msg
+md_tw_rotate_90 =
+    A.class "md:tw-rotate-90"
+
+
+md_tw_rotate_180 : Html.Attribute msg
+md_tw_rotate_180 =
+    A.class "md:tw-rotate-180"
+
+
+md_tw_neg_rotate_180 : Html.Attribute msg
+md_tw_neg_rotate_180 =
+    A.class "md:tw--rotate-180"
+
+
+md_tw_neg_rotate_90 : Html.Attribute msg
+md_tw_neg_rotate_90 =
+    A.class "md:tw--rotate-90"
+
+
+md_tw_neg_rotate_45 : Html.Attribute msg
+md_tw_neg_rotate_45 =
+    A.class "md:tw--rotate-45"
+
+
+md_hover_tw_rotate_0 : Html.Attribute msg
+md_hover_tw_rotate_0 =
+    A.class "md:hover:tw-rotate-0"
+
+
+md_hover_tw_rotate_45 : Html.Attribute msg
+md_hover_tw_rotate_45 =
+    A.class "md:hover:tw-rotate-45"
+
+
+md_hover_tw_rotate_90 : Html.Attribute msg
+md_hover_tw_rotate_90 =
+    A.class "md:hover:tw-rotate-90"
+
+
+md_hover_tw_rotate_180 : Html.Attribute msg
+md_hover_tw_rotate_180 =
+    A.class "md:hover:tw-rotate-180"
+
+
+md_hover_tw_neg_rotate_180 : Html.Attribute msg
+md_hover_tw_neg_rotate_180 =
+    A.class "md:hover:tw--rotate-180"
+
+
+md_hover_tw_neg_rotate_90 : Html.Attribute msg
+md_hover_tw_neg_rotate_90 =
+    A.class "md:hover:tw--rotate-90"
+
+
+md_hover_tw_neg_rotate_45 : Html.Attribute msg
+md_hover_tw_neg_rotate_45 =
+    A.class "md:hover:tw--rotate-45"
+
+
+md_focus_tw_rotate_0 : Html.Attribute msg
+md_focus_tw_rotate_0 =
+    A.class "md:focus:tw-rotate-0"
+
+
+md_focus_tw_rotate_45 : Html.Attribute msg
+md_focus_tw_rotate_45 =
+    A.class "md:focus:tw-rotate-45"
+
+
+md_focus_tw_rotate_90 : Html.Attribute msg
+md_focus_tw_rotate_90 =
+    A.class "md:focus:tw-rotate-90"
+
+
+md_focus_tw_rotate_180 : Html.Attribute msg
+md_focus_tw_rotate_180 =
+    A.class "md:focus:tw-rotate-180"
+
+
+md_focus_tw_neg_rotate_180 : Html.Attribute msg
+md_focus_tw_neg_rotate_180 =
+    A.class "md:focus:tw--rotate-180"
+
+
+md_focus_tw_neg_rotate_90 : Html.Attribute msg
+md_focus_tw_neg_rotate_90 =
+    A.class "md:focus:tw--rotate-90"
+
+
+md_focus_tw_neg_rotate_45 : Html.Attribute msg
+md_focus_tw_neg_rotate_45 =
+    A.class "md:focus:tw--rotate-45"
+
+
+md_tw_translate_x_0 : Html.Attribute msg
+md_tw_translate_x_0 =
+    A.class "md:tw-translate-x-0"
+
+
+md_tw_translate_x_1 : Html.Attribute msg
+md_tw_translate_x_1 =
+    A.class "md:tw-translate-x-1"
+
+
+md_tw_translate_x_2 : Html.Attribute msg
+md_tw_translate_x_2 =
+    A.class "md:tw-translate-x-2"
+
+
+md_tw_translate_x_3 : Html.Attribute msg
+md_tw_translate_x_3 =
+    A.class "md:tw-translate-x-3"
+
+
+md_tw_translate_x_4 : Html.Attribute msg
+md_tw_translate_x_4 =
+    A.class "md:tw-translate-x-4"
+
+
+md_tw_translate_x_5 : Html.Attribute msg
+md_tw_translate_x_5 =
+    A.class "md:tw-translate-x-5"
+
+
+md_tw_translate_x_6 : Html.Attribute msg
+md_tw_translate_x_6 =
+    A.class "md:tw-translate-x-6"
+
+
+md_tw_translate_x_8 : Html.Attribute msg
+md_tw_translate_x_8 =
+    A.class "md:tw-translate-x-8"
+
+
+md_tw_translate_x_10 : Html.Attribute msg
+md_tw_translate_x_10 =
+    A.class "md:tw-translate-x-10"
+
+
+md_tw_translate_x_12 : Html.Attribute msg
+md_tw_translate_x_12 =
+    A.class "md:tw-translate-x-12"
+
+
+md_tw_translate_x_16 : Html.Attribute msg
+md_tw_translate_x_16 =
+    A.class "md:tw-translate-x-16"
+
+
+md_tw_translate_x_20 : Html.Attribute msg
+md_tw_translate_x_20 =
+    A.class "md:tw-translate-x-20"
+
+
+md_tw_translate_x_24 : Html.Attribute msg
+md_tw_translate_x_24 =
+    A.class "md:tw-translate-x-24"
+
+
+md_tw_translate_x_32 : Html.Attribute msg
+md_tw_translate_x_32 =
+    A.class "md:tw-translate-x-32"
+
+
+md_tw_translate_x_40 : Html.Attribute msg
+md_tw_translate_x_40 =
+    A.class "md:tw-translate-x-40"
+
+
+md_tw_translate_x_48 : Html.Attribute msg
+md_tw_translate_x_48 =
+    A.class "md:tw-translate-x-48"
+
+
+md_tw_translate_x_56 : Html.Attribute msg
+md_tw_translate_x_56 =
+    A.class "md:tw-translate-x-56"
+
+
+md_tw_translate_x_64 : Html.Attribute msg
+md_tw_translate_x_64 =
+    A.class "md:tw-translate-x-64"
+
+
+md_tw_translate_x_px : Html.Attribute msg
+md_tw_translate_x_px =
+    A.class "md:tw-translate-x-px"
+
+
+md_tw_neg_translate_x_1 : Html.Attribute msg
+md_tw_neg_translate_x_1 =
+    A.class "md:tw--translate-x-1"
+
+
+md_tw_neg_translate_x_2 : Html.Attribute msg
+md_tw_neg_translate_x_2 =
+    A.class "md:tw--translate-x-2"
+
+
+md_tw_neg_translate_x_3 : Html.Attribute msg
+md_tw_neg_translate_x_3 =
+    A.class "md:tw--translate-x-3"
+
+
+md_tw_neg_translate_x_4 : Html.Attribute msg
+md_tw_neg_translate_x_4 =
+    A.class "md:tw--translate-x-4"
+
+
+md_tw_neg_translate_x_5 : Html.Attribute msg
+md_tw_neg_translate_x_5 =
+    A.class "md:tw--translate-x-5"
+
+
+md_tw_neg_translate_x_6 : Html.Attribute msg
+md_tw_neg_translate_x_6 =
+    A.class "md:tw--translate-x-6"
+
+
+md_tw_neg_translate_x_8 : Html.Attribute msg
+md_tw_neg_translate_x_8 =
+    A.class "md:tw--translate-x-8"
+
+
+md_tw_neg_translate_x_10 : Html.Attribute msg
+md_tw_neg_translate_x_10 =
+    A.class "md:tw--translate-x-10"
+
+
+md_tw_neg_translate_x_12 : Html.Attribute msg
+md_tw_neg_translate_x_12 =
+    A.class "md:tw--translate-x-12"
+
+
+md_tw_neg_translate_x_16 : Html.Attribute msg
+md_tw_neg_translate_x_16 =
+    A.class "md:tw--translate-x-16"
+
+
+md_tw_neg_translate_x_20 : Html.Attribute msg
+md_tw_neg_translate_x_20 =
+    A.class "md:tw--translate-x-20"
+
+
+md_tw_neg_translate_x_24 : Html.Attribute msg
+md_tw_neg_translate_x_24 =
+    A.class "md:tw--translate-x-24"
+
+
+md_tw_neg_translate_x_32 : Html.Attribute msg
+md_tw_neg_translate_x_32 =
+    A.class "md:tw--translate-x-32"
+
+
+md_tw_neg_translate_x_40 : Html.Attribute msg
+md_tw_neg_translate_x_40 =
+    A.class "md:tw--translate-x-40"
+
+
+md_tw_neg_translate_x_48 : Html.Attribute msg
+md_tw_neg_translate_x_48 =
+    A.class "md:tw--translate-x-48"
+
+
+md_tw_neg_translate_x_56 : Html.Attribute msg
+md_tw_neg_translate_x_56 =
+    A.class "md:tw--translate-x-56"
+
+
+md_tw_neg_translate_x_64 : Html.Attribute msg
+md_tw_neg_translate_x_64 =
+    A.class "md:tw--translate-x-64"
+
+
+md_tw_neg_translate_x_px : Html.Attribute msg
+md_tw_neg_translate_x_px =
+    A.class "md:tw--translate-x-px"
+
+
+md_tw_neg_translate_x_full : Html.Attribute msg
+md_tw_neg_translate_x_full =
+    A.class "md:tw--translate-x-full"
+
+
+md_tw_neg_translate_x_1over2 : Html.Attribute msg
+md_tw_neg_translate_x_1over2 =
+    A.class "md:tw--translate-x-1/2"
+
+
+md_tw_translate_x_1over2 : Html.Attribute msg
+md_tw_translate_x_1over2 =
+    A.class "md:tw-translate-x-1/2"
+
+
+md_tw_translate_x_full : Html.Attribute msg
+md_tw_translate_x_full =
+    A.class "md:tw-translate-x-full"
+
+
+md_tw_translate_y_0 : Html.Attribute msg
+md_tw_translate_y_0 =
+    A.class "md:tw-translate-y-0"
+
+
+md_tw_translate_y_1 : Html.Attribute msg
+md_tw_translate_y_1 =
+    A.class "md:tw-translate-y-1"
+
+
+md_tw_translate_y_2 : Html.Attribute msg
+md_tw_translate_y_2 =
+    A.class "md:tw-translate-y-2"
+
+
+md_tw_translate_y_3 : Html.Attribute msg
+md_tw_translate_y_3 =
+    A.class "md:tw-translate-y-3"
+
+
+md_tw_translate_y_4 : Html.Attribute msg
+md_tw_translate_y_4 =
+    A.class "md:tw-translate-y-4"
+
+
+md_tw_translate_y_5 : Html.Attribute msg
+md_tw_translate_y_5 =
+    A.class "md:tw-translate-y-5"
+
+
+md_tw_translate_y_6 : Html.Attribute msg
+md_tw_translate_y_6 =
+    A.class "md:tw-translate-y-6"
+
+
+md_tw_translate_y_8 : Html.Attribute msg
+md_tw_translate_y_8 =
+    A.class "md:tw-translate-y-8"
+
+
+md_tw_translate_y_10 : Html.Attribute msg
+md_tw_translate_y_10 =
+    A.class "md:tw-translate-y-10"
+
+
+md_tw_translate_y_12 : Html.Attribute msg
+md_tw_translate_y_12 =
+    A.class "md:tw-translate-y-12"
+
+
+md_tw_translate_y_16 : Html.Attribute msg
+md_tw_translate_y_16 =
+    A.class "md:tw-translate-y-16"
+
+
+md_tw_translate_y_20 : Html.Attribute msg
+md_tw_translate_y_20 =
+    A.class "md:tw-translate-y-20"
+
+
+md_tw_translate_y_24 : Html.Attribute msg
+md_tw_translate_y_24 =
+    A.class "md:tw-translate-y-24"
+
+
+md_tw_translate_y_32 : Html.Attribute msg
+md_tw_translate_y_32 =
+    A.class "md:tw-translate-y-32"
+
+
+md_tw_translate_y_40 : Html.Attribute msg
+md_tw_translate_y_40 =
+    A.class "md:tw-translate-y-40"
+
+
+md_tw_translate_y_48 : Html.Attribute msg
+md_tw_translate_y_48 =
+    A.class "md:tw-translate-y-48"
+
+
+md_tw_translate_y_56 : Html.Attribute msg
+md_tw_translate_y_56 =
+    A.class "md:tw-translate-y-56"
+
+
+md_tw_translate_y_64 : Html.Attribute msg
+md_tw_translate_y_64 =
+    A.class "md:tw-translate-y-64"
+
+
+md_tw_translate_y_px : Html.Attribute msg
+md_tw_translate_y_px =
+    A.class "md:tw-translate-y-px"
+
+
+md_tw_neg_translate_y_1 : Html.Attribute msg
+md_tw_neg_translate_y_1 =
+    A.class "md:tw--translate-y-1"
+
+
+md_tw_neg_translate_y_2 : Html.Attribute msg
+md_tw_neg_translate_y_2 =
+    A.class "md:tw--translate-y-2"
+
+
+md_tw_neg_translate_y_3 : Html.Attribute msg
+md_tw_neg_translate_y_3 =
+    A.class "md:tw--translate-y-3"
+
+
+md_tw_neg_translate_y_4 : Html.Attribute msg
+md_tw_neg_translate_y_4 =
+    A.class "md:tw--translate-y-4"
+
+
+md_tw_neg_translate_y_5 : Html.Attribute msg
+md_tw_neg_translate_y_5 =
+    A.class "md:tw--translate-y-5"
+
+
+md_tw_neg_translate_y_6 : Html.Attribute msg
+md_tw_neg_translate_y_6 =
+    A.class "md:tw--translate-y-6"
+
+
+md_tw_neg_translate_y_8 : Html.Attribute msg
+md_tw_neg_translate_y_8 =
+    A.class "md:tw--translate-y-8"
+
+
+md_tw_neg_translate_y_10 : Html.Attribute msg
+md_tw_neg_translate_y_10 =
+    A.class "md:tw--translate-y-10"
+
+
+md_tw_neg_translate_y_12 : Html.Attribute msg
+md_tw_neg_translate_y_12 =
+    A.class "md:tw--translate-y-12"
+
+
+md_tw_neg_translate_y_16 : Html.Attribute msg
+md_tw_neg_translate_y_16 =
+    A.class "md:tw--translate-y-16"
+
+
+md_tw_neg_translate_y_20 : Html.Attribute msg
+md_tw_neg_translate_y_20 =
+    A.class "md:tw--translate-y-20"
+
+
+md_tw_neg_translate_y_24 : Html.Attribute msg
+md_tw_neg_translate_y_24 =
+    A.class "md:tw--translate-y-24"
+
+
+md_tw_neg_translate_y_32 : Html.Attribute msg
+md_tw_neg_translate_y_32 =
+    A.class "md:tw--translate-y-32"
+
+
+md_tw_neg_translate_y_40 : Html.Attribute msg
+md_tw_neg_translate_y_40 =
+    A.class "md:tw--translate-y-40"
+
+
+md_tw_neg_translate_y_48 : Html.Attribute msg
+md_tw_neg_translate_y_48 =
+    A.class "md:tw--translate-y-48"
+
+
+md_tw_neg_translate_y_56 : Html.Attribute msg
+md_tw_neg_translate_y_56 =
+    A.class "md:tw--translate-y-56"
+
+
+md_tw_neg_translate_y_64 : Html.Attribute msg
+md_tw_neg_translate_y_64 =
+    A.class "md:tw--translate-y-64"
+
+
+md_tw_neg_translate_y_px : Html.Attribute msg
+md_tw_neg_translate_y_px =
+    A.class "md:tw--translate-y-px"
+
+
+md_tw_neg_translate_y_full : Html.Attribute msg
+md_tw_neg_translate_y_full =
+    A.class "md:tw--translate-y-full"
+
+
+md_tw_neg_translate_y_1over2 : Html.Attribute msg
+md_tw_neg_translate_y_1over2 =
+    A.class "md:tw--translate-y-1/2"
+
+
+md_tw_translate_y_1over2 : Html.Attribute msg
+md_tw_translate_y_1over2 =
+    A.class "md:tw-translate-y-1/2"
+
+
+md_tw_translate_y_full : Html.Attribute msg
+md_tw_translate_y_full =
+    A.class "md:tw-translate-y-full"
+
+
+md_hover_tw_translate_x_0 : Html.Attribute msg
+md_hover_tw_translate_x_0 =
+    A.class "md:hover:tw-translate-x-0"
+
+
+md_hover_tw_translate_x_1 : Html.Attribute msg
+md_hover_tw_translate_x_1 =
+    A.class "md:hover:tw-translate-x-1"
+
+
+md_hover_tw_translate_x_2 : Html.Attribute msg
+md_hover_tw_translate_x_2 =
+    A.class "md:hover:tw-translate-x-2"
+
+
+md_hover_tw_translate_x_3 : Html.Attribute msg
+md_hover_tw_translate_x_3 =
+    A.class "md:hover:tw-translate-x-3"
+
+
+md_hover_tw_translate_x_4 : Html.Attribute msg
+md_hover_tw_translate_x_4 =
+    A.class "md:hover:tw-translate-x-4"
+
+
+md_hover_tw_translate_x_5 : Html.Attribute msg
+md_hover_tw_translate_x_5 =
+    A.class "md:hover:tw-translate-x-5"
+
+
+md_hover_tw_translate_x_6 : Html.Attribute msg
+md_hover_tw_translate_x_6 =
+    A.class "md:hover:tw-translate-x-6"
+
+
+md_hover_tw_translate_x_8 : Html.Attribute msg
+md_hover_tw_translate_x_8 =
+    A.class "md:hover:tw-translate-x-8"
+
+
+md_hover_tw_translate_x_10 : Html.Attribute msg
+md_hover_tw_translate_x_10 =
+    A.class "md:hover:tw-translate-x-10"
+
+
+md_hover_tw_translate_x_12 : Html.Attribute msg
+md_hover_tw_translate_x_12 =
+    A.class "md:hover:tw-translate-x-12"
+
+
+md_hover_tw_translate_x_16 : Html.Attribute msg
+md_hover_tw_translate_x_16 =
+    A.class "md:hover:tw-translate-x-16"
+
+
+md_hover_tw_translate_x_20 : Html.Attribute msg
+md_hover_tw_translate_x_20 =
+    A.class "md:hover:tw-translate-x-20"
+
+
+md_hover_tw_translate_x_24 : Html.Attribute msg
+md_hover_tw_translate_x_24 =
+    A.class "md:hover:tw-translate-x-24"
+
+
+md_hover_tw_translate_x_32 : Html.Attribute msg
+md_hover_tw_translate_x_32 =
+    A.class "md:hover:tw-translate-x-32"
+
+
+md_hover_tw_translate_x_40 : Html.Attribute msg
+md_hover_tw_translate_x_40 =
+    A.class "md:hover:tw-translate-x-40"
+
+
+md_hover_tw_translate_x_48 : Html.Attribute msg
+md_hover_tw_translate_x_48 =
+    A.class "md:hover:tw-translate-x-48"
+
+
+md_hover_tw_translate_x_56 : Html.Attribute msg
+md_hover_tw_translate_x_56 =
+    A.class "md:hover:tw-translate-x-56"
+
+
+md_hover_tw_translate_x_64 : Html.Attribute msg
+md_hover_tw_translate_x_64 =
+    A.class "md:hover:tw-translate-x-64"
+
+
+md_hover_tw_translate_x_px : Html.Attribute msg
+md_hover_tw_translate_x_px =
+    A.class "md:hover:tw-translate-x-px"
+
+
+md_hover_tw_neg_translate_x_1 : Html.Attribute msg
+md_hover_tw_neg_translate_x_1 =
+    A.class "md:hover:tw--translate-x-1"
+
+
+md_hover_tw_neg_translate_x_2 : Html.Attribute msg
+md_hover_tw_neg_translate_x_2 =
+    A.class "md:hover:tw--translate-x-2"
+
+
+md_hover_tw_neg_translate_x_3 : Html.Attribute msg
+md_hover_tw_neg_translate_x_3 =
+    A.class "md:hover:tw--translate-x-3"
+
+
+md_hover_tw_neg_translate_x_4 : Html.Attribute msg
+md_hover_tw_neg_translate_x_4 =
+    A.class "md:hover:tw--translate-x-4"
+
+
+md_hover_tw_neg_translate_x_5 : Html.Attribute msg
+md_hover_tw_neg_translate_x_5 =
+    A.class "md:hover:tw--translate-x-5"
+
+
+md_hover_tw_neg_translate_x_6 : Html.Attribute msg
+md_hover_tw_neg_translate_x_6 =
+    A.class "md:hover:tw--translate-x-6"
+
+
+md_hover_tw_neg_translate_x_8 : Html.Attribute msg
+md_hover_tw_neg_translate_x_8 =
+    A.class "md:hover:tw--translate-x-8"
+
+
+md_hover_tw_neg_translate_x_10 : Html.Attribute msg
+md_hover_tw_neg_translate_x_10 =
+    A.class "md:hover:tw--translate-x-10"
+
+
+md_hover_tw_neg_translate_x_12 : Html.Attribute msg
+md_hover_tw_neg_translate_x_12 =
+    A.class "md:hover:tw--translate-x-12"
+
+
+md_hover_tw_neg_translate_x_16 : Html.Attribute msg
+md_hover_tw_neg_translate_x_16 =
+    A.class "md:hover:tw--translate-x-16"
+
+
+md_hover_tw_neg_translate_x_20 : Html.Attribute msg
+md_hover_tw_neg_translate_x_20 =
+    A.class "md:hover:tw--translate-x-20"
+
+
+md_hover_tw_neg_translate_x_24 : Html.Attribute msg
+md_hover_tw_neg_translate_x_24 =
+    A.class "md:hover:tw--translate-x-24"
+
+
+md_hover_tw_neg_translate_x_32 : Html.Attribute msg
+md_hover_tw_neg_translate_x_32 =
+    A.class "md:hover:tw--translate-x-32"
+
+
+md_hover_tw_neg_translate_x_40 : Html.Attribute msg
+md_hover_tw_neg_translate_x_40 =
+    A.class "md:hover:tw--translate-x-40"
+
+
+md_hover_tw_neg_translate_x_48 : Html.Attribute msg
+md_hover_tw_neg_translate_x_48 =
+    A.class "md:hover:tw--translate-x-48"
+
+
+md_hover_tw_neg_translate_x_56 : Html.Attribute msg
+md_hover_tw_neg_translate_x_56 =
+    A.class "md:hover:tw--translate-x-56"
+
+
+md_hover_tw_neg_translate_x_64 : Html.Attribute msg
+md_hover_tw_neg_translate_x_64 =
+    A.class "md:hover:tw--translate-x-64"
+
+
+md_hover_tw_neg_translate_x_px : Html.Attribute msg
+md_hover_tw_neg_translate_x_px =
+    A.class "md:hover:tw--translate-x-px"
+
+
+md_hover_tw_neg_translate_x_full : Html.Attribute msg
+md_hover_tw_neg_translate_x_full =
+    A.class "md:hover:tw--translate-x-full"
+
+
+md_hover_tw_neg_translate_x_1over2 : Html.Attribute msg
+md_hover_tw_neg_translate_x_1over2 =
+    A.class "md:hover:tw--translate-x-1/2"
+
+
+md_hover_tw_translate_x_1over2 : Html.Attribute msg
+md_hover_tw_translate_x_1over2 =
+    A.class "md:hover:tw-translate-x-1/2"
+
+
+md_hover_tw_translate_x_full : Html.Attribute msg
+md_hover_tw_translate_x_full =
+    A.class "md:hover:tw-translate-x-full"
+
+
+md_hover_tw_translate_y_0 : Html.Attribute msg
+md_hover_tw_translate_y_0 =
+    A.class "md:hover:tw-translate-y-0"
+
+
+md_hover_tw_translate_y_1 : Html.Attribute msg
+md_hover_tw_translate_y_1 =
+    A.class "md:hover:tw-translate-y-1"
+
+
+md_hover_tw_translate_y_2 : Html.Attribute msg
+md_hover_tw_translate_y_2 =
+    A.class "md:hover:tw-translate-y-2"
+
+
+md_hover_tw_translate_y_3 : Html.Attribute msg
+md_hover_tw_translate_y_3 =
+    A.class "md:hover:tw-translate-y-3"
+
+
+md_hover_tw_translate_y_4 : Html.Attribute msg
+md_hover_tw_translate_y_4 =
+    A.class "md:hover:tw-translate-y-4"
+
+
+md_hover_tw_translate_y_5 : Html.Attribute msg
+md_hover_tw_translate_y_5 =
+    A.class "md:hover:tw-translate-y-5"
+
+
+md_hover_tw_translate_y_6 : Html.Attribute msg
+md_hover_tw_translate_y_6 =
+    A.class "md:hover:tw-translate-y-6"
+
+
+md_hover_tw_translate_y_8 : Html.Attribute msg
+md_hover_tw_translate_y_8 =
+    A.class "md:hover:tw-translate-y-8"
+
+
+md_hover_tw_translate_y_10 : Html.Attribute msg
+md_hover_tw_translate_y_10 =
+    A.class "md:hover:tw-translate-y-10"
+
+
+md_hover_tw_translate_y_12 : Html.Attribute msg
+md_hover_tw_translate_y_12 =
+    A.class "md:hover:tw-translate-y-12"
+
+
+md_hover_tw_translate_y_16 : Html.Attribute msg
+md_hover_tw_translate_y_16 =
+    A.class "md:hover:tw-translate-y-16"
+
+
+md_hover_tw_translate_y_20 : Html.Attribute msg
+md_hover_tw_translate_y_20 =
+    A.class "md:hover:tw-translate-y-20"
+
+
+md_hover_tw_translate_y_24 : Html.Attribute msg
+md_hover_tw_translate_y_24 =
+    A.class "md:hover:tw-translate-y-24"
+
+
+md_hover_tw_translate_y_32 : Html.Attribute msg
+md_hover_tw_translate_y_32 =
+    A.class "md:hover:tw-translate-y-32"
+
+
+md_hover_tw_translate_y_40 : Html.Attribute msg
+md_hover_tw_translate_y_40 =
+    A.class "md:hover:tw-translate-y-40"
+
+
+md_hover_tw_translate_y_48 : Html.Attribute msg
+md_hover_tw_translate_y_48 =
+    A.class "md:hover:tw-translate-y-48"
+
+
+md_hover_tw_translate_y_56 : Html.Attribute msg
+md_hover_tw_translate_y_56 =
+    A.class "md:hover:tw-translate-y-56"
+
+
+md_hover_tw_translate_y_64 : Html.Attribute msg
+md_hover_tw_translate_y_64 =
+    A.class "md:hover:tw-translate-y-64"
+
+
+md_hover_tw_translate_y_px : Html.Attribute msg
+md_hover_tw_translate_y_px =
+    A.class "md:hover:tw-translate-y-px"
+
+
+md_hover_tw_neg_translate_y_1 : Html.Attribute msg
+md_hover_tw_neg_translate_y_1 =
+    A.class "md:hover:tw--translate-y-1"
+
+
+md_hover_tw_neg_translate_y_2 : Html.Attribute msg
+md_hover_tw_neg_translate_y_2 =
+    A.class "md:hover:tw--translate-y-2"
+
+
+md_hover_tw_neg_translate_y_3 : Html.Attribute msg
+md_hover_tw_neg_translate_y_3 =
+    A.class "md:hover:tw--translate-y-3"
+
+
+md_hover_tw_neg_translate_y_4 : Html.Attribute msg
+md_hover_tw_neg_translate_y_4 =
+    A.class "md:hover:tw--translate-y-4"
+
+
+md_hover_tw_neg_translate_y_5 : Html.Attribute msg
+md_hover_tw_neg_translate_y_5 =
+    A.class "md:hover:tw--translate-y-5"
+
+
+md_hover_tw_neg_translate_y_6 : Html.Attribute msg
+md_hover_tw_neg_translate_y_6 =
+    A.class "md:hover:tw--translate-y-6"
+
+
+md_hover_tw_neg_translate_y_8 : Html.Attribute msg
+md_hover_tw_neg_translate_y_8 =
+    A.class "md:hover:tw--translate-y-8"
+
+
+md_hover_tw_neg_translate_y_10 : Html.Attribute msg
+md_hover_tw_neg_translate_y_10 =
+    A.class "md:hover:tw--translate-y-10"
+
+
+md_hover_tw_neg_translate_y_12 : Html.Attribute msg
+md_hover_tw_neg_translate_y_12 =
+    A.class "md:hover:tw--translate-y-12"
+
+
+md_hover_tw_neg_translate_y_16 : Html.Attribute msg
+md_hover_tw_neg_translate_y_16 =
+    A.class "md:hover:tw--translate-y-16"
+
+
+md_hover_tw_neg_translate_y_20 : Html.Attribute msg
+md_hover_tw_neg_translate_y_20 =
+    A.class "md:hover:tw--translate-y-20"
+
+
+md_hover_tw_neg_translate_y_24 : Html.Attribute msg
+md_hover_tw_neg_translate_y_24 =
+    A.class "md:hover:tw--translate-y-24"
+
+
+md_hover_tw_neg_translate_y_32 : Html.Attribute msg
+md_hover_tw_neg_translate_y_32 =
+    A.class "md:hover:tw--translate-y-32"
+
+
+md_hover_tw_neg_translate_y_40 : Html.Attribute msg
+md_hover_tw_neg_translate_y_40 =
+    A.class "md:hover:tw--translate-y-40"
+
+
+md_hover_tw_neg_translate_y_48 : Html.Attribute msg
+md_hover_tw_neg_translate_y_48 =
+    A.class "md:hover:tw--translate-y-48"
+
+
+md_hover_tw_neg_translate_y_56 : Html.Attribute msg
+md_hover_tw_neg_translate_y_56 =
+    A.class "md:hover:tw--translate-y-56"
+
+
+md_hover_tw_neg_translate_y_64 : Html.Attribute msg
+md_hover_tw_neg_translate_y_64 =
+    A.class "md:hover:tw--translate-y-64"
+
+
+md_hover_tw_neg_translate_y_px : Html.Attribute msg
+md_hover_tw_neg_translate_y_px =
+    A.class "md:hover:tw--translate-y-px"
+
+
+md_hover_tw_neg_translate_y_full : Html.Attribute msg
+md_hover_tw_neg_translate_y_full =
+    A.class "md:hover:tw--translate-y-full"
+
+
+md_hover_tw_neg_translate_y_1over2 : Html.Attribute msg
+md_hover_tw_neg_translate_y_1over2 =
+    A.class "md:hover:tw--translate-y-1/2"
+
+
+md_hover_tw_translate_y_1over2 : Html.Attribute msg
+md_hover_tw_translate_y_1over2 =
+    A.class "md:hover:tw-translate-y-1/2"
+
+
+md_hover_tw_translate_y_full : Html.Attribute msg
+md_hover_tw_translate_y_full =
+    A.class "md:hover:tw-translate-y-full"
+
+
+md_focus_tw_translate_x_0 : Html.Attribute msg
+md_focus_tw_translate_x_0 =
+    A.class "md:focus:tw-translate-x-0"
+
+
+md_focus_tw_translate_x_1 : Html.Attribute msg
+md_focus_tw_translate_x_1 =
+    A.class "md:focus:tw-translate-x-1"
+
+
+md_focus_tw_translate_x_2 : Html.Attribute msg
+md_focus_tw_translate_x_2 =
+    A.class "md:focus:tw-translate-x-2"
+
+
+md_focus_tw_translate_x_3 : Html.Attribute msg
+md_focus_tw_translate_x_3 =
+    A.class "md:focus:tw-translate-x-3"
+
+
+md_focus_tw_translate_x_4 : Html.Attribute msg
+md_focus_tw_translate_x_4 =
+    A.class "md:focus:tw-translate-x-4"
+
+
+md_focus_tw_translate_x_5 : Html.Attribute msg
+md_focus_tw_translate_x_5 =
+    A.class "md:focus:tw-translate-x-5"
+
+
+md_focus_tw_translate_x_6 : Html.Attribute msg
+md_focus_tw_translate_x_6 =
+    A.class "md:focus:tw-translate-x-6"
+
+
+md_focus_tw_translate_x_8 : Html.Attribute msg
+md_focus_tw_translate_x_8 =
+    A.class "md:focus:tw-translate-x-8"
+
+
+md_focus_tw_translate_x_10 : Html.Attribute msg
+md_focus_tw_translate_x_10 =
+    A.class "md:focus:tw-translate-x-10"
+
+
+md_focus_tw_translate_x_12 : Html.Attribute msg
+md_focus_tw_translate_x_12 =
+    A.class "md:focus:tw-translate-x-12"
+
+
+md_focus_tw_translate_x_16 : Html.Attribute msg
+md_focus_tw_translate_x_16 =
+    A.class "md:focus:tw-translate-x-16"
+
+
+md_focus_tw_translate_x_20 : Html.Attribute msg
+md_focus_tw_translate_x_20 =
+    A.class "md:focus:tw-translate-x-20"
+
+
+md_focus_tw_translate_x_24 : Html.Attribute msg
+md_focus_tw_translate_x_24 =
+    A.class "md:focus:tw-translate-x-24"
+
+
+md_focus_tw_translate_x_32 : Html.Attribute msg
+md_focus_tw_translate_x_32 =
+    A.class "md:focus:tw-translate-x-32"
+
+
+md_focus_tw_translate_x_40 : Html.Attribute msg
+md_focus_tw_translate_x_40 =
+    A.class "md:focus:tw-translate-x-40"
+
+
+md_focus_tw_translate_x_48 : Html.Attribute msg
+md_focus_tw_translate_x_48 =
+    A.class "md:focus:tw-translate-x-48"
+
+
+md_focus_tw_translate_x_56 : Html.Attribute msg
+md_focus_tw_translate_x_56 =
+    A.class "md:focus:tw-translate-x-56"
+
+
+md_focus_tw_translate_x_64 : Html.Attribute msg
+md_focus_tw_translate_x_64 =
+    A.class "md:focus:tw-translate-x-64"
+
+
+md_focus_tw_translate_x_px : Html.Attribute msg
+md_focus_tw_translate_x_px =
+    A.class "md:focus:tw-translate-x-px"
+
+
+md_focus_tw_neg_translate_x_1 : Html.Attribute msg
+md_focus_tw_neg_translate_x_1 =
+    A.class "md:focus:tw--translate-x-1"
+
+
+md_focus_tw_neg_translate_x_2 : Html.Attribute msg
+md_focus_tw_neg_translate_x_2 =
+    A.class "md:focus:tw--translate-x-2"
+
+
+md_focus_tw_neg_translate_x_3 : Html.Attribute msg
+md_focus_tw_neg_translate_x_3 =
+    A.class "md:focus:tw--translate-x-3"
+
+
+md_focus_tw_neg_translate_x_4 : Html.Attribute msg
+md_focus_tw_neg_translate_x_4 =
+    A.class "md:focus:tw--translate-x-4"
+
+
+md_focus_tw_neg_translate_x_5 : Html.Attribute msg
+md_focus_tw_neg_translate_x_5 =
+    A.class "md:focus:tw--translate-x-5"
+
+
+md_focus_tw_neg_translate_x_6 : Html.Attribute msg
+md_focus_tw_neg_translate_x_6 =
+    A.class "md:focus:tw--translate-x-6"
+
+
+md_focus_tw_neg_translate_x_8 : Html.Attribute msg
+md_focus_tw_neg_translate_x_8 =
+    A.class "md:focus:tw--translate-x-8"
+
+
+md_focus_tw_neg_translate_x_10 : Html.Attribute msg
+md_focus_tw_neg_translate_x_10 =
+    A.class "md:focus:tw--translate-x-10"
+
+
+md_focus_tw_neg_translate_x_12 : Html.Attribute msg
+md_focus_tw_neg_translate_x_12 =
+    A.class "md:focus:tw--translate-x-12"
+
+
+md_focus_tw_neg_translate_x_16 : Html.Attribute msg
+md_focus_tw_neg_translate_x_16 =
+    A.class "md:focus:tw--translate-x-16"
+
+
+md_focus_tw_neg_translate_x_20 : Html.Attribute msg
+md_focus_tw_neg_translate_x_20 =
+    A.class "md:focus:tw--translate-x-20"
+
+
+md_focus_tw_neg_translate_x_24 : Html.Attribute msg
+md_focus_tw_neg_translate_x_24 =
+    A.class "md:focus:tw--translate-x-24"
+
+
+md_focus_tw_neg_translate_x_32 : Html.Attribute msg
+md_focus_tw_neg_translate_x_32 =
+    A.class "md:focus:tw--translate-x-32"
+
+
+md_focus_tw_neg_translate_x_40 : Html.Attribute msg
+md_focus_tw_neg_translate_x_40 =
+    A.class "md:focus:tw--translate-x-40"
+
+
+md_focus_tw_neg_translate_x_48 : Html.Attribute msg
+md_focus_tw_neg_translate_x_48 =
+    A.class "md:focus:tw--translate-x-48"
+
+
+md_focus_tw_neg_translate_x_56 : Html.Attribute msg
+md_focus_tw_neg_translate_x_56 =
+    A.class "md:focus:tw--translate-x-56"
+
+
+md_focus_tw_neg_translate_x_64 : Html.Attribute msg
+md_focus_tw_neg_translate_x_64 =
+    A.class "md:focus:tw--translate-x-64"
+
+
+md_focus_tw_neg_translate_x_px : Html.Attribute msg
+md_focus_tw_neg_translate_x_px =
+    A.class "md:focus:tw--translate-x-px"
+
+
+md_focus_tw_neg_translate_x_full : Html.Attribute msg
+md_focus_tw_neg_translate_x_full =
+    A.class "md:focus:tw--translate-x-full"
+
+
+md_focus_tw_neg_translate_x_1over2 : Html.Attribute msg
+md_focus_tw_neg_translate_x_1over2 =
+    A.class "md:focus:tw--translate-x-1/2"
+
+
+md_focus_tw_translate_x_1over2 : Html.Attribute msg
+md_focus_tw_translate_x_1over2 =
+    A.class "md:focus:tw-translate-x-1/2"
+
+
+md_focus_tw_translate_x_full : Html.Attribute msg
+md_focus_tw_translate_x_full =
+    A.class "md:focus:tw-translate-x-full"
+
+
+md_focus_tw_translate_y_0 : Html.Attribute msg
+md_focus_tw_translate_y_0 =
+    A.class "md:focus:tw-translate-y-0"
+
+
+md_focus_tw_translate_y_1 : Html.Attribute msg
+md_focus_tw_translate_y_1 =
+    A.class "md:focus:tw-translate-y-1"
+
+
+md_focus_tw_translate_y_2 : Html.Attribute msg
+md_focus_tw_translate_y_2 =
+    A.class "md:focus:tw-translate-y-2"
+
+
+md_focus_tw_translate_y_3 : Html.Attribute msg
+md_focus_tw_translate_y_3 =
+    A.class "md:focus:tw-translate-y-3"
+
+
+md_focus_tw_translate_y_4 : Html.Attribute msg
+md_focus_tw_translate_y_4 =
+    A.class "md:focus:tw-translate-y-4"
+
+
+md_focus_tw_translate_y_5 : Html.Attribute msg
+md_focus_tw_translate_y_5 =
+    A.class "md:focus:tw-translate-y-5"
+
+
+md_focus_tw_translate_y_6 : Html.Attribute msg
+md_focus_tw_translate_y_6 =
+    A.class "md:focus:tw-translate-y-6"
+
+
+md_focus_tw_translate_y_8 : Html.Attribute msg
+md_focus_tw_translate_y_8 =
+    A.class "md:focus:tw-translate-y-8"
+
+
+md_focus_tw_translate_y_10 : Html.Attribute msg
+md_focus_tw_translate_y_10 =
+    A.class "md:focus:tw-translate-y-10"
+
+
+md_focus_tw_translate_y_12 : Html.Attribute msg
+md_focus_tw_translate_y_12 =
+    A.class "md:focus:tw-translate-y-12"
+
+
+md_focus_tw_translate_y_16 : Html.Attribute msg
+md_focus_tw_translate_y_16 =
+    A.class "md:focus:tw-translate-y-16"
+
+
+md_focus_tw_translate_y_20 : Html.Attribute msg
+md_focus_tw_translate_y_20 =
+    A.class "md:focus:tw-translate-y-20"
+
+
+md_focus_tw_translate_y_24 : Html.Attribute msg
+md_focus_tw_translate_y_24 =
+    A.class "md:focus:tw-translate-y-24"
+
+
+md_focus_tw_translate_y_32 : Html.Attribute msg
+md_focus_tw_translate_y_32 =
+    A.class "md:focus:tw-translate-y-32"
+
+
+md_focus_tw_translate_y_40 : Html.Attribute msg
+md_focus_tw_translate_y_40 =
+    A.class "md:focus:tw-translate-y-40"
+
+
+md_focus_tw_translate_y_48 : Html.Attribute msg
+md_focus_tw_translate_y_48 =
+    A.class "md:focus:tw-translate-y-48"
+
+
+md_focus_tw_translate_y_56 : Html.Attribute msg
+md_focus_tw_translate_y_56 =
+    A.class "md:focus:tw-translate-y-56"
+
+
+md_focus_tw_translate_y_64 : Html.Attribute msg
+md_focus_tw_translate_y_64 =
+    A.class "md:focus:tw-translate-y-64"
+
+
+md_focus_tw_translate_y_px : Html.Attribute msg
+md_focus_tw_translate_y_px =
+    A.class "md:focus:tw-translate-y-px"
+
+
+md_focus_tw_neg_translate_y_1 : Html.Attribute msg
+md_focus_tw_neg_translate_y_1 =
+    A.class "md:focus:tw--translate-y-1"
+
+
+md_focus_tw_neg_translate_y_2 : Html.Attribute msg
+md_focus_tw_neg_translate_y_2 =
+    A.class "md:focus:tw--translate-y-2"
+
+
+md_focus_tw_neg_translate_y_3 : Html.Attribute msg
+md_focus_tw_neg_translate_y_3 =
+    A.class "md:focus:tw--translate-y-3"
+
+
+md_focus_tw_neg_translate_y_4 : Html.Attribute msg
+md_focus_tw_neg_translate_y_4 =
+    A.class "md:focus:tw--translate-y-4"
+
+
+md_focus_tw_neg_translate_y_5 : Html.Attribute msg
+md_focus_tw_neg_translate_y_5 =
+    A.class "md:focus:tw--translate-y-5"
+
+
+md_focus_tw_neg_translate_y_6 : Html.Attribute msg
+md_focus_tw_neg_translate_y_6 =
+    A.class "md:focus:tw--translate-y-6"
+
+
+md_focus_tw_neg_translate_y_8 : Html.Attribute msg
+md_focus_tw_neg_translate_y_8 =
+    A.class "md:focus:tw--translate-y-8"
+
+
+md_focus_tw_neg_translate_y_10 : Html.Attribute msg
+md_focus_tw_neg_translate_y_10 =
+    A.class "md:focus:tw--translate-y-10"
+
+
+md_focus_tw_neg_translate_y_12 : Html.Attribute msg
+md_focus_tw_neg_translate_y_12 =
+    A.class "md:focus:tw--translate-y-12"
+
+
+md_focus_tw_neg_translate_y_16 : Html.Attribute msg
+md_focus_tw_neg_translate_y_16 =
+    A.class "md:focus:tw--translate-y-16"
+
+
+md_focus_tw_neg_translate_y_20 : Html.Attribute msg
+md_focus_tw_neg_translate_y_20 =
+    A.class "md:focus:tw--translate-y-20"
+
+
+md_focus_tw_neg_translate_y_24 : Html.Attribute msg
+md_focus_tw_neg_translate_y_24 =
+    A.class "md:focus:tw--translate-y-24"
+
+
+md_focus_tw_neg_translate_y_32 : Html.Attribute msg
+md_focus_tw_neg_translate_y_32 =
+    A.class "md:focus:tw--translate-y-32"
+
+
+md_focus_tw_neg_translate_y_40 : Html.Attribute msg
+md_focus_tw_neg_translate_y_40 =
+    A.class "md:focus:tw--translate-y-40"
+
+
+md_focus_tw_neg_translate_y_48 : Html.Attribute msg
+md_focus_tw_neg_translate_y_48 =
+    A.class "md:focus:tw--translate-y-48"
+
+
+md_focus_tw_neg_translate_y_56 : Html.Attribute msg
+md_focus_tw_neg_translate_y_56 =
+    A.class "md:focus:tw--translate-y-56"
+
+
+md_focus_tw_neg_translate_y_64 : Html.Attribute msg
+md_focus_tw_neg_translate_y_64 =
+    A.class "md:focus:tw--translate-y-64"
+
+
+md_focus_tw_neg_translate_y_px : Html.Attribute msg
+md_focus_tw_neg_translate_y_px =
+    A.class "md:focus:tw--translate-y-px"
+
+
+md_focus_tw_neg_translate_y_full : Html.Attribute msg
+md_focus_tw_neg_translate_y_full =
+    A.class "md:focus:tw--translate-y-full"
+
+
+md_focus_tw_neg_translate_y_1over2 : Html.Attribute msg
+md_focus_tw_neg_translate_y_1over2 =
+    A.class "md:focus:tw--translate-y-1/2"
+
+
+md_focus_tw_translate_y_1over2 : Html.Attribute msg
+md_focus_tw_translate_y_1over2 =
+    A.class "md:focus:tw-translate-y-1/2"
+
+
+md_focus_tw_translate_y_full : Html.Attribute msg
+md_focus_tw_translate_y_full =
+    A.class "md:focus:tw-translate-y-full"
+
+
+md_tw_skew_x_0 : Html.Attribute msg
+md_tw_skew_x_0 =
+    A.class "md:tw-skew-x-0"
+
+
+md_tw_skew_x_3 : Html.Attribute msg
+md_tw_skew_x_3 =
+    A.class "md:tw-skew-x-3"
+
+
+md_tw_skew_x_6 : Html.Attribute msg
+md_tw_skew_x_6 =
+    A.class "md:tw-skew-x-6"
+
+
+md_tw_skew_x_12 : Html.Attribute msg
+md_tw_skew_x_12 =
+    A.class "md:tw-skew-x-12"
+
+
+md_tw_neg_skew_x_12 : Html.Attribute msg
+md_tw_neg_skew_x_12 =
+    A.class "md:tw--skew-x-12"
+
+
+md_tw_neg_skew_x_6 : Html.Attribute msg
+md_tw_neg_skew_x_6 =
+    A.class "md:tw--skew-x-6"
+
+
+md_tw_neg_skew_x_3 : Html.Attribute msg
+md_tw_neg_skew_x_3 =
+    A.class "md:tw--skew-x-3"
+
+
+md_tw_skew_y_0 : Html.Attribute msg
+md_tw_skew_y_0 =
+    A.class "md:tw-skew-y-0"
+
+
+md_tw_skew_y_3 : Html.Attribute msg
+md_tw_skew_y_3 =
+    A.class "md:tw-skew-y-3"
+
+
+md_tw_skew_y_6 : Html.Attribute msg
+md_tw_skew_y_6 =
+    A.class "md:tw-skew-y-6"
+
+
+md_tw_skew_y_12 : Html.Attribute msg
+md_tw_skew_y_12 =
+    A.class "md:tw-skew-y-12"
+
+
+md_tw_neg_skew_y_12 : Html.Attribute msg
+md_tw_neg_skew_y_12 =
+    A.class "md:tw--skew-y-12"
+
+
+md_tw_neg_skew_y_6 : Html.Attribute msg
+md_tw_neg_skew_y_6 =
+    A.class "md:tw--skew-y-6"
+
+
+md_tw_neg_skew_y_3 : Html.Attribute msg
+md_tw_neg_skew_y_3 =
+    A.class "md:tw--skew-y-3"
+
+
+md_hover_tw_skew_x_0 : Html.Attribute msg
+md_hover_tw_skew_x_0 =
+    A.class "md:hover:tw-skew-x-0"
+
+
+md_hover_tw_skew_x_3 : Html.Attribute msg
+md_hover_tw_skew_x_3 =
+    A.class "md:hover:tw-skew-x-3"
+
+
+md_hover_tw_skew_x_6 : Html.Attribute msg
+md_hover_tw_skew_x_6 =
+    A.class "md:hover:tw-skew-x-6"
+
+
+md_hover_tw_skew_x_12 : Html.Attribute msg
+md_hover_tw_skew_x_12 =
+    A.class "md:hover:tw-skew-x-12"
+
+
+md_hover_tw_neg_skew_x_12 : Html.Attribute msg
+md_hover_tw_neg_skew_x_12 =
+    A.class "md:hover:tw--skew-x-12"
+
+
+md_hover_tw_neg_skew_x_6 : Html.Attribute msg
+md_hover_tw_neg_skew_x_6 =
+    A.class "md:hover:tw--skew-x-6"
+
+
+md_hover_tw_neg_skew_x_3 : Html.Attribute msg
+md_hover_tw_neg_skew_x_3 =
+    A.class "md:hover:tw--skew-x-3"
+
+
+md_hover_tw_skew_y_0 : Html.Attribute msg
+md_hover_tw_skew_y_0 =
+    A.class "md:hover:tw-skew-y-0"
+
+
+md_hover_tw_skew_y_3 : Html.Attribute msg
+md_hover_tw_skew_y_3 =
+    A.class "md:hover:tw-skew-y-3"
+
+
+md_hover_tw_skew_y_6 : Html.Attribute msg
+md_hover_tw_skew_y_6 =
+    A.class "md:hover:tw-skew-y-6"
+
+
+md_hover_tw_skew_y_12 : Html.Attribute msg
+md_hover_tw_skew_y_12 =
+    A.class "md:hover:tw-skew-y-12"
+
+
+md_hover_tw_neg_skew_y_12 : Html.Attribute msg
+md_hover_tw_neg_skew_y_12 =
+    A.class "md:hover:tw--skew-y-12"
+
+
+md_hover_tw_neg_skew_y_6 : Html.Attribute msg
+md_hover_tw_neg_skew_y_6 =
+    A.class "md:hover:tw--skew-y-6"
+
+
+md_hover_tw_neg_skew_y_3 : Html.Attribute msg
+md_hover_tw_neg_skew_y_3 =
+    A.class "md:hover:tw--skew-y-3"
+
+
+md_focus_tw_skew_x_0 : Html.Attribute msg
+md_focus_tw_skew_x_0 =
+    A.class "md:focus:tw-skew-x-0"
+
+
+md_focus_tw_skew_x_3 : Html.Attribute msg
+md_focus_tw_skew_x_3 =
+    A.class "md:focus:tw-skew-x-3"
+
+
+md_focus_tw_skew_x_6 : Html.Attribute msg
+md_focus_tw_skew_x_6 =
+    A.class "md:focus:tw-skew-x-6"
+
+
+md_focus_tw_skew_x_12 : Html.Attribute msg
+md_focus_tw_skew_x_12 =
+    A.class "md:focus:tw-skew-x-12"
+
+
+md_focus_tw_neg_skew_x_12 : Html.Attribute msg
+md_focus_tw_neg_skew_x_12 =
+    A.class "md:focus:tw--skew-x-12"
+
+
+md_focus_tw_neg_skew_x_6 : Html.Attribute msg
+md_focus_tw_neg_skew_x_6 =
+    A.class "md:focus:tw--skew-x-6"
+
+
+md_focus_tw_neg_skew_x_3 : Html.Attribute msg
+md_focus_tw_neg_skew_x_3 =
+    A.class "md:focus:tw--skew-x-3"
+
+
+md_focus_tw_skew_y_0 : Html.Attribute msg
+md_focus_tw_skew_y_0 =
+    A.class "md:focus:tw-skew-y-0"
+
+
+md_focus_tw_skew_y_3 : Html.Attribute msg
+md_focus_tw_skew_y_3 =
+    A.class "md:focus:tw-skew-y-3"
+
+
+md_focus_tw_skew_y_6 : Html.Attribute msg
+md_focus_tw_skew_y_6 =
+    A.class "md:focus:tw-skew-y-6"
+
+
+md_focus_tw_skew_y_12 : Html.Attribute msg
+md_focus_tw_skew_y_12 =
+    A.class "md:focus:tw-skew-y-12"
+
+
+md_focus_tw_neg_skew_y_12 : Html.Attribute msg
+md_focus_tw_neg_skew_y_12 =
+    A.class "md:focus:tw--skew-y-12"
+
+
+md_focus_tw_neg_skew_y_6 : Html.Attribute msg
+md_focus_tw_neg_skew_y_6 =
+    A.class "md:focus:tw--skew-y-6"
+
+
+md_focus_tw_neg_skew_y_3 : Html.Attribute msg
+md_focus_tw_neg_skew_y_3 =
+    A.class "md:focus:tw--skew-y-3"
+
+
+md_tw_transition_none : Html.Attribute msg
+md_tw_transition_none =
+    A.class "md:tw-transition-none"
+
+
+md_tw_transition_all : Html.Attribute msg
+md_tw_transition_all =
+    A.class "md:tw-transition-all"
+
+
+md_tw_transition : Html.Attribute msg
+md_tw_transition =
+    A.class "md:tw-transition"
+
+
+md_tw_transition_colors : Html.Attribute msg
+md_tw_transition_colors =
+    A.class "md:tw-transition-colors"
+
+
+md_tw_transition_opacity : Html.Attribute msg
+md_tw_transition_opacity =
+    A.class "md:tw-transition-opacity"
+
+
+md_tw_transition_shadow : Html.Attribute msg
+md_tw_transition_shadow =
+    A.class "md:tw-transition-shadow"
+
+
+md_tw_transition_transform : Html.Attribute msg
+md_tw_transition_transform =
+    A.class "md:tw-transition-transform"
+
+
+md_tw_ease_linear : Html.Attribute msg
+md_tw_ease_linear =
+    A.class "md:tw-ease-linear"
+
+
+md_tw_ease_in : Html.Attribute msg
+md_tw_ease_in =
+    A.class "md:tw-ease-in"
+
+
+md_tw_ease_out : Html.Attribute msg
+md_tw_ease_out =
+    A.class "md:tw-ease-out"
+
+
+md_tw_ease_in_out : Html.Attribute msg
+md_tw_ease_in_out =
+    A.class "md:tw-ease-in-out"
+
+
+md_tw_duration_75 : Html.Attribute msg
+md_tw_duration_75 =
+    A.class "md:tw-duration-75"
+
+
+md_tw_duration_100 : Html.Attribute msg
+md_tw_duration_100 =
+    A.class "md:tw-duration-100"
+
+
+md_tw_duration_150 : Html.Attribute msg
+md_tw_duration_150 =
+    A.class "md:tw-duration-150"
+
+
+md_tw_duration_200 : Html.Attribute msg
+md_tw_duration_200 =
+    A.class "md:tw-duration-200"
+
+
+md_tw_duration_300 : Html.Attribute msg
+md_tw_duration_300 =
+    A.class "md:tw-duration-300"
+
+
+md_tw_duration_500 : Html.Attribute msg
+md_tw_duration_500 =
+    A.class "md:tw-duration-500"
+
+
+md_tw_duration_700 : Html.Attribute msg
+md_tw_duration_700 =
+    A.class "md:tw-duration-700"
+
+
+md_tw_duration_1000 : Html.Attribute msg
+md_tw_duration_1000 =
+    A.class "md:tw-duration-1000"
 
 
 lg_tw_sr_only : Html.Attribute msg
@@ -40768,6 +53128,11 @@ lg_tw_rounded =
     A.class "lg:tw-rounded"
 
 
+lg_tw_rounded_md : Html.Attribute msg
+lg_tw_rounded_md =
+    A.class "lg:tw-rounded-md"
+
+
 lg_tw_rounded_lg : Html.Attribute msg
 lg_tw_rounded_lg =
     A.class "lg:tw-rounded-lg"
@@ -40836,6 +53201,26 @@ lg_tw_rounded_b =
 lg_tw_rounded_l : Html.Attribute msg
 lg_tw_rounded_l =
     A.class "lg:tw-rounded-l"
+
+
+lg_tw_rounded_t_md : Html.Attribute msg
+lg_tw_rounded_t_md =
+    A.class "lg:tw-rounded-t-md"
+
+
+lg_tw_rounded_r_md : Html.Attribute msg
+lg_tw_rounded_r_md =
+    A.class "lg:tw-rounded-r-md"
+
+
+lg_tw_rounded_b_md : Html.Attribute msg
+lg_tw_rounded_b_md =
+    A.class "lg:tw-rounded-b-md"
+
+
+lg_tw_rounded_l_md : Html.Attribute msg
+lg_tw_rounded_l_md =
+    A.class "lg:tw-rounded-l-md"
 
 
 lg_tw_rounded_t_lg : Html.Attribute msg
@@ -40936,6 +53321,26 @@ lg_tw_rounded_br =
 lg_tw_rounded_bl : Html.Attribute msg
 lg_tw_rounded_bl =
     A.class "lg:tw-rounded-bl"
+
+
+lg_tw_rounded_tl_md : Html.Attribute msg
+lg_tw_rounded_tl_md =
+    A.class "lg:tw-rounded-tl-md"
+
+
+lg_tw_rounded_tr_md : Html.Attribute msg
+lg_tw_rounded_tr_md =
+    A.class "lg:tw-rounded-tr-md"
+
+
+lg_tw_rounded_br_md : Html.Attribute msg
+lg_tw_rounded_br_md =
+    A.class "lg:tw-rounded-br-md"
+
+
+lg_tw_rounded_bl_md : Html.Attribute msg
+lg_tw_rounded_bl_md =
+    A.class "lg:tw-rounded-bl-md"
 
 
 lg_tw_rounded_tl_lg : Html.Attribute msg
@@ -41128,6 +53533,16 @@ lg_tw_border_l =
     A.class "lg:tw-border-l"
 
 
+lg_tw_box_border : Html.Attribute msg
+lg_tw_box_border =
+    A.class "lg:tw-box-border"
+
+
+lg_tw_box_content : Html.Attribute msg
+lg_tw_box_content =
+    A.class "lg:tw-box-content"
+
+
 lg_tw_cursor_auto : Html.Attribute msg
 lg_tw_cursor_auto =
     A.class "lg:tw-cursor-auto"
@@ -41188,19 +53603,54 @@ lg_tw_inline_flex =
     A.class "lg:tw-inline-flex"
 
 
+lg_tw_grid : Html.Attribute msg
+lg_tw_grid =
+    A.class "lg:tw-grid"
+
+
 lg_tw_table : Html.Attribute msg
 lg_tw_table =
     A.class "lg:tw-table"
 
 
-lg_tw_table_row : Html.Attribute msg
-lg_tw_table_row =
-    A.class "lg:tw-table-row"
+lg_tw_table_caption : Html.Attribute msg
+lg_tw_table_caption =
+    A.class "lg:tw-table-caption"
 
 
 lg_tw_table_cell : Html.Attribute msg
 lg_tw_table_cell =
     A.class "lg:tw-table-cell"
+
+
+lg_tw_table_column : Html.Attribute msg
+lg_tw_table_column =
+    A.class "lg:tw-table-column"
+
+
+lg_tw_table_column_group : Html.Attribute msg
+lg_tw_table_column_group =
+    A.class "lg:tw-table-column-group"
+
+
+lg_tw_table_footer_group : Html.Attribute msg
+lg_tw_table_footer_group =
+    A.class "lg:tw-table-footer-group"
+
+
+lg_tw_table_header_group : Html.Attribute msg
+lg_tw_table_header_group =
+    A.class "lg:tw-table-header-group"
+
+
+lg_tw_table_row_group : Html.Attribute msg
+lg_tw_table_row_group =
+    A.class "lg:tw-table-row-group"
+
+
+lg_tw_table_row : Html.Attribute msg
+lg_tw_table_row =
+    A.class "lg:tw-table-row"
 
 
 lg_tw_hidden : Html.Attribute msg
@@ -41316,6 +53766,11 @@ lg_tw_justify_between =
 lg_tw_justify_around : Html.Attribute msg
 lg_tw_justify_around =
     A.class "lg:tw-justify-around"
+
+
+lg_tw_justify_evenly : Html.Attribute msg
+lg_tw_justify_evenly =
+    A.class "lg:tw-justify-evenly"
 
 
 lg_tw_content_center : Html.Attribute msg
@@ -41476,6 +53931,21 @@ lg_tw_float_none =
 lg_tw_clearfix_after : Html.Attribute msg
 lg_tw_clearfix_after =
     A.class "lg:tw-clearfix:after"
+
+
+lg_tw_clear_left : Html.Attribute msg
+lg_tw_clear_left =
+    A.class "lg:tw-clear-left"
+
+
+lg_tw_clear_right : Html.Attribute msg
+lg_tw_clear_right =
+    A.class "lg:tw-clear-right"
+
+
+lg_tw_clear_both : Html.Attribute msg
+lg_tw_clear_both =
+    A.class "lg:tw-clear-both"
 
 
 lg_tw_font_sans : Html.Attribute msg
@@ -41736,6 +54206,46 @@ lg_tw_h_full =
 lg_tw_h_screen : Html.Attribute msg
 lg_tw_h_screen =
     A.class "lg:tw-h-screen"
+
+
+lg_tw_leading_3 : Html.Attribute msg
+lg_tw_leading_3 =
+    A.class "lg:tw-leading-3"
+
+
+lg_tw_leading_4 : Html.Attribute msg
+lg_tw_leading_4 =
+    A.class "lg:tw-leading-4"
+
+
+lg_tw_leading_5 : Html.Attribute msg
+lg_tw_leading_5 =
+    A.class "lg:tw-leading-5"
+
+
+lg_tw_leading_6 : Html.Attribute msg
+lg_tw_leading_6 =
+    A.class "lg:tw-leading-6"
+
+
+lg_tw_leading_7 : Html.Attribute msg
+lg_tw_leading_7 =
+    A.class "lg:tw-leading-7"
+
+
+lg_tw_leading_8 : Html.Attribute msg
+lg_tw_leading_8 =
+    A.class "lg:tw-leading-8"
+
+
+lg_tw_leading_9 : Html.Attribute msg
+lg_tw_leading_9 =
+    A.class "lg:tw-leading-9"
+
+
+lg_tw_leading_10 : Html.Attribute msg
+lg_tw_leading_10 =
+    A.class "lg:tw-leading-10"
 
 
 lg_tw_leading_none : Html.Attribute msg
@@ -43133,6 +55643,11 @@ lg_tw_max_h_screen =
     A.class "lg:tw-max-h-screen"
 
 
+lg_tw_max_w_none : Html.Attribute msg
+lg_tw_max_w_none =
+    A.class "lg:tw-max-w-none"
+
+
 lg_tw_max_w_xs : Html.Attribute msg
 lg_tw_max_w_xs =
     A.class "lg:tw-max-w-xs"
@@ -43186,6 +55701,26 @@ lg_tw_max_w_6xl =
 lg_tw_max_w_full : Html.Attribute msg
 lg_tw_max_w_full =
     A.class "lg:tw-max-w-full"
+
+
+lg_tw_max_w_screen_sm : Html.Attribute msg
+lg_tw_max_w_screen_sm =
+    A.class "lg:tw-max-w-screen-sm"
+
+
+lg_tw_max_w_screen_md : Html.Attribute msg
+lg_tw_max_w_screen_md =
+    A.class "lg:tw-max-w-screen-md"
+
+
+lg_tw_max_w_screen_lg : Html.Attribute msg
+lg_tw_max_w_screen_lg =
+    A.class "lg:tw-max-w-screen-lg"
+
+
+lg_tw_max_w_screen_xl : Html.Attribute msg
+lg_tw_max_w_screen_xl =
+    A.class "lg:tw-max-w-screen-xl"
 
 
 lg_tw_min_h_0 : Html.Attribute msg
@@ -45158,6 +57693,16 @@ lg_tw_resize =
     A.class "lg:tw-resize"
 
 
+lg_tw_shadow_xs : Html.Attribute msg
+lg_tw_shadow_xs =
+    A.class "lg:tw-shadow-xs"
+
+
+lg_tw_shadow_sm : Html.Attribute msg
+lg_tw_shadow_sm =
+    A.class "lg:tw-shadow-sm"
+
+
 lg_tw_shadow : Html.Attribute msg
 lg_tw_shadow =
     A.class "lg:tw-shadow"
@@ -45198,6 +57743,16 @@ lg_tw_shadow_none =
     A.class "lg:tw-shadow-none"
 
 
+lg_hover_tw_shadow_xs : Html.Attribute msg
+lg_hover_tw_shadow_xs =
+    A.class "lg:hover:tw-shadow-xs"
+
+
+lg_hover_tw_shadow_sm : Html.Attribute msg
+lg_hover_tw_shadow_sm =
+    A.class "lg:hover:tw-shadow-sm"
+
+
 lg_hover_tw_shadow : Html.Attribute msg
 lg_hover_tw_shadow =
     A.class "lg:hover:tw-shadow"
@@ -45236,6 +57791,16 @@ lg_hover_tw_shadow_outline =
 lg_hover_tw_shadow_none : Html.Attribute msg
 lg_hover_tw_shadow_none =
     A.class "lg:hover:tw-shadow-none"
+
+
+lg_focus_tw_shadow_xs : Html.Attribute msg
+lg_focus_tw_shadow_xs =
+    A.class "lg:focus:tw-shadow-xs"
+
+
+lg_focus_tw_shadow_sm : Html.Attribute msg
+lg_focus_tw_shadow_sm =
+    A.class "lg:focus:tw-shadow-sm"
 
 
 lg_focus_tw_shadow : Html.Attribute msg
@@ -45286,6 +57851,21 @@ lg_tw_fill_current =
 lg_tw_stroke_current : Html.Attribute msg
 lg_tw_stroke_current =
     A.class "lg:tw-stroke-current"
+
+
+lg_tw_stroke_0 : Html.Attribute msg
+lg_tw_stroke_0 =
+    A.class "lg:tw-stroke-0"
+
+
+lg_tw_stroke_1 : Html.Attribute msg
+lg_tw_stroke_1 =
+    A.class "lg:tw-stroke-1"
+
+
+lg_tw_stroke_2 : Html.Attribute msg
+lg_tw_stroke_2 =
+    A.class "lg:tw-stroke-2"
 
 
 lg_tw_table_auto : Html.Attribute msg
@@ -47256,6 +59836,2876 @@ lg_tw_z_50 =
 lg_tw_z_auto : Html.Attribute msg
 lg_tw_z_auto =
     A.class "lg:tw-z-auto"
+
+
+lg_tw_gap_0 : Html.Attribute msg
+lg_tw_gap_0 =
+    A.class "lg:tw-gap-0"
+
+
+lg_tw_gap_1 : Html.Attribute msg
+lg_tw_gap_1 =
+    A.class "lg:tw-gap-1"
+
+
+lg_tw_gap_2 : Html.Attribute msg
+lg_tw_gap_2 =
+    A.class "lg:tw-gap-2"
+
+
+lg_tw_gap_3 : Html.Attribute msg
+lg_tw_gap_3 =
+    A.class "lg:tw-gap-3"
+
+
+lg_tw_gap_4 : Html.Attribute msg
+lg_tw_gap_4 =
+    A.class "lg:tw-gap-4"
+
+
+lg_tw_gap_5 : Html.Attribute msg
+lg_tw_gap_5 =
+    A.class "lg:tw-gap-5"
+
+
+lg_tw_gap_6 : Html.Attribute msg
+lg_tw_gap_6 =
+    A.class "lg:tw-gap-6"
+
+
+lg_tw_gap_8 : Html.Attribute msg
+lg_tw_gap_8 =
+    A.class "lg:tw-gap-8"
+
+
+lg_tw_gap_10 : Html.Attribute msg
+lg_tw_gap_10 =
+    A.class "lg:tw-gap-10"
+
+
+lg_tw_gap_12 : Html.Attribute msg
+lg_tw_gap_12 =
+    A.class "lg:tw-gap-12"
+
+
+lg_tw_gap_16 : Html.Attribute msg
+lg_tw_gap_16 =
+    A.class "lg:tw-gap-16"
+
+
+lg_tw_gap_20 : Html.Attribute msg
+lg_tw_gap_20 =
+    A.class "lg:tw-gap-20"
+
+
+lg_tw_gap_24 : Html.Attribute msg
+lg_tw_gap_24 =
+    A.class "lg:tw-gap-24"
+
+
+lg_tw_gap_32 : Html.Attribute msg
+lg_tw_gap_32 =
+    A.class "lg:tw-gap-32"
+
+
+lg_tw_gap_40 : Html.Attribute msg
+lg_tw_gap_40 =
+    A.class "lg:tw-gap-40"
+
+
+lg_tw_gap_48 : Html.Attribute msg
+lg_tw_gap_48 =
+    A.class "lg:tw-gap-48"
+
+
+lg_tw_gap_56 : Html.Attribute msg
+lg_tw_gap_56 =
+    A.class "lg:tw-gap-56"
+
+
+lg_tw_gap_64 : Html.Attribute msg
+lg_tw_gap_64 =
+    A.class "lg:tw-gap-64"
+
+
+lg_tw_gap_px : Html.Attribute msg
+lg_tw_gap_px =
+    A.class "lg:tw-gap-px"
+
+
+lg_tw_col_gap_0 : Html.Attribute msg
+lg_tw_col_gap_0 =
+    A.class "lg:tw-col-gap-0"
+
+
+lg_tw_col_gap_1 : Html.Attribute msg
+lg_tw_col_gap_1 =
+    A.class "lg:tw-col-gap-1"
+
+
+lg_tw_col_gap_2 : Html.Attribute msg
+lg_tw_col_gap_2 =
+    A.class "lg:tw-col-gap-2"
+
+
+lg_tw_col_gap_3 : Html.Attribute msg
+lg_tw_col_gap_3 =
+    A.class "lg:tw-col-gap-3"
+
+
+lg_tw_col_gap_4 : Html.Attribute msg
+lg_tw_col_gap_4 =
+    A.class "lg:tw-col-gap-4"
+
+
+lg_tw_col_gap_5 : Html.Attribute msg
+lg_tw_col_gap_5 =
+    A.class "lg:tw-col-gap-5"
+
+
+lg_tw_col_gap_6 : Html.Attribute msg
+lg_tw_col_gap_6 =
+    A.class "lg:tw-col-gap-6"
+
+
+lg_tw_col_gap_8 : Html.Attribute msg
+lg_tw_col_gap_8 =
+    A.class "lg:tw-col-gap-8"
+
+
+lg_tw_col_gap_10 : Html.Attribute msg
+lg_tw_col_gap_10 =
+    A.class "lg:tw-col-gap-10"
+
+
+lg_tw_col_gap_12 : Html.Attribute msg
+lg_tw_col_gap_12 =
+    A.class "lg:tw-col-gap-12"
+
+
+lg_tw_col_gap_16 : Html.Attribute msg
+lg_tw_col_gap_16 =
+    A.class "lg:tw-col-gap-16"
+
+
+lg_tw_col_gap_20 : Html.Attribute msg
+lg_tw_col_gap_20 =
+    A.class "lg:tw-col-gap-20"
+
+
+lg_tw_col_gap_24 : Html.Attribute msg
+lg_tw_col_gap_24 =
+    A.class "lg:tw-col-gap-24"
+
+
+lg_tw_col_gap_32 : Html.Attribute msg
+lg_tw_col_gap_32 =
+    A.class "lg:tw-col-gap-32"
+
+
+lg_tw_col_gap_40 : Html.Attribute msg
+lg_tw_col_gap_40 =
+    A.class "lg:tw-col-gap-40"
+
+
+lg_tw_col_gap_48 : Html.Attribute msg
+lg_tw_col_gap_48 =
+    A.class "lg:tw-col-gap-48"
+
+
+lg_tw_col_gap_56 : Html.Attribute msg
+lg_tw_col_gap_56 =
+    A.class "lg:tw-col-gap-56"
+
+
+lg_tw_col_gap_64 : Html.Attribute msg
+lg_tw_col_gap_64 =
+    A.class "lg:tw-col-gap-64"
+
+
+lg_tw_col_gap_px : Html.Attribute msg
+lg_tw_col_gap_px =
+    A.class "lg:tw-col-gap-px"
+
+
+lg_tw_row_gap_0 : Html.Attribute msg
+lg_tw_row_gap_0 =
+    A.class "lg:tw-row-gap-0"
+
+
+lg_tw_row_gap_1 : Html.Attribute msg
+lg_tw_row_gap_1 =
+    A.class "lg:tw-row-gap-1"
+
+
+lg_tw_row_gap_2 : Html.Attribute msg
+lg_tw_row_gap_2 =
+    A.class "lg:tw-row-gap-2"
+
+
+lg_tw_row_gap_3 : Html.Attribute msg
+lg_tw_row_gap_3 =
+    A.class "lg:tw-row-gap-3"
+
+
+lg_tw_row_gap_4 : Html.Attribute msg
+lg_tw_row_gap_4 =
+    A.class "lg:tw-row-gap-4"
+
+
+lg_tw_row_gap_5 : Html.Attribute msg
+lg_tw_row_gap_5 =
+    A.class "lg:tw-row-gap-5"
+
+
+lg_tw_row_gap_6 : Html.Attribute msg
+lg_tw_row_gap_6 =
+    A.class "lg:tw-row-gap-6"
+
+
+lg_tw_row_gap_8 : Html.Attribute msg
+lg_tw_row_gap_8 =
+    A.class "lg:tw-row-gap-8"
+
+
+lg_tw_row_gap_10 : Html.Attribute msg
+lg_tw_row_gap_10 =
+    A.class "lg:tw-row-gap-10"
+
+
+lg_tw_row_gap_12 : Html.Attribute msg
+lg_tw_row_gap_12 =
+    A.class "lg:tw-row-gap-12"
+
+
+lg_tw_row_gap_16 : Html.Attribute msg
+lg_tw_row_gap_16 =
+    A.class "lg:tw-row-gap-16"
+
+
+lg_tw_row_gap_20 : Html.Attribute msg
+lg_tw_row_gap_20 =
+    A.class "lg:tw-row-gap-20"
+
+
+lg_tw_row_gap_24 : Html.Attribute msg
+lg_tw_row_gap_24 =
+    A.class "lg:tw-row-gap-24"
+
+
+lg_tw_row_gap_32 : Html.Attribute msg
+lg_tw_row_gap_32 =
+    A.class "lg:tw-row-gap-32"
+
+
+lg_tw_row_gap_40 : Html.Attribute msg
+lg_tw_row_gap_40 =
+    A.class "lg:tw-row-gap-40"
+
+
+lg_tw_row_gap_48 : Html.Attribute msg
+lg_tw_row_gap_48 =
+    A.class "lg:tw-row-gap-48"
+
+
+lg_tw_row_gap_56 : Html.Attribute msg
+lg_tw_row_gap_56 =
+    A.class "lg:tw-row-gap-56"
+
+
+lg_tw_row_gap_64 : Html.Attribute msg
+lg_tw_row_gap_64 =
+    A.class "lg:tw-row-gap-64"
+
+
+lg_tw_row_gap_px : Html.Attribute msg
+lg_tw_row_gap_px =
+    A.class "lg:tw-row-gap-px"
+
+
+lg_tw_grid_flow_row : Html.Attribute msg
+lg_tw_grid_flow_row =
+    A.class "lg:tw-grid-flow-row"
+
+
+lg_tw_grid_flow_col : Html.Attribute msg
+lg_tw_grid_flow_col =
+    A.class "lg:tw-grid-flow-col"
+
+
+lg_tw_grid_flow_row_dense : Html.Attribute msg
+lg_tw_grid_flow_row_dense =
+    A.class "lg:tw-grid-flow-row-dense"
+
+
+lg_tw_grid_flow_col_dense : Html.Attribute msg
+lg_tw_grid_flow_col_dense =
+    A.class "lg:tw-grid-flow-col-dense"
+
+
+lg_tw_grid_cols_1 : Html.Attribute msg
+lg_tw_grid_cols_1 =
+    A.class "lg:tw-grid-cols-1"
+
+
+lg_tw_grid_cols_2 : Html.Attribute msg
+lg_tw_grid_cols_2 =
+    A.class "lg:tw-grid-cols-2"
+
+
+lg_tw_grid_cols_3 : Html.Attribute msg
+lg_tw_grid_cols_3 =
+    A.class "lg:tw-grid-cols-3"
+
+
+lg_tw_grid_cols_4 : Html.Attribute msg
+lg_tw_grid_cols_4 =
+    A.class "lg:tw-grid-cols-4"
+
+
+lg_tw_grid_cols_5 : Html.Attribute msg
+lg_tw_grid_cols_5 =
+    A.class "lg:tw-grid-cols-5"
+
+
+lg_tw_grid_cols_6 : Html.Attribute msg
+lg_tw_grid_cols_6 =
+    A.class "lg:tw-grid-cols-6"
+
+
+lg_tw_grid_cols_7 : Html.Attribute msg
+lg_tw_grid_cols_7 =
+    A.class "lg:tw-grid-cols-7"
+
+
+lg_tw_grid_cols_8 : Html.Attribute msg
+lg_tw_grid_cols_8 =
+    A.class "lg:tw-grid-cols-8"
+
+
+lg_tw_grid_cols_9 : Html.Attribute msg
+lg_tw_grid_cols_9 =
+    A.class "lg:tw-grid-cols-9"
+
+
+lg_tw_grid_cols_10 : Html.Attribute msg
+lg_tw_grid_cols_10 =
+    A.class "lg:tw-grid-cols-10"
+
+
+lg_tw_grid_cols_11 : Html.Attribute msg
+lg_tw_grid_cols_11 =
+    A.class "lg:tw-grid-cols-11"
+
+
+lg_tw_grid_cols_12 : Html.Attribute msg
+lg_tw_grid_cols_12 =
+    A.class "lg:tw-grid-cols-12"
+
+
+lg_tw_grid_cols_none : Html.Attribute msg
+lg_tw_grid_cols_none =
+    A.class "lg:tw-grid-cols-none"
+
+
+lg_tw_col_auto : Html.Attribute msg
+lg_tw_col_auto =
+    A.class "lg:tw-col-auto"
+
+
+lg_tw_col_span_1 : Html.Attribute msg
+lg_tw_col_span_1 =
+    A.class "lg:tw-col-span-1"
+
+
+lg_tw_col_span_2 : Html.Attribute msg
+lg_tw_col_span_2 =
+    A.class "lg:tw-col-span-2"
+
+
+lg_tw_col_span_3 : Html.Attribute msg
+lg_tw_col_span_3 =
+    A.class "lg:tw-col-span-3"
+
+
+lg_tw_col_span_4 : Html.Attribute msg
+lg_tw_col_span_4 =
+    A.class "lg:tw-col-span-4"
+
+
+lg_tw_col_span_5 : Html.Attribute msg
+lg_tw_col_span_5 =
+    A.class "lg:tw-col-span-5"
+
+
+lg_tw_col_span_6 : Html.Attribute msg
+lg_tw_col_span_6 =
+    A.class "lg:tw-col-span-6"
+
+
+lg_tw_col_span_7 : Html.Attribute msg
+lg_tw_col_span_7 =
+    A.class "lg:tw-col-span-7"
+
+
+lg_tw_col_span_8 : Html.Attribute msg
+lg_tw_col_span_8 =
+    A.class "lg:tw-col-span-8"
+
+
+lg_tw_col_span_9 : Html.Attribute msg
+lg_tw_col_span_9 =
+    A.class "lg:tw-col-span-9"
+
+
+lg_tw_col_span_10 : Html.Attribute msg
+lg_tw_col_span_10 =
+    A.class "lg:tw-col-span-10"
+
+
+lg_tw_col_span_11 : Html.Attribute msg
+lg_tw_col_span_11 =
+    A.class "lg:tw-col-span-11"
+
+
+lg_tw_col_span_12 : Html.Attribute msg
+lg_tw_col_span_12 =
+    A.class "lg:tw-col-span-12"
+
+
+lg_tw_col_start_1 : Html.Attribute msg
+lg_tw_col_start_1 =
+    A.class "lg:tw-col-start-1"
+
+
+lg_tw_col_start_2 : Html.Attribute msg
+lg_tw_col_start_2 =
+    A.class "lg:tw-col-start-2"
+
+
+lg_tw_col_start_3 : Html.Attribute msg
+lg_tw_col_start_3 =
+    A.class "lg:tw-col-start-3"
+
+
+lg_tw_col_start_4 : Html.Attribute msg
+lg_tw_col_start_4 =
+    A.class "lg:tw-col-start-4"
+
+
+lg_tw_col_start_5 : Html.Attribute msg
+lg_tw_col_start_5 =
+    A.class "lg:tw-col-start-5"
+
+
+lg_tw_col_start_6 : Html.Attribute msg
+lg_tw_col_start_6 =
+    A.class "lg:tw-col-start-6"
+
+
+lg_tw_col_start_7 : Html.Attribute msg
+lg_tw_col_start_7 =
+    A.class "lg:tw-col-start-7"
+
+
+lg_tw_col_start_8 : Html.Attribute msg
+lg_tw_col_start_8 =
+    A.class "lg:tw-col-start-8"
+
+
+lg_tw_col_start_9 : Html.Attribute msg
+lg_tw_col_start_9 =
+    A.class "lg:tw-col-start-9"
+
+
+lg_tw_col_start_10 : Html.Attribute msg
+lg_tw_col_start_10 =
+    A.class "lg:tw-col-start-10"
+
+
+lg_tw_col_start_11 : Html.Attribute msg
+lg_tw_col_start_11 =
+    A.class "lg:tw-col-start-11"
+
+
+lg_tw_col_start_12 : Html.Attribute msg
+lg_tw_col_start_12 =
+    A.class "lg:tw-col-start-12"
+
+
+lg_tw_col_start_13 : Html.Attribute msg
+lg_tw_col_start_13 =
+    A.class "lg:tw-col-start-13"
+
+
+lg_tw_col_start_auto : Html.Attribute msg
+lg_tw_col_start_auto =
+    A.class "lg:tw-col-start-auto"
+
+
+lg_tw_col_end_1 : Html.Attribute msg
+lg_tw_col_end_1 =
+    A.class "lg:tw-col-end-1"
+
+
+lg_tw_col_end_2 : Html.Attribute msg
+lg_tw_col_end_2 =
+    A.class "lg:tw-col-end-2"
+
+
+lg_tw_col_end_3 : Html.Attribute msg
+lg_tw_col_end_3 =
+    A.class "lg:tw-col-end-3"
+
+
+lg_tw_col_end_4 : Html.Attribute msg
+lg_tw_col_end_4 =
+    A.class "lg:tw-col-end-4"
+
+
+lg_tw_col_end_5 : Html.Attribute msg
+lg_tw_col_end_5 =
+    A.class "lg:tw-col-end-5"
+
+
+lg_tw_col_end_6 : Html.Attribute msg
+lg_tw_col_end_6 =
+    A.class "lg:tw-col-end-6"
+
+
+lg_tw_col_end_7 : Html.Attribute msg
+lg_tw_col_end_7 =
+    A.class "lg:tw-col-end-7"
+
+
+lg_tw_col_end_8 : Html.Attribute msg
+lg_tw_col_end_8 =
+    A.class "lg:tw-col-end-8"
+
+
+lg_tw_col_end_9 : Html.Attribute msg
+lg_tw_col_end_9 =
+    A.class "lg:tw-col-end-9"
+
+
+lg_tw_col_end_10 : Html.Attribute msg
+lg_tw_col_end_10 =
+    A.class "lg:tw-col-end-10"
+
+
+lg_tw_col_end_11 : Html.Attribute msg
+lg_tw_col_end_11 =
+    A.class "lg:tw-col-end-11"
+
+
+lg_tw_col_end_12 : Html.Attribute msg
+lg_tw_col_end_12 =
+    A.class "lg:tw-col-end-12"
+
+
+lg_tw_col_end_13 : Html.Attribute msg
+lg_tw_col_end_13 =
+    A.class "lg:tw-col-end-13"
+
+
+lg_tw_col_end_auto : Html.Attribute msg
+lg_tw_col_end_auto =
+    A.class "lg:tw-col-end-auto"
+
+
+lg_tw_grid_rows_1 : Html.Attribute msg
+lg_tw_grid_rows_1 =
+    A.class "lg:tw-grid-rows-1"
+
+
+lg_tw_grid_rows_2 : Html.Attribute msg
+lg_tw_grid_rows_2 =
+    A.class "lg:tw-grid-rows-2"
+
+
+lg_tw_grid_rows_3 : Html.Attribute msg
+lg_tw_grid_rows_3 =
+    A.class "lg:tw-grid-rows-3"
+
+
+lg_tw_grid_rows_4 : Html.Attribute msg
+lg_tw_grid_rows_4 =
+    A.class "lg:tw-grid-rows-4"
+
+
+lg_tw_grid_rows_5 : Html.Attribute msg
+lg_tw_grid_rows_5 =
+    A.class "lg:tw-grid-rows-5"
+
+
+lg_tw_grid_rows_6 : Html.Attribute msg
+lg_tw_grid_rows_6 =
+    A.class "lg:tw-grid-rows-6"
+
+
+lg_tw_grid_rows_none : Html.Attribute msg
+lg_tw_grid_rows_none =
+    A.class "lg:tw-grid-rows-none"
+
+
+lg_tw_row_auto : Html.Attribute msg
+lg_tw_row_auto =
+    A.class "lg:tw-row-auto"
+
+
+lg_tw_row_span_1 : Html.Attribute msg
+lg_tw_row_span_1 =
+    A.class "lg:tw-row-span-1"
+
+
+lg_tw_row_span_2 : Html.Attribute msg
+lg_tw_row_span_2 =
+    A.class "lg:tw-row-span-2"
+
+
+lg_tw_row_span_3 : Html.Attribute msg
+lg_tw_row_span_3 =
+    A.class "lg:tw-row-span-3"
+
+
+lg_tw_row_span_4 : Html.Attribute msg
+lg_tw_row_span_4 =
+    A.class "lg:tw-row-span-4"
+
+
+lg_tw_row_span_5 : Html.Attribute msg
+lg_tw_row_span_5 =
+    A.class "lg:tw-row-span-5"
+
+
+lg_tw_row_span_6 : Html.Attribute msg
+lg_tw_row_span_6 =
+    A.class "lg:tw-row-span-6"
+
+
+lg_tw_row_start_1 : Html.Attribute msg
+lg_tw_row_start_1 =
+    A.class "lg:tw-row-start-1"
+
+
+lg_tw_row_start_2 : Html.Attribute msg
+lg_tw_row_start_2 =
+    A.class "lg:tw-row-start-2"
+
+
+lg_tw_row_start_3 : Html.Attribute msg
+lg_tw_row_start_3 =
+    A.class "lg:tw-row-start-3"
+
+
+lg_tw_row_start_4 : Html.Attribute msg
+lg_tw_row_start_4 =
+    A.class "lg:tw-row-start-4"
+
+
+lg_tw_row_start_5 : Html.Attribute msg
+lg_tw_row_start_5 =
+    A.class "lg:tw-row-start-5"
+
+
+lg_tw_row_start_6 : Html.Attribute msg
+lg_tw_row_start_6 =
+    A.class "lg:tw-row-start-6"
+
+
+lg_tw_row_start_7 : Html.Attribute msg
+lg_tw_row_start_7 =
+    A.class "lg:tw-row-start-7"
+
+
+lg_tw_row_start_auto : Html.Attribute msg
+lg_tw_row_start_auto =
+    A.class "lg:tw-row-start-auto"
+
+
+lg_tw_row_end_1 : Html.Attribute msg
+lg_tw_row_end_1 =
+    A.class "lg:tw-row-end-1"
+
+
+lg_tw_row_end_2 : Html.Attribute msg
+lg_tw_row_end_2 =
+    A.class "lg:tw-row-end-2"
+
+
+lg_tw_row_end_3 : Html.Attribute msg
+lg_tw_row_end_3 =
+    A.class "lg:tw-row-end-3"
+
+
+lg_tw_row_end_4 : Html.Attribute msg
+lg_tw_row_end_4 =
+    A.class "lg:tw-row-end-4"
+
+
+lg_tw_row_end_5 : Html.Attribute msg
+lg_tw_row_end_5 =
+    A.class "lg:tw-row-end-5"
+
+
+lg_tw_row_end_6 : Html.Attribute msg
+lg_tw_row_end_6 =
+    A.class "lg:tw-row-end-6"
+
+
+lg_tw_row_end_7 : Html.Attribute msg
+lg_tw_row_end_7 =
+    A.class "lg:tw-row-end-7"
+
+
+lg_tw_row_end_auto : Html.Attribute msg
+lg_tw_row_end_auto =
+    A.class "lg:tw-row-end-auto"
+
+
+lg_tw_transform : Html.Attribute msg
+lg_tw_transform =
+    A.class "lg:tw-transform"
+
+
+lg_tw_transform_none : Html.Attribute msg
+lg_tw_transform_none =
+    A.class "lg:tw-transform-none"
+
+
+lg_tw_origin_center : Html.Attribute msg
+lg_tw_origin_center =
+    A.class "lg:tw-origin-center"
+
+
+lg_tw_origin_top : Html.Attribute msg
+lg_tw_origin_top =
+    A.class "lg:tw-origin-top"
+
+
+lg_tw_origin_top_right : Html.Attribute msg
+lg_tw_origin_top_right =
+    A.class "lg:tw-origin-top-right"
+
+
+lg_tw_origin_right : Html.Attribute msg
+lg_tw_origin_right =
+    A.class "lg:tw-origin-right"
+
+
+lg_tw_origin_bottom_right : Html.Attribute msg
+lg_tw_origin_bottom_right =
+    A.class "lg:tw-origin-bottom-right"
+
+
+lg_tw_origin_bottom : Html.Attribute msg
+lg_tw_origin_bottom =
+    A.class "lg:tw-origin-bottom"
+
+
+lg_tw_origin_bottom_left : Html.Attribute msg
+lg_tw_origin_bottom_left =
+    A.class "lg:tw-origin-bottom-left"
+
+
+lg_tw_origin_left : Html.Attribute msg
+lg_tw_origin_left =
+    A.class "lg:tw-origin-left"
+
+
+lg_tw_origin_top_left : Html.Attribute msg
+lg_tw_origin_top_left =
+    A.class "lg:tw-origin-top-left"
+
+
+lg_tw_scale_0 : Html.Attribute msg
+lg_tw_scale_0 =
+    A.class "lg:tw-scale-0"
+
+
+lg_tw_scale_50 : Html.Attribute msg
+lg_tw_scale_50 =
+    A.class "lg:tw-scale-50"
+
+
+lg_tw_scale_75 : Html.Attribute msg
+lg_tw_scale_75 =
+    A.class "lg:tw-scale-75"
+
+
+lg_tw_scale_90 : Html.Attribute msg
+lg_tw_scale_90 =
+    A.class "lg:tw-scale-90"
+
+
+lg_tw_scale_95 : Html.Attribute msg
+lg_tw_scale_95 =
+    A.class "lg:tw-scale-95"
+
+
+lg_tw_scale_100 : Html.Attribute msg
+lg_tw_scale_100 =
+    A.class "lg:tw-scale-100"
+
+
+lg_tw_scale_105 : Html.Attribute msg
+lg_tw_scale_105 =
+    A.class "lg:tw-scale-105"
+
+
+lg_tw_scale_110 : Html.Attribute msg
+lg_tw_scale_110 =
+    A.class "lg:tw-scale-110"
+
+
+lg_tw_scale_125 : Html.Attribute msg
+lg_tw_scale_125 =
+    A.class "lg:tw-scale-125"
+
+
+lg_tw_scale_150 : Html.Attribute msg
+lg_tw_scale_150 =
+    A.class "lg:tw-scale-150"
+
+
+lg_tw_scale_x_0 : Html.Attribute msg
+lg_tw_scale_x_0 =
+    A.class "lg:tw-scale-x-0"
+
+
+lg_tw_scale_x_50 : Html.Attribute msg
+lg_tw_scale_x_50 =
+    A.class "lg:tw-scale-x-50"
+
+
+lg_tw_scale_x_75 : Html.Attribute msg
+lg_tw_scale_x_75 =
+    A.class "lg:tw-scale-x-75"
+
+
+lg_tw_scale_x_90 : Html.Attribute msg
+lg_tw_scale_x_90 =
+    A.class "lg:tw-scale-x-90"
+
+
+lg_tw_scale_x_95 : Html.Attribute msg
+lg_tw_scale_x_95 =
+    A.class "lg:tw-scale-x-95"
+
+
+lg_tw_scale_x_100 : Html.Attribute msg
+lg_tw_scale_x_100 =
+    A.class "lg:tw-scale-x-100"
+
+
+lg_tw_scale_x_105 : Html.Attribute msg
+lg_tw_scale_x_105 =
+    A.class "lg:tw-scale-x-105"
+
+
+lg_tw_scale_x_110 : Html.Attribute msg
+lg_tw_scale_x_110 =
+    A.class "lg:tw-scale-x-110"
+
+
+lg_tw_scale_x_125 : Html.Attribute msg
+lg_tw_scale_x_125 =
+    A.class "lg:tw-scale-x-125"
+
+
+lg_tw_scale_x_150 : Html.Attribute msg
+lg_tw_scale_x_150 =
+    A.class "lg:tw-scale-x-150"
+
+
+lg_tw_scale_y_0 : Html.Attribute msg
+lg_tw_scale_y_0 =
+    A.class "lg:tw-scale-y-0"
+
+
+lg_tw_scale_y_50 : Html.Attribute msg
+lg_tw_scale_y_50 =
+    A.class "lg:tw-scale-y-50"
+
+
+lg_tw_scale_y_75 : Html.Attribute msg
+lg_tw_scale_y_75 =
+    A.class "lg:tw-scale-y-75"
+
+
+lg_tw_scale_y_90 : Html.Attribute msg
+lg_tw_scale_y_90 =
+    A.class "lg:tw-scale-y-90"
+
+
+lg_tw_scale_y_95 : Html.Attribute msg
+lg_tw_scale_y_95 =
+    A.class "lg:tw-scale-y-95"
+
+
+lg_tw_scale_y_100 : Html.Attribute msg
+lg_tw_scale_y_100 =
+    A.class "lg:tw-scale-y-100"
+
+
+lg_tw_scale_y_105 : Html.Attribute msg
+lg_tw_scale_y_105 =
+    A.class "lg:tw-scale-y-105"
+
+
+lg_tw_scale_y_110 : Html.Attribute msg
+lg_tw_scale_y_110 =
+    A.class "lg:tw-scale-y-110"
+
+
+lg_tw_scale_y_125 : Html.Attribute msg
+lg_tw_scale_y_125 =
+    A.class "lg:tw-scale-y-125"
+
+
+lg_tw_scale_y_150 : Html.Attribute msg
+lg_tw_scale_y_150 =
+    A.class "lg:tw-scale-y-150"
+
+
+lg_hover_tw_scale_0 : Html.Attribute msg
+lg_hover_tw_scale_0 =
+    A.class "lg:hover:tw-scale-0"
+
+
+lg_hover_tw_scale_50 : Html.Attribute msg
+lg_hover_tw_scale_50 =
+    A.class "lg:hover:tw-scale-50"
+
+
+lg_hover_tw_scale_75 : Html.Attribute msg
+lg_hover_tw_scale_75 =
+    A.class "lg:hover:tw-scale-75"
+
+
+lg_hover_tw_scale_90 : Html.Attribute msg
+lg_hover_tw_scale_90 =
+    A.class "lg:hover:tw-scale-90"
+
+
+lg_hover_tw_scale_95 : Html.Attribute msg
+lg_hover_tw_scale_95 =
+    A.class "lg:hover:tw-scale-95"
+
+
+lg_hover_tw_scale_100 : Html.Attribute msg
+lg_hover_tw_scale_100 =
+    A.class "lg:hover:tw-scale-100"
+
+
+lg_hover_tw_scale_105 : Html.Attribute msg
+lg_hover_tw_scale_105 =
+    A.class "lg:hover:tw-scale-105"
+
+
+lg_hover_tw_scale_110 : Html.Attribute msg
+lg_hover_tw_scale_110 =
+    A.class "lg:hover:tw-scale-110"
+
+
+lg_hover_tw_scale_125 : Html.Attribute msg
+lg_hover_tw_scale_125 =
+    A.class "lg:hover:tw-scale-125"
+
+
+lg_hover_tw_scale_150 : Html.Attribute msg
+lg_hover_tw_scale_150 =
+    A.class "lg:hover:tw-scale-150"
+
+
+lg_hover_tw_scale_x_0 : Html.Attribute msg
+lg_hover_tw_scale_x_0 =
+    A.class "lg:hover:tw-scale-x-0"
+
+
+lg_hover_tw_scale_x_50 : Html.Attribute msg
+lg_hover_tw_scale_x_50 =
+    A.class "lg:hover:tw-scale-x-50"
+
+
+lg_hover_tw_scale_x_75 : Html.Attribute msg
+lg_hover_tw_scale_x_75 =
+    A.class "lg:hover:tw-scale-x-75"
+
+
+lg_hover_tw_scale_x_90 : Html.Attribute msg
+lg_hover_tw_scale_x_90 =
+    A.class "lg:hover:tw-scale-x-90"
+
+
+lg_hover_tw_scale_x_95 : Html.Attribute msg
+lg_hover_tw_scale_x_95 =
+    A.class "lg:hover:tw-scale-x-95"
+
+
+lg_hover_tw_scale_x_100 : Html.Attribute msg
+lg_hover_tw_scale_x_100 =
+    A.class "lg:hover:tw-scale-x-100"
+
+
+lg_hover_tw_scale_x_105 : Html.Attribute msg
+lg_hover_tw_scale_x_105 =
+    A.class "lg:hover:tw-scale-x-105"
+
+
+lg_hover_tw_scale_x_110 : Html.Attribute msg
+lg_hover_tw_scale_x_110 =
+    A.class "lg:hover:tw-scale-x-110"
+
+
+lg_hover_tw_scale_x_125 : Html.Attribute msg
+lg_hover_tw_scale_x_125 =
+    A.class "lg:hover:tw-scale-x-125"
+
+
+lg_hover_tw_scale_x_150 : Html.Attribute msg
+lg_hover_tw_scale_x_150 =
+    A.class "lg:hover:tw-scale-x-150"
+
+
+lg_hover_tw_scale_y_0 : Html.Attribute msg
+lg_hover_tw_scale_y_0 =
+    A.class "lg:hover:tw-scale-y-0"
+
+
+lg_hover_tw_scale_y_50 : Html.Attribute msg
+lg_hover_tw_scale_y_50 =
+    A.class "lg:hover:tw-scale-y-50"
+
+
+lg_hover_tw_scale_y_75 : Html.Attribute msg
+lg_hover_tw_scale_y_75 =
+    A.class "lg:hover:tw-scale-y-75"
+
+
+lg_hover_tw_scale_y_90 : Html.Attribute msg
+lg_hover_tw_scale_y_90 =
+    A.class "lg:hover:tw-scale-y-90"
+
+
+lg_hover_tw_scale_y_95 : Html.Attribute msg
+lg_hover_tw_scale_y_95 =
+    A.class "lg:hover:tw-scale-y-95"
+
+
+lg_hover_tw_scale_y_100 : Html.Attribute msg
+lg_hover_tw_scale_y_100 =
+    A.class "lg:hover:tw-scale-y-100"
+
+
+lg_hover_tw_scale_y_105 : Html.Attribute msg
+lg_hover_tw_scale_y_105 =
+    A.class "lg:hover:tw-scale-y-105"
+
+
+lg_hover_tw_scale_y_110 : Html.Attribute msg
+lg_hover_tw_scale_y_110 =
+    A.class "lg:hover:tw-scale-y-110"
+
+
+lg_hover_tw_scale_y_125 : Html.Attribute msg
+lg_hover_tw_scale_y_125 =
+    A.class "lg:hover:tw-scale-y-125"
+
+
+lg_hover_tw_scale_y_150 : Html.Attribute msg
+lg_hover_tw_scale_y_150 =
+    A.class "lg:hover:tw-scale-y-150"
+
+
+lg_focus_tw_scale_0 : Html.Attribute msg
+lg_focus_tw_scale_0 =
+    A.class "lg:focus:tw-scale-0"
+
+
+lg_focus_tw_scale_50 : Html.Attribute msg
+lg_focus_tw_scale_50 =
+    A.class "lg:focus:tw-scale-50"
+
+
+lg_focus_tw_scale_75 : Html.Attribute msg
+lg_focus_tw_scale_75 =
+    A.class "lg:focus:tw-scale-75"
+
+
+lg_focus_tw_scale_90 : Html.Attribute msg
+lg_focus_tw_scale_90 =
+    A.class "lg:focus:tw-scale-90"
+
+
+lg_focus_tw_scale_95 : Html.Attribute msg
+lg_focus_tw_scale_95 =
+    A.class "lg:focus:tw-scale-95"
+
+
+lg_focus_tw_scale_100 : Html.Attribute msg
+lg_focus_tw_scale_100 =
+    A.class "lg:focus:tw-scale-100"
+
+
+lg_focus_tw_scale_105 : Html.Attribute msg
+lg_focus_tw_scale_105 =
+    A.class "lg:focus:tw-scale-105"
+
+
+lg_focus_tw_scale_110 : Html.Attribute msg
+lg_focus_tw_scale_110 =
+    A.class "lg:focus:tw-scale-110"
+
+
+lg_focus_tw_scale_125 : Html.Attribute msg
+lg_focus_tw_scale_125 =
+    A.class "lg:focus:tw-scale-125"
+
+
+lg_focus_tw_scale_150 : Html.Attribute msg
+lg_focus_tw_scale_150 =
+    A.class "lg:focus:tw-scale-150"
+
+
+lg_focus_tw_scale_x_0 : Html.Attribute msg
+lg_focus_tw_scale_x_0 =
+    A.class "lg:focus:tw-scale-x-0"
+
+
+lg_focus_tw_scale_x_50 : Html.Attribute msg
+lg_focus_tw_scale_x_50 =
+    A.class "lg:focus:tw-scale-x-50"
+
+
+lg_focus_tw_scale_x_75 : Html.Attribute msg
+lg_focus_tw_scale_x_75 =
+    A.class "lg:focus:tw-scale-x-75"
+
+
+lg_focus_tw_scale_x_90 : Html.Attribute msg
+lg_focus_tw_scale_x_90 =
+    A.class "lg:focus:tw-scale-x-90"
+
+
+lg_focus_tw_scale_x_95 : Html.Attribute msg
+lg_focus_tw_scale_x_95 =
+    A.class "lg:focus:tw-scale-x-95"
+
+
+lg_focus_tw_scale_x_100 : Html.Attribute msg
+lg_focus_tw_scale_x_100 =
+    A.class "lg:focus:tw-scale-x-100"
+
+
+lg_focus_tw_scale_x_105 : Html.Attribute msg
+lg_focus_tw_scale_x_105 =
+    A.class "lg:focus:tw-scale-x-105"
+
+
+lg_focus_tw_scale_x_110 : Html.Attribute msg
+lg_focus_tw_scale_x_110 =
+    A.class "lg:focus:tw-scale-x-110"
+
+
+lg_focus_tw_scale_x_125 : Html.Attribute msg
+lg_focus_tw_scale_x_125 =
+    A.class "lg:focus:tw-scale-x-125"
+
+
+lg_focus_tw_scale_x_150 : Html.Attribute msg
+lg_focus_tw_scale_x_150 =
+    A.class "lg:focus:tw-scale-x-150"
+
+
+lg_focus_tw_scale_y_0 : Html.Attribute msg
+lg_focus_tw_scale_y_0 =
+    A.class "lg:focus:tw-scale-y-0"
+
+
+lg_focus_tw_scale_y_50 : Html.Attribute msg
+lg_focus_tw_scale_y_50 =
+    A.class "lg:focus:tw-scale-y-50"
+
+
+lg_focus_tw_scale_y_75 : Html.Attribute msg
+lg_focus_tw_scale_y_75 =
+    A.class "lg:focus:tw-scale-y-75"
+
+
+lg_focus_tw_scale_y_90 : Html.Attribute msg
+lg_focus_tw_scale_y_90 =
+    A.class "lg:focus:tw-scale-y-90"
+
+
+lg_focus_tw_scale_y_95 : Html.Attribute msg
+lg_focus_tw_scale_y_95 =
+    A.class "lg:focus:tw-scale-y-95"
+
+
+lg_focus_tw_scale_y_100 : Html.Attribute msg
+lg_focus_tw_scale_y_100 =
+    A.class "lg:focus:tw-scale-y-100"
+
+
+lg_focus_tw_scale_y_105 : Html.Attribute msg
+lg_focus_tw_scale_y_105 =
+    A.class "lg:focus:tw-scale-y-105"
+
+
+lg_focus_tw_scale_y_110 : Html.Attribute msg
+lg_focus_tw_scale_y_110 =
+    A.class "lg:focus:tw-scale-y-110"
+
+
+lg_focus_tw_scale_y_125 : Html.Attribute msg
+lg_focus_tw_scale_y_125 =
+    A.class "lg:focus:tw-scale-y-125"
+
+
+lg_focus_tw_scale_y_150 : Html.Attribute msg
+lg_focus_tw_scale_y_150 =
+    A.class "lg:focus:tw-scale-y-150"
+
+
+lg_tw_rotate_0 : Html.Attribute msg
+lg_tw_rotate_0 =
+    A.class "lg:tw-rotate-0"
+
+
+lg_tw_rotate_45 : Html.Attribute msg
+lg_tw_rotate_45 =
+    A.class "lg:tw-rotate-45"
+
+
+lg_tw_rotate_90 : Html.Attribute msg
+lg_tw_rotate_90 =
+    A.class "lg:tw-rotate-90"
+
+
+lg_tw_rotate_180 : Html.Attribute msg
+lg_tw_rotate_180 =
+    A.class "lg:tw-rotate-180"
+
+
+lg_tw_neg_rotate_180 : Html.Attribute msg
+lg_tw_neg_rotate_180 =
+    A.class "lg:tw--rotate-180"
+
+
+lg_tw_neg_rotate_90 : Html.Attribute msg
+lg_tw_neg_rotate_90 =
+    A.class "lg:tw--rotate-90"
+
+
+lg_tw_neg_rotate_45 : Html.Attribute msg
+lg_tw_neg_rotate_45 =
+    A.class "lg:tw--rotate-45"
+
+
+lg_hover_tw_rotate_0 : Html.Attribute msg
+lg_hover_tw_rotate_0 =
+    A.class "lg:hover:tw-rotate-0"
+
+
+lg_hover_tw_rotate_45 : Html.Attribute msg
+lg_hover_tw_rotate_45 =
+    A.class "lg:hover:tw-rotate-45"
+
+
+lg_hover_tw_rotate_90 : Html.Attribute msg
+lg_hover_tw_rotate_90 =
+    A.class "lg:hover:tw-rotate-90"
+
+
+lg_hover_tw_rotate_180 : Html.Attribute msg
+lg_hover_tw_rotate_180 =
+    A.class "lg:hover:tw-rotate-180"
+
+
+lg_hover_tw_neg_rotate_180 : Html.Attribute msg
+lg_hover_tw_neg_rotate_180 =
+    A.class "lg:hover:tw--rotate-180"
+
+
+lg_hover_tw_neg_rotate_90 : Html.Attribute msg
+lg_hover_tw_neg_rotate_90 =
+    A.class "lg:hover:tw--rotate-90"
+
+
+lg_hover_tw_neg_rotate_45 : Html.Attribute msg
+lg_hover_tw_neg_rotate_45 =
+    A.class "lg:hover:tw--rotate-45"
+
+
+lg_focus_tw_rotate_0 : Html.Attribute msg
+lg_focus_tw_rotate_0 =
+    A.class "lg:focus:tw-rotate-0"
+
+
+lg_focus_tw_rotate_45 : Html.Attribute msg
+lg_focus_tw_rotate_45 =
+    A.class "lg:focus:tw-rotate-45"
+
+
+lg_focus_tw_rotate_90 : Html.Attribute msg
+lg_focus_tw_rotate_90 =
+    A.class "lg:focus:tw-rotate-90"
+
+
+lg_focus_tw_rotate_180 : Html.Attribute msg
+lg_focus_tw_rotate_180 =
+    A.class "lg:focus:tw-rotate-180"
+
+
+lg_focus_tw_neg_rotate_180 : Html.Attribute msg
+lg_focus_tw_neg_rotate_180 =
+    A.class "lg:focus:tw--rotate-180"
+
+
+lg_focus_tw_neg_rotate_90 : Html.Attribute msg
+lg_focus_tw_neg_rotate_90 =
+    A.class "lg:focus:tw--rotate-90"
+
+
+lg_focus_tw_neg_rotate_45 : Html.Attribute msg
+lg_focus_tw_neg_rotate_45 =
+    A.class "lg:focus:tw--rotate-45"
+
+
+lg_tw_translate_x_0 : Html.Attribute msg
+lg_tw_translate_x_0 =
+    A.class "lg:tw-translate-x-0"
+
+
+lg_tw_translate_x_1 : Html.Attribute msg
+lg_tw_translate_x_1 =
+    A.class "lg:tw-translate-x-1"
+
+
+lg_tw_translate_x_2 : Html.Attribute msg
+lg_tw_translate_x_2 =
+    A.class "lg:tw-translate-x-2"
+
+
+lg_tw_translate_x_3 : Html.Attribute msg
+lg_tw_translate_x_3 =
+    A.class "lg:tw-translate-x-3"
+
+
+lg_tw_translate_x_4 : Html.Attribute msg
+lg_tw_translate_x_4 =
+    A.class "lg:tw-translate-x-4"
+
+
+lg_tw_translate_x_5 : Html.Attribute msg
+lg_tw_translate_x_5 =
+    A.class "lg:tw-translate-x-5"
+
+
+lg_tw_translate_x_6 : Html.Attribute msg
+lg_tw_translate_x_6 =
+    A.class "lg:tw-translate-x-6"
+
+
+lg_tw_translate_x_8 : Html.Attribute msg
+lg_tw_translate_x_8 =
+    A.class "lg:tw-translate-x-8"
+
+
+lg_tw_translate_x_10 : Html.Attribute msg
+lg_tw_translate_x_10 =
+    A.class "lg:tw-translate-x-10"
+
+
+lg_tw_translate_x_12 : Html.Attribute msg
+lg_tw_translate_x_12 =
+    A.class "lg:tw-translate-x-12"
+
+
+lg_tw_translate_x_16 : Html.Attribute msg
+lg_tw_translate_x_16 =
+    A.class "lg:tw-translate-x-16"
+
+
+lg_tw_translate_x_20 : Html.Attribute msg
+lg_tw_translate_x_20 =
+    A.class "lg:tw-translate-x-20"
+
+
+lg_tw_translate_x_24 : Html.Attribute msg
+lg_tw_translate_x_24 =
+    A.class "lg:tw-translate-x-24"
+
+
+lg_tw_translate_x_32 : Html.Attribute msg
+lg_tw_translate_x_32 =
+    A.class "lg:tw-translate-x-32"
+
+
+lg_tw_translate_x_40 : Html.Attribute msg
+lg_tw_translate_x_40 =
+    A.class "lg:tw-translate-x-40"
+
+
+lg_tw_translate_x_48 : Html.Attribute msg
+lg_tw_translate_x_48 =
+    A.class "lg:tw-translate-x-48"
+
+
+lg_tw_translate_x_56 : Html.Attribute msg
+lg_tw_translate_x_56 =
+    A.class "lg:tw-translate-x-56"
+
+
+lg_tw_translate_x_64 : Html.Attribute msg
+lg_tw_translate_x_64 =
+    A.class "lg:tw-translate-x-64"
+
+
+lg_tw_translate_x_px : Html.Attribute msg
+lg_tw_translate_x_px =
+    A.class "lg:tw-translate-x-px"
+
+
+lg_tw_neg_translate_x_1 : Html.Attribute msg
+lg_tw_neg_translate_x_1 =
+    A.class "lg:tw--translate-x-1"
+
+
+lg_tw_neg_translate_x_2 : Html.Attribute msg
+lg_tw_neg_translate_x_2 =
+    A.class "lg:tw--translate-x-2"
+
+
+lg_tw_neg_translate_x_3 : Html.Attribute msg
+lg_tw_neg_translate_x_3 =
+    A.class "lg:tw--translate-x-3"
+
+
+lg_tw_neg_translate_x_4 : Html.Attribute msg
+lg_tw_neg_translate_x_4 =
+    A.class "lg:tw--translate-x-4"
+
+
+lg_tw_neg_translate_x_5 : Html.Attribute msg
+lg_tw_neg_translate_x_5 =
+    A.class "lg:tw--translate-x-5"
+
+
+lg_tw_neg_translate_x_6 : Html.Attribute msg
+lg_tw_neg_translate_x_6 =
+    A.class "lg:tw--translate-x-6"
+
+
+lg_tw_neg_translate_x_8 : Html.Attribute msg
+lg_tw_neg_translate_x_8 =
+    A.class "lg:tw--translate-x-8"
+
+
+lg_tw_neg_translate_x_10 : Html.Attribute msg
+lg_tw_neg_translate_x_10 =
+    A.class "lg:tw--translate-x-10"
+
+
+lg_tw_neg_translate_x_12 : Html.Attribute msg
+lg_tw_neg_translate_x_12 =
+    A.class "lg:tw--translate-x-12"
+
+
+lg_tw_neg_translate_x_16 : Html.Attribute msg
+lg_tw_neg_translate_x_16 =
+    A.class "lg:tw--translate-x-16"
+
+
+lg_tw_neg_translate_x_20 : Html.Attribute msg
+lg_tw_neg_translate_x_20 =
+    A.class "lg:tw--translate-x-20"
+
+
+lg_tw_neg_translate_x_24 : Html.Attribute msg
+lg_tw_neg_translate_x_24 =
+    A.class "lg:tw--translate-x-24"
+
+
+lg_tw_neg_translate_x_32 : Html.Attribute msg
+lg_tw_neg_translate_x_32 =
+    A.class "lg:tw--translate-x-32"
+
+
+lg_tw_neg_translate_x_40 : Html.Attribute msg
+lg_tw_neg_translate_x_40 =
+    A.class "lg:tw--translate-x-40"
+
+
+lg_tw_neg_translate_x_48 : Html.Attribute msg
+lg_tw_neg_translate_x_48 =
+    A.class "lg:tw--translate-x-48"
+
+
+lg_tw_neg_translate_x_56 : Html.Attribute msg
+lg_tw_neg_translate_x_56 =
+    A.class "lg:tw--translate-x-56"
+
+
+lg_tw_neg_translate_x_64 : Html.Attribute msg
+lg_tw_neg_translate_x_64 =
+    A.class "lg:tw--translate-x-64"
+
+
+lg_tw_neg_translate_x_px : Html.Attribute msg
+lg_tw_neg_translate_x_px =
+    A.class "lg:tw--translate-x-px"
+
+
+lg_tw_neg_translate_x_full : Html.Attribute msg
+lg_tw_neg_translate_x_full =
+    A.class "lg:tw--translate-x-full"
+
+
+lg_tw_neg_translate_x_1over2 : Html.Attribute msg
+lg_tw_neg_translate_x_1over2 =
+    A.class "lg:tw--translate-x-1/2"
+
+
+lg_tw_translate_x_1over2 : Html.Attribute msg
+lg_tw_translate_x_1over2 =
+    A.class "lg:tw-translate-x-1/2"
+
+
+lg_tw_translate_x_full : Html.Attribute msg
+lg_tw_translate_x_full =
+    A.class "lg:tw-translate-x-full"
+
+
+lg_tw_translate_y_0 : Html.Attribute msg
+lg_tw_translate_y_0 =
+    A.class "lg:tw-translate-y-0"
+
+
+lg_tw_translate_y_1 : Html.Attribute msg
+lg_tw_translate_y_1 =
+    A.class "lg:tw-translate-y-1"
+
+
+lg_tw_translate_y_2 : Html.Attribute msg
+lg_tw_translate_y_2 =
+    A.class "lg:tw-translate-y-2"
+
+
+lg_tw_translate_y_3 : Html.Attribute msg
+lg_tw_translate_y_3 =
+    A.class "lg:tw-translate-y-3"
+
+
+lg_tw_translate_y_4 : Html.Attribute msg
+lg_tw_translate_y_4 =
+    A.class "lg:tw-translate-y-4"
+
+
+lg_tw_translate_y_5 : Html.Attribute msg
+lg_tw_translate_y_5 =
+    A.class "lg:tw-translate-y-5"
+
+
+lg_tw_translate_y_6 : Html.Attribute msg
+lg_tw_translate_y_6 =
+    A.class "lg:tw-translate-y-6"
+
+
+lg_tw_translate_y_8 : Html.Attribute msg
+lg_tw_translate_y_8 =
+    A.class "lg:tw-translate-y-8"
+
+
+lg_tw_translate_y_10 : Html.Attribute msg
+lg_tw_translate_y_10 =
+    A.class "lg:tw-translate-y-10"
+
+
+lg_tw_translate_y_12 : Html.Attribute msg
+lg_tw_translate_y_12 =
+    A.class "lg:tw-translate-y-12"
+
+
+lg_tw_translate_y_16 : Html.Attribute msg
+lg_tw_translate_y_16 =
+    A.class "lg:tw-translate-y-16"
+
+
+lg_tw_translate_y_20 : Html.Attribute msg
+lg_tw_translate_y_20 =
+    A.class "lg:tw-translate-y-20"
+
+
+lg_tw_translate_y_24 : Html.Attribute msg
+lg_tw_translate_y_24 =
+    A.class "lg:tw-translate-y-24"
+
+
+lg_tw_translate_y_32 : Html.Attribute msg
+lg_tw_translate_y_32 =
+    A.class "lg:tw-translate-y-32"
+
+
+lg_tw_translate_y_40 : Html.Attribute msg
+lg_tw_translate_y_40 =
+    A.class "lg:tw-translate-y-40"
+
+
+lg_tw_translate_y_48 : Html.Attribute msg
+lg_tw_translate_y_48 =
+    A.class "lg:tw-translate-y-48"
+
+
+lg_tw_translate_y_56 : Html.Attribute msg
+lg_tw_translate_y_56 =
+    A.class "lg:tw-translate-y-56"
+
+
+lg_tw_translate_y_64 : Html.Attribute msg
+lg_tw_translate_y_64 =
+    A.class "lg:tw-translate-y-64"
+
+
+lg_tw_translate_y_px : Html.Attribute msg
+lg_tw_translate_y_px =
+    A.class "lg:tw-translate-y-px"
+
+
+lg_tw_neg_translate_y_1 : Html.Attribute msg
+lg_tw_neg_translate_y_1 =
+    A.class "lg:tw--translate-y-1"
+
+
+lg_tw_neg_translate_y_2 : Html.Attribute msg
+lg_tw_neg_translate_y_2 =
+    A.class "lg:tw--translate-y-2"
+
+
+lg_tw_neg_translate_y_3 : Html.Attribute msg
+lg_tw_neg_translate_y_3 =
+    A.class "lg:tw--translate-y-3"
+
+
+lg_tw_neg_translate_y_4 : Html.Attribute msg
+lg_tw_neg_translate_y_4 =
+    A.class "lg:tw--translate-y-4"
+
+
+lg_tw_neg_translate_y_5 : Html.Attribute msg
+lg_tw_neg_translate_y_5 =
+    A.class "lg:tw--translate-y-5"
+
+
+lg_tw_neg_translate_y_6 : Html.Attribute msg
+lg_tw_neg_translate_y_6 =
+    A.class "lg:tw--translate-y-6"
+
+
+lg_tw_neg_translate_y_8 : Html.Attribute msg
+lg_tw_neg_translate_y_8 =
+    A.class "lg:tw--translate-y-8"
+
+
+lg_tw_neg_translate_y_10 : Html.Attribute msg
+lg_tw_neg_translate_y_10 =
+    A.class "lg:tw--translate-y-10"
+
+
+lg_tw_neg_translate_y_12 : Html.Attribute msg
+lg_tw_neg_translate_y_12 =
+    A.class "lg:tw--translate-y-12"
+
+
+lg_tw_neg_translate_y_16 : Html.Attribute msg
+lg_tw_neg_translate_y_16 =
+    A.class "lg:tw--translate-y-16"
+
+
+lg_tw_neg_translate_y_20 : Html.Attribute msg
+lg_tw_neg_translate_y_20 =
+    A.class "lg:tw--translate-y-20"
+
+
+lg_tw_neg_translate_y_24 : Html.Attribute msg
+lg_tw_neg_translate_y_24 =
+    A.class "lg:tw--translate-y-24"
+
+
+lg_tw_neg_translate_y_32 : Html.Attribute msg
+lg_tw_neg_translate_y_32 =
+    A.class "lg:tw--translate-y-32"
+
+
+lg_tw_neg_translate_y_40 : Html.Attribute msg
+lg_tw_neg_translate_y_40 =
+    A.class "lg:tw--translate-y-40"
+
+
+lg_tw_neg_translate_y_48 : Html.Attribute msg
+lg_tw_neg_translate_y_48 =
+    A.class "lg:tw--translate-y-48"
+
+
+lg_tw_neg_translate_y_56 : Html.Attribute msg
+lg_tw_neg_translate_y_56 =
+    A.class "lg:tw--translate-y-56"
+
+
+lg_tw_neg_translate_y_64 : Html.Attribute msg
+lg_tw_neg_translate_y_64 =
+    A.class "lg:tw--translate-y-64"
+
+
+lg_tw_neg_translate_y_px : Html.Attribute msg
+lg_tw_neg_translate_y_px =
+    A.class "lg:tw--translate-y-px"
+
+
+lg_tw_neg_translate_y_full : Html.Attribute msg
+lg_tw_neg_translate_y_full =
+    A.class "lg:tw--translate-y-full"
+
+
+lg_tw_neg_translate_y_1over2 : Html.Attribute msg
+lg_tw_neg_translate_y_1over2 =
+    A.class "lg:tw--translate-y-1/2"
+
+
+lg_tw_translate_y_1over2 : Html.Attribute msg
+lg_tw_translate_y_1over2 =
+    A.class "lg:tw-translate-y-1/2"
+
+
+lg_tw_translate_y_full : Html.Attribute msg
+lg_tw_translate_y_full =
+    A.class "lg:tw-translate-y-full"
+
+
+lg_hover_tw_translate_x_0 : Html.Attribute msg
+lg_hover_tw_translate_x_0 =
+    A.class "lg:hover:tw-translate-x-0"
+
+
+lg_hover_tw_translate_x_1 : Html.Attribute msg
+lg_hover_tw_translate_x_1 =
+    A.class "lg:hover:tw-translate-x-1"
+
+
+lg_hover_tw_translate_x_2 : Html.Attribute msg
+lg_hover_tw_translate_x_2 =
+    A.class "lg:hover:tw-translate-x-2"
+
+
+lg_hover_tw_translate_x_3 : Html.Attribute msg
+lg_hover_tw_translate_x_3 =
+    A.class "lg:hover:tw-translate-x-3"
+
+
+lg_hover_tw_translate_x_4 : Html.Attribute msg
+lg_hover_tw_translate_x_4 =
+    A.class "lg:hover:tw-translate-x-4"
+
+
+lg_hover_tw_translate_x_5 : Html.Attribute msg
+lg_hover_tw_translate_x_5 =
+    A.class "lg:hover:tw-translate-x-5"
+
+
+lg_hover_tw_translate_x_6 : Html.Attribute msg
+lg_hover_tw_translate_x_6 =
+    A.class "lg:hover:tw-translate-x-6"
+
+
+lg_hover_tw_translate_x_8 : Html.Attribute msg
+lg_hover_tw_translate_x_8 =
+    A.class "lg:hover:tw-translate-x-8"
+
+
+lg_hover_tw_translate_x_10 : Html.Attribute msg
+lg_hover_tw_translate_x_10 =
+    A.class "lg:hover:tw-translate-x-10"
+
+
+lg_hover_tw_translate_x_12 : Html.Attribute msg
+lg_hover_tw_translate_x_12 =
+    A.class "lg:hover:tw-translate-x-12"
+
+
+lg_hover_tw_translate_x_16 : Html.Attribute msg
+lg_hover_tw_translate_x_16 =
+    A.class "lg:hover:tw-translate-x-16"
+
+
+lg_hover_tw_translate_x_20 : Html.Attribute msg
+lg_hover_tw_translate_x_20 =
+    A.class "lg:hover:tw-translate-x-20"
+
+
+lg_hover_tw_translate_x_24 : Html.Attribute msg
+lg_hover_tw_translate_x_24 =
+    A.class "lg:hover:tw-translate-x-24"
+
+
+lg_hover_tw_translate_x_32 : Html.Attribute msg
+lg_hover_tw_translate_x_32 =
+    A.class "lg:hover:tw-translate-x-32"
+
+
+lg_hover_tw_translate_x_40 : Html.Attribute msg
+lg_hover_tw_translate_x_40 =
+    A.class "lg:hover:tw-translate-x-40"
+
+
+lg_hover_tw_translate_x_48 : Html.Attribute msg
+lg_hover_tw_translate_x_48 =
+    A.class "lg:hover:tw-translate-x-48"
+
+
+lg_hover_tw_translate_x_56 : Html.Attribute msg
+lg_hover_tw_translate_x_56 =
+    A.class "lg:hover:tw-translate-x-56"
+
+
+lg_hover_tw_translate_x_64 : Html.Attribute msg
+lg_hover_tw_translate_x_64 =
+    A.class "lg:hover:tw-translate-x-64"
+
+
+lg_hover_tw_translate_x_px : Html.Attribute msg
+lg_hover_tw_translate_x_px =
+    A.class "lg:hover:tw-translate-x-px"
+
+
+lg_hover_tw_neg_translate_x_1 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_1 =
+    A.class "lg:hover:tw--translate-x-1"
+
+
+lg_hover_tw_neg_translate_x_2 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_2 =
+    A.class "lg:hover:tw--translate-x-2"
+
+
+lg_hover_tw_neg_translate_x_3 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_3 =
+    A.class "lg:hover:tw--translate-x-3"
+
+
+lg_hover_tw_neg_translate_x_4 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_4 =
+    A.class "lg:hover:tw--translate-x-4"
+
+
+lg_hover_tw_neg_translate_x_5 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_5 =
+    A.class "lg:hover:tw--translate-x-5"
+
+
+lg_hover_tw_neg_translate_x_6 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_6 =
+    A.class "lg:hover:tw--translate-x-6"
+
+
+lg_hover_tw_neg_translate_x_8 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_8 =
+    A.class "lg:hover:tw--translate-x-8"
+
+
+lg_hover_tw_neg_translate_x_10 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_10 =
+    A.class "lg:hover:tw--translate-x-10"
+
+
+lg_hover_tw_neg_translate_x_12 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_12 =
+    A.class "lg:hover:tw--translate-x-12"
+
+
+lg_hover_tw_neg_translate_x_16 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_16 =
+    A.class "lg:hover:tw--translate-x-16"
+
+
+lg_hover_tw_neg_translate_x_20 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_20 =
+    A.class "lg:hover:tw--translate-x-20"
+
+
+lg_hover_tw_neg_translate_x_24 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_24 =
+    A.class "lg:hover:tw--translate-x-24"
+
+
+lg_hover_tw_neg_translate_x_32 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_32 =
+    A.class "lg:hover:tw--translate-x-32"
+
+
+lg_hover_tw_neg_translate_x_40 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_40 =
+    A.class "lg:hover:tw--translate-x-40"
+
+
+lg_hover_tw_neg_translate_x_48 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_48 =
+    A.class "lg:hover:tw--translate-x-48"
+
+
+lg_hover_tw_neg_translate_x_56 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_56 =
+    A.class "lg:hover:tw--translate-x-56"
+
+
+lg_hover_tw_neg_translate_x_64 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_64 =
+    A.class "lg:hover:tw--translate-x-64"
+
+
+lg_hover_tw_neg_translate_x_px : Html.Attribute msg
+lg_hover_tw_neg_translate_x_px =
+    A.class "lg:hover:tw--translate-x-px"
+
+
+lg_hover_tw_neg_translate_x_full : Html.Attribute msg
+lg_hover_tw_neg_translate_x_full =
+    A.class "lg:hover:tw--translate-x-full"
+
+
+lg_hover_tw_neg_translate_x_1over2 : Html.Attribute msg
+lg_hover_tw_neg_translate_x_1over2 =
+    A.class "lg:hover:tw--translate-x-1/2"
+
+
+lg_hover_tw_translate_x_1over2 : Html.Attribute msg
+lg_hover_tw_translate_x_1over2 =
+    A.class "lg:hover:tw-translate-x-1/2"
+
+
+lg_hover_tw_translate_x_full : Html.Attribute msg
+lg_hover_tw_translate_x_full =
+    A.class "lg:hover:tw-translate-x-full"
+
+
+lg_hover_tw_translate_y_0 : Html.Attribute msg
+lg_hover_tw_translate_y_0 =
+    A.class "lg:hover:tw-translate-y-0"
+
+
+lg_hover_tw_translate_y_1 : Html.Attribute msg
+lg_hover_tw_translate_y_1 =
+    A.class "lg:hover:tw-translate-y-1"
+
+
+lg_hover_tw_translate_y_2 : Html.Attribute msg
+lg_hover_tw_translate_y_2 =
+    A.class "lg:hover:tw-translate-y-2"
+
+
+lg_hover_tw_translate_y_3 : Html.Attribute msg
+lg_hover_tw_translate_y_3 =
+    A.class "lg:hover:tw-translate-y-3"
+
+
+lg_hover_tw_translate_y_4 : Html.Attribute msg
+lg_hover_tw_translate_y_4 =
+    A.class "lg:hover:tw-translate-y-4"
+
+
+lg_hover_tw_translate_y_5 : Html.Attribute msg
+lg_hover_tw_translate_y_5 =
+    A.class "lg:hover:tw-translate-y-5"
+
+
+lg_hover_tw_translate_y_6 : Html.Attribute msg
+lg_hover_tw_translate_y_6 =
+    A.class "lg:hover:tw-translate-y-6"
+
+
+lg_hover_tw_translate_y_8 : Html.Attribute msg
+lg_hover_tw_translate_y_8 =
+    A.class "lg:hover:tw-translate-y-8"
+
+
+lg_hover_tw_translate_y_10 : Html.Attribute msg
+lg_hover_tw_translate_y_10 =
+    A.class "lg:hover:tw-translate-y-10"
+
+
+lg_hover_tw_translate_y_12 : Html.Attribute msg
+lg_hover_tw_translate_y_12 =
+    A.class "lg:hover:tw-translate-y-12"
+
+
+lg_hover_tw_translate_y_16 : Html.Attribute msg
+lg_hover_tw_translate_y_16 =
+    A.class "lg:hover:tw-translate-y-16"
+
+
+lg_hover_tw_translate_y_20 : Html.Attribute msg
+lg_hover_tw_translate_y_20 =
+    A.class "lg:hover:tw-translate-y-20"
+
+
+lg_hover_tw_translate_y_24 : Html.Attribute msg
+lg_hover_tw_translate_y_24 =
+    A.class "lg:hover:tw-translate-y-24"
+
+
+lg_hover_tw_translate_y_32 : Html.Attribute msg
+lg_hover_tw_translate_y_32 =
+    A.class "lg:hover:tw-translate-y-32"
+
+
+lg_hover_tw_translate_y_40 : Html.Attribute msg
+lg_hover_tw_translate_y_40 =
+    A.class "lg:hover:tw-translate-y-40"
+
+
+lg_hover_tw_translate_y_48 : Html.Attribute msg
+lg_hover_tw_translate_y_48 =
+    A.class "lg:hover:tw-translate-y-48"
+
+
+lg_hover_tw_translate_y_56 : Html.Attribute msg
+lg_hover_tw_translate_y_56 =
+    A.class "lg:hover:tw-translate-y-56"
+
+
+lg_hover_tw_translate_y_64 : Html.Attribute msg
+lg_hover_tw_translate_y_64 =
+    A.class "lg:hover:tw-translate-y-64"
+
+
+lg_hover_tw_translate_y_px : Html.Attribute msg
+lg_hover_tw_translate_y_px =
+    A.class "lg:hover:tw-translate-y-px"
+
+
+lg_hover_tw_neg_translate_y_1 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_1 =
+    A.class "lg:hover:tw--translate-y-1"
+
+
+lg_hover_tw_neg_translate_y_2 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_2 =
+    A.class "lg:hover:tw--translate-y-2"
+
+
+lg_hover_tw_neg_translate_y_3 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_3 =
+    A.class "lg:hover:tw--translate-y-3"
+
+
+lg_hover_tw_neg_translate_y_4 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_4 =
+    A.class "lg:hover:tw--translate-y-4"
+
+
+lg_hover_tw_neg_translate_y_5 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_5 =
+    A.class "lg:hover:tw--translate-y-5"
+
+
+lg_hover_tw_neg_translate_y_6 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_6 =
+    A.class "lg:hover:tw--translate-y-6"
+
+
+lg_hover_tw_neg_translate_y_8 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_8 =
+    A.class "lg:hover:tw--translate-y-8"
+
+
+lg_hover_tw_neg_translate_y_10 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_10 =
+    A.class "lg:hover:tw--translate-y-10"
+
+
+lg_hover_tw_neg_translate_y_12 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_12 =
+    A.class "lg:hover:tw--translate-y-12"
+
+
+lg_hover_tw_neg_translate_y_16 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_16 =
+    A.class "lg:hover:tw--translate-y-16"
+
+
+lg_hover_tw_neg_translate_y_20 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_20 =
+    A.class "lg:hover:tw--translate-y-20"
+
+
+lg_hover_tw_neg_translate_y_24 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_24 =
+    A.class "lg:hover:tw--translate-y-24"
+
+
+lg_hover_tw_neg_translate_y_32 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_32 =
+    A.class "lg:hover:tw--translate-y-32"
+
+
+lg_hover_tw_neg_translate_y_40 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_40 =
+    A.class "lg:hover:tw--translate-y-40"
+
+
+lg_hover_tw_neg_translate_y_48 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_48 =
+    A.class "lg:hover:tw--translate-y-48"
+
+
+lg_hover_tw_neg_translate_y_56 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_56 =
+    A.class "lg:hover:tw--translate-y-56"
+
+
+lg_hover_tw_neg_translate_y_64 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_64 =
+    A.class "lg:hover:tw--translate-y-64"
+
+
+lg_hover_tw_neg_translate_y_px : Html.Attribute msg
+lg_hover_tw_neg_translate_y_px =
+    A.class "lg:hover:tw--translate-y-px"
+
+
+lg_hover_tw_neg_translate_y_full : Html.Attribute msg
+lg_hover_tw_neg_translate_y_full =
+    A.class "lg:hover:tw--translate-y-full"
+
+
+lg_hover_tw_neg_translate_y_1over2 : Html.Attribute msg
+lg_hover_tw_neg_translate_y_1over2 =
+    A.class "lg:hover:tw--translate-y-1/2"
+
+
+lg_hover_tw_translate_y_1over2 : Html.Attribute msg
+lg_hover_tw_translate_y_1over2 =
+    A.class "lg:hover:tw-translate-y-1/2"
+
+
+lg_hover_tw_translate_y_full : Html.Attribute msg
+lg_hover_tw_translate_y_full =
+    A.class "lg:hover:tw-translate-y-full"
+
+
+lg_focus_tw_translate_x_0 : Html.Attribute msg
+lg_focus_tw_translate_x_0 =
+    A.class "lg:focus:tw-translate-x-0"
+
+
+lg_focus_tw_translate_x_1 : Html.Attribute msg
+lg_focus_tw_translate_x_1 =
+    A.class "lg:focus:tw-translate-x-1"
+
+
+lg_focus_tw_translate_x_2 : Html.Attribute msg
+lg_focus_tw_translate_x_2 =
+    A.class "lg:focus:tw-translate-x-2"
+
+
+lg_focus_tw_translate_x_3 : Html.Attribute msg
+lg_focus_tw_translate_x_3 =
+    A.class "lg:focus:tw-translate-x-3"
+
+
+lg_focus_tw_translate_x_4 : Html.Attribute msg
+lg_focus_tw_translate_x_4 =
+    A.class "lg:focus:tw-translate-x-4"
+
+
+lg_focus_tw_translate_x_5 : Html.Attribute msg
+lg_focus_tw_translate_x_5 =
+    A.class "lg:focus:tw-translate-x-5"
+
+
+lg_focus_tw_translate_x_6 : Html.Attribute msg
+lg_focus_tw_translate_x_6 =
+    A.class "lg:focus:tw-translate-x-6"
+
+
+lg_focus_tw_translate_x_8 : Html.Attribute msg
+lg_focus_tw_translate_x_8 =
+    A.class "lg:focus:tw-translate-x-8"
+
+
+lg_focus_tw_translate_x_10 : Html.Attribute msg
+lg_focus_tw_translate_x_10 =
+    A.class "lg:focus:tw-translate-x-10"
+
+
+lg_focus_tw_translate_x_12 : Html.Attribute msg
+lg_focus_tw_translate_x_12 =
+    A.class "lg:focus:tw-translate-x-12"
+
+
+lg_focus_tw_translate_x_16 : Html.Attribute msg
+lg_focus_tw_translate_x_16 =
+    A.class "lg:focus:tw-translate-x-16"
+
+
+lg_focus_tw_translate_x_20 : Html.Attribute msg
+lg_focus_tw_translate_x_20 =
+    A.class "lg:focus:tw-translate-x-20"
+
+
+lg_focus_tw_translate_x_24 : Html.Attribute msg
+lg_focus_tw_translate_x_24 =
+    A.class "lg:focus:tw-translate-x-24"
+
+
+lg_focus_tw_translate_x_32 : Html.Attribute msg
+lg_focus_tw_translate_x_32 =
+    A.class "lg:focus:tw-translate-x-32"
+
+
+lg_focus_tw_translate_x_40 : Html.Attribute msg
+lg_focus_tw_translate_x_40 =
+    A.class "lg:focus:tw-translate-x-40"
+
+
+lg_focus_tw_translate_x_48 : Html.Attribute msg
+lg_focus_tw_translate_x_48 =
+    A.class "lg:focus:tw-translate-x-48"
+
+
+lg_focus_tw_translate_x_56 : Html.Attribute msg
+lg_focus_tw_translate_x_56 =
+    A.class "lg:focus:tw-translate-x-56"
+
+
+lg_focus_tw_translate_x_64 : Html.Attribute msg
+lg_focus_tw_translate_x_64 =
+    A.class "lg:focus:tw-translate-x-64"
+
+
+lg_focus_tw_translate_x_px : Html.Attribute msg
+lg_focus_tw_translate_x_px =
+    A.class "lg:focus:tw-translate-x-px"
+
+
+lg_focus_tw_neg_translate_x_1 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_1 =
+    A.class "lg:focus:tw--translate-x-1"
+
+
+lg_focus_tw_neg_translate_x_2 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_2 =
+    A.class "lg:focus:tw--translate-x-2"
+
+
+lg_focus_tw_neg_translate_x_3 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_3 =
+    A.class "lg:focus:tw--translate-x-3"
+
+
+lg_focus_tw_neg_translate_x_4 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_4 =
+    A.class "lg:focus:tw--translate-x-4"
+
+
+lg_focus_tw_neg_translate_x_5 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_5 =
+    A.class "lg:focus:tw--translate-x-5"
+
+
+lg_focus_tw_neg_translate_x_6 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_6 =
+    A.class "lg:focus:tw--translate-x-6"
+
+
+lg_focus_tw_neg_translate_x_8 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_8 =
+    A.class "lg:focus:tw--translate-x-8"
+
+
+lg_focus_tw_neg_translate_x_10 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_10 =
+    A.class "lg:focus:tw--translate-x-10"
+
+
+lg_focus_tw_neg_translate_x_12 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_12 =
+    A.class "lg:focus:tw--translate-x-12"
+
+
+lg_focus_tw_neg_translate_x_16 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_16 =
+    A.class "lg:focus:tw--translate-x-16"
+
+
+lg_focus_tw_neg_translate_x_20 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_20 =
+    A.class "lg:focus:tw--translate-x-20"
+
+
+lg_focus_tw_neg_translate_x_24 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_24 =
+    A.class "lg:focus:tw--translate-x-24"
+
+
+lg_focus_tw_neg_translate_x_32 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_32 =
+    A.class "lg:focus:tw--translate-x-32"
+
+
+lg_focus_tw_neg_translate_x_40 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_40 =
+    A.class "lg:focus:tw--translate-x-40"
+
+
+lg_focus_tw_neg_translate_x_48 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_48 =
+    A.class "lg:focus:tw--translate-x-48"
+
+
+lg_focus_tw_neg_translate_x_56 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_56 =
+    A.class "lg:focus:tw--translate-x-56"
+
+
+lg_focus_tw_neg_translate_x_64 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_64 =
+    A.class "lg:focus:tw--translate-x-64"
+
+
+lg_focus_tw_neg_translate_x_px : Html.Attribute msg
+lg_focus_tw_neg_translate_x_px =
+    A.class "lg:focus:tw--translate-x-px"
+
+
+lg_focus_tw_neg_translate_x_full : Html.Attribute msg
+lg_focus_tw_neg_translate_x_full =
+    A.class "lg:focus:tw--translate-x-full"
+
+
+lg_focus_tw_neg_translate_x_1over2 : Html.Attribute msg
+lg_focus_tw_neg_translate_x_1over2 =
+    A.class "lg:focus:tw--translate-x-1/2"
+
+
+lg_focus_tw_translate_x_1over2 : Html.Attribute msg
+lg_focus_tw_translate_x_1over2 =
+    A.class "lg:focus:tw-translate-x-1/2"
+
+
+lg_focus_tw_translate_x_full : Html.Attribute msg
+lg_focus_tw_translate_x_full =
+    A.class "lg:focus:tw-translate-x-full"
+
+
+lg_focus_tw_translate_y_0 : Html.Attribute msg
+lg_focus_tw_translate_y_0 =
+    A.class "lg:focus:tw-translate-y-0"
+
+
+lg_focus_tw_translate_y_1 : Html.Attribute msg
+lg_focus_tw_translate_y_1 =
+    A.class "lg:focus:tw-translate-y-1"
+
+
+lg_focus_tw_translate_y_2 : Html.Attribute msg
+lg_focus_tw_translate_y_2 =
+    A.class "lg:focus:tw-translate-y-2"
+
+
+lg_focus_tw_translate_y_3 : Html.Attribute msg
+lg_focus_tw_translate_y_3 =
+    A.class "lg:focus:tw-translate-y-3"
+
+
+lg_focus_tw_translate_y_4 : Html.Attribute msg
+lg_focus_tw_translate_y_4 =
+    A.class "lg:focus:tw-translate-y-4"
+
+
+lg_focus_tw_translate_y_5 : Html.Attribute msg
+lg_focus_tw_translate_y_5 =
+    A.class "lg:focus:tw-translate-y-5"
+
+
+lg_focus_tw_translate_y_6 : Html.Attribute msg
+lg_focus_tw_translate_y_6 =
+    A.class "lg:focus:tw-translate-y-6"
+
+
+lg_focus_tw_translate_y_8 : Html.Attribute msg
+lg_focus_tw_translate_y_8 =
+    A.class "lg:focus:tw-translate-y-8"
+
+
+lg_focus_tw_translate_y_10 : Html.Attribute msg
+lg_focus_tw_translate_y_10 =
+    A.class "lg:focus:tw-translate-y-10"
+
+
+lg_focus_tw_translate_y_12 : Html.Attribute msg
+lg_focus_tw_translate_y_12 =
+    A.class "lg:focus:tw-translate-y-12"
+
+
+lg_focus_tw_translate_y_16 : Html.Attribute msg
+lg_focus_tw_translate_y_16 =
+    A.class "lg:focus:tw-translate-y-16"
+
+
+lg_focus_tw_translate_y_20 : Html.Attribute msg
+lg_focus_tw_translate_y_20 =
+    A.class "lg:focus:tw-translate-y-20"
+
+
+lg_focus_tw_translate_y_24 : Html.Attribute msg
+lg_focus_tw_translate_y_24 =
+    A.class "lg:focus:tw-translate-y-24"
+
+
+lg_focus_tw_translate_y_32 : Html.Attribute msg
+lg_focus_tw_translate_y_32 =
+    A.class "lg:focus:tw-translate-y-32"
+
+
+lg_focus_tw_translate_y_40 : Html.Attribute msg
+lg_focus_tw_translate_y_40 =
+    A.class "lg:focus:tw-translate-y-40"
+
+
+lg_focus_tw_translate_y_48 : Html.Attribute msg
+lg_focus_tw_translate_y_48 =
+    A.class "lg:focus:tw-translate-y-48"
+
+
+lg_focus_tw_translate_y_56 : Html.Attribute msg
+lg_focus_tw_translate_y_56 =
+    A.class "lg:focus:tw-translate-y-56"
+
+
+lg_focus_tw_translate_y_64 : Html.Attribute msg
+lg_focus_tw_translate_y_64 =
+    A.class "lg:focus:tw-translate-y-64"
+
+
+lg_focus_tw_translate_y_px : Html.Attribute msg
+lg_focus_tw_translate_y_px =
+    A.class "lg:focus:tw-translate-y-px"
+
+
+lg_focus_tw_neg_translate_y_1 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_1 =
+    A.class "lg:focus:tw--translate-y-1"
+
+
+lg_focus_tw_neg_translate_y_2 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_2 =
+    A.class "lg:focus:tw--translate-y-2"
+
+
+lg_focus_tw_neg_translate_y_3 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_3 =
+    A.class "lg:focus:tw--translate-y-3"
+
+
+lg_focus_tw_neg_translate_y_4 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_4 =
+    A.class "lg:focus:tw--translate-y-4"
+
+
+lg_focus_tw_neg_translate_y_5 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_5 =
+    A.class "lg:focus:tw--translate-y-5"
+
+
+lg_focus_tw_neg_translate_y_6 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_6 =
+    A.class "lg:focus:tw--translate-y-6"
+
+
+lg_focus_tw_neg_translate_y_8 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_8 =
+    A.class "lg:focus:tw--translate-y-8"
+
+
+lg_focus_tw_neg_translate_y_10 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_10 =
+    A.class "lg:focus:tw--translate-y-10"
+
+
+lg_focus_tw_neg_translate_y_12 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_12 =
+    A.class "lg:focus:tw--translate-y-12"
+
+
+lg_focus_tw_neg_translate_y_16 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_16 =
+    A.class "lg:focus:tw--translate-y-16"
+
+
+lg_focus_tw_neg_translate_y_20 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_20 =
+    A.class "lg:focus:tw--translate-y-20"
+
+
+lg_focus_tw_neg_translate_y_24 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_24 =
+    A.class "lg:focus:tw--translate-y-24"
+
+
+lg_focus_tw_neg_translate_y_32 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_32 =
+    A.class "lg:focus:tw--translate-y-32"
+
+
+lg_focus_tw_neg_translate_y_40 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_40 =
+    A.class "lg:focus:tw--translate-y-40"
+
+
+lg_focus_tw_neg_translate_y_48 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_48 =
+    A.class "lg:focus:tw--translate-y-48"
+
+
+lg_focus_tw_neg_translate_y_56 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_56 =
+    A.class "lg:focus:tw--translate-y-56"
+
+
+lg_focus_tw_neg_translate_y_64 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_64 =
+    A.class "lg:focus:tw--translate-y-64"
+
+
+lg_focus_tw_neg_translate_y_px : Html.Attribute msg
+lg_focus_tw_neg_translate_y_px =
+    A.class "lg:focus:tw--translate-y-px"
+
+
+lg_focus_tw_neg_translate_y_full : Html.Attribute msg
+lg_focus_tw_neg_translate_y_full =
+    A.class "lg:focus:tw--translate-y-full"
+
+
+lg_focus_tw_neg_translate_y_1over2 : Html.Attribute msg
+lg_focus_tw_neg_translate_y_1over2 =
+    A.class "lg:focus:tw--translate-y-1/2"
+
+
+lg_focus_tw_translate_y_1over2 : Html.Attribute msg
+lg_focus_tw_translate_y_1over2 =
+    A.class "lg:focus:tw-translate-y-1/2"
+
+
+lg_focus_tw_translate_y_full : Html.Attribute msg
+lg_focus_tw_translate_y_full =
+    A.class "lg:focus:tw-translate-y-full"
+
+
+lg_tw_skew_x_0 : Html.Attribute msg
+lg_tw_skew_x_0 =
+    A.class "lg:tw-skew-x-0"
+
+
+lg_tw_skew_x_3 : Html.Attribute msg
+lg_tw_skew_x_3 =
+    A.class "lg:tw-skew-x-3"
+
+
+lg_tw_skew_x_6 : Html.Attribute msg
+lg_tw_skew_x_6 =
+    A.class "lg:tw-skew-x-6"
+
+
+lg_tw_skew_x_12 : Html.Attribute msg
+lg_tw_skew_x_12 =
+    A.class "lg:tw-skew-x-12"
+
+
+lg_tw_neg_skew_x_12 : Html.Attribute msg
+lg_tw_neg_skew_x_12 =
+    A.class "lg:tw--skew-x-12"
+
+
+lg_tw_neg_skew_x_6 : Html.Attribute msg
+lg_tw_neg_skew_x_6 =
+    A.class "lg:tw--skew-x-6"
+
+
+lg_tw_neg_skew_x_3 : Html.Attribute msg
+lg_tw_neg_skew_x_3 =
+    A.class "lg:tw--skew-x-3"
+
+
+lg_tw_skew_y_0 : Html.Attribute msg
+lg_tw_skew_y_0 =
+    A.class "lg:tw-skew-y-0"
+
+
+lg_tw_skew_y_3 : Html.Attribute msg
+lg_tw_skew_y_3 =
+    A.class "lg:tw-skew-y-3"
+
+
+lg_tw_skew_y_6 : Html.Attribute msg
+lg_tw_skew_y_6 =
+    A.class "lg:tw-skew-y-6"
+
+
+lg_tw_skew_y_12 : Html.Attribute msg
+lg_tw_skew_y_12 =
+    A.class "lg:tw-skew-y-12"
+
+
+lg_tw_neg_skew_y_12 : Html.Attribute msg
+lg_tw_neg_skew_y_12 =
+    A.class "lg:tw--skew-y-12"
+
+
+lg_tw_neg_skew_y_6 : Html.Attribute msg
+lg_tw_neg_skew_y_6 =
+    A.class "lg:tw--skew-y-6"
+
+
+lg_tw_neg_skew_y_3 : Html.Attribute msg
+lg_tw_neg_skew_y_3 =
+    A.class "lg:tw--skew-y-3"
+
+
+lg_hover_tw_skew_x_0 : Html.Attribute msg
+lg_hover_tw_skew_x_0 =
+    A.class "lg:hover:tw-skew-x-0"
+
+
+lg_hover_tw_skew_x_3 : Html.Attribute msg
+lg_hover_tw_skew_x_3 =
+    A.class "lg:hover:tw-skew-x-3"
+
+
+lg_hover_tw_skew_x_6 : Html.Attribute msg
+lg_hover_tw_skew_x_6 =
+    A.class "lg:hover:tw-skew-x-6"
+
+
+lg_hover_tw_skew_x_12 : Html.Attribute msg
+lg_hover_tw_skew_x_12 =
+    A.class "lg:hover:tw-skew-x-12"
+
+
+lg_hover_tw_neg_skew_x_12 : Html.Attribute msg
+lg_hover_tw_neg_skew_x_12 =
+    A.class "lg:hover:tw--skew-x-12"
+
+
+lg_hover_tw_neg_skew_x_6 : Html.Attribute msg
+lg_hover_tw_neg_skew_x_6 =
+    A.class "lg:hover:tw--skew-x-6"
+
+
+lg_hover_tw_neg_skew_x_3 : Html.Attribute msg
+lg_hover_tw_neg_skew_x_3 =
+    A.class "lg:hover:tw--skew-x-3"
+
+
+lg_hover_tw_skew_y_0 : Html.Attribute msg
+lg_hover_tw_skew_y_0 =
+    A.class "lg:hover:tw-skew-y-0"
+
+
+lg_hover_tw_skew_y_3 : Html.Attribute msg
+lg_hover_tw_skew_y_3 =
+    A.class "lg:hover:tw-skew-y-3"
+
+
+lg_hover_tw_skew_y_6 : Html.Attribute msg
+lg_hover_tw_skew_y_6 =
+    A.class "lg:hover:tw-skew-y-6"
+
+
+lg_hover_tw_skew_y_12 : Html.Attribute msg
+lg_hover_tw_skew_y_12 =
+    A.class "lg:hover:tw-skew-y-12"
+
+
+lg_hover_tw_neg_skew_y_12 : Html.Attribute msg
+lg_hover_tw_neg_skew_y_12 =
+    A.class "lg:hover:tw--skew-y-12"
+
+
+lg_hover_tw_neg_skew_y_6 : Html.Attribute msg
+lg_hover_tw_neg_skew_y_6 =
+    A.class "lg:hover:tw--skew-y-6"
+
+
+lg_hover_tw_neg_skew_y_3 : Html.Attribute msg
+lg_hover_tw_neg_skew_y_3 =
+    A.class "lg:hover:tw--skew-y-3"
+
+
+lg_focus_tw_skew_x_0 : Html.Attribute msg
+lg_focus_tw_skew_x_0 =
+    A.class "lg:focus:tw-skew-x-0"
+
+
+lg_focus_tw_skew_x_3 : Html.Attribute msg
+lg_focus_tw_skew_x_3 =
+    A.class "lg:focus:tw-skew-x-3"
+
+
+lg_focus_tw_skew_x_6 : Html.Attribute msg
+lg_focus_tw_skew_x_6 =
+    A.class "lg:focus:tw-skew-x-6"
+
+
+lg_focus_tw_skew_x_12 : Html.Attribute msg
+lg_focus_tw_skew_x_12 =
+    A.class "lg:focus:tw-skew-x-12"
+
+
+lg_focus_tw_neg_skew_x_12 : Html.Attribute msg
+lg_focus_tw_neg_skew_x_12 =
+    A.class "lg:focus:tw--skew-x-12"
+
+
+lg_focus_tw_neg_skew_x_6 : Html.Attribute msg
+lg_focus_tw_neg_skew_x_6 =
+    A.class "lg:focus:tw--skew-x-6"
+
+
+lg_focus_tw_neg_skew_x_3 : Html.Attribute msg
+lg_focus_tw_neg_skew_x_3 =
+    A.class "lg:focus:tw--skew-x-3"
+
+
+lg_focus_tw_skew_y_0 : Html.Attribute msg
+lg_focus_tw_skew_y_0 =
+    A.class "lg:focus:tw-skew-y-0"
+
+
+lg_focus_tw_skew_y_3 : Html.Attribute msg
+lg_focus_tw_skew_y_3 =
+    A.class "lg:focus:tw-skew-y-3"
+
+
+lg_focus_tw_skew_y_6 : Html.Attribute msg
+lg_focus_tw_skew_y_6 =
+    A.class "lg:focus:tw-skew-y-6"
+
+
+lg_focus_tw_skew_y_12 : Html.Attribute msg
+lg_focus_tw_skew_y_12 =
+    A.class "lg:focus:tw-skew-y-12"
+
+
+lg_focus_tw_neg_skew_y_12 : Html.Attribute msg
+lg_focus_tw_neg_skew_y_12 =
+    A.class "lg:focus:tw--skew-y-12"
+
+
+lg_focus_tw_neg_skew_y_6 : Html.Attribute msg
+lg_focus_tw_neg_skew_y_6 =
+    A.class "lg:focus:tw--skew-y-6"
+
+
+lg_focus_tw_neg_skew_y_3 : Html.Attribute msg
+lg_focus_tw_neg_skew_y_3 =
+    A.class "lg:focus:tw--skew-y-3"
+
+
+lg_tw_transition_none : Html.Attribute msg
+lg_tw_transition_none =
+    A.class "lg:tw-transition-none"
+
+
+lg_tw_transition_all : Html.Attribute msg
+lg_tw_transition_all =
+    A.class "lg:tw-transition-all"
+
+
+lg_tw_transition : Html.Attribute msg
+lg_tw_transition =
+    A.class "lg:tw-transition"
+
+
+lg_tw_transition_colors : Html.Attribute msg
+lg_tw_transition_colors =
+    A.class "lg:tw-transition-colors"
+
+
+lg_tw_transition_opacity : Html.Attribute msg
+lg_tw_transition_opacity =
+    A.class "lg:tw-transition-opacity"
+
+
+lg_tw_transition_shadow : Html.Attribute msg
+lg_tw_transition_shadow =
+    A.class "lg:tw-transition-shadow"
+
+
+lg_tw_transition_transform : Html.Attribute msg
+lg_tw_transition_transform =
+    A.class "lg:tw-transition-transform"
+
+
+lg_tw_ease_linear : Html.Attribute msg
+lg_tw_ease_linear =
+    A.class "lg:tw-ease-linear"
+
+
+lg_tw_ease_in : Html.Attribute msg
+lg_tw_ease_in =
+    A.class "lg:tw-ease-in"
+
+
+lg_tw_ease_out : Html.Attribute msg
+lg_tw_ease_out =
+    A.class "lg:tw-ease-out"
+
+
+lg_tw_ease_in_out : Html.Attribute msg
+lg_tw_ease_in_out =
+    A.class "lg:tw-ease-in-out"
+
+
+lg_tw_duration_75 : Html.Attribute msg
+lg_tw_duration_75 =
+    A.class "lg:tw-duration-75"
+
+
+lg_tw_duration_100 : Html.Attribute msg
+lg_tw_duration_100 =
+    A.class "lg:tw-duration-100"
+
+
+lg_tw_duration_150 : Html.Attribute msg
+lg_tw_duration_150 =
+    A.class "lg:tw-duration-150"
+
+
+lg_tw_duration_200 : Html.Attribute msg
+lg_tw_duration_200 =
+    A.class "lg:tw-duration-200"
+
+
+lg_tw_duration_300 : Html.Attribute msg
+lg_tw_duration_300 =
+    A.class "lg:tw-duration-300"
+
+
+lg_tw_duration_500 : Html.Attribute msg
+lg_tw_duration_500 =
+    A.class "lg:tw-duration-500"
+
+
+lg_tw_duration_700 : Html.Attribute msg
+lg_tw_duration_700 =
+    A.class "lg:tw-duration-700"
+
+
+lg_tw_duration_1000 : Html.Attribute msg
+lg_tw_duration_1000 =
+    A.class "lg:tw-duration-1000"
 
 
 xl_tw_sr_only : Html.Attribute msg
@@ -50203,6 +65653,11 @@ xl_tw_rounded =
     A.class "xl:tw-rounded"
 
 
+xl_tw_rounded_md : Html.Attribute msg
+xl_tw_rounded_md =
+    A.class "xl:tw-rounded-md"
+
+
 xl_tw_rounded_lg : Html.Attribute msg
 xl_tw_rounded_lg =
     A.class "xl:tw-rounded-lg"
@@ -50271,6 +65726,26 @@ xl_tw_rounded_b =
 xl_tw_rounded_l : Html.Attribute msg
 xl_tw_rounded_l =
     A.class "xl:tw-rounded-l"
+
+
+xl_tw_rounded_t_md : Html.Attribute msg
+xl_tw_rounded_t_md =
+    A.class "xl:tw-rounded-t-md"
+
+
+xl_tw_rounded_r_md : Html.Attribute msg
+xl_tw_rounded_r_md =
+    A.class "xl:tw-rounded-r-md"
+
+
+xl_tw_rounded_b_md : Html.Attribute msg
+xl_tw_rounded_b_md =
+    A.class "xl:tw-rounded-b-md"
+
+
+xl_tw_rounded_l_md : Html.Attribute msg
+xl_tw_rounded_l_md =
+    A.class "xl:tw-rounded-l-md"
 
 
 xl_tw_rounded_t_lg : Html.Attribute msg
@@ -50371,6 +65846,26 @@ xl_tw_rounded_br =
 xl_tw_rounded_bl : Html.Attribute msg
 xl_tw_rounded_bl =
     A.class "xl:tw-rounded-bl"
+
+
+xl_tw_rounded_tl_md : Html.Attribute msg
+xl_tw_rounded_tl_md =
+    A.class "xl:tw-rounded-tl-md"
+
+
+xl_tw_rounded_tr_md : Html.Attribute msg
+xl_tw_rounded_tr_md =
+    A.class "xl:tw-rounded-tr-md"
+
+
+xl_tw_rounded_br_md : Html.Attribute msg
+xl_tw_rounded_br_md =
+    A.class "xl:tw-rounded-br-md"
+
+
+xl_tw_rounded_bl_md : Html.Attribute msg
+xl_tw_rounded_bl_md =
+    A.class "xl:tw-rounded-bl-md"
 
 
 xl_tw_rounded_tl_lg : Html.Attribute msg
@@ -50563,6 +66058,16 @@ xl_tw_border_l =
     A.class "xl:tw-border-l"
 
 
+xl_tw_box_border : Html.Attribute msg
+xl_tw_box_border =
+    A.class "xl:tw-box-border"
+
+
+xl_tw_box_content : Html.Attribute msg
+xl_tw_box_content =
+    A.class "xl:tw-box-content"
+
+
 xl_tw_cursor_auto : Html.Attribute msg
 xl_tw_cursor_auto =
     A.class "xl:tw-cursor-auto"
@@ -50623,19 +66128,54 @@ xl_tw_inline_flex =
     A.class "xl:tw-inline-flex"
 
 
+xl_tw_grid : Html.Attribute msg
+xl_tw_grid =
+    A.class "xl:tw-grid"
+
+
 xl_tw_table : Html.Attribute msg
 xl_tw_table =
     A.class "xl:tw-table"
 
 
-xl_tw_table_row : Html.Attribute msg
-xl_tw_table_row =
-    A.class "xl:tw-table-row"
+xl_tw_table_caption : Html.Attribute msg
+xl_tw_table_caption =
+    A.class "xl:tw-table-caption"
 
 
 xl_tw_table_cell : Html.Attribute msg
 xl_tw_table_cell =
     A.class "xl:tw-table-cell"
+
+
+xl_tw_table_column : Html.Attribute msg
+xl_tw_table_column =
+    A.class "xl:tw-table-column"
+
+
+xl_tw_table_column_group : Html.Attribute msg
+xl_tw_table_column_group =
+    A.class "xl:tw-table-column-group"
+
+
+xl_tw_table_footer_group : Html.Attribute msg
+xl_tw_table_footer_group =
+    A.class "xl:tw-table-footer-group"
+
+
+xl_tw_table_header_group : Html.Attribute msg
+xl_tw_table_header_group =
+    A.class "xl:tw-table-header-group"
+
+
+xl_tw_table_row_group : Html.Attribute msg
+xl_tw_table_row_group =
+    A.class "xl:tw-table-row-group"
+
+
+xl_tw_table_row : Html.Attribute msg
+xl_tw_table_row =
+    A.class "xl:tw-table-row"
 
 
 xl_tw_hidden : Html.Attribute msg
@@ -50751,6 +66291,11 @@ xl_tw_justify_between =
 xl_tw_justify_around : Html.Attribute msg
 xl_tw_justify_around =
     A.class "xl:tw-justify-around"
+
+
+xl_tw_justify_evenly : Html.Attribute msg
+xl_tw_justify_evenly =
+    A.class "xl:tw-justify-evenly"
 
 
 xl_tw_content_center : Html.Attribute msg
@@ -50911,6 +66456,21 @@ xl_tw_float_none =
 xl_tw_clearfix_after : Html.Attribute msg
 xl_tw_clearfix_after =
     A.class "xl:tw-clearfix:after"
+
+
+xl_tw_clear_left : Html.Attribute msg
+xl_tw_clear_left =
+    A.class "xl:tw-clear-left"
+
+
+xl_tw_clear_right : Html.Attribute msg
+xl_tw_clear_right =
+    A.class "xl:tw-clear-right"
+
+
+xl_tw_clear_both : Html.Attribute msg
+xl_tw_clear_both =
+    A.class "xl:tw-clear-both"
 
 
 xl_tw_font_sans : Html.Attribute msg
@@ -51171,6 +66731,46 @@ xl_tw_h_full =
 xl_tw_h_screen : Html.Attribute msg
 xl_tw_h_screen =
     A.class "xl:tw-h-screen"
+
+
+xl_tw_leading_3 : Html.Attribute msg
+xl_tw_leading_3 =
+    A.class "xl:tw-leading-3"
+
+
+xl_tw_leading_4 : Html.Attribute msg
+xl_tw_leading_4 =
+    A.class "xl:tw-leading-4"
+
+
+xl_tw_leading_5 : Html.Attribute msg
+xl_tw_leading_5 =
+    A.class "xl:tw-leading-5"
+
+
+xl_tw_leading_6 : Html.Attribute msg
+xl_tw_leading_6 =
+    A.class "xl:tw-leading-6"
+
+
+xl_tw_leading_7 : Html.Attribute msg
+xl_tw_leading_7 =
+    A.class "xl:tw-leading-7"
+
+
+xl_tw_leading_8 : Html.Attribute msg
+xl_tw_leading_8 =
+    A.class "xl:tw-leading-8"
+
+
+xl_tw_leading_9 : Html.Attribute msg
+xl_tw_leading_9 =
+    A.class "xl:tw-leading-9"
+
+
+xl_tw_leading_10 : Html.Attribute msg
+xl_tw_leading_10 =
+    A.class "xl:tw-leading-10"
 
 
 xl_tw_leading_none : Html.Attribute msg
@@ -52568,6 +68168,11 @@ xl_tw_max_h_screen =
     A.class "xl:tw-max-h-screen"
 
 
+xl_tw_max_w_none : Html.Attribute msg
+xl_tw_max_w_none =
+    A.class "xl:tw-max-w-none"
+
+
 xl_tw_max_w_xs : Html.Attribute msg
 xl_tw_max_w_xs =
     A.class "xl:tw-max-w-xs"
@@ -52621,6 +68226,26 @@ xl_tw_max_w_6xl =
 xl_tw_max_w_full : Html.Attribute msg
 xl_tw_max_w_full =
     A.class "xl:tw-max-w-full"
+
+
+xl_tw_max_w_screen_sm : Html.Attribute msg
+xl_tw_max_w_screen_sm =
+    A.class "xl:tw-max-w-screen-sm"
+
+
+xl_tw_max_w_screen_md : Html.Attribute msg
+xl_tw_max_w_screen_md =
+    A.class "xl:tw-max-w-screen-md"
+
+
+xl_tw_max_w_screen_lg : Html.Attribute msg
+xl_tw_max_w_screen_lg =
+    A.class "xl:tw-max-w-screen-lg"
+
+
+xl_tw_max_w_screen_xl : Html.Attribute msg
+xl_tw_max_w_screen_xl =
+    A.class "xl:tw-max-w-screen-xl"
 
 
 xl_tw_min_h_0 : Html.Attribute msg
@@ -54593,6 +70218,16 @@ xl_tw_resize =
     A.class "xl:tw-resize"
 
 
+xl_tw_shadow_xs : Html.Attribute msg
+xl_tw_shadow_xs =
+    A.class "xl:tw-shadow-xs"
+
+
+xl_tw_shadow_sm : Html.Attribute msg
+xl_tw_shadow_sm =
+    A.class "xl:tw-shadow-sm"
+
+
 xl_tw_shadow : Html.Attribute msg
 xl_tw_shadow =
     A.class "xl:tw-shadow"
@@ -54633,6 +70268,16 @@ xl_tw_shadow_none =
     A.class "xl:tw-shadow-none"
 
 
+xl_hover_tw_shadow_xs : Html.Attribute msg
+xl_hover_tw_shadow_xs =
+    A.class "xl:hover:tw-shadow-xs"
+
+
+xl_hover_tw_shadow_sm : Html.Attribute msg
+xl_hover_tw_shadow_sm =
+    A.class "xl:hover:tw-shadow-sm"
+
+
 xl_hover_tw_shadow : Html.Attribute msg
 xl_hover_tw_shadow =
     A.class "xl:hover:tw-shadow"
@@ -54671,6 +70316,16 @@ xl_hover_tw_shadow_outline =
 xl_hover_tw_shadow_none : Html.Attribute msg
 xl_hover_tw_shadow_none =
     A.class "xl:hover:tw-shadow-none"
+
+
+xl_focus_tw_shadow_xs : Html.Attribute msg
+xl_focus_tw_shadow_xs =
+    A.class "xl:focus:tw-shadow-xs"
+
+
+xl_focus_tw_shadow_sm : Html.Attribute msg
+xl_focus_tw_shadow_sm =
+    A.class "xl:focus:tw-shadow-sm"
 
 
 xl_focus_tw_shadow : Html.Attribute msg
@@ -54721,6 +70376,21 @@ xl_tw_fill_current =
 xl_tw_stroke_current : Html.Attribute msg
 xl_tw_stroke_current =
     A.class "xl:tw-stroke-current"
+
+
+xl_tw_stroke_0 : Html.Attribute msg
+xl_tw_stroke_0 =
+    A.class "xl:tw-stroke-0"
+
+
+xl_tw_stroke_1 : Html.Attribute msg
+xl_tw_stroke_1 =
+    A.class "xl:tw-stroke-1"
+
+
+xl_tw_stroke_2 : Html.Attribute msg
+xl_tw_stroke_2 =
+    A.class "xl:tw-stroke-2"
 
 
 xl_tw_table_auto : Html.Attribute msg
@@ -56691,4 +72361,2874 @@ xl_tw_z_50 =
 xl_tw_z_auto : Html.Attribute msg
 xl_tw_z_auto =
     A.class "xl:tw-z-auto"
+
+
+xl_tw_gap_0 : Html.Attribute msg
+xl_tw_gap_0 =
+    A.class "xl:tw-gap-0"
+
+
+xl_tw_gap_1 : Html.Attribute msg
+xl_tw_gap_1 =
+    A.class "xl:tw-gap-1"
+
+
+xl_tw_gap_2 : Html.Attribute msg
+xl_tw_gap_2 =
+    A.class "xl:tw-gap-2"
+
+
+xl_tw_gap_3 : Html.Attribute msg
+xl_tw_gap_3 =
+    A.class "xl:tw-gap-3"
+
+
+xl_tw_gap_4 : Html.Attribute msg
+xl_tw_gap_4 =
+    A.class "xl:tw-gap-4"
+
+
+xl_tw_gap_5 : Html.Attribute msg
+xl_tw_gap_5 =
+    A.class "xl:tw-gap-5"
+
+
+xl_tw_gap_6 : Html.Attribute msg
+xl_tw_gap_6 =
+    A.class "xl:tw-gap-6"
+
+
+xl_tw_gap_8 : Html.Attribute msg
+xl_tw_gap_8 =
+    A.class "xl:tw-gap-8"
+
+
+xl_tw_gap_10 : Html.Attribute msg
+xl_tw_gap_10 =
+    A.class "xl:tw-gap-10"
+
+
+xl_tw_gap_12 : Html.Attribute msg
+xl_tw_gap_12 =
+    A.class "xl:tw-gap-12"
+
+
+xl_tw_gap_16 : Html.Attribute msg
+xl_tw_gap_16 =
+    A.class "xl:tw-gap-16"
+
+
+xl_tw_gap_20 : Html.Attribute msg
+xl_tw_gap_20 =
+    A.class "xl:tw-gap-20"
+
+
+xl_tw_gap_24 : Html.Attribute msg
+xl_tw_gap_24 =
+    A.class "xl:tw-gap-24"
+
+
+xl_tw_gap_32 : Html.Attribute msg
+xl_tw_gap_32 =
+    A.class "xl:tw-gap-32"
+
+
+xl_tw_gap_40 : Html.Attribute msg
+xl_tw_gap_40 =
+    A.class "xl:tw-gap-40"
+
+
+xl_tw_gap_48 : Html.Attribute msg
+xl_tw_gap_48 =
+    A.class "xl:tw-gap-48"
+
+
+xl_tw_gap_56 : Html.Attribute msg
+xl_tw_gap_56 =
+    A.class "xl:tw-gap-56"
+
+
+xl_tw_gap_64 : Html.Attribute msg
+xl_tw_gap_64 =
+    A.class "xl:tw-gap-64"
+
+
+xl_tw_gap_px : Html.Attribute msg
+xl_tw_gap_px =
+    A.class "xl:tw-gap-px"
+
+
+xl_tw_col_gap_0 : Html.Attribute msg
+xl_tw_col_gap_0 =
+    A.class "xl:tw-col-gap-0"
+
+
+xl_tw_col_gap_1 : Html.Attribute msg
+xl_tw_col_gap_1 =
+    A.class "xl:tw-col-gap-1"
+
+
+xl_tw_col_gap_2 : Html.Attribute msg
+xl_tw_col_gap_2 =
+    A.class "xl:tw-col-gap-2"
+
+
+xl_tw_col_gap_3 : Html.Attribute msg
+xl_tw_col_gap_3 =
+    A.class "xl:tw-col-gap-3"
+
+
+xl_tw_col_gap_4 : Html.Attribute msg
+xl_tw_col_gap_4 =
+    A.class "xl:tw-col-gap-4"
+
+
+xl_tw_col_gap_5 : Html.Attribute msg
+xl_tw_col_gap_5 =
+    A.class "xl:tw-col-gap-5"
+
+
+xl_tw_col_gap_6 : Html.Attribute msg
+xl_tw_col_gap_6 =
+    A.class "xl:tw-col-gap-6"
+
+
+xl_tw_col_gap_8 : Html.Attribute msg
+xl_tw_col_gap_8 =
+    A.class "xl:tw-col-gap-8"
+
+
+xl_tw_col_gap_10 : Html.Attribute msg
+xl_tw_col_gap_10 =
+    A.class "xl:tw-col-gap-10"
+
+
+xl_tw_col_gap_12 : Html.Attribute msg
+xl_tw_col_gap_12 =
+    A.class "xl:tw-col-gap-12"
+
+
+xl_tw_col_gap_16 : Html.Attribute msg
+xl_tw_col_gap_16 =
+    A.class "xl:tw-col-gap-16"
+
+
+xl_tw_col_gap_20 : Html.Attribute msg
+xl_tw_col_gap_20 =
+    A.class "xl:tw-col-gap-20"
+
+
+xl_tw_col_gap_24 : Html.Attribute msg
+xl_tw_col_gap_24 =
+    A.class "xl:tw-col-gap-24"
+
+
+xl_tw_col_gap_32 : Html.Attribute msg
+xl_tw_col_gap_32 =
+    A.class "xl:tw-col-gap-32"
+
+
+xl_tw_col_gap_40 : Html.Attribute msg
+xl_tw_col_gap_40 =
+    A.class "xl:tw-col-gap-40"
+
+
+xl_tw_col_gap_48 : Html.Attribute msg
+xl_tw_col_gap_48 =
+    A.class "xl:tw-col-gap-48"
+
+
+xl_tw_col_gap_56 : Html.Attribute msg
+xl_tw_col_gap_56 =
+    A.class "xl:tw-col-gap-56"
+
+
+xl_tw_col_gap_64 : Html.Attribute msg
+xl_tw_col_gap_64 =
+    A.class "xl:tw-col-gap-64"
+
+
+xl_tw_col_gap_px : Html.Attribute msg
+xl_tw_col_gap_px =
+    A.class "xl:tw-col-gap-px"
+
+
+xl_tw_row_gap_0 : Html.Attribute msg
+xl_tw_row_gap_0 =
+    A.class "xl:tw-row-gap-0"
+
+
+xl_tw_row_gap_1 : Html.Attribute msg
+xl_tw_row_gap_1 =
+    A.class "xl:tw-row-gap-1"
+
+
+xl_tw_row_gap_2 : Html.Attribute msg
+xl_tw_row_gap_2 =
+    A.class "xl:tw-row-gap-2"
+
+
+xl_tw_row_gap_3 : Html.Attribute msg
+xl_tw_row_gap_3 =
+    A.class "xl:tw-row-gap-3"
+
+
+xl_tw_row_gap_4 : Html.Attribute msg
+xl_tw_row_gap_4 =
+    A.class "xl:tw-row-gap-4"
+
+
+xl_tw_row_gap_5 : Html.Attribute msg
+xl_tw_row_gap_5 =
+    A.class "xl:tw-row-gap-5"
+
+
+xl_tw_row_gap_6 : Html.Attribute msg
+xl_tw_row_gap_6 =
+    A.class "xl:tw-row-gap-6"
+
+
+xl_tw_row_gap_8 : Html.Attribute msg
+xl_tw_row_gap_8 =
+    A.class "xl:tw-row-gap-8"
+
+
+xl_tw_row_gap_10 : Html.Attribute msg
+xl_tw_row_gap_10 =
+    A.class "xl:tw-row-gap-10"
+
+
+xl_tw_row_gap_12 : Html.Attribute msg
+xl_tw_row_gap_12 =
+    A.class "xl:tw-row-gap-12"
+
+
+xl_tw_row_gap_16 : Html.Attribute msg
+xl_tw_row_gap_16 =
+    A.class "xl:tw-row-gap-16"
+
+
+xl_tw_row_gap_20 : Html.Attribute msg
+xl_tw_row_gap_20 =
+    A.class "xl:tw-row-gap-20"
+
+
+xl_tw_row_gap_24 : Html.Attribute msg
+xl_tw_row_gap_24 =
+    A.class "xl:tw-row-gap-24"
+
+
+xl_tw_row_gap_32 : Html.Attribute msg
+xl_tw_row_gap_32 =
+    A.class "xl:tw-row-gap-32"
+
+
+xl_tw_row_gap_40 : Html.Attribute msg
+xl_tw_row_gap_40 =
+    A.class "xl:tw-row-gap-40"
+
+
+xl_tw_row_gap_48 : Html.Attribute msg
+xl_tw_row_gap_48 =
+    A.class "xl:tw-row-gap-48"
+
+
+xl_tw_row_gap_56 : Html.Attribute msg
+xl_tw_row_gap_56 =
+    A.class "xl:tw-row-gap-56"
+
+
+xl_tw_row_gap_64 : Html.Attribute msg
+xl_tw_row_gap_64 =
+    A.class "xl:tw-row-gap-64"
+
+
+xl_tw_row_gap_px : Html.Attribute msg
+xl_tw_row_gap_px =
+    A.class "xl:tw-row-gap-px"
+
+
+xl_tw_grid_flow_row : Html.Attribute msg
+xl_tw_grid_flow_row =
+    A.class "xl:tw-grid-flow-row"
+
+
+xl_tw_grid_flow_col : Html.Attribute msg
+xl_tw_grid_flow_col =
+    A.class "xl:tw-grid-flow-col"
+
+
+xl_tw_grid_flow_row_dense : Html.Attribute msg
+xl_tw_grid_flow_row_dense =
+    A.class "xl:tw-grid-flow-row-dense"
+
+
+xl_tw_grid_flow_col_dense : Html.Attribute msg
+xl_tw_grid_flow_col_dense =
+    A.class "xl:tw-grid-flow-col-dense"
+
+
+xl_tw_grid_cols_1 : Html.Attribute msg
+xl_tw_grid_cols_1 =
+    A.class "xl:tw-grid-cols-1"
+
+
+xl_tw_grid_cols_2 : Html.Attribute msg
+xl_tw_grid_cols_2 =
+    A.class "xl:tw-grid-cols-2"
+
+
+xl_tw_grid_cols_3 : Html.Attribute msg
+xl_tw_grid_cols_3 =
+    A.class "xl:tw-grid-cols-3"
+
+
+xl_tw_grid_cols_4 : Html.Attribute msg
+xl_tw_grid_cols_4 =
+    A.class "xl:tw-grid-cols-4"
+
+
+xl_tw_grid_cols_5 : Html.Attribute msg
+xl_tw_grid_cols_5 =
+    A.class "xl:tw-grid-cols-5"
+
+
+xl_tw_grid_cols_6 : Html.Attribute msg
+xl_tw_grid_cols_6 =
+    A.class "xl:tw-grid-cols-6"
+
+
+xl_tw_grid_cols_7 : Html.Attribute msg
+xl_tw_grid_cols_7 =
+    A.class "xl:tw-grid-cols-7"
+
+
+xl_tw_grid_cols_8 : Html.Attribute msg
+xl_tw_grid_cols_8 =
+    A.class "xl:tw-grid-cols-8"
+
+
+xl_tw_grid_cols_9 : Html.Attribute msg
+xl_tw_grid_cols_9 =
+    A.class "xl:tw-grid-cols-9"
+
+
+xl_tw_grid_cols_10 : Html.Attribute msg
+xl_tw_grid_cols_10 =
+    A.class "xl:tw-grid-cols-10"
+
+
+xl_tw_grid_cols_11 : Html.Attribute msg
+xl_tw_grid_cols_11 =
+    A.class "xl:tw-grid-cols-11"
+
+
+xl_tw_grid_cols_12 : Html.Attribute msg
+xl_tw_grid_cols_12 =
+    A.class "xl:tw-grid-cols-12"
+
+
+xl_tw_grid_cols_none : Html.Attribute msg
+xl_tw_grid_cols_none =
+    A.class "xl:tw-grid-cols-none"
+
+
+xl_tw_col_auto : Html.Attribute msg
+xl_tw_col_auto =
+    A.class "xl:tw-col-auto"
+
+
+xl_tw_col_span_1 : Html.Attribute msg
+xl_tw_col_span_1 =
+    A.class "xl:tw-col-span-1"
+
+
+xl_tw_col_span_2 : Html.Attribute msg
+xl_tw_col_span_2 =
+    A.class "xl:tw-col-span-2"
+
+
+xl_tw_col_span_3 : Html.Attribute msg
+xl_tw_col_span_3 =
+    A.class "xl:tw-col-span-3"
+
+
+xl_tw_col_span_4 : Html.Attribute msg
+xl_tw_col_span_4 =
+    A.class "xl:tw-col-span-4"
+
+
+xl_tw_col_span_5 : Html.Attribute msg
+xl_tw_col_span_5 =
+    A.class "xl:tw-col-span-5"
+
+
+xl_tw_col_span_6 : Html.Attribute msg
+xl_tw_col_span_6 =
+    A.class "xl:tw-col-span-6"
+
+
+xl_tw_col_span_7 : Html.Attribute msg
+xl_tw_col_span_7 =
+    A.class "xl:tw-col-span-7"
+
+
+xl_tw_col_span_8 : Html.Attribute msg
+xl_tw_col_span_8 =
+    A.class "xl:tw-col-span-8"
+
+
+xl_tw_col_span_9 : Html.Attribute msg
+xl_tw_col_span_9 =
+    A.class "xl:tw-col-span-9"
+
+
+xl_tw_col_span_10 : Html.Attribute msg
+xl_tw_col_span_10 =
+    A.class "xl:tw-col-span-10"
+
+
+xl_tw_col_span_11 : Html.Attribute msg
+xl_tw_col_span_11 =
+    A.class "xl:tw-col-span-11"
+
+
+xl_tw_col_span_12 : Html.Attribute msg
+xl_tw_col_span_12 =
+    A.class "xl:tw-col-span-12"
+
+
+xl_tw_col_start_1 : Html.Attribute msg
+xl_tw_col_start_1 =
+    A.class "xl:tw-col-start-1"
+
+
+xl_tw_col_start_2 : Html.Attribute msg
+xl_tw_col_start_2 =
+    A.class "xl:tw-col-start-2"
+
+
+xl_tw_col_start_3 : Html.Attribute msg
+xl_tw_col_start_3 =
+    A.class "xl:tw-col-start-3"
+
+
+xl_tw_col_start_4 : Html.Attribute msg
+xl_tw_col_start_4 =
+    A.class "xl:tw-col-start-4"
+
+
+xl_tw_col_start_5 : Html.Attribute msg
+xl_tw_col_start_5 =
+    A.class "xl:tw-col-start-5"
+
+
+xl_tw_col_start_6 : Html.Attribute msg
+xl_tw_col_start_6 =
+    A.class "xl:tw-col-start-6"
+
+
+xl_tw_col_start_7 : Html.Attribute msg
+xl_tw_col_start_7 =
+    A.class "xl:tw-col-start-7"
+
+
+xl_tw_col_start_8 : Html.Attribute msg
+xl_tw_col_start_8 =
+    A.class "xl:tw-col-start-8"
+
+
+xl_tw_col_start_9 : Html.Attribute msg
+xl_tw_col_start_9 =
+    A.class "xl:tw-col-start-9"
+
+
+xl_tw_col_start_10 : Html.Attribute msg
+xl_tw_col_start_10 =
+    A.class "xl:tw-col-start-10"
+
+
+xl_tw_col_start_11 : Html.Attribute msg
+xl_tw_col_start_11 =
+    A.class "xl:tw-col-start-11"
+
+
+xl_tw_col_start_12 : Html.Attribute msg
+xl_tw_col_start_12 =
+    A.class "xl:tw-col-start-12"
+
+
+xl_tw_col_start_13 : Html.Attribute msg
+xl_tw_col_start_13 =
+    A.class "xl:tw-col-start-13"
+
+
+xl_tw_col_start_auto : Html.Attribute msg
+xl_tw_col_start_auto =
+    A.class "xl:tw-col-start-auto"
+
+
+xl_tw_col_end_1 : Html.Attribute msg
+xl_tw_col_end_1 =
+    A.class "xl:tw-col-end-1"
+
+
+xl_tw_col_end_2 : Html.Attribute msg
+xl_tw_col_end_2 =
+    A.class "xl:tw-col-end-2"
+
+
+xl_tw_col_end_3 : Html.Attribute msg
+xl_tw_col_end_3 =
+    A.class "xl:tw-col-end-3"
+
+
+xl_tw_col_end_4 : Html.Attribute msg
+xl_tw_col_end_4 =
+    A.class "xl:tw-col-end-4"
+
+
+xl_tw_col_end_5 : Html.Attribute msg
+xl_tw_col_end_5 =
+    A.class "xl:tw-col-end-5"
+
+
+xl_tw_col_end_6 : Html.Attribute msg
+xl_tw_col_end_6 =
+    A.class "xl:tw-col-end-6"
+
+
+xl_tw_col_end_7 : Html.Attribute msg
+xl_tw_col_end_7 =
+    A.class "xl:tw-col-end-7"
+
+
+xl_tw_col_end_8 : Html.Attribute msg
+xl_tw_col_end_8 =
+    A.class "xl:tw-col-end-8"
+
+
+xl_tw_col_end_9 : Html.Attribute msg
+xl_tw_col_end_9 =
+    A.class "xl:tw-col-end-9"
+
+
+xl_tw_col_end_10 : Html.Attribute msg
+xl_tw_col_end_10 =
+    A.class "xl:tw-col-end-10"
+
+
+xl_tw_col_end_11 : Html.Attribute msg
+xl_tw_col_end_11 =
+    A.class "xl:tw-col-end-11"
+
+
+xl_tw_col_end_12 : Html.Attribute msg
+xl_tw_col_end_12 =
+    A.class "xl:tw-col-end-12"
+
+
+xl_tw_col_end_13 : Html.Attribute msg
+xl_tw_col_end_13 =
+    A.class "xl:tw-col-end-13"
+
+
+xl_tw_col_end_auto : Html.Attribute msg
+xl_tw_col_end_auto =
+    A.class "xl:tw-col-end-auto"
+
+
+xl_tw_grid_rows_1 : Html.Attribute msg
+xl_tw_grid_rows_1 =
+    A.class "xl:tw-grid-rows-1"
+
+
+xl_tw_grid_rows_2 : Html.Attribute msg
+xl_tw_grid_rows_2 =
+    A.class "xl:tw-grid-rows-2"
+
+
+xl_tw_grid_rows_3 : Html.Attribute msg
+xl_tw_grid_rows_3 =
+    A.class "xl:tw-grid-rows-3"
+
+
+xl_tw_grid_rows_4 : Html.Attribute msg
+xl_tw_grid_rows_4 =
+    A.class "xl:tw-grid-rows-4"
+
+
+xl_tw_grid_rows_5 : Html.Attribute msg
+xl_tw_grid_rows_5 =
+    A.class "xl:tw-grid-rows-5"
+
+
+xl_tw_grid_rows_6 : Html.Attribute msg
+xl_tw_grid_rows_6 =
+    A.class "xl:tw-grid-rows-6"
+
+
+xl_tw_grid_rows_none : Html.Attribute msg
+xl_tw_grid_rows_none =
+    A.class "xl:tw-grid-rows-none"
+
+
+xl_tw_row_auto : Html.Attribute msg
+xl_tw_row_auto =
+    A.class "xl:tw-row-auto"
+
+
+xl_tw_row_span_1 : Html.Attribute msg
+xl_tw_row_span_1 =
+    A.class "xl:tw-row-span-1"
+
+
+xl_tw_row_span_2 : Html.Attribute msg
+xl_tw_row_span_2 =
+    A.class "xl:tw-row-span-2"
+
+
+xl_tw_row_span_3 : Html.Attribute msg
+xl_tw_row_span_3 =
+    A.class "xl:tw-row-span-3"
+
+
+xl_tw_row_span_4 : Html.Attribute msg
+xl_tw_row_span_4 =
+    A.class "xl:tw-row-span-4"
+
+
+xl_tw_row_span_5 : Html.Attribute msg
+xl_tw_row_span_5 =
+    A.class "xl:tw-row-span-5"
+
+
+xl_tw_row_span_6 : Html.Attribute msg
+xl_tw_row_span_6 =
+    A.class "xl:tw-row-span-6"
+
+
+xl_tw_row_start_1 : Html.Attribute msg
+xl_tw_row_start_1 =
+    A.class "xl:tw-row-start-1"
+
+
+xl_tw_row_start_2 : Html.Attribute msg
+xl_tw_row_start_2 =
+    A.class "xl:tw-row-start-2"
+
+
+xl_tw_row_start_3 : Html.Attribute msg
+xl_tw_row_start_3 =
+    A.class "xl:tw-row-start-3"
+
+
+xl_tw_row_start_4 : Html.Attribute msg
+xl_tw_row_start_4 =
+    A.class "xl:tw-row-start-4"
+
+
+xl_tw_row_start_5 : Html.Attribute msg
+xl_tw_row_start_5 =
+    A.class "xl:tw-row-start-5"
+
+
+xl_tw_row_start_6 : Html.Attribute msg
+xl_tw_row_start_6 =
+    A.class "xl:tw-row-start-6"
+
+
+xl_tw_row_start_7 : Html.Attribute msg
+xl_tw_row_start_7 =
+    A.class "xl:tw-row-start-7"
+
+
+xl_tw_row_start_auto : Html.Attribute msg
+xl_tw_row_start_auto =
+    A.class "xl:tw-row-start-auto"
+
+
+xl_tw_row_end_1 : Html.Attribute msg
+xl_tw_row_end_1 =
+    A.class "xl:tw-row-end-1"
+
+
+xl_tw_row_end_2 : Html.Attribute msg
+xl_tw_row_end_2 =
+    A.class "xl:tw-row-end-2"
+
+
+xl_tw_row_end_3 : Html.Attribute msg
+xl_tw_row_end_3 =
+    A.class "xl:tw-row-end-3"
+
+
+xl_tw_row_end_4 : Html.Attribute msg
+xl_tw_row_end_4 =
+    A.class "xl:tw-row-end-4"
+
+
+xl_tw_row_end_5 : Html.Attribute msg
+xl_tw_row_end_5 =
+    A.class "xl:tw-row-end-5"
+
+
+xl_tw_row_end_6 : Html.Attribute msg
+xl_tw_row_end_6 =
+    A.class "xl:tw-row-end-6"
+
+
+xl_tw_row_end_7 : Html.Attribute msg
+xl_tw_row_end_7 =
+    A.class "xl:tw-row-end-7"
+
+
+xl_tw_row_end_auto : Html.Attribute msg
+xl_tw_row_end_auto =
+    A.class "xl:tw-row-end-auto"
+
+
+xl_tw_transform : Html.Attribute msg
+xl_tw_transform =
+    A.class "xl:tw-transform"
+
+
+xl_tw_transform_none : Html.Attribute msg
+xl_tw_transform_none =
+    A.class "xl:tw-transform-none"
+
+
+xl_tw_origin_center : Html.Attribute msg
+xl_tw_origin_center =
+    A.class "xl:tw-origin-center"
+
+
+xl_tw_origin_top : Html.Attribute msg
+xl_tw_origin_top =
+    A.class "xl:tw-origin-top"
+
+
+xl_tw_origin_top_right : Html.Attribute msg
+xl_tw_origin_top_right =
+    A.class "xl:tw-origin-top-right"
+
+
+xl_tw_origin_right : Html.Attribute msg
+xl_tw_origin_right =
+    A.class "xl:tw-origin-right"
+
+
+xl_tw_origin_bottom_right : Html.Attribute msg
+xl_tw_origin_bottom_right =
+    A.class "xl:tw-origin-bottom-right"
+
+
+xl_tw_origin_bottom : Html.Attribute msg
+xl_tw_origin_bottom =
+    A.class "xl:tw-origin-bottom"
+
+
+xl_tw_origin_bottom_left : Html.Attribute msg
+xl_tw_origin_bottom_left =
+    A.class "xl:tw-origin-bottom-left"
+
+
+xl_tw_origin_left : Html.Attribute msg
+xl_tw_origin_left =
+    A.class "xl:tw-origin-left"
+
+
+xl_tw_origin_top_left : Html.Attribute msg
+xl_tw_origin_top_left =
+    A.class "xl:tw-origin-top-left"
+
+
+xl_tw_scale_0 : Html.Attribute msg
+xl_tw_scale_0 =
+    A.class "xl:tw-scale-0"
+
+
+xl_tw_scale_50 : Html.Attribute msg
+xl_tw_scale_50 =
+    A.class "xl:tw-scale-50"
+
+
+xl_tw_scale_75 : Html.Attribute msg
+xl_tw_scale_75 =
+    A.class "xl:tw-scale-75"
+
+
+xl_tw_scale_90 : Html.Attribute msg
+xl_tw_scale_90 =
+    A.class "xl:tw-scale-90"
+
+
+xl_tw_scale_95 : Html.Attribute msg
+xl_tw_scale_95 =
+    A.class "xl:tw-scale-95"
+
+
+xl_tw_scale_100 : Html.Attribute msg
+xl_tw_scale_100 =
+    A.class "xl:tw-scale-100"
+
+
+xl_tw_scale_105 : Html.Attribute msg
+xl_tw_scale_105 =
+    A.class "xl:tw-scale-105"
+
+
+xl_tw_scale_110 : Html.Attribute msg
+xl_tw_scale_110 =
+    A.class "xl:tw-scale-110"
+
+
+xl_tw_scale_125 : Html.Attribute msg
+xl_tw_scale_125 =
+    A.class "xl:tw-scale-125"
+
+
+xl_tw_scale_150 : Html.Attribute msg
+xl_tw_scale_150 =
+    A.class "xl:tw-scale-150"
+
+
+xl_tw_scale_x_0 : Html.Attribute msg
+xl_tw_scale_x_0 =
+    A.class "xl:tw-scale-x-0"
+
+
+xl_tw_scale_x_50 : Html.Attribute msg
+xl_tw_scale_x_50 =
+    A.class "xl:tw-scale-x-50"
+
+
+xl_tw_scale_x_75 : Html.Attribute msg
+xl_tw_scale_x_75 =
+    A.class "xl:tw-scale-x-75"
+
+
+xl_tw_scale_x_90 : Html.Attribute msg
+xl_tw_scale_x_90 =
+    A.class "xl:tw-scale-x-90"
+
+
+xl_tw_scale_x_95 : Html.Attribute msg
+xl_tw_scale_x_95 =
+    A.class "xl:tw-scale-x-95"
+
+
+xl_tw_scale_x_100 : Html.Attribute msg
+xl_tw_scale_x_100 =
+    A.class "xl:tw-scale-x-100"
+
+
+xl_tw_scale_x_105 : Html.Attribute msg
+xl_tw_scale_x_105 =
+    A.class "xl:tw-scale-x-105"
+
+
+xl_tw_scale_x_110 : Html.Attribute msg
+xl_tw_scale_x_110 =
+    A.class "xl:tw-scale-x-110"
+
+
+xl_tw_scale_x_125 : Html.Attribute msg
+xl_tw_scale_x_125 =
+    A.class "xl:tw-scale-x-125"
+
+
+xl_tw_scale_x_150 : Html.Attribute msg
+xl_tw_scale_x_150 =
+    A.class "xl:tw-scale-x-150"
+
+
+xl_tw_scale_y_0 : Html.Attribute msg
+xl_tw_scale_y_0 =
+    A.class "xl:tw-scale-y-0"
+
+
+xl_tw_scale_y_50 : Html.Attribute msg
+xl_tw_scale_y_50 =
+    A.class "xl:tw-scale-y-50"
+
+
+xl_tw_scale_y_75 : Html.Attribute msg
+xl_tw_scale_y_75 =
+    A.class "xl:tw-scale-y-75"
+
+
+xl_tw_scale_y_90 : Html.Attribute msg
+xl_tw_scale_y_90 =
+    A.class "xl:tw-scale-y-90"
+
+
+xl_tw_scale_y_95 : Html.Attribute msg
+xl_tw_scale_y_95 =
+    A.class "xl:tw-scale-y-95"
+
+
+xl_tw_scale_y_100 : Html.Attribute msg
+xl_tw_scale_y_100 =
+    A.class "xl:tw-scale-y-100"
+
+
+xl_tw_scale_y_105 : Html.Attribute msg
+xl_tw_scale_y_105 =
+    A.class "xl:tw-scale-y-105"
+
+
+xl_tw_scale_y_110 : Html.Attribute msg
+xl_tw_scale_y_110 =
+    A.class "xl:tw-scale-y-110"
+
+
+xl_tw_scale_y_125 : Html.Attribute msg
+xl_tw_scale_y_125 =
+    A.class "xl:tw-scale-y-125"
+
+
+xl_tw_scale_y_150 : Html.Attribute msg
+xl_tw_scale_y_150 =
+    A.class "xl:tw-scale-y-150"
+
+
+xl_hover_tw_scale_0 : Html.Attribute msg
+xl_hover_tw_scale_0 =
+    A.class "xl:hover:tw-scale-0"
+
+
+xl_hover_tw_scale_50 : Html.Attribute msg
+xl_hover_tw_scale_50 =
+    A.class "xl:hover:tw-scale-50"
+
+
+xl_hover_tw_scale_75 : Html.Attribute msg
+xl_hover_tw_scale_75 =
+    A.class "xl:hover:tw-scale-75"
+
+
+xl_hover_tw_scale_90 : Html.Attribute msg
+xl_hover_tw_scale_90 =
+    A.class "xl:hover:tw-scale-90"
+
+
+xl_hover_tw_scale_95 : Html.Attribute msg
+xl_hover_tw_scale_95 =
+    A.class "xl:hover:tw-scale-95"
+
+
+xl_hover_tw_scale_100 : Html.Attribute msg
+xl_hover_tw_scale_100 =
+    A.class "xl:hover:tw-scale-100"
+
+
+xl_hover_tw_scale_105 : Html.Attribute msg
+xl_hover_tw_scale_105 =
+    A.class "xl:hover:tw-scale-105"
+
+
+xl_hover_tw_scale_110 : Html.Attribute msg
+xl_hover_tw_scale_110 =
+    A.class "xl:hover:tw-scale-110"
+
+
+xl_hover_tw_scale_125 : Html.Attribute msg
+xl_hover_tw_scale_125 =
+    A.class "xl:hover:tw-scale-125"
+
+
+xl_hover_tw_scale_150 : Html.Attribute msg
+xl_hover_tw_scale_150 =
+    A.class "xl:hover:tw-scale-150"
+
+
+xl_hover_tw_scale_x_0 : Html.Attribute msg
+xl_hover_tw_scale_x_0 =
+    A.class "xl:hover:tw-scale-x-0"
+
+
+xl_hover_tw_scale_x_50 : Html.Attribute msg
+xl_hover_tw_scale_x_50 =
+    A.class "xl:hover:tw-scale-x-50"
+
+
+xl_hover_tw_scale_x_75 : Html.Attribute msg
+xl_hover_tw_scale_x_75 =
+    A.class "xl:hover:tw-scale-x-75"
+
+
+xl_hover_tw_scale_x_90 : Html.Attribute msg
+xl_hover_tw_scale_x_90 =
+    A.class "xl:hover:tw-scale-x-90"
+
+
+xl_hover_tw_scale_x_95 : Html.Attribute msg
+xl_hover_tw_scale_x_95 =
+    A.class "xl:hover:tw-scale-x-95"
+
+
+xl_hover_tw_scale_x_100 : Html.Attribute msg
+xl_hover_tw_scale_x_100 =
+    A.class "xl:hover:tw-scale-x-100"
+
+
+xl_hover_tw_scale_x_105 : Html.Attribute msg
+xl_hover_tw_scale_x_105 =
+    A.class "xl:hover:tw-scale-x-105"
+
+
+xl_hover_tw_scale_x_110 : Html.Attribute msg
+xl_hover_tw_scale_x_110 =
+    A.class "xl:hover:tw-scale-x-110"
+
+
+xl_hover_tw_scale_x_125 : Html.Attribute msg
+xl_hover_tw_scale_x_125 =
+    A.class "xl:hover:tw-scale-x-125"
+
+
+xl_hover_tw_scale_x_150 : Html.Attribute msg
+xl_hover_tw_scale_x_150 =
+    A.class "xl:hover:tw-scale-x-150"
+
+
+xl_hover_tw_scale_y_0 : Html.Attribute msg
+xl_hover_tw_scale_y_0 =
+    A.class "xl:hover:tw-scale-y-0"
+
+
+xl_hover_tw_scale_y_50 : Html.Attribute msg
+xl_hover_tw_scale_y_50 =
+    A.class "xl:hover:tw-scale-y-50"
+
+
+xl_hover_tw_scale_y_75 : Html.Attribute msg
+xl_hover_tw_scale_y_75 =
+    A.class "xl:hover:tw-scale-y-75"
+
+
+xl_hover_tw_scale_y_90 : Html.Attribute msg
+xl_hover_tw_scale_y_90 =
+    A.class "xl:hover:tw-scale-y-90"
+
+
+xl_hover_tw_scale_y_95 : Html.Attribute msg
+xl_hover_tw_scale_y_95 =
+    A.class "xl:hover:tw-scale-y-95"
+
+
+xl_hover_tw_scale_y_100 : Html.Attribute msg
+xl_hover_tw_scale_y_100 =
+    A.class "xl:hover:tw-scale-y-100"
+
+
+xl_hover_tw_scale_y_105 : Html.Attribute msg
+xl_hover_tw_scale_y_105 =
+    A.class "xl:hover:tw-scale-y-105"
+
+
+xl_hover_tw_scale_y_110 : Html.Attribute msg
+xl_hover_tw_scale_y_110 =
+    A.class "xl:hover:tw-scale-y-110"
+
+
+xl_hover_tw_scale_y_125 : Html.Attribute msg
+xl_hover_tw_scale_y_125 =
+    A.class "xl:hover:tw-scale-y-125"
+
+
+xl_hover_tw_scale_y_150 : Html.Attribute msg
+xl_hover_tw_scale_y_150 =
+    A.class "xl:hover:tw-scale-y-150"
+
+
+xl_focus_tw_scale_0 : Html.Attribute msg
+xl_focus_tw_scale_0 =
+    A.class "xl:focus:tw-scale-0"
+
+
+xl_focus_tw_scale_50 : Html.Attribute msg
+xl_focus_tw_scale_50 =
+    A.class "xl:focus:tw-scale-50"
+
+
+xl_focus_tw_scale_75 : Html.Attribute msg
+xl_focus_tw_scale_75 =
+    A.class "xl:focus:tw-scale-75"
+
+
+xl_focus_tw_scale_90 : Html.Attribute msg
+xl_focus_tw_scale_90 =
+    A.class "xl:focus:tw-scale-90"
+
+
+xl_focus_tw_scale_95 : Html.Attribute msg
+xl_focus_tw_scale_95 =
+    A.class "xl:focus:tw-scale-95"
+
+
+xl_focus_tw_scale_100 : Html.Attribute msg
+xl_focus_tw_scale_100 =
+    A.class "xl:focus:tw-scale-100"
+
+
+xl_focus_tw_scale_105 : Html.Attribute msg
+xl_focus_tw_scale_105 =
+    A.class "xl:focus:tw-scale-105"
+
+
+xl_focus_tw_scale_110 : Html.Attribute msg
+xl_focus_tw_scale_110 =
+    A.class "xl:focus:tw-scale-110"
+
+
+xl_focus_tw_scale_125 : Html.Attribute msg
+xl_focus_tw_scale_125 =
+    A.class "xl:focus:tw-scale-125"
+
+
+xl_focus_tw_scale_150 : Html.Attribute msg
+xl_focus_tw_scale_150 =
+    A.class "xl:focus:tw-scale-150"
+
+
+xl_focus_tw_scale_x_0 : Html.Attribute msg
+xl_focus_tw_scale_x_0 =
+    A.class "xl:focus:tw-scale-x-0"
+
+
+xl_focus_tw_scale_x_50 : Html.Attribute msg
+xl_focus_tw_scale_x_50 =
+    A.class "xl:focus:tw-scale-x-50"
+
+
+xl_focus_tw_scale_x_75 : Html.Attribute msg
+xl_focus_tw_scale_x_75 =
+    A.class "xl:focus:tw-scale-x-75"
+
+
+xl_focus_tw_scale_x_90 : Html.Attribute msg
+xl_focus_tw_scale_x_90 =
+    A.class "xl:focus:tw-scale-x-90"
+
+
+xl_focus_tw_scale_x_95 : Html.Attribute msg
+xl_focus_tw_scale_x_95 =
+    A.class "xl:focus:tw-scale-x-95"
+
+
+xl_focus_tw_scale_x_100 : Html.Attribute msg
+xl_focus_tw_scale_x_100 =
+    A.class "xl:focus:tw-scale-x-100"
+
+
+xl_focus_tw_scale_x_105 : Html.Attribute msg
+xl_focus_tw_scale_x_105 =
+    A.class "xl:focus:tw-scale-x-105"
+
+
+xl_focus_tw_scale_x_110 : Html.Attribute msg
+xl_focus_tw_scale_x_110 =
+    A.class "xl:focus:tw-scale-x-110"
+
+
+xl_focus_tw_scale_x_125 : Html.Attribute msg
+xl_focus_tw_scale_x_125 =
+    A.class "xl:focus:tw-scale-x-125"
+
+
+xl_focus_tw_scale_x_150 : Html.Attribute msg
+xl_focus_tw_scale_x_150 =
+    A.class "xl:focus:tw-scale-x-150"
+
+
+xl_focus_tw_scale_y_0 : Html.Attribute msg
+xl_focus_tw_scale_y_0 =
+    A.class "xl:focus:tw-scale-y-0"
+
+
+xl_focus_tw_scale_y_50 : Html.Attribute msg
+xl_focus_tw_scale_y_50 =
+    A.class "xl:focus:tw-scale-y-50"
+
+
+xl_focus_tw_scale_y_75 : Html.Attribute msg
+xl_focus_tw_scale_y_75 =
+    A.class "xl:focus:tw-scale-y-75"
+
+
+xl_focus_tw_scale_y_90 : Html.Attribute msg
+xl_focus_tw_scale_y_90 =
+    A.class "xl:focus:tw-scale-y-90"
+
+
+xl_focus_tw_scale_y_95 : Html.Attribute msg
+xl_focus_tw_scale_y_95 =
+    A.class "xl:focus:tw-scale-y-95"
+
+
+xl_focus_tw_scale_y_100 : Html.Attribute msg
+xl_focus_tw_scale_y_100 =
+    A.class "xl:focus:tw-scale-y-100"
+
+
+xl_focus_tw_scale_y_105 : Html.Attribute msg
+xl_focus_tw_scale_y_105 =
+    A.class "xl:focus:tw-scale-y-105"
+
+
+xl_focus_tw_scale_y_110 : Html.Attribute msg
+xl_focus_tw_scale_y_110 =
+    A.class "xl:focus:tw-scale-y-110"
+
+
+xl_focus_tw_scale_y_125 : Html.Attribute msg
+xl_focus_tw_scale_y_125 =
+    A.class "xl:focus:tw-scale-y-125"
+
+
+xl_focus_tw_scale_y_150 : Html.Attribute msg
+xl_focus_tw_scale_y_150 =
+    A.class "xl:focus:tw-scale-y-150"
+
+
+xl_tw_rotate_0 : Html.Attribute msg
+xl_tw_rotate_0 =
+    A.class "xl:tw-rotate-0"
+
+
+xl_tw_rotate_45 : Html.Attribute msg
+xl_tw_rotate_45 =
+    A.class "xl:tw-rotate-45"
+
+
+xl_tw_rotate_90 : Html.Attribute msg
+xl_tw_rotate_90 =
+    A.class "xl:tw-rotate-90"
+
+
+xl_tw_rotate_180 : Html.Attribute msg
+xl_tw_rotate_180 =
+    A.class "xl:tw-rotate-180"
+
+
+xl_tw_neg_rotate_180 : Html.Attribute msg
+xl_tw_neg_rotate_180 =
+    A.class "xl:tw--rotate-180"
+
+
+xl_tw_neg_rotate_90 : Html.Attribute msg
+xl_tw_neg_rotate_90 =
+    A.class "xl:tw--rotate-90"
+
+
+xl_tw_neg_rotate_45 : Html.Attribute msg
+xl_tw_neg_rotate_45 =
+    A.class "xl:tw--rotate-45"
+
+
+xl_hover_tw_rotate_0 : Html.Attribute msg
+xl_hover_tw_rotate_0 =
+    A.class "xl:hover:tw-rotate-0"
+
+
+xl_hover_tw_rotate_45 : Html.Attribute msg
+xl_hover_tw_rotate_45 =
+    A.class "xl:hover:tw-rotate-45"
+
+
+xl_hover_tw_rotate_90 : Html.Attribute msg
+xl_hover_tw_rotate_90 =
+    A.class "xl:hover:tw-rotate-90"
+
+
+xl_hover_tw_rotate_180 : Html.Attribute msg
+xl_hover_tw_rotate_180 =
+    A.class "xl:hover:tw-rotate-180"
+
+
+xl_hover_tw_neg_rotate_180 : Html.Attribute msg
+xl_hover_tw_neg_rotate_180 =
+    A.class "xl:hover:tw--rotate-180"
+
+
+xl_hover_tw_neg_rotate_90 : Html.Attribute msg
+xl_hover_tw_neg_rotate_90 =
+    A.class "xl:hover:tw--rotate-90"
+
+
+xl_hover_tw_neg_rotate_45 : Html.Attribute msg
+xl_hover_tw_neg_rotate_45 =
+    A.class "xl:hover:tw--rotate-45"
+
+
+xl_focus_tw_rotate_0 : Html.Attribute msg
+xl_focus_tw_rotate_0 =
+    A.class "xl:focus:tw-rotate-0"
+
+
+xl_focus_tw_rotate_45 : Html.Attribute msg
+xl_focus_tw_rotate_45 =
+    A.class "xl:focus:tw-rotate-45"
+
+
+xl_focus_tw_rotate_90 : Html.Attribute msg
+xl_focus_tw_rotate_90 =
+    A.class "xl:focus:tw-rotate-90"
+
+
+xl_focus_tw_rotate_180 : Html.Attribute msg
+xl_focus_tw_rotate_180 =
+    A.class "xl:focus:tw-rotate-180"
+
+
+xl_focus_tw_neg_rotate_180 : Html.Attribute msg
+xl_focus_tw_neg_rotate_180 =
+    A.class "xl:focus:tw--rotate-180"
+
+
+xl_focus_tw_neg_rotate_90 : Html.Attribute msg
+xl_focus_tw_neg_rotate_90 =
+    A.class "xl:focus:tw--rotate-90"
+
+
+xl_focus_tw_neg_rotate_45 : Html.Attribute msg
+xl_focus_tw_neg_rotate_45 =
+    A.class "xl:focus:tw--rotate-45"
+
+
+xl_tw_translate_x_0 : Html.Attribute msg
+xl_tw_translate_x_0 =
+    A.class "xl:tw-translate-x-0"
+
+
+xl_tw_translate_x_1 : Html.Attribute msg
+xl_tw_translate_x_1 =
+    A.class "xl:tw-translate-x-1"
+
+
+xl_tw_translate_x_2 : Html.Attribute msg
+xl_tw_translate_x_2 =
+    A.class "xl:tw-translate-x-2"
+
+
+xl_tw_translate_x_3 : Html.Attribute msg
+xl_tw_translate_x_3 =
+    A.class "xl:tw-translate-x-3"
+
+
+xl_tw_translate_x_4 : Html.Attribute msg
+xl_tw_translate_x_4 =
+    A.class "xl:tw-translate-x-4"
+
+
+xl_tw_translate_x_5 : Html.Attribute msg
+xl_tw_translate_x_5 =
+    A.class "xl:tw-translate-x-5"
+
+
+xl_tw_translate_x_6 : Html.Attribute msg
+xl_tw_translate_x_6 =
+    A.class "xl:tw-translate-x-6"
+
+
+xl_tw_translate_x_8 : Html.Attribute msg
+xl_tw_translate_x_8 =
+    A.class "xl:tw-translate-x-8"
+
+
+xl_tw_translate_x_10 : Html.Attribute msg
+xl_tw_translate_x_10 =
+    A.class "xl:tw-translate-x-10"
+
+
+xl_tw_translate_x_12 : Html.Attribute msg
+xl_tw_translate_x_12 =
+    A.class "xl:tw-translate-x-12"
+
+
+xl_tw_translate_x_16 : Html.Attribute msg
+xl_tw_translate_x_16 =
+    A.class "xl:tw-translate-x-16"
+
+
+xl_tw_translate_x_20 : Html.Attribute msg
+xl_tw_translate_x_20 =
+    A.class "xl:tw-translate-x-20"
+
+
+xl_tw_translate_x_24 : Html.Attribute msg
+xl_tw_translate_x_24 =
+    A.class "xl:tw-translate-x-24"
+
+
+xl_tw_translate_x_32 : Html.Attribute msg
+xl_tw_translate_x_32 =
+    A.class "xl:tw-translate-x-32"
+
+
+xl_tw_translate_x_40 : Html.Attribute msg
+xl_tw_translate_x_40 =
+    A.class "xl:tw-translate-x-40"
+
+
+xl_tw_translate_x_48 : Html.Attribute msg
+xl_tw_translate_x_48 =
+    A.class "xl:tw-translate-x-48"
+
+
+xl_tw_translate_x_56 : Html.Attribute msg
+xl_tw_translate_x_56 =
+    A.class "xl:tw-translate-x-56"
+
+
+xl_tw_translate_x_64 : Html.Attribute msg
+xl_tw_translate_x_64 =
+    A.class "xl:tw-translate-x-64"
+
+
+xl_tw_translate_x_px : Html.Attribute msg
+xl_tw_translate_x_px =
+    A.class "xl:tw-translate-x-px"
+
+
+xl_tw_neg_translate_x_1 : Html.Attribute msg
+xl_tw_neg_translate_x_1 =
+    A.class "xl:tw--translate-x-1"
+
+
+xl_tw_neg_translate_x_2 : Html.Attribute msg
+xl_tw_neg_translate_x_2 =
+    A.class "xl:tw--translate-x-2"
+
+
+xl_tw_neg_translate_x_3 : Html.Attribute msg
+xl_tw_neg_translate_x_3 =
+    A.class "xl:tw--translate-x-3"
+
+
+xl_tw_neg_translate_x_4 : Html.Attribute msg
+xl_tw_neg_translate_x_4 =
+    A.class "xl:tw--translate-x-4"
+
+
+xl_tw_neg_translate_x_5 : Html.Attribute msg
+xl_tw_neg_translate_x_5 =
+    A.class "xl:tw--translate-x-5"
+
+
+xl_tw_neg_translate_x_6 : Html.Attribute msg
+xl_tw_neg_translate_x_6 =
+    A.class "xl:tw--translate-x-6"
+
+
+xl_tw_neg_translate_x_8 : Html.Attribute msg
+xl_tw_neg_translate_x_8 =
+    A.class "xl:tw--translate-x-8"
+
+
+xl_tw_neg_translate_x_10 : Html.Attribute msg
+xl_tw_neg_translate_x_10 =
+    A.class "xl:tw--translate-x-10"
+
+
+xl_tw_neg_translate_x_12 : Html.Attribute msg
+xl_tw_neg_translate_x_12 =
+    A.class "xl:tw--translate-x-12"
+
+
+xl_tw_neg_translate_x_16 : Html.Attribute msg
+xl_tw_neg_translate_x_16 =
+    A.class "xl:tw--translate-x-16"
+
+
+xl_tw_neg_translate_x_20 : Html.Attribute msg
+xl_tw_neg_translate_x_20 =
+    A.class "xl:tw--translate-x-20"
+
+
+xl_tw_neg_translate_x_24 : Html.Attribute msg
+xl_tw_neg_translate_x_24 =
+    A.class "xl:tw--translate-x-24"
+
+
+xl_tw_neg_translate_x_32 : Html.Attribute msg
+xl_tw_neg_translate_x_32 =
+    A.class "xl:tw--translate-x-32"
+
+
+xl_tw_neg_translate_x_40 : Html.Attribute msg
+xl_tw_neg_translate_x_40 =
+    A.class "xl:tw--translate-x-40"
+
+
+xl_tw_neg_translate_x_48 : Html.Attribute msg
+xl_tw_neg_translate_x_48 =
+    A.class "xl:tw--translate-x-48"
+
+
+xl_tw_neg_translate_x_56 : Html.Attribute msg
+xl_tw_neg_translate_x_56 =
+    A.class "xl:tw--translate-x-56"
+
+
+xl_tw_neg_translate_x_64 : Html.Attribute msg
+xl_tw_neg_translate_x_64 =
+    A.class "xl:tw--translate-x-64"
+
+
+xl_tw_neg_translate_x_px : Html.Attribute msg
+xl_tw_neg_translate_x_px =
+    A.class "xl:tw--translate-x-px"
+
+
+xl_tw_neg_translate_x_full : Html.Attribute msg
+xl_tw_neg_translate_x_full =
+    A.class "xl:tw--translate-x-full"
+
+
+xl_tw_neg_translate_x_1over2 : Html.Attribute msg
+xl_tw_neg_translate_x_1over2 =
+    A.class "xl:tw--translate-x-1/2"
+
+
+xl_tw_translate_x_1over2 : Html.Attribute msg
+xl_tw_translate_x_1over2 =
+    A.class "xl:tw-translate-x-1/2"
+
+
+xl_tw_translate_x_full : Html.Attribute msg
+xl_tw_translate_x_full =
+    A.class "xl:tw-translate-x-full"
+
+
+xl_tw_translate_y_0 : Html.Attribute msg
+xl_tw_translate_y_0 =
+    A.class "xl:tw-translate-y-0"
+
+
+xl_tw_translate_y_1 : Html.Attribute msg
+xl_tw_translate_y_1 =
+    A.class "xl:tw-translate-y-1"
+
+
+xl_tw_translate_y_2 : Html.Attribute msg
+xl_tw_translate_y_2 =
+    A.class "xl:tw-translate-y-2"
+
+
+xl_tw_translate_y_3 : Html.Attribute msg
+xl_tw_translate_y_3 =
+    A.class "xl:tw-translate-y-3"
+
+
+xl_tw_translate_y_4 : Html.Attribute msg
+xl_tw_translate_y_4 =
+    A.class "xl:tw-translate-y-4"
+
+
+xl_tw_translate_y_5 : Html.Attribute msg
+xl_tw_translate_y_5 =
+    A.class "xl:tw-translate-y-5"
+
+
+xl_tw_translate_y_6 : Html.Attribute msg
+xl_tw_translate_y_6 =
+    A.class "xl:tw-translate-y-6"
+
+
+xl_tw_translate_y_8 : Html.Attribute msg
+xl_tw_translate_y_8 =
+    A.class "xl:tw-translate-y-8"
+
+
+xl_tw_translate_y_10 : Html.Attribute msg
+xl_tw_translate_y_10 =
+    A.class "xl:tw-translate-y-10"
+
+
+xl_tw_translate_y_12 : Html.Attribute msg
+xl_tw_translate_y_12 =
+    A.class "xl:tw-translate-y-12"
+
+
+xl_tw_translate_y_16 : Html.Attribute msg
+xl_tw_translate_y_16 =
+    A.class "xl:tw-translate-y-16"
+
+
+xl_tw_translate_y_20 : Html.Attribute msg
+xl_tw_translate_y_20 =
+    A.class "xl:tw-translate-y-20"
+
+
+xl_tw_translate_y_24 : Html.Attribute msg
+xl_tw_translate_y_24 =
+    A.class "xl:tw-translate-y-24"
+
+
+xl_tw_translate_y_32 : Html.Attribute msg
+xl_tw_translate_y_32 =
+    A.class "xl:tw-translate-y-32"
+
+
+xl_tw_translate_y_40 : Html.Attribute msg
+xl_tw_translate_y_40 =
+    A.class "xl:tw-translate-y-40"
+
+
+xl_tw_translate_y_48 : Html.Attribute msg
+xl_tw_translate_y_48 =
+    A.class "xl:tw-translate-y-48"
+
+
+xl_tw_translate_y_56 : Html.Attribute msg
+xl_tw_translate_y_56 =
+    A.class "xl:tw-translate-y-56"
+
+
+xl_tw_translate_y_64 : Html.Attribute msg
+xl_tw_translate_y_64 =
+    A.class "xl:tw-translate-y-64"
+
+
+xl_tw_translate_y_px : Html.Attribute msg
+xl_tw_translate_y_px =
+    A.class "xl:tw-translate-y-px"
+
+
+xl_tw_neg_translate_y_1 : Html.Attribute msg
+xl_tw_neg_translate_y_1 =
+    A.class "xl:tw--translate-y-1"
+
+
+xl_tw_neg_translate_y_2 : Html.Attribute msg
+xl_tw_neg_translate_y_2 =
+    A.class "xl:tw--translate-y-2"
+
+
+xl_tw_neg_translate_y_3 : Html.Attribute msg
+xl_tw_neg_translate_y_3 =
+    A.class "xl:tw--translate-y-3"
+
+
+xl_tw_neg_translate_y_4 : Html.Attribute msg
+xl_tw_neg_translate_y_4 =
+    A.class "xl:tw--translate-y-4"
+
+
+xl_tw_neg_translate_y_5 : Html.Attribute msg
+xl_tw_neg_translate_y_5 =
+    A.class "xl:tw--translate-y-5"
+
+
+xl_tw_neg_translate_y_6 : Html.Attribute msg
+xl_tw_neg_translate_y_6 =
+    A.class "xl:tw--translate-y-6"
+
+
+xl_tw_neg_translate_y_8 : Html.Attribute msg
+xl_tw_neg_translate_y_8 =
+    A.class "xl:tw--translate-y-8"
+
+
+xl_tw_neg_translate_y_10 : Html.Attribute msg
+xl_tw_neg_translate_y_10 =
+    A.class "xl:tw--translate-y-10"
+
+
+xl_tw_neg_translate_y_12 : Html.Attribute msg
+xl_tw_neg_translate_y_12 =
+    A.class "xl:tw--translate-y-12"
+
+
+xl_tw_neg_translate_y_16 : Html.Attribute msg
+xl_tw_neg_translate_y_16 =
+    A.class "xl:tw--translate-y-16"
+
+
+xl_tw_neg_translate_y_20 : Html.Attribute msg
+xl_tw_neg_translate_y_20 =
+    A.class "xl:tw--translate-y-20"
+
+
+xl_tw_neg_translate_y_24 : Html.Attribute msg
+xl_tw_neg_translate_y_24 =
+    A.class "xl:tw--translate-y-24"
+
+
+xl_tw_neg_translate_y_32 : Html.Attribute msg
+xl_tw_neg_translate_y_32 =
+    A.class "xl:tw--translate-y-32"
+
+
+xl_tw_neg_translate_y_40 : Html.Attribute msg
+xl_tw_neg_translate_y_40 =
+    A.class "xl:tw--translate-y-40"
+
+
+xl_tw_neg_translate_y_48 : Html.Attribute msg
+xl_tw_neg_translate_y_48 =
+    A.class "xl:tw--translate-y-48"
+
+
+xl_tw_neg_translate_y_56 : Html.Attribute msg
+xl_tw_neg_translate_y_56 =
+    A.class "xl:tw--translate-y-56"
+
+
+xl_tw_neg_translate_y_64 : Html.Attribute msg
+xl_tw_neg_translate_y_64 =
+    A.class "xl:tw--translate-y-64"
+
+
+xl_tw_neg_translate_y_px : Html.Attribute msg
+xl_tw_neg_translate_y_px =
+    A.class "xl:tw--translate-y-px"
+
+
+xl_tw_neg_translate_y_full : Html.Attribute msg
+xl_tw_neg_translate_y_full =
+    A.class "xl:tw--translate-y-full"
+
+
+xl_tw_neg_translate_y_1over2 : Html.Attribute msg
+xl_tw_neg_translate_y_1over2 =
+    A.class "xl:tw--translate-y-1/2"
+
+
+xl_tw_translate_y_1over2 : Html.Attribute msg
+xl_tw_translate_y_1over2 =
+    A.class "xl:tw-translate-y-1/2"
+
+
+xl_tw_translate_y_full : Html.Attribute msg
+xl_tw_translate_y_full =
+    A.class "xl:tw-translate-y-full"
+
+
+xl_hover_tw_translate_x_0 : Html.Attribute msg
+xl_hover_tw_translate_x_0 =
+    A.class "xl:hover:tw-translate-x-0"
+
+
+xl_hover_tw_translate_x_1 : Html.Attribute msg
+xl_hover_tw_translate_x_1 =
+    A.class "xl:hover:tw-translate-x-1"
+
+
+xl_hover_tw_translate_x_2 : Html.Attribute msg
+xl_hover_tw_translate_x_2 =
+    A.class "xl:hover:tw-translate-x-2"
+
+
+xl_hover_tw_translate_x_3 : Html.Attribute msg
+xl_hover_tw_translate_x_3 =
+    A.class "xl:hover:tw-translate-x-3"
+
+
+xl_hover_tw_translate_x_4 : Html.Attribute msg
+xl_hover_tw_translate_x_4 =
+    A.class "xl:hover:tw-translate-x-4"
+
+
+xl_hover_tw_translate_x_5 : Html.Attribute msg
+xl_hover_tw_translate_x_5 =
+    A.class "xl:hover:tw-translate-x-5"
+
+
+xl_hover_tw_translate_x_6 : Html.Attribute msg
+xl_hover_tw_translate_x_6 =
+    A.class "xl:hover:tw-translate-x-6"
+
+
+xl_hover_tw_translate_x_8 : Html.Attribute msg
+xl_hover_tw_translate_x_8 =
+    A.class "xl:hover:tw-translate-x-8"
+
+
+xl_hover_tw_translate_x_10 : Html.Attribute msg
+xl_hover_tw_translate_x_10 =
+    A.class "xl:hover:tw-translate-x-10"
+
+
+xl_hover_tw_translate_x_12 : Html.Attribute msg
+xl_hover_tw_translate_x_12 =
+    A.class "xl:hover:tw-translate-x-12"
+
+
+xl_hover_tw_translate_x_16 : Html.Attribute msg
+xl_hover_tw_translate_x_16 =
+    A.class "xl:hover:tw-translate-x-16"
+
+
+xl_hover_tw_translate_x_20 : Html.Attribute msg
+xl_hover_tw_translate_x_20 =
+    A.class "xl:hover:tw-translate-x-20"
+
+
+xl_hover_tw_translate_x_24 : Html.Attribute msg
+xl_hover_tw_translate_x_24 =
+    A.class "xl:hover:tw-translate-x-24"
+
+
+xl_hover_tw_translate_x_32 : Html.Attribute msg
+xl_hover_tw_translate_x_32 =
+    A.class "xl:hover:tw-translate-x-32"
+
+
+xl_hover_tw_translate_x_40 : Html.Attribute msg
+xl_hover_tw_translate_x_40 =
+    A.class "xl:hover:tw-translate-x-40"
+
+
+xl_hover_tw_translate_x_48 : Html.Attribute msg
+xl_hover_tw_translate_x_48 =
+    A.class "xl:hover:tw-translate-x-48"
+
+
+xl_hover_tw_translate_x_56 : Html.Attribute msg
+xl_hover_tw_translate_x_56 =
+    A.class "xl:hover:tw-translate-x-56"
+
+
+xl_hover_tw_translate_x_64 : Html.Attribute msg
+xl_hover_tw_translate_x_64 =
+    A.class "xl:hover:tw-translate-x-64"
+
+
+xl_hover_tw_translate_x_px : Html.Attribute msg
+xl_hover_tw_translate_x_px =
+    A.class "xl:hover:tw-translate-x-px"
+
+
+xl_hover_tw_neg_translate_x_1 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_1 =
+    A.class "xl:hover:tw--translate-x-1"
+
+
+xl_hover_tw_neg_translate_x_2 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_2 =
+    A.class "xl:hover:tw--translate-x-2"
+
+
+xl_hover_tw_neg_translate_x_3 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_3 =
+    A.class "xl:hover:tw--translate-x-3"
+
+
+xl_hover_tw_neg_translate_x_4 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_4 =
+    A.class "xl:hover:tw--translate-x-4"
+
+
+xl_hover_tw_neg_translate_x_5 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_5 =
+    A.class "xl:hover:tw--translate-x-5"
+
+
+xl_hover_tw_neg_translate_x_6 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_6 =
+    A.class "xl:hover:tw--translate-x-6"
+
+
+xl_hover_tw_neg_translate_x_8 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_8 =
+    A.class "xl:hover:tw--translate-x-8"
+
+
+xl_hover_tw_neg_translate_x_10 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_10 =
+    A.class "xl:hover:tw--translate-x-10"
+
+
+xl_hover_tw_neg_translate_x_12 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_12 =
+    A.class "xl:hover:tw--translate-x-12"
+
+
+xl_hover_tw_neg_translate_x_16 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_16 =
+    A.class "xl:hover:tw--translate-x-16"
+
+
+xl_hover_tw_neg_translate_x_20 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_20 =
+    A.class "xl:hover:tw--translate-x-20"
+
+
+xl_hover_tw_neg_translate_x_24 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_24 =
+    A.class "xl:hover:tw--translate-x-24"
+
+
+xl_hover_tw_neg_translate_x_32 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_32 =
+    A.class "xl:hover:tw--translate-x-32"
+
+
+xl_hover_tw_neg_translate_x_40 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_40 =
+    A.class "xl:hover:tw--translate-x-40"
+
+
+xl_hover_tw_neg_translate_x_48 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_48 =
+    A.class "xl:hover:tw--translate-x-48"
+
+
+xl_hover_tw_neg_translate_x_56 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_56 =
+    A.class "xl:hover:tw--translate-x-56"
+
+
+xl_hover_tw_neg_translate_x_64 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_64 =
+    A.class "xl:hover:tw--translate-x-64"
+
+
+xl_hover_tw_neg_translate_x_px : Html.Attribute msg
+xl_hover_tw_neg_translate_x_px =
+    A.class "xl:hover:tw--translate-x-px"
+
+
+xl_hover_tw_neg_translate_x_full : Html.Attribute msg
+xl_hover_tw_neg_translate_x_full =
+    A.class "xl:hover:tw--translate-x-full"
+
+
+xl_hover_tw_neg_translate_x_1over2 : Html.Attribute msg
+xl_hover_tw_neg_translate_x_1over2 =
+    A.class "xl:hover:tw--translate-x-1/2"
+
+
+xl_hover_tw_translate_x_1over2 : Html.Attribute msg
+xl_hover_tw_translate_x_1over2 =
+    A.class "xl:hover:tw-translate-x-1/2"
+
+
+xl_hover_tw_translate_x_full : Html.Attribute msg
+xl_hover_tw_translate_x_full =
+    A.class "xl:hover:tw-translate-x-full"
+
+
+xl_hover_tw_translate_y_0 : Html.Attribute msg
+xl_hover_tw_translate_y_0 =
+    A.class "xl:hover:tw-translate-y-0"
+
+
+xl_hover_tw_translate_y_1 : Html.Attribute msg
+xl_hover_tw_translate_y_1 =
+    A.class "xl:hover:tw-translate-y-1"
+
+
+xl_hover_tw_translate_y_2 : Html.Attribute msg
+xl_hover_tw_translate_y_2 =
+    A.class "xl:hover:tw-translate-y-2"
+
+
+xl_hover_tw_translate_y_3 : Html.Attribute msg
+xl_hover_tw_translate_y_3 =
+    A.class "xl:hover:tw-translate-y-3"
+
+
+xl_hover_tw_translate_y_4 : Html.Attribute msg
+xl_hover_tw_translate_y_4 =
+    A.class "xl:hover:tw-translate-y-4"
+
+
+xl_hover_tw_translate_y_5 : Html.Attribute msg
+xl_hover_tw_translate_y_5 =
+    A.class "xl:hover:tw-translate-y-5"
+
+
+xl_hover_tw_translate_y_6 : Html.Attribute msg
+xl_hover_tw_translate_y_6 =
+    A.class "xl:hover:tw-translate-y-6"
+
+
+xl_hover_tw_translate_y_8 : Html.Attribute msg
+xl_hover_tw_translate_y_8 =
+    A.class "xl:hover:tw-translate-y-8"
+
+
+xl_hover_tw_translate_y_10 : Html.Attribute msg
+xl_hover_tw_translate_y_10 =
+    A.class "xl:hover:tw-translate-y-10"
+
+
+xl_hover_tw_translate_y_12 : Html.Attribute msg
+xl_hover_tw_translate_y_12 =
+    A.class "xl:hover:tw-translate-y-12"
+
+
+xl_hover_tw_translate_y_16 : Html.Attribute msg
+xl_hover_tw_translate_y_16 =
+    A.class "xl:hover:tw-translate-y-16"
+
+
+xl_hover_tw_translate_y_20 : Html.Attribute msg
+xl_hover_tw_translate_y_20 =
+    A.class "xl:hover:tw-translate-y-20"
+
+
+xl_hover_tw_translate_y_24 : Html.Attribute msg
+xl_hover_tw_translate_y_24 =
+    A.class "xl:hover:tw-translate-y-24"
+
+
+xl_hover_tw_translate_y_32 : Html.Attribute msg
+xl_hover_tw_translate_y_32 =
+    A.class "xl:hover:tw-translate-y-32"
+
+
+xl_hover_tw_translate_y_40 : Html.Attribute msg
+xl_hover_tw_translate_y_40 =
+    A.class "xl:hover:tw-translate-y-40"
+
+
+xl_hover_tw_translate_y_48 : Html.Attribute msg
+xl_hover_tw_translate_y_48 =
+    A.class "xl:hover:tw-translate-y-48"
+
+
+xl_hover_tw_translate_y_56 : Html.Attribute msg
+xl_hover_tw_translate_y_56 =
+    A.class "xl:hover:tw-translate-y-56"
+
+
+xl_hover_tw_translate_y_64 : Html.Attribute msg
+xl_hover_tw_translate_y_64 =
+    A.class "xl:hover:tw-translate-y-64"
+
+
+xl_hover_tw_translate_y_px : Html.Attribute msg
+xl_hover_tw_translate_y_px =
+    A.class "xl:hover:tw-translate-y-px"
+
+
+xl_hover_tw_neg_translate_y_1 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_1 =
+    A.class "xl:hover:tw--translate-y-1"
+
+
+xl_hover_tw_neg_translate_y_2 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_2 =
+    A.class "xl:hover:tw--translate-y-2"
+
+
+xl_hover_tw_neg_translate_y_3 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_3 =
+    A.class "xl:hover:tw--translate-y-3"
+
+
+xl_hover_tw_neg_translate_y_4 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_4 =
+    A.class "xl:hover:tw--translate-y-4"
+
+
+xl_hover_tw_neg_translate_y_5 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_5 =
+    A.class "xl:hover:tw--translate-y-5"
+
+
+xl_hover_tw_neg_translate_y_6 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_6 =
+    A.class "xl:hover:tw--translate-y-6"
+
+
+xl_hover_tw_neg_translate_y_8 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_8 =
+    A.class "xl:hover:tw--translate-y-8"
+
+
+xl_hover_tw_neg_translate_y_10 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_10 =
+    A.class "xl:hover:tw--translate-y-10"
+
+
+xl_hover_tw_neg_translate_y_12 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_12 =
+    A.class "xl:hover:tw--translate-y-12"
+
+
+xl_hover_tw_neg_translate_y_16 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_16 =
+    A.class "xl:hover:tw--translate-y-16"
+
+
+xl_hover_tw_neg_translate_y_20 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_20 =
+    A.class "xl:hover:tw--translate-y-20"
+
+
+xl_hover_tw_neg_translate_y_24 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_24 =
+    A.class "xl:hover:tw--translate-y-24"
+
+
+xl_hover_tw_neg_translate_y_32 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_32 =
+    A.class "xl:hover:tw--translate-y-32"
+
+
+xl_hover_tw_neg_translate_y_40 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_40 =
+    A.class "xl:hover:tw--translate-y-40"
+
+
+xl_hover_tw_neg_translate_y_48 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_48 =
+    A.class "xl:hover:tw--translate-y-48"
+
+
+xl_hover_tw_neg_translate_y_56 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_56 =
+    A.class "xl:hover:tw--translate-y-56"
+
+
+xl_hover_tw_neg_translate_y_64 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_64 =
+    A.class "xl:hover:tw--translate-y-64"
+
+
+xl_hover_tw_neg_translate_y_px : Html.Attribute msg
+xl_hover_tw_neg_translate_y_px =
+    A.class "xl:hover:tw--translate-y-px"
+
+
+xl_hover_tw_neg_translate_y_full : Html.Attribute msg
+xl_hover_tw_neg_translate_y_full =
+    A.class "xl:hover:tw--translate-y-full"
+
+
+xl_hover_tw_neg_translate_y_1over2 : Html.Attribute msg
+xl_hover_tw_neg_translate_y_1over2 =
+    A.class "xl:hover:tw--translate-y-1/2"
+
+
+xl_hover_tw_translate_y_1over2 : Html.Attribute msg
+xl_hover_tw_translate_y_1over2 =
+    A.class "xl:hover:tw-translate-y-1/2"
+
+
+xl_hover_tw_translate_y_full : Html.Attribute msg
+xl_hover_tw_translate_y_full =
+    A.class "xl:hover:tw-translate-y-full"
+
+
+xl_focus_tw_translate_x_0 : Html.Attribute msg
+xl_focus_tw_translate_x_0 =
+    A.class "xl:focus:tw-translate-x-0"
+
+
+xl_focus_tw_translate_x_1 : Html.Attribute msg
+xl_focus_tw_translate_x_1 =
+    A.class "xl:focus:tw-translate-x-1"
+
+
+xl_focus_tw_translate_x_2 : Html.Attribute msg
+xl_focus_tw_translate_x_2 =
+    A.class "xl:focus:tw-translate-x-2"
+
+
+xl_focus_tw_translate_x_3 : Html.Attribute msg
+xl_focus_tw_translate_x_3 =
+    A.class "xl:focus:tw-translate-x-3"
+
+
+xl_focus_tw_translate_x_4 : Html.Attribute msg
+xl_focus_tw_translate_x_4 =
+    A.class "xl:focus:tw-translate-x-4"
+
+
+xl_focus_tw_translate_x_5 : Html.Attribute msg
+xl_focus_tw_translate_x_5 =
+    A.class "xl:focus:tw-translate-x-5"
+
+
+xl_focus_tw_translate_x_6 : Html.Attribute msg
+xl_focus_tw_translate_x_6 =
+    A.class "xl:focus:tw-translate-x-6"
+
+
+xl_focus_tw_translate_x_8 : Html.Attribute msg
+xl_focus_tw_translate_x_8 =
+    A.class "xl:focus:tw-translate-x-8"
+
+
+xl_focus_tw_translate_x_10 : Html.Attribute msg
+xl_focus_tw_translate_x_10 =
+    A.class "xl:focus:tw-translate-x-10"
+
+
+xl_focus_tw_translate_x_12 : Html.Attribute msg
+xl_focus_tw_translate_x_12 =
+    A.class "xl:focus:tw-translate-x-12"
+
+
+xl_focus_tw_translate_x_16 : Html.Attribute msg
+xl_focus_tw_translate_x_16 =
+    A.class "xl:focus:tw-translate-x-16"
+
+
+xl_focus_tw_translate_x_20 : Html.Attribute msg
+xl_focus_tw_translate_x_20 =
+    A.class "xl:focus:tw-translate-x-20"
+
+
+xl_focus_tw_translate_x_24 : Html.Attribute msg
+xl_focus_tw_translate_x_24 =
+    A.class "xl:focus:tw-translate-x-24"
+
+
+xl_focus_tw_translate_x_32 : Html.Attribute msg
+xl_focus_tw_translate_x_32 =
+    A.class "xl:focus:tw-translate-x-32"
+
+
+xl_focus_tw_translate_x_40 : Html.Attribute msg
+xl_focus_tw_translate_x_40 =
+    A.class "xl:focus:tw-translate-x-40"
+
+
+xl_focus_tw_translate_x_48 : Html.Attribute msg
+xl_focus_tw_translate_x_48 =
+    A.class "xl:focus:tw-translate-x-48"
+
+
+xl_focus_tw_translate_x_56 : Html.Attribute msg
+xl_focus_tw_translate_x_56 =
+    A.class "xl:focus:tw-translate-x-56"
+
+
+xl_focus_tw_translate_x_64 : Html.Attribute msg
+xl_focus_tw_translate_x_64 =
+    A.class "xl:focus:tw-translate-x-64"
+
+
+xl_focus_tw_translate_x_px : Html.Attribute msg
+xl_focus_tw_translate_x_px =
+    A.class "xl:focus:tw-translate-x-px"
+
+
+xl_focus_tw_neg_translate_x_1 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_1 =
+    A.class "xl:focus:tw--translate-x-1"
+
+
+xl_focus_tw_neg_translate_x_2 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_2 =
+    A.class "xl:focus:tw--translate-x-2"
+
+
+xl_focus_tw_neg_translate_x_3 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_3 =
+    A.class "xl:focus:tw--translate-x-3"
+
+
+xl_focus_tw_neg_translate_x_4 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_4 =
+    A.class "xl:focus:tw--translate-x-4"
+
+
+xl_focus_tw_neg_translate_x_5 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_5 =
+    A.class "xl:focus:tw--translate-x-5"
+
+
+xl_focus_tw_neg_translate_x_6 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_6 =
+    A.class "xl:focus:tw--translate-x-6"
+
+
+xl_focus_tw_neg_translate_x_8 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_8 =
+    A.class "xl:focus:tw--translate-x-8"
+
+
+xl_focus_tw_neg_translate_x_10 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_10 =
+    A.class "xl:focus:tw--translate-x-10"
+
+
+xl_focus_tw_neg_translate_x_12 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_12 =
+    A.class "xl:focus:tw--translate-x-12"
+
+
+xl_focus_tw_neg_translate_x_16 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_16 =
+    A.class "xl:focus:tw--translate-x-16"
+
+
+xl_focus_tw_neg_translate_x_20 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_20 =
+    A.class "xl:focus:tw--translate-x-20"
+
+
+xl_focus_tw_neg_translate_x_24 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_24 =
+    A.class "xl:focus:tw--translate-x-24"
+
+
+xl_focus_tw_neg_translate_x_32 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_32 =
+    A.class "xl:focus:tw--translate-x-32"
+
+
+xl_focus_tw_neg_translate_x_40 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_40 =
+    A.class "xl:focus:tw--translate-x-40"
+
+
+xl_focus_tw_neg_translate_x_48 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_48 =
+    A.class "xl:focus:tw--translate-x-48"
+
+
+xl_focus_tw_neg_translate_x_56 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_56 =
+    A.class "xl:focus:tw--translate-x-56"
+
+
+xl_focus_tw_neg_translate_x_64 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_64 =
+    A.class "xl:focus:tw--translate-x-64"
+
+
+xl_focus_tw_neg_translate_x_px : Html.Attribute msg
+xl_focus_tw_neg_translate_x_px =
+    A.class "xl:focus:tw--translate-x-px"
+
+
+xl_focus_tw_neg_translate_x_full : Html.Attribute msg
+xl_focus_tw_neg_translate_x_full =
+    A.class "xl:focus:tw--translate-x-full"
+
+
+xl_focus_tw_neg_translate_x_1over2 : Html.Attribute msg
+xl_focus_tw_neg_translate_x_1over2 =
+    A.class "xl:focus:tw--translate-x-1/2"
+
+
+xl_focus_tw_translate_x_1over2 : Html.Attribute msg
+xl_focus_tw_translate_x_1over2 =
+    A.class "xl:focus:tw-translate-x-1/2"
+
+
+xl_focus_tw_translate_x_full : Html.Attribute msg
+xl_focus_tw_translate_x_full =
+    A.class "xl:focus:tw-translate-x-full"
+
+
+xl_focus_tw_translate_y_0 : Html.Attribute msg
+xl_focus_tw_translate_y_0 =
+    A.class "xl:focus:tw-translate-y-0"
+
+
+xl_focus_tw_translate_y_1 : Html.Attribute msg
+xl_focus_tw_translate_y_1 =
+    A.class "xl:focus:tw-translate-y-1"
+
+
+xl_focus_tw_translate_y_2 : Html.Attribute msg
+xl_focus_tw_translate_y_2 =
+    A.class "xl:focus:tw-translate-y-2"
+
+
+xl_focus_tw_translate_y_3 : Html.Attribute msg
+xl_focus_tw_translate_y_3 =
+    A.class "xl:focus:tw-translate-y-3"
+
+
+xl_focus_tw_translate_y_4 : Html.Attribute msg
+xl_focus_tw_translate_y_4 =
+    A.class "xl:focus:tw-translate-y-4"
+
+
+xl_focus_tw_translate_y_5 : Html.Attribute msg
+xl_focus_tw_translate_y_5 =
+    A.class "xl:focus:tw-translate-y-5"
+
+
+xl_focus_tw_translate_y_6 : Html.Attribute msg
+xl_focus_tw_translate_y_6 =
+    A.class "xl:focus:tw-translate-y-6"
+
+
+xl_focus_tw_translate_y_8 : Html.Attribute msg
+xl_focus_tw_translate_y_8 =
+    A.class "xl:focus:tw-translate-y-8"
+
+
+xl_focus_tw_translate_y_10 : Html.Attribute msg
+xl_focus_tw_translate_y_10 =
+    A.class "xl:focus:tw-translate-y-10"
+
+
+xl_focus_tw_translate_y_12 : Html.Attribute msg
+xl_focus_tw_translate_y_12 =
+    A.class "xl:focus:tw-translate-y-12"
+
+
+xl_focus_tw_translate_y_16 : Html.Attribute msg
+xl_focus_tw_translate_y_16 =
+    A.class "xl:focus:tw-translate-y-16"
+
+
+xl_focus_tw_translate_y_20 : Html.Attribute msg
+xl_focus_tw_translate_y_20 =
+    A.class "xl:focus:tw-translate-y-20"
+
+
+xl_focus_tw_translate_y_24 : Html.Attribute msg
+xl_focus_tw_translate_y_24 =
+    A.class "xl:focus:tw-translate-y-24"
+
+
+xl_focus_tw_translate_y_32 : Html.Attribute msg
+xl_focus_tw_translate_y_32 =
+    A.class "xl:focus:tw-translate-y-32"
+
+
+xl_focus_tw_translate_y_40 : Html.Attribute msg
+xl_focus_tw_translate_y_40 =
+    A.class "xl:focus:tw-translate-y-40"
+
+
+xl_focus_tw_translate_y_48 : Html.Attribute msg
+xl_focus_tw_translate_y_48 =
+    A.class "xl:focus:tw-translate-y-48"
+
+
+xl_focus_tw_translate_y_56 : Html.Attribute msg
+xl_focus_tw_translate_y_56 =
+    A.class "xl:focus:tw-translate-y-56"
+
+
+xl_focus_tw_translate_y_64 : Html.Attribute msg
+xl_focus_tw_translate_y_64 =
+    A.class "xl:focus:tw-translate-y-64"
+
+
+xl_focus_tw_translate_y_px : Html.Attribute msg
+xl_focus_tw_translate_y_px =
+    A.class "xl:focus:tw-translate-y-px"
+
+
+xl_focus_tw_neg_translate_y_1 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_1 =
+    A.class "xl:focus:tw--translate-y-1"
+
+
+xl_focus_tw_neg_translate_y_2 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_2 =
+    A.class "xl:focus:tw--translate-y-2"
+
+
+xl_focus_tw_neg_translate_y_3 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_3 =
+    A.class "xl:focus:tw--translate-y-3"
+
+
+xl_focus_tw_neg_translate_y_4 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_4 =
+    A.class "xl:focus:tw--translate-y-4"
+
+
+xl_focus_tw_neg_translate_y_5 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_5 =
+    A.class "xl:focus:tw--translate-y-5"
+
+
+xl_focus_tw_neg_translate_y_6 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_6 =
+    A.class "xl:focus:tw--translate-y-6"
+
+
+xl_focus_tw_neg_translate_y_8 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_8 =
+    A.class "xl:focus:tw--translate-y-8"
+
+
+xl_focus_tw_neg_translate_y_10 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_10 =
+    A.class "xl:focus:tw--translate-y-10"
+
+
+xl_focus_tw_neg_translate_y_12 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_12 =
+    A.class "xl:focus:tw--translate-y-12"
+
+
+xl_focus_tw_neg_translate_y_16 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_16 =
+    A.class "xl:focus:tw--translate-y-16"
+
+
+xl_focus_tw_neg_translate_y_20 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_20 =
+    A.class "xl:focus:tw--translate-y-20"
+
+
+xl_focus_tw_neg_translate_y_24 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_24 =
+    A.class "xl:focus:tw--translate-y-24"
+
+
+xl_focus_tw_neg_translate_y_32 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_32 =
+    A.class "xl:focus:tw--translate-y-32"
+
+
+xl_focus_tw_neg_translate_y_40 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_40 =
+    A.class "xl:focus:tw--translate-y-40"
+
+
+xl_focus_tw_neg_translate_y_48 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_48 =
+    A.class "xl:focus:tw--translate-y-48"
+
+
+xl_focus_tw_neg_translate_y_56 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_56 =
+    A.class "xl:focus:tw--translate-y-56"
+
+
+xl_focus_tw_neg_translate_y_64 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_64 =
+    A.class "xl:focus:tw--translate-y-64"
+
+
+xl_focus_tw_neg_translate_y_px : Html.Attribute msg
+xl_focus_tw_neg_translate_y_px =
+    A.class "xl:focus:tw--translate-y-px"
+
+
+xl_focus_tw_neg_translate_y_full : Html.Attribute msg
+xl_focus_tw_neg_translate_y_full =
+    A.class "xl:focus:tw--translate-y-full"
+
+
+xl_focus_tw_neg_translate_y_1over2 : Html.Attribute msg
+xl_focus_tw_neg_translate_y_1over2 =
+    A.class "xl:focus:tw--translate-y-1/2"
+
+
+xl_focus_tw_translate_y_1over2 : Html.Attribute msg
+xl_focus_tw_translate_y_1over2 =
+    A.class "xl:focus:tw-translate-y-1/2"
+
+
+xl_focus_tw_translate_y_full : Html.Attribute msg
+xl_focus_tw_translate_y_full =
+    A.class "xl:focus:tw-translate-y-full"
+
+
+xl_tw_skew_x_0 : Html.Attribute msg
+xl_tw_skew_x_0 =
+    A.class "xl:tw-skew-x-0"
+
+
+xl_tw_skew_x_3 : Html.Attribute msg
+xl_tw_skew_x_3 =
+    A.class "xl:tw-skew-x-3"
+
+
+xl_tw_skew_x_6 : Html.Attribute msg
+xl_tw_skew_x_6 =
+    A.class "xl:tw-skew-x-6"
+
+
+xl_tw_skew_x_12 : Html.Attribute msg
+xl_tw_skew_x_12 =
+    A.class "xl:tw-skew-x-12"
+
+
+xl_tw_neg_skew_x_12 : Html.Attribute msg
+xl_tw_neg_skew_x_12 =
+    A.class "xl:tw--skew-x-12"
+
+
+xl_tw_neg_skew_x_6 : Html.Attribute msg
+xl_tw_neg_skew_x_6 =
+    A.class "xl:tw--skew-x-6"
+
+
+xl_tw_neg_skew_x_3 : Html.Attribute msg
+xl_tw_neg_skew_x_3 =
+    A.class "xl:tw--skew-x-3"
+
+
+xl_tw_skew_y_0 : Html.Attribute msg
+xl_tw_skew_y_0 =
+    A.class "xl:tw-skew-y-0"
+
+
+xl_tw_skew_y_3 : Html.Attribute msg
+xl_tw_skew_y_3 =
+    A.class "xl:tw-skew-y-3"
+
+
+xl_tw_skew_y_6 : Html.Attribute msg
+xl_tw_skew_y_6 =
+    A.class "xl:tw-skew-y-6"
+
+
+xl_tw_skew_y_12 : Html.Attribute msg
+xl_tw_skew_y_12 =
+    A.class "xl:tw-skew-y-12"
+
+
+xl_tw_neg_skew_y_12 : Html.Attribute msg
+xl_tw_neg_skew_y_12 =
+    A.class "xl:tw--skew-y-12"
+
+
+xl_tw_neg_skew_y_6 : Html.Attribute msg
+xl_tw_neg_skew_y_6 =
+    A.class "xl:tw--skew-y-6"
+
+
+xl_tw_neg_skew_y_3 : Html.Attribute msg
+xl_tw_neg_skew_y_3 =
+    A.class "xl:tw--skew-y-3"
+
+
+xl_hover_tw_skew_x_0 : Html.Attribute msg
+xl_hover_tw_skew_x_0 =
+    A.class "xl:hover:tw-skew-x-0"
+
+
+xl_hover_tw_skew_x_3 : Html.Attribute msg
+xl_hover_tw_skew_x_3 =
+    A.class "xl:hover:tw-skew-x-3"
+
+
+xl_hover_tw_skew_x_6 : Html.Attribute msg
+xl_hover_tw_skew_x_6 =
+    A.class "xl:hover:tw-skew-x-6"
+
+
+xl_hover_tw_skew_x_12 : Html.Attribute msg
+xl_hover_tw_skew_x_12 =
+    A.class "xl:hover:tw-skew-x-12"
+
+
+xl_hover_tw_neg_skew_x_12 : Html.Attribute msg
+xl_hover_tw_neg_skew_x_12 =
+    A.class "xl:hover:tw--skew-x-12"
+
+
+xl_hover_tw_neg_skew_x_6 : Html.Attribute msg
+xl_hover_tw_neg_skew_x_6 =
+    A.class "xl:hover:tw--skew-x-6"
+
+
+xl_hover_tw_neg_skew_x_3 : Html.Attribute msg
+xl_hover_tw_neg_skew_x_3 =
+    A.class "xl:hover:tw--skew-x-3"
+
+
+xl_hover_tw_skew_y_0 : Html.Attribute msg
+xl_hover_tw_skew_y_0 =
+    A.class "xl:hover:tw-skew-y-0"
+
+
+xl_hover_tw_skew_y_3 : Html.Attribute msg
+xl_hover_tw_skew_y_3 =
+    A.class "xl:hover:tw-skew-y-3"
+
+
+xl_hover_tw_skew_y_6 : Html.Attribute msg
+xl_hover_tw_skew_y_6 =
+    A.class "xl:hover:tw-skew-y-6"
+
+
+xl_hover_tw_skew_y_12 : Html.Attribute msg
+xl_hover_tw_skew_y_12 =
+    A.class "xl:hover:tw-skew-y-12"
+
+
+xl_hover_tw_neg_skew_y_12 : Html.Attribute msg
+xl_hover_tw_neg_skew_y_12 =
+    A.class "xl:hover:tw--skew-y-12"
+
+
+xl_hover_tw_neg_skew_y_6 : Html.Attribute msg
+xl_hover_tw_neg_skew_y_6 =
+    A.class "xl:hover:tw--skew-y-6"
+
+
+xl_hover_tw_neg_skew_y_3 : Html.Attribute msg
+xl_hover_tw_neg_skew_y_3 =
+    A.class "xl:hover:tw--skew-y-3"
+
+
+xl_focus_tw_skew_x_0 : Html.Attribute msg
+xl_focus_tw_skew_x_0 =
+    A.class "xl:focus:tw-skew-x-0"
+
+
+xl_focus_tw_skew_x_3 : Html.Attribute msg
+xl_focus_tw_skew_x_3 =
+    A.class "xl:focus:tw-skew-x-3"
+
+
+xl_focus_tw_skew_x_6 : Html.Attribute msg
+xl_focus_tw_skew_x_6 =
+    A.class "xl:focus:tw-skew-x-6"
+
+
+xl_focus_tw_skew_x_12 : Html.Attribute msg
+xl_focus_tw_skew_x_12 =
+    A.class "xl:focus:tw-skew-x-12"
+
+
+xl_focus_tw_neg_skew_x_12 : Html.Attribute msg
+xl_focus_tw_neg_skew_x_12 =
+    A.class "xl:focus:tw--skew-x-12"
+
+
+xl_focus_tw_neg_skew_x_6 : Html.Attribute msg
+xl_focus_tw_neg_skew_x_6 =
+    A.class "xl:focus:tw--skew-x-6"
+
+
+xl_focus_tw_neg_skew_x_3 : Html.Attribute msg
+xl_focus_tw_neg_skew_x_3 =
+    A.class "xl:focus:tw--skew-x-3"
+
+
+xl_focus_tw_skew_y_0 : Html.Attribute msg
+xl_focus_tw_skew_y_0 =
+    A.class "xl:focus:tw-skew-y-0"
+
+
+xl_focus_tw_skew_y_3 : Html.Attribute msg
+xl_focus_tw_skew_y_3 =
+    A.class "xl:focus:tw-skew-y-3"
+
+
+xl_focus_tw_skew_y_6 : Html.Attribute msg
+xl_focus_tw_skew_y_6 =
+    A.class "xl:focus:tw-skew-y-6"
+
+
+xl_focus_tw_skew_y_12 : Html.Attribute msg
+xl_focus_tw_skew_y_12 =
+    A.class "xl:focus:tw-skew-y-12"
+
+
+xl_focus_tw_neg_skew_y_12 : Html.Attribute msg
+xl_focus_tw_neg_skew_y_12 =
+    A.class "xl:focus:tw--skew-y-12"
+
+
+xl_focus_tw_neg_skew_y_6 : Html.Attribute msg
+xl_focus_tw_neg_skew_y_6 =
+    A.class "xl:focus:tw--skew-y-6"
+
+
+xl_focus_tw_neg_skew_y_3 : Html.Attribute msg
+xl_focus_tw_neg_skew_y_3 =
+    A.class "xl:focus:tw--skew-y-3"
+
+
+xl_tw_transition_none : Html.Attribute msg
+xl_tw_transition_none =
+    A.class "xl:tw-transition-none"
+
+
+xl_tw_transition_all : Html.Attribute msg
+xl_tw_transition_all =
+    A.class "xl:tw-transition-all"
+
+
+xl_tw_transition : Html.Attribute msg
+xl_tw_transition =
+    A.class "xl:tw-transition"
+
+
+xl_tw_transition_colors : Html.Attribute msg
+xl_tw_transition_colors =
+    A.class "xl:tw-transition-colors"
+
+
+xl_tw_transition_opacity : Html.Attribute msg
+xl_tw_transition_opacity =
+    A.class "xl:tw-transition-opacity"
+
+
+xl_tw_transition_shadow : Html.Attribute msg
+xl_tw_transition_shadow =
+    A.class "xl:tw-transition-shadow"
+
+
+xl_tw_transition_transform : Html.Attribute msg
+xl_tw_transition_transform =
+    A.class "xl:tw-transition-transform"
+
+
+xl_tw_ease_linear : Html.Attribute msg
+xl_tw_ease_linear =
+    A.class "xl:tw-ease-linear"
+
+
+xl_tw_ease_in : Html.Attribute msg
+xl_tw_ease_in =
+    A.class "xl:tw-ease-in"
+
+
+xl_tw_ease_out : Html.Attribute msg
+xl_tw_ease_out =
+    A.class "xl:tw-ease-out"
+
+
+xl_tw_ease_in_out : Html.Attribute msg
+xl_tw_ease_in_out =
+    A.class "xl:tw-ease-in-out"
+
+
+xl_tw_duration_75 : Html.Attribute msg
+xl_tw_duration_75 =
+    A.class "xl:tw-duration-75"
+
+
+xl_tw_duration_100 : Html.Attribute msg
+xl_tw_duration_100 =
+    A.class "xl:tw-duration-100"
+
+
+xl_tw_duration_150 : Html.Attribute msg
+xl_tw_duration_150 =
+    A.class "xl:tw-duration-150"
+
+
+xl_tw_duration_200 : Html.Attribute msg
+xl_tw_duration_200 =
+    A.class "xl:tw-duration-200"
+
+
+xl_tw_duration_300 : Html.Attribute msg
+xl_tw_duration_300 =
+    A.class "xl:tw-duration-300"
+
+
+xl_tw_duration_500 : Html.Attribute msg
+xl_tw_duration_500 =
+    A.class "xl:tw-duration-500"
+
+
+xl_tw_duration_700 : Html.Attribute msg
+xl_tw_duration_700 =
+    A.class "xl:tw-duration-700"
+
+
+xl_tw_duration_1000 : Html.Attribute msg
+xl_tw_duration_1000 =
+    A.class "xl:tw-duration-1000"
 
