@@ -171,4 +171,10 @@ buttonCls =
     , TW.tw_mx_auto
     , TW.tw_block
     , TW.tw_w_1over4
+    , TW.tw_transition
+    , TW.tw_duration_500
+    , TW.tw_ease_in_out
+    , TW.tw_transform
+    , TW.hover_tw_neg_translate_y_1
+    , TW.hover_tw_scale_110
     ]
