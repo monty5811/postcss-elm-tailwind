@@ -20,7 +20,7 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
       let cls = rule.selector;
 
       cls = h.fixClass(cls);
-      elm = h.toElmName(cls, opts.prefix);
+      let elm = h.toElmName(cls, opts);
 
       classes.set(cls, h.elmFunction(cls, elm));
       elm_fns.push(elm);

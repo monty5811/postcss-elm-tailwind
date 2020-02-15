@@ -36,16 +36,23 @@ ${elm} =
 `;
 }
 
+const defaultOpts = {
+    elmFile: "src/TW.elm",
+    elmModuleName: "TW",
+    prefix: "",
+    nameStyle: "snake"
+};
+
 function fixClass(cls) {
   // remove the dot
   cls = cls.replace(/^(\.)/, "");
   // remove extras at end
   cls = cls.replace(
-    /\:(responsive|group-hover|focus-within|first|last|odd|even|hover|focus|active|visited|disabled)$/,
+    /:(responsive|group-hover|focus-within|first|last|odd|even|hover|focus|active|visited|disabled)$/,
     ""
   );
   // remove extras at end
-  cls = cls.replace(/\::(placeholder)$/, "");
+  cls = cls.replace(/::(placeholder)$/, "");
   //
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
@@ -59,11 +66,12 @@ function fixClass(cls) {
   return cls;
 }
 
-function toElmName(cls, prefix) {
+function toElmName(cls, opts) {
+  opts = opts || defaultOpts;
   var elm = cls;
   // handle negative with prefix
-  if (prefix) {
-    re_neg_with_prefix = new RegExp(`(${prefix})-([a-z])`);
+  if (opts.prefix) {
+    let re_neg_with_prefix = new RegExp(`(${opts.prefix})-([a-z])`);
     elm = elm.replace(re_neg_with_prefix, "$1neg_$2");
   }
   // handle negative at start of string
@@ -79,15 +87,14 @@ function toElmName(cls, prefix) {
   // clean up
   elm = elm.replace(/\\__/g, "_");
   elm = elm.replace(/^_/g, "");
+
+  if (opts.nameStyle === "camel") {
+      elm = elm.replace(/(_\w)/g, g => g[1].toUpperCase())
+  }
   return elm;
 }
 
 function cleanOpts(opts) {
-  const defaultOpts = {
-    elmFile: "src/TW.elm",
-    elmModuleName: "TW",
-    prefix: ""
-  };
   if (opts === undefined) {
     opts = defaultOpts;
   }
@@ -100,6 +107,9 @@ function cleanOpts(opts) {
   if (!opts.elmModuleName) {
     opts.elmModuleName = defaultOpts.elmModuleName;
   }
+  if (!opts.name) {
+    opts.nameStyle = defaultOpts.nameStyle
+  }
   return opts;
 }
 
@@ -109,3 +119,4 @@ exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;
 exports.toElmName = toElmName;
 exports.cleanOpts = cleanOpts;
+exports.defaultOpts = defaultOpts;
