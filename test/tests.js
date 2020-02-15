@@ -96,20 +96,27 @@ describe("fixClass -> toElmName", () => {
   });
   it("negative with prefix and variant .xl:tw--my-64", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".xl:tw--my-64"), "tw-"),
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {...h.defaultOpts, prefix: "tw-"}),
       "xl_tw_neg_my_64"
     );
   });
+  it("negative with prefix and variant .xl:tw--my-64 camel", () => {
+    assert.equal(
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {...camelCaseOpts, prefix: "tw-"}),
+      "xlTwNegMy64"
+    );
+  });
   it("not-negative with prefix .xl:tw-my-64", () => {
-    assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), "-tw"), "xl_tw_my_64");
+    assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), {...h.defaultOpts, prefix: "-tw"}),
+        "xl_tw_my_64");
   });
   it("cursor-pointer", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".cursor-pointer"), ""),
+      h.toElmName(h.fixClass(".cursor-pointer")),
       "cursor_pointer"
     );
   });
   it("font-medium", () => {
-    assert.equal(h.toElmName(h.fixClass(".font-medium"), ""), "font_medium");
+    assert.equal(h.toElmName(h.fixClass(".font-medium")), "font_medium");
   });
 });
