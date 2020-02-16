@@ -107,7 +107,7 @@ function cleanOpts(opts) {
   if (!opts.elmModuleName) {
     opts.elmModuleName = defaultOpts.elmModuleName;
   }
-  if (!opts.name) {
+  if (!opts.nameStyle) {
     opts.nameStyle = defaultOpts.nameStyle
   }
   return opts;

@@ -7,4 +7,7 @@ Nodeunit contributors (sorted alphabetically)
 * **[Steven Vandevelde](https://github.com/icidasset)**
 
 
+* **[Nhan Thai](https://github.com/dandoh)**
+
+
 **[Full contributors list](https://github.com/monty5811/postcss-elm-tailwind/graphs/contributors).**
