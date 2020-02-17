@@ -1,26 +1,30 @@
 const h = require("../helpers");
 var assert = require("assert");
 
+
 describe("cleanOpts", () => {
   it("should return default config if none supplied", () => {
     assert.deepEqual(h.cleanOpts(undefined), {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
-      prefix: ""
+      prefix: "",
+      nameStyle: "snake"
     });
   });
   it("should not override elmFile", () => {
     assert.deepEqual(h.cleanOpts({ elmFile: "src/NotTW.elm" }), {
       elmFile: "src/NotTW.elm",
       elmModuleName: "TW",
-      prefix: ""
+      prefix: "",
+      nameStyle: "snake"
     });
   });
   it("should not override prefix", () => {
     assert.deepEqual(h.cleanOpts({ prefix: "tw--" }), {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
-      prefix: "tw--"
+      prefix: "tw--",
+      nameStyle: "snake"
     });
   });
 });
@@ -53,11 +57,15 @@ describe("fixClass", () => {
 });
 
 describe("fixClass -> toElmName", () => {
+  const camelCaseOpts = {...h.defaultOpts, nameStyle: "camel"};
   it("should let container pass through", () => {
     assert.equal(h.toElmName(h.fixClass("container")), "container");
   });
   it("should let mx-auto pass through", () => {
     assert.equal(h.toElmName(h.fixClass("mx-auto")), "mx_auto");
+  });
+  it("should let mx-auto pass through camel case", () => {
+      assert.equal(h.toElmName(h.fixClass("mx-auto"), camelCaseOpts), "mxAuto");
   });
   it("responsive", () => {
     assert.equal(h.toElmName(h.fixClass("sm:mx-auto")), "sm_mx_auto");
@@ -88,20 +96,27 @@ describe("fixClass -> toElmName", () => {
   });
   it("negative with prefix and variant .xl:tw--my-64", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".xl:tw--my-64"), "tw-"),
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {...h.defaultOpts, prefix: "tw-"}),
       "xl_tw_neg_my_64"
     );
   });
+  it("negative with prefix and variant .xl:tw--my-64 camel", () => {
+    assert.equal(
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {...camelCaseOpts, prefix: "tw-"}),
+      "xlTwNegMy64"
+    );
+  });
   it("not-negative with prefix .xl:tw-my-64", () => {
-    assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), "-tw"), "xl_tw_my_64");
+    assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), {...h.defaultOpts, prefix: "-tw"}),
+        "xl_tw_my_64");
   });
   it("cursor-pointer", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".cursor-pointer"), ""),
+      h.toElmName(h.fixClass(".cursor-pointer")),
       "cursor_pointer"
     );
   });
   it("font-medium", () => {
-    assert.equal(h.toElmName(h.fixClass(".font-medium"), ""), "font_medium");
+    assert.equal(h.toElmName(h.fixClass(".font-medium")), "font_medium");
   });
 });

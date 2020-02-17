@@ -71,7 +71,8 @@ module.exports = {
     require("postcss-elm-tailwind")({
       prefix: "tw-", // you must tell us if you have set a prefix in your tailwind.config.js
       elmFile: "src/Tailwind.elm", // change where the generated Elm module is saved
-      elmModule: "Tailwind" // this must match the file name or Elm will complain
+      elmModule: "Tailwind", // this must match the file name or Elm will complain
+      nameStyle: "snake" // "snake" for snake case, "camel" for camel case
     })
   ]
 };
