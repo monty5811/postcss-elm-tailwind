@@ -21,12 +21,16 @@ main =
 
 
 type alias Model =
-    Int
+    { current : Int
+    , history : List Int
+    }
 
 
 init : Model
 init =
-    0
+    { current = 0
+    , history = []
+    }
 
 
 
@@ -42,10 +46,15 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Increment ->
-            model + 1
+            updateModel (model.current + 1) model
 
         Decrement ->
-            model - 1
+            updateModel (model.current - 1) model
+
+
+updateModel : Int -> Model -> Model
+updateModel newVal model =
+    { model | current = newVal, history = newVal :: model.history }
 
 
 
@@ -145,15 +154,40 @@ view model =
                     [ ( TW.tw_text_2xl, True )
                     , ( TW.tw_text_center, True )
                     , ( TW.tw_my_4, True )
-                    , ( TW.tw_text_red_500, model > 5 )
+                    , ( TW.tw_text_red_500, model.current > 5 )
                     ]
                 )
-                [ Html.text (String.fromInt model) ]
+                [ Html.text (String.fromInt model.current) ]
             , Html.button
                 (E.onClick Increment :: buttonCls)
                 [ Html.text "+" ]
             ]
+        , Html.div []
+            [ Html.h2
+                [ TW.tw_text_xl
+                , TW.tw_font_normal
+                , TW.tw_mb_4
+                ]
+                [ Html.text "Counter History" ]
+            , Html.div
+                []
+              <|
+                List.map historyEntry (List.reverse model.history)
+            ]
         ]
+
+
+historyEntry : Int -> Html msg
+historyEntry val =
+    Html.div
+        [ TW.first_tw_bg_indigo_100
+        , TW.even_tw_bg_indigo_200
+        , TW.odd_tw_bg_indigo_300
+        , TW.last_tw_bg_indigo_400
+        , TW.tw_max_w_xs
+        , TW.tw_text_center
+        ]
+        [ Html.text <| String.fromInt val ]
 
 
 buttonCls : List (Html.Attribute msg)

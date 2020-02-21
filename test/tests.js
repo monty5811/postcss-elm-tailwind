@@ -1,7 +1,6 @@
 const h = require("../helpers");
 var assert = require("assert");
 
-
 describe("cleanOpts", () => {
   it("should return default config if none supplied", () => {
     assert.deepEqual(h.cleanOpts(undefined), {
@@ -54,10 +53,25 @@ describe("fixClass", () => {
   it("ratio", () => {
     assert.equal(h.fixClass(".w-1\\/2"), "w-1/2");
   });
+  // regression tests for github issue #7:
+  it("handle variants", () => {
+    assert.equal(
+      h.fixClass(".xl:odd:tw-bg-pink-700:nth-child(odd)"),
+      "xl:odd:tw-bg-pink-700"
+    );
+    assert.equal(
+      h.fixClass(".lg:even:bg-pink-700:nth-child(even)"),
+      "lg:even:bg-pink-700"
+    );
+    assert.equal(
+      h.fixClass(".last:tw-bg-transparent:last-child"),
+      "last:tw-bg-transparent"
+    );
+  });
 });
 
 describe("fixClass -> toElmName", () => {
-  const camelCaseOpts = {...h.defaultOpts, nameStyle: "camel"};
+  const camelCaseOpts = { ...h.defaultOpts, nameStyle: "camel" };
   it("should let container pass through", () => {
     assert.equal(h.toElmName(h.fixClass("container")), "container");
   });
@@ -65,7 +79,7 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass("mx-auto")), "mx_auto");
   });
   it("should let mx-auto pass through camel case", () => {
-      assert.equal(h.toElmName(h.fixClass("mx-auto"), camelCaseOpts), "mxAuto");
+    assert.equal(h.toElmName(h.fixClass("mx-auto"), camelCaseOpts), "mxAuto");
   });
   it("responsive", () => {
     assert.equal(h.toElmName(h.fixClass("sm:mx-auto")), "sm_mx_auto");
@@ -86,7 +100,10 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass(".sm:-m-24")), "sm_neg_m_24");
   });
   it("negative with variant .sm:-translate-x-1", () => {
-    assert.equal(h.toElmName(h.fixClass(".sm:-translate-x-1")), "sm_neg_translate_x_1");
+    assert.equal(
+      h.toElmName(h.fixClass(".sm:-translate-x-1")),
+      "sm_neg_translate_x_1"
+    );
   });
   it("with prefix", () => {
     assert.equal(
@@ -96,27 +113,50 @@ describe("fixClass -> toElmName", () => {
   });
   it("negative with prefix and variant .xl:tw--my-64", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".xl:tw--my-64"), {...h.defaultOpts, prefix: "tw-"}),
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {
+        ...h.defaultOpts,
+        prefix: "tw-"
+      }),
       "xl_tw_neg_my_64"
     );
   });
   it("negative with prefix and variant .xl:tw--my-64 camel", () => {
     assert.equal(
-      h.toElmName(h.fixClass(".xl:tw--my-64"), {...camelCaseOpts, prefix: "tw-"}),
+      h.toElmName(h.fixClass(".xl:tw--my-64"), {
+        ...camelCaseOpts,
+        prefix: "tw-"
+      }),
       "xlTwNegMy64"
     );
   });
   it("not-negative with prefix .xl:tw-my-64", () => {
-    assert.equal(h.toElmName(h.fixClass(".xl:tw-my-64"), {...h.defaultOpts, prefix: "-tw"}),
-        "xl_tw_my_64");
+    assert.equal(
+      h.toElmName(h.fixClass(".xl:tw-my-64"), {
+        ...h.defaultOpts,
+        prefix: "-tw"
+      }),
+      "xl_tw_my_64"
+    );
   });
   it("cursor-pointer", () => {
-    assert.equal(
-      h.toElmName(h.fixClass(".cursor-pointer")),
-      "cursor_pointer"
-    );
+    assert.equal(h.toElmName(h.fixClass(".cursor-pointer")), "cursor_pointer");
   });
   it("font-medium", () => {
     assert.equal(h.toElmName(h.fixClass(".font-medium")), "font_medium");
+  });
+  // regression tests for github issue #7:
+  it("handle variants", () => {
+    assert.equal(
+      h.toElmName(h.fixClass(".xl\:odd\:tw-bg-pink-700:nth-child(odd)")),
+      "xl_odd_tw_bg_pink_700"
+    );
+    assert.equal(
+      h.toElmName(h.fixClass(".lg\:even\:tw-bg-pink-700:nth-child(even)")),
+      "lg_even_tw_bg_pink_700"
+    );
+    assert.equal(
+      h.toElmName(h.fixClass(".last\:tw-bg-transparent:last-child")),
+      "last_tw_bg_transparent"
+    );
   });
 });

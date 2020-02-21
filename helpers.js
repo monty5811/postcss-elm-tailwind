@@ -37,10 +37,10 @@ ${elm} =
 }
 
 const defaultOpts = {
-    elmFile: "src/TW.elm",
-    elmModuleName: "TW",
-    prefix: "",
-    nameStyle: "snake"
+  elmFile: "src/TW.elm",
+  elmModuleName: "TW",
+  prefix: "",
+  nameStyle: "snake"
 };
 
 function fixClass(cls) {
@@ -53,6 +53,12 @@ function fixClass(cls) {
   );
   // remove extras at end
   cls = cls.replace(/::(placeholder)$/, "");
+  cls = cls.replace(/:(first|last)-child/, "");
+  cls = cls.replace(/:nth-child\((even|odd)\)/, "");
+  var tmp = cls.toString();
+  if (tmp.includes("child")) {
+    console.log(cls);
+  }
   //
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
@@ -87,9 +93,12 @@ function toElmName(cls, opts) {
   // clean up
   elm = elm.replace(/\\__/g, "_");
   elm = elm.replace(/^_/g, "");
+  // handle :nth-child(even), etc
+  elm = elm.replace(/_nth_child\(.+\)/, "");
+  elm = elm.replace(/_(last|first)_child/, "");
 
   if (opts.nameStyle === "camel") {
-      elm = elm.replace(/(_\w)/g, g => g[1].toUpperCase())
+    elm = elm.replace(/(_\w)/g, g => g[1].toUpperCase());
   }
   return elm;
 }
@@ -108,7 +117,7 @@ function cleanOpts(opts) {
     opts.elmModuleName = defaultOpts.elmModuleName;
   }
   if (!opts.nameStyle) {
-    opts.nameStyle = defaultOpts.nameStyle
+    opts.nameStyle = defaultOpts.nameStyle;
   }
   return opts;
 }
