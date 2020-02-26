@@ -12,18 +12,9 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
   return (root, result) => {
     // Transform CSS AST here
     root.walkRules(rule => {
-      if (!rule.selector.startsWith(".")) {
-        // keep only classes
-        return;
-      }
-
-      let cls = rule.selector;
-
-      cls = h.fixClass(cls);
-      let elm = h.toElmName(cls, opts);
-
-      classes.set(cls, h.elmFunction(cls, elm));
-      elm_fns.push(elm);
+      rule.selector
+        .split(" ")
+        .forEach(selector => processSelector(selector, opts));
     });
 
     const elmModule =
@@ -39,3 +30,18 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
     });
   };
 });
+
+function processSelector(selector, opts) {
+  if (!selector.startsWith(".")) {
+    // Keep only classes
+    return;
+  }
+
+  let cls, elm;
+
+  cls = h.fixClass(selector);
+  elm = h.toElmName(cls, opts);
+
+  classes.set(cls, h.elmFunction(cls, elm));
+  elm_fns.push(elm);
+}
