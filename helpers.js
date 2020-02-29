@@ -48,7 +48,7 @@ function fixClass(cls) {
   cls = cls.replace(/^(\.)/, "");
   // remove extras at end
   cls = cls.replace(
-    /:(responsive|group-hover|focus-within|first|last|odd|even|hover|focus|active|visited|disabled)$/,
+    /:(focus-within|first-child|last-child|odd|even|hover|focus|active|visited|disabled)$/,
     ""
   );
   // remove extras at end
@@ -87,7 +87,7 @@ function toElmName(cls, opts) {
   // replace dashes now we have sorted the negative stuff
   elm = elm.replace(/-/g, "_");
   // replace :
-  elm = elm.replace(/:/g, "_");
+  elm = elm.replace(/:/g, "__");
   // handle fractions
   elm = elm.replace(/\//g, "over");
   // clean up
