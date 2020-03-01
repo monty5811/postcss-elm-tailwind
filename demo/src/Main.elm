@@ -81,13 +81,13 @@ view model =
         , Html.div [ TW.tw_text_gray_700 ]
             [ Html.a
                 [ A.href "https://github.com/monty5811/postcss-elm-tailwind"
-                , TW.hover_tw_underline
+                , TW.hover__tw_underline
                 ]
                 [ Html.text "github" ]
             , Html.span [] [ Html.text " | " ]
             , Html.a
                 [ A.href "https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo"
-                , TW.hover_tw_underline
+                , TW.hover__tw_underline
                 ]
                 [ Html.text "source" ]
             ]
@@ -180,10 +180,10 @@ view model =
 historyEntry : Int -> Html msg
 historyEntry val =
     Html.div
-        [ TW.first_tw_bg_indigo_100
-        , TW.even_tw_bg_indigo_200
-        , TW.odd_tw_bg_indigo_300
-        , TW.last_tw_bg_indigo_400
+        [ TW.first__tw_bg_indigo_100
+        , TW.even__tw_bg_indigo_200
+        , TW.odd__tw_bg_indigo_300
+        , TW.last__tw_bg_indigo_400
         , TW.tw_max_w_xs
         , TW.tw_text_center
         ]
@@ -198,10 +198,10 @@ buttonCls =
     , TW.tw_text_white
     , TW.tw_text_lg
     , TW.tw_bg_blue_500
-    , TW.hover_tw_bg_blue_700
-    , TW.lg_tw_bg_green_500
-    , TW.lg_hover_tw_bg_green_700
-    , TW.hover_tw_font_bold
+    , TW.hover__tw_bg_blue_700
+    , TW.lg__tw_bg_green_500
+    , TW.lg__hover__tw_bg_green_700
+    , TW.hover__tw_font_bold
     , TW.tw_mx_auto
     , TW.tw_block
     , TW.tw_w_1over4
@@ -209,6 +209,6 @@ buttonCls =
     , TW.tw_duration_500
     , TW.tw_ease_in_out
     , TW.tw_transform
-    , TW.hover_tw_neg_translate_y_1
-    , TW.hover_tw_scale_110
+    , TW.hover__tw_neg_translate_y_1
+    , TW.hover__tw_scale_110
     ]
