@@ -55,10 +55,6 @@ function fixClass(cls) {
   cls = cls.replace(/::(placeholder)$/, "");
   cls = cls.replace(/:(first|last)-child/, "");
   cls = cls.replace(/:nth-child\((even|odd)\)/, "");
-  var tmp = cls.toString();
-  if (tmp.includes("child")) {
-    console.log(cls);
-  }
   //
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
@@ -83,7 +79,7 @@ function toElmName(cls, opts) {
   // handle negative at start of string
   elm = elm.replace(/^-([a-z])/, "_neg_$1");
   // handle negative with variant
-  elm = elm.replace(/:-([a-z])/, "_neg_$1");
+  elm = elm.replace(/:-([a-z])/, "__neg_$1");
   // replace dashes now we have sorted the negative stuff
   elm = elm.replace(/-/g, "_");
   // replace :
@@ -98,7 +94,7 @@ function toElmName(cls, opts) {
   elm = elm.replace(/_(last|first)_child/, "");
 
   if (opts.nameStyle === "camel") {
-    elm = elm.replace(/(_\w)/g, g => g[1].toUpperCase());
+    elm = elm.replace(/(_+\w)/g, g => g.replace(/_/g, "").toUpperCase());
   }
   return elm;
 }

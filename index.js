@@ -17,8 +17,8 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
         .forEach(selector => processSelector(selector, opts));
     });
 
-    const elmModule =
-      h.elmHeader(opts.elmModuleName, elm_fns) + h.elmBody(classes);
+    const elmModule = h.elmHeader(opts.elmModuleName, elm_fns) +
+      h.elmBody(classes);
 
     // writing to disk
     fs.writeFile(opts.elmFile, elmModule, err => {

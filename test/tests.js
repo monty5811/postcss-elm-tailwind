@@ -82,12 +82,12 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass("mx-auto"), camelCaseOpts), "mxAuto");
   });
   it("responsive", () => {
-    assert.equal(h.toElmName(h.fixClass("sm:mx-auto")), "sm_mx_auto");
+    assert.equal(h.toElmName(h.fixClass("sm:mx-auto")), "sm__mx_auto");
   });
   it("responsive and focus", () => {
     assert.equal(
       h.toElmName(h.fixClass(".xl:focus:no-underline:focus")),
-      "xl_focus_no_underline"
+      "xl__focus__no_underline"
     );
   });
   it("over", () => {
@@ -97,18 +97,18 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass(".-m-1")), "neg_m_1");
   });
   it("negative with variant .sm:-m-24", () => {
-    assert.equal(h.toElmName(h.fixClass(".sm:-m-24")), "sm_neg_m_24");
+    assert.equal(h.toElmName(h.fixClass(".sm:-m-24")), "sm__neg_m_24");
   });
   it("negative with variant .sm:-translate-x-1", () => {
     assert.equal(
       h.toElmName(h.fixClass(".sm:-translate-x-1")),
-      "sm_neg_translate_x_1"
+      "sm__neg_translate_x_1"
     );
   });
   it("with prefix", () => {
     assert.equal(
       h.toElmName(h.fixClass(".hover:tw-bg-blue-500:hover"), "tw-"),
-      "hover_tw_bg_blue_500"
+      "hover__tw_bg_blue_500"
     );
   });
   it("negative with prefix and variant .xl:tw--my-64", () => {
@@ -117,7 +117,7 @@ describe("fixClass -> toElmName", () => {
         ...h.defaultOpts,
         prefix: "tw-"
       }),
-      "xl_tw_neg_my_64"
+      "xl__tw_neg_my_64"
     );
   });
   it("negative with prefix and variant .xl:tw--my-64 camel", () => {
@@ -135,7 +135,7 @@ describe("fixClass -> toElmName", () => {
         ...h.defaultOpts,
         prefix: "-tw"
       }),
-      "xl_tw_my_64"
+      "xl__tw_my_64"
     );
   });
   it("cursor-pointer", () => {
@@ -148,15 +148,15 @@ describe("fixClass -> toElmName", () => {
   it("handle variants", () => {
     assert.equal(
       h.toElmName(h.fixClass(".xl\:odd\:tw-bg-pink-700:nth-child(odd)")),
-      "xl_odd_tw_bg_pink_700"
+      "xl__odd__tw_bg_pink_700"
     );
     assert.equal(
       h.toElmName(h.fixClass(".lg\:even\:tw-bg-pink-700:nth-child(even)")),
-      "lg_even_tw_bg_pink_700"
+      "lg__even__tw_bg_pink_700"
     );
     assert.equal(
       h.toElmName(h.fixClass(".last\:tw-bg-transparent:last-child")),
-      "last_tw_bg_transparent"
+      "last__tw_bg_transparent"
     );
   });
 });
