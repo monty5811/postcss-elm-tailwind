@@ -30,3 +30,9 @@ jobs:
         yarn build-prod
       env:
         NODE_ENV: production
+    - name: validate with elm-format
+      run: |
+        cd demo
+        yarn
+        yarn build
+        yarn check-format

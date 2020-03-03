@@ -2,6 +2,7 @@ function elmHeader(elmModuleName, elm_fns) {
   const s = new Set(elm_fns);
   let tmp = Array.from(s.values());
   tmp.push("classList");
+  tmp.sort();
   const l = tmp.join("\n    , ");
 
   return `module ${elmModuleName} exposing
@@ -12,10 +13,9 @@ import Html
 import Html.Attributes as A
 
 
-classList : List (Html.Attribute msg, Bool) -> List (Html.Attribute msg)
+classList : List ( Html.Attribute msg, Bool ) -> List (Html.Attribute msg)
 classList classes =
     List.map Tuple.first <| List.filter Tuple.second classes
-
 `;
 }
 
@@ -29,10 +29,10 @@ function elmBody(classes) {
 
 function elmFunction(cls, elm) {
   return `
+
 ${elm} : Html.Attribute msg
 ${elm} =
     A.class "${cls}"
-
 `;
 }
 

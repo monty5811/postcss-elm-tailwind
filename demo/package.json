@@ -7,6 +7,7 @@
     "@fullhuman/postcss-purgecss": "^1.3.0",
     "@tailwindcss/custom-forms": "^0.2.1",
     "elm": "^0.19.1-2",
+    "elm-format": "0.8.3",
     "postcss": "^7.0.18",
     "postcss-cli": "^6.1.3",
     "purgecss": "^1.4.0",
@@ -17,7 +18,8 @@
     "build-elm": "elm make src/Main.elm --output=dist/app.js --optimize",
     "build-tw": "postcss -o dist/main.css main.css",
     "build": "yarn build-tw && yarn build-elm && yarn copy-index",
-    "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw && yarn copy-index"
+    "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw && yarn copy-index",
+    "check-format": "elm-format src/TLWND.elm  --validate"
   },
   "devDependencies": {}
 }
