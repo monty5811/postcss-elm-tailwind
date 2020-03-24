@@ -167,6 +167,7 @@ view model =
                 [ TW.tw_text_xl
                 , TW.tw_font_normal
                 , TW.tw_mb_4
+                , TW.test_dot_with_dot_a_dot_dot -- here to test classes with a "." in them
                 ]
                 [ Html.text "Counter History" ]
             , Html.div

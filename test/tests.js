@@ -68,6 +68,10 @@ describe("fixClass", () => {
       "last:tw-bg-transparent"
     );
   });
+  // regession tests for github issue #13
+  it("handle '.' in class names", () => {
+    assert.equal(h.fixClass(".col-gap-1\\.5"), "col-gap-1.5");
+  });
 });
 
 describe("fixClass -> toElmName", () => {
@@ -158,5 +162,9 @@ describe("fixClass -> toElmName", () => {
       h.toElmName(h.fixClass(".last\:tw-bg-transparent:last-child")),
       "last__tw_bg_transparent"
     );
+  });
+  // regession tests for github issue #13
+  it("handle '.' in class names", () => {
+    assert.equal(h.toElmName(h.fixClass(".col-gap-1\\.5")), "col_gap_1_dot_5");
   });
 });

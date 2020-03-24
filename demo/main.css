@@ -3,3 +3,9 @@
 @tailwind components;
 
 @tailwind utilities;
+
+
+.test\.with\.a\.dot {
+    /* here to test classes with "." in them */
+    cursor: pointer;
+}

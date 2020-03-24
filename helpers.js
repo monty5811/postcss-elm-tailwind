@@ -46,6 +46,8 @@ const defaultOpts = {
 function fixClass(cls) {
   // remove the dot
   cls = cls.replace(/^(\.)/, "");
+  // make other dots safe
+  cls = cls.replace(/\\\./g, ".");
   // remove extras at end
   cls = cls.replace(
     /:(focus-within|first-child|last-child|odd|even|hover|focus|active|visited|disabled)$/,
@@ -92,7 +94,13 @@ function toElmName(cls, opts) {
   // handle :nth-child(even), etc
   elm = elm.replace(/_nth_child\(.+\)/, "");
   elm = elm.replace(/_(last|first)_child/, "");
-
+  // replace any other dots
+  if (opts.nameStyle === "camel") {
+    elm = elm.replace(/\./g, "Dot");
+  } else {
+    elm = elm.replace(/\./g, "_dot_");
+  }
+  // convert to camel case
   if (opts.nameStyle === "camel") {
     elm = elm.replace(/(_+\w)/g, g => g.replace(/_/g, "").toUpperCase());
   }
