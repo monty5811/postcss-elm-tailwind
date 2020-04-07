@@ -56,7 +56,9 @@ function fixClass(cls) {
   // remove extras at end
   cls = cls.replace(/::(placeholder)$/, "");
   cls = cls.replace(/:(first|last)-child/, "");
+  cls = cls.replace(/:before/, "");
   cls = cls.replace(/:nth-child\((even|odd)\)/, "");
+  cls = cls.replace(/\s?>\s?.*/, "");
   //
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm

@@ -147,7 +147,12 @@ view model =
                 [ Html.text "Counter" ]
             , Html.button
                 (E.onClick Decrement :: buttonCls)
-                [ Html.text "-" ]
+                [ Html.i
+                    [ TW.fa
+                    , TW.fa_minus
+                    ]
+                    []
+                ]
             , Html.div
                 (TW.classList
                     -- make sure classList works ok
@@ -160,7 +165,12 @@ view model =
                 [ Html.text (String.fromInt model.current) ]
             , Html.button
                 (E.onClick Increment :: buttonCls)
-                [ Html.text "+" ]
+                [ Html.i
+                    [ TW.fa
+                    , TW.fa_plus
+                    ]
+                    []
+                ]
             ]
         , Html.div []
             [ Html.h2
@@ -194,7 +204,7 @@ historyEntry val =
 buttonCls : List (Html.Attribute msg)
 buttonCls =
     [ TW.tw_rounded
-    , TW.tw_px_2
+    , TW.tw_py_2
     , TW.tw_px_4
     , TW.tw_text_white
     , TW.tw_text_lg

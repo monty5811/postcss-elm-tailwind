@@ -14,6 +14,8 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
     root.walkRules(rule => {
       rule.selector
         .split(" ")
+        .map(sel => sel.split(","))
+        .reduce((arr, v) => (arr.push(...v), arr), [])
         .forEach(selector => processSelector(selector, opts));
     });
 

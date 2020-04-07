@@ -72,6 +72,12 @@ describe("fixClass", () => {
   it("handle '.' in class names", () => {
     assert.equal(h.fixClass(".col-gap-1\\.5"), "col-gap-1.5");
   });
+  // regression test for font awesome (and a lot of other stuff)
+  it("handle '>' in class names", () => {
+    assert.equal(h.fixClass("fa > li"), "fa");
+    assert.equal(h.fixClass("fa >li"), "fa");
+    assert.equal(h.fixClass("fa> li"), "fa");
+  });
 });
 
 describe("fixClass -> toElmName", () => {
@@ -166,5 +172,11 @@ describe("fixClass -> toElmName", () => {
   // regession tests for github issue #13
   it("handle '.' in class names", () => {
     assert.equal(h.toElmName(h.fixClass(".col-gap-1\\.5")), "col_gap_1_dot_5");
+  });
+  // regression test for font awesome (and a lot of other stuff)
+  it("handle '>' in class names", () => {
+    assert.equal(h.toElmName(h.fixClass("fa > li")), "fa");
+    assert.equal(h.toElmName(h.fixClass("fa> li")), "fa");
+    assert.equal(h.toElmName(h.fixClass("fa >li")), "fa");
   });
 });
