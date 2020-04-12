@@ -1,4 +1,4 @@
-function elmHeader(elmModuleName, elm_fns) {
+function elmHeader(elmModuleName, elm_fns, htmlOrSvg = 'Html') {
   const s = new Set(elm_fns);
   let tmp = Array.from(s.values());
   tmp.push("classList");
@@ -9,11 +9,11 @@ function elmHeader(elmModuleName, elm_fns) {
     ( ${l}
     )
 
-import Html
-import Html.Attributes as A
+import ${htmlOrSvg}
+import ${htmlOrSvg}.Attributes as A
 
 
-classList : List ( Html.Attribute msg, Bool ) -> List (Html.Attribute msg)
+classList : List ( ${htmlOrSvg}.Attribute msg, Bool ) -> List (${htmlOrSvg}.Attribute msg)
 classList classes =
     List.map Tuple.first <| List.filter Tuple.second classes
 `;
@@ -27,10 +27,10 @@ function elmBody(classes) {
   return body;
 }
 
-function elmFunction(cls, elm) {
+function elmFunction(cls, elm, htmlOrSvg = 'Html') {
   return `
 
-${elm} : Html.Attribute msg
+${elm} : ${htmlOrSvg}.Attribute msg
 ${elm} =
     A.class "${cls}"
 `;
@@ -40,7 +40,8 @@ const defaultOpts = {
   elmFile: "src/TW.elm",
   elmModuleName: "TW",
   prefix: "",
-  nameStyle: "snake"
+  nameStyle: "snake",
+  svg: false
 };
 
 function fixClass(cls) {
@@ -125,6 +126,10 @@ function cleanOpts(opts) {
   if (!opts.nameStyle) {
     opts.nameStyle = defaultOpts.nameStyle;
   }
+  if (!opts.hasOwnProperty('svg')) {
+    opts.svg = defaultOpts.svg;
+  }
+  opts.svg = !!opts.svg;
   return opts;
 }
 

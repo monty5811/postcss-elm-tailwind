@@ -19,7 +19,9 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
         .forEach(selector => processSelector(selector, opts));
     });
 
-    const elmModule = h.elmHeader(opts.elmModuleName, elm_fns) +
+    const htmlOrSvg = opts.svg ? 'Svg' : 'Html';
+
+    const elmModule = h.elmHeader(opts.elmModuleName, elm_fns, htmlOrSvg) +
       h.elmBody(classes);
 
     // writing to disk
@@ -39,11 +41,13 @@ function processSelector(selector, opts) {
     return;
   }
 
+  const htmlOrSvg = opts.svg ? 'Svg' : 'Html';
+
   let cls, elm;
 
   cls = h.fixClass(selector);
   elm = h.toElmName(cls, opts);
 
-  classes.set(cls, h.elmFunction(cls, elm));
+  classes.set(cls, h.elmFunction(cls, elm, htmlOrSvg));
   elm_fns.push(elm);
 }
