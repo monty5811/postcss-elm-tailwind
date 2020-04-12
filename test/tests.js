@@ -29,6 +29,15 @@ describe("cleanOpts", () => {
       svg: false
     });
   });
+  it("should ensure svg is a boolean", () => {
+    assert.deepEqual(h.cleanOpts({ svg: "yes" }), {
+      elmFile: "src/TW.elm",
+      elmModuleName: "TW",
+      prefix: "",
+      nameStyle: "snake",
+      svg: true
+    });
+  });
 });
 
 describe("fixClass", () => {
@@ -181,5 +190,25 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass("fa > li")), "fa");
     assert.equal(h.toElmName(h.fixClass("fa> li")), "fa");
     assert.equal(h.toElmName(h.fixClass("fa >li")), "fa");
+  });
+});
+
+describe("elmHeader", () => {
+  it("generates Html attributes", () => {
+    assert.match(h.elmHeader('Tailwind', []), /Html\.Attribute/);
+    assert.match(h.elmHeader('Tailwind', [], 'Html'), /Html\.Attribute/);
+  });
+  it("generates Svg attributes", () => {
+    assert.match(h.elmHeader('Tailwind', [], 'Svg'), /Svg\.Attribute/);
+  });
+});
+
+describe("elmFunction", () => {
+  it("generates Html attributes", () => {
+    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700'), /Html\.Attribute/);
+    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Html'), /Html\.Attribute/);
+  });
+  it("generates Svg attributes", () => {
+    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Svg'), /Svg\.Attribute/);
   });
 });
