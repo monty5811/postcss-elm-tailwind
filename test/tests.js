@@ -195,20 +195,20 @@ describe("fixClass -> toElmName", () => {
 
 describe("elmHeader", () => {
   it("generates Html attributes", () => {
-    assert.match(h.elmHeader('Tailwind', []), /Html\.Attribute/);
-    assert.match(h.elmHeader('Tailwind', [], 'Html'), /Html\.Attribute/);
+    assert.ok(/Html\.Attribute/.test(h.elmHeader('Tailwind', [])));
+    assert.ok(/Html\.Attribute/.test(h.elmHeader('Tailwind', [], 'Html')));
   });
   it("generates Svg attributes", () => {
-    assert.match(h.elmHeader('Tailwind', [], 'Svg'), /Svg\.Attribute/);
+    assert.ok(/Svg\.Attribute/.test(h.elmHeader('Tailwind', [], 'Svg')));
   });
 });
 
 describe("elmFunction", () => {
   it("generates Html attributes", () => {
-    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700'), /Html\.Attribute/);
-    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Html'), /Html\.Attribute/);
+    assert.ok(/Html\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700')));
+    assert.ok(/Html\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Html')));
   });
   it("generates Svg attributes", () => {
-    assert.match(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Svg'), /Svg\.Attribute/);
+    assert.ok(/Svg\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Svg')));
   });
 });
