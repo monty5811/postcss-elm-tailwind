@@ -7,7 +7,8 @@ describe("cleanOpts", () => {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
       prefix: "",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      svg: false
     });
   });
   it("should not override elmFile", () => {
@@ -15,7 +16,8 @@ describe("cleanOpts", () => {
       elmFile: "src/NotTW.elm",
       elmModuleName: "TW",
       prefix: "",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      svg: false
     });
   });
   it("should not override prefix", () => {
@@ -23,7 +25,8 @@ describe("cleanOpts", () => {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
       prefix: "tw--",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      svg: false
     });
   });
 });
