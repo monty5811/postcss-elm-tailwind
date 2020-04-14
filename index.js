@@ -23,7 +23,7 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
       h.elmBody(classes);
 
     // writing to disk
-    fs.writeFile(opts.elmFile, elmModule, err => {
+    fs.writeFileSync(opts.elmFile, elmModule, err => {
       if (err) {
         return console.log(err);
       }
