@@ -1,48 +1,75 @@
-function elmHeader(elmModuleName, elm_fns, htmlOrSvg = 'Html') {
-  const s = new Set(elm_fns);
-  let tmp = Array.from(s.values());
-  tmp.push("classList");
+// code gen stuff
+
+function elmHeaderExports(elmFns, includeClassList) {
+  let tmp = Array.from(elmFns.values());
+  if (includeClassList) {
+    tmp.push("classList");
+  }
   tmp.sort();
-  const l = tmp.join("\n    , ");
+  return tmp.join("\n    , ");
+}
+
+function elmHeaderHtml(elmModuleName, elmFns) {
+  l = elmHeaderExports(elmFns, true);
 
   return `module ${elmModuleName} exposing
     ( ${l}
     )
 
-import ${htmlOrSvg}
-import ${htmlOrSvg}.Attributes as A
+import Html
+import Html.Attributes as A
 
 
-classList : List ( ${htmlOrSvg}.Attribute msg, Bool ) -> List (${htmlOrSvg}.Attribute msg)
+classList : List ( Html.Attribute msg, Bool ) -> List (Html.Attribute msg)
 classList classes =
     List.map Tuple.first <| List.filter Tuple.second classes
 `;
 }
 
-function elmBody(classes) {
+function elmHeaderSvg(elmModuleName, elmFns) {
+  l = elmHeaderExports(elmFns, true);
+
+  return `module ${elmModuleName} exposing
+    ( ${l}
+    )
+
+import Svg
+import Svg.Attributes as A
+
+
+classList : List ( Svg.Attribute msg, Bool ) -> List (Svg.Attribute msg)
+classList classes =
+    List.map Tuple.first <| List.filter Tuple.second classes
+`;
+}
+
+function elmHeaderString(elmModuleName, elmFns) {
+  l = elmHeaderExports(elmFns, false);
+
+  return `module ${elmModuleName} exposing
+    ( ${l}
+    )
+`;
+}
+
+function elmBody(config, classes) {
   let body = "";
-  for (var fn of classes.values()) {
-    body = body + fn;
+  for (let [cls, elm] of classes) {
+    body = body + elmFunction(config, { cls, elm });
   }
   return body;
 }
 
-function elmFunction(cls, elm, htmlOrSvg = 'Html') {
+function elmFunction(config, { cls, elm }) {
   return `
 
-${elm} : ${htmlOrSvg}.Attribute msg
+${elm} : ${config.type}
 ${elm} =
-    A.class "${cls}"
+    ${config.fn}"${cls}"
 `;
 }
 
-const defaultOpts = {
-  elmFile: "src/TW.elm",
-  elmModuleName: "TW",
-  prefix: "",
-  nameStyle: "snake",
-  svg: false
-};
+// parse, clean up stuff
 
 function fixClass(cls) {
   // remove the dot
@@ -110,6 +137,29 @@ function toElmName(cls, opts) {
   return elm;
 }
 
+// options stuff
+
+const defaultOpts = {
+  elmFile: "src/TW.elm",
+  elmModuleName: "TW",
+  prefix: "",
+  nameStyle: "snake",
+  formats: {
+    svg: {
+      /*
+      elmFile: "src/TW/Svg.elm",
+      elmModuleName: "TW.Svg",
+    */
+    },
+    string: {
+      /*
+      elmFile: "src/TW/String.elm",
+      elmModuleName: "TW.String"
+    */
+    }
+  }
+};
+
 function cleanOpts(opts) {
   if (opts === undefined) {
     opts = defaultOpts;
@@ -126,14 +176,23 @@ function cleanOpts(opts) {
   if (!opts.nameStyle) {
     opts.nameStyle = defaultOpts.nameStyle;
   }
-  if (!opts.hasOwnProperty('svg')) {
-    opts.svg = defaultOpts.svg;
+  if (!opts.formats) {
+    opts.formats = defaultOpts.formats;
+  } else {
+    if (!opts.formats.svg) {
+      opts.formats.svg = defaultOpts.formats.svg;
+    }
+    if (!opts.formats.string) {
+      opts.formats.string = defaultOpts.formats.string;
+    }
   }
-  opts.svg = !!opts.svg;
+
   return opts;
 }
 
-exports.elmHeader = elmHeader;
+exports.elmHeaderHtml = elmHeaderHtml;
+exports.elmHeaderSvg = elmHeaderSvg;
+exports.elmHeaderString = elmHeaderString;
 exports.elmBody = elmBody;
 exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;

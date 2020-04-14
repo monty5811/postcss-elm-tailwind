@@ -8,7 +8,7 @@ describe("cleanOpts", () => {
       elmModuleName: "TW",
       prefix: "",
       nameStyle: "snake",
-      svg: false
+      formats: { string: {}, svg: {} }
     });
   });
   it("should not override elmFile", () => {
@@ -17,7 +17,7 @@ describe("cleanOpts", () => {
       elmModuleName: "TW",
       prefix: "",
       nameStyle: "snake",
-      svg: false
+      formats: { string: {}, svg: {} }
     });
   });
   it("should not override prefix", () => {
@@ -26,16 +26,7 @@ describe("cleanOpts", () => {
       elmModuleName: "TW",
       prefix: "tw--",
       nameStyle: "snake",
-      svg: false
-    });
-  });
-  it("should ensure svg is a boolean", () => {
-    assert.deepEqual(h.cleanOpts({ svg: "yes" }), {
-      elmFile: "src/TW.elm",
-      elmModuleName: "TW",
-      prefix: "",
-      nameStyle: "snake",
-      svg: true
+      formats: { string: {}, svg: {} }
     });
   });
 });
@@ -193,22 +184,34 @@ describe("fixClass -> toElmName", () => {
   });
 });
 
-describe("elmHeader", () => {
-  it("generates Html attributes", () => {
-    assert.ok(/Html\.Attribute/.test(h.elmHeader('Tailwind', [])));
-    assert.ok(/Html\.Attribute/.test(h.elmHeader('Tailwind', [], 'Html')));
-  });
-  it("generates Svg attributes", () => {
-    assert.ok(/Svg\.Attribute/.test(h.elmHeader('Tailwind', [], 'Svg')));
-  });
-});
-
 describe("elmFunction", () => {
   it("generates Html attributes", () => {
-    assert.ok(/Html\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700')));
-    assert.ok(/Html\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Html')));
+    assert.ok(
+      /Html\.Attribute/.test(
+        h.elmFunction(
+          { type: "Html.Attribute msg", fn: "A.class " },
+          "bg-pink-700",
+          "bg_pink_700"
+        )
+      )
+    );
   });
   it("generates Svg attributes", () => {
-    assert.ok(/Svg\.Attribute/.test(h.elmFunction('bg-pink-700', 'bg_pink_700', 'Svg')));
+    assert.ok(
+      /Svg\.Attribute/.test(
+        h.elmFunction(
+          { type: "Svg.Attribute msg", fn: "A.class " },
+          "bg-pink-700",
+          "bg_pink_700"
+        )
+      )
+    );
+  });
+  it("generates strings", () => {
+    assert.ok(
+      /String/.test(
+        h.elmFunction({ type: "String", fn: "" }, "bg-pink-700", "bg_pink_700")
+      )
+    );
   });
 });

@@ -13,7 +13,17 @@ module.exports = {
     require("../index.js")({
       elmFile: "src/TLWND.elm",
       elmModuleName: "TLWND",
-      prefix: "tw-"
+      prefix: "tw-",
+      formats: {
+        svg: {
+          elmFile: "src/TLWND/Svg.elm",
+          elmModuleName: "TLWND.Svg"
+        },
+        string: {
+          elmFile: "src/TLWND/String.elm",
+          elmModuleName: "TLWND.String"
+        }
+      }
     }),
     ...(process.env.NODE_ENV === "production" ? [purgecss] : []),
     require("autoprefixer")
