@@ -1,5 +1,21 @@
 // code gen stuff
 
+function elmBodyHtml(elmModuleName, classes) {
+  return elmHeaderHtml(elmModuleName, classes) +
+    elmBody({ type: "Html.Attribute msg", fn: "A.class " }, classes);
+}
+
+function elmBodyString(elmModuleName, classes) {
+  return elmHeaderString(elmModuleName, classes) +
+    elmBody({ type: "String", fn: "" }, classes);
+}
+
+function elmBodySvg(elmModuleName, classes) {
+  return elmHeaderSvg(elmModuleName, classes) +
+    elmBody({ type: "Svg.Attribute msg", fn: "A.class " }, classes);
+}
+
+
 function elmHeaderExports(elmFns, includeClassList) {
   let tmp = Array.from(elmFns.values());
   if (includeClassList) {
@@ -145,16 +161,16 @@ const defaultOpts = {
   prefix: "",
   nameStyle: "snake",
   formats: {
-    svg: {
-      /*
-      elmFile: "src/TW/Svg.elm",
-      elmModuleName: "TW.Svg",
-    */
-    },
     string: {
       /*
       elmFile: "src/TW/String.elm",
       elmModuleName: "TW.String"
+    */
+    },
+    svg: {
+      /*
+      elmFile: "src/TW/Svg.elm",
+      elmModuleName: "TW.Svg",
     */
     }
   }
@@ -190,10 +206,9 @@ function cleanOpts(opts) {
   return opts;
 }
 
-exports.elmHeaderHtml = elmHeaderHtml;
-exports.elmHeaderSvg = elmHeaderSvg;
-exports.elmHeaderString = elmHeaderString;
-exports.elmBody = elmBody;
+exports.elmBodyHtml = elmBodyHtml;
+exports.elmBodyString = elmBodyString;
+exports.elmBodySvg = elmBodySvg;
 exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;
 exports.toElmName = toElmName;
