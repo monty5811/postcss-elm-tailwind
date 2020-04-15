@@ -25,8 +25,8 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
     // writing to disk
     return new Promise((resolve, reject) => {
       fs.writeFile(opts.elmFile, elmModule, err => {
-        if (err) return reject(err)
-        resolve()
+        if (err) return reject(err);
+        resolve();
       });
     });
   };
