@@ -161,49 +161,33 @@ const defaultOpts = {
   prefix: "",
   nameStyle: "snake",
   formats: {
+  /*
     string: {
-      /*
       elmFile: "src/TW/String.elm",
       elmModuleName: "TW.String"
-    */
     },
     svg: {
-      /*
       elmFile: "src/TW/Svg.elm",
       elmModuleName: "TW.Svg",
-    */
     }
+  */
   }
 };
 
 function cleanOpts(opts) {
-  if (opts === undefined) {
-    opts = defaultOpts;
-  }
-  if (!opts.elmFile) {
-    opts.elmFile = defaultOpts.elmFile;
-  }
-  if (!opts.prefix) {
-    opts.prefix = defaultOpts.prefix;
-  }
-  if (!opts.elmModuleName) {
-    opts.elmModuleName = defaultOpts.elmModuleName;
-  }
-  if (!opts.nameStyle) {
-    opts.nameStyle = defaultOpts.nameStyle;
-  }
-  if (!opts.formats) {
-    opts.formats = defaultOpts.formats;
-  } else {
-    if (!opts.formats.svg) {
-      opts.formats.svg = defaultOpts.formats.svg;
-    }
-    if (!opts.formats.string) {
-      opts.formats.string = defaultOpts.formats.string;
-    }
-  }
+  opts = { ...defaultOpts, ...opts };
+  opts.formats = { ...opts.formats };
+  opts.formats.string = cleanFormat({ ...opts.formats.string });
+  opts.formats.svg = cleanFormat({ ...opts.formats.svg });
 
   return opts;
+}
+
+function cleanFormat({ elmFile, elmModuleName }) {
+  if (!elmFile) return false;
+  if (!elmModuleName) return false;
+
+  return { elmFile, elmModuleName };
 }
 
 exports.elmBodyHtml = elmBodyHtml;

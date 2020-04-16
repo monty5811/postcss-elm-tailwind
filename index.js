@@ -20,8 +20,12 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
     });
 
     writeElmFile(opts, classes, h.elmBodyHtml);
-    writeElmFile(opts.formats.string, classes, h.elmBodyString);
-    writeElmFile(opts.formats.svg, classes, h.elmBodySvg);
+    if (opts.formats.string) {
+      writeElmFile(opts.formats.string, classes, h.elmBodyString);
+    }
+    if (opts.formats.svg) {
+      writeElmFile(opts.formats.svg, classes, h.elmBodySvg);
+    }
   };
 });
 
