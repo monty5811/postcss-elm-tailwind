@@ -19,22 +19,12 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
         .forEach(selector => processSelector(selector, opts));
     });
 
-    writeElmFile(opts, classes, h.elmBodyHtml);
-    if (opts.formats.string) {
-      writeElmFile(opts.formats.string, classes, h.elmBodyString);
-    }
-    if (opts.formats.svg) {
-      writeElmFile(opts.formats.svg, classes, h.elmBodySvg);
-    }
+    h.formats(opts).forEach(
+      ({ elmFile, elmModuleName, elmBodyFn }) =>
+        writeFile(elmFile, elmBodyFn(elmModuleName, classes))
+    );
   };
 });
-
-function writeElmFile({ elmFile, elmModuleName }, classes, elmBodyFn) {
-  if (!elmFile) return;
-  if (!elmModuleName) return;
-
-  writeFile(elmFile, elmBodyFn(elmModuleName, classes));
-}
 
 function writeFile(fname, content) {
   folder = path.dirname(fname);

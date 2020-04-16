@@ -177,24 +177,31 @@ const defaultOpts = {
 function cleanOpts(opts) {
   opts = { ...defaultOpts, ...opts };
   opts.formats = { ...opts.formats };
-  opts.formats.string = cleanFormat({ ...opts.formats.string });
-  opts.formats.svg = cleanFormat({ ...opts.formats.svg });
 
   return opts;
 }
 
-function cleanFormat({ elmFile, elmModuleName }) {
+function formats(opts) {
+  return [
+    cleanFormat(opts, elmBodyHtml),
+    cleanFormat({ ...opts.formats.string }, elmBodyString),
+    cleanFormat({ ...opts.formats.svg }, elmBodySvg)
+  ].filter(f => f);
+}
+
+function cleanFormat({ elmFile, elmModuleName }, elmBodyFn) {
   if (!elmFile) return false;
   if (!elmModuleName) return false;
 
-  return { elmFile, elmModuleName };
+  return { elmFile, elmModuleName, elmBodyFn };
 }
 
+exports.cleanOpts = cleanOpts;
+exports.defaultOpts = defaultOpts;
 exports.elmBodyHtml = elmBodyHtml;
 exports.elmBodyString = elmBodyString;
 exports.elmBodySvg = elmBodySvg;
 exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;
+exports.formats = formats;
 exports.toElmName = toElmName;
-exports.cleanOpts = cleanOpts;
-exports.defaultOpts = defaultOpts;
