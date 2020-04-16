@@ -1,4 +1,5 @@
 const fs = require("fs");
+const makeDir = require("make-dir");
 const path = require("path");
 let postcss = require("postcss");
 
@@ -16,25 +17,26 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
         .forEach(selector => processSelector(selector, opts));
     });
 
-    h.formats(opts).forEach(
+    const formats = h.formats(opts).map(
       ({ elmFile, elmModuleName, elmBodyFn }) =>
         writeFile(elmFile, elmBodyFn(elmModuleName, classes))
+    );
+    return tap(Promise.all(formats), p => 
+      p.then(files => console.log('Saved', files))
     );
   };
 });
 
-function writeFile(fname, content) {
+async function writeFile(fname, content) {
   folder = path.dirname(fname);
-  if (!fs.existsSync(folder)) {
-    fs.mkdirSync(folder);
-  }
-
-  fs.writeFile(fname, content, err => {
-    if (err) {
-      return console.log(err);
-    }
-    console.log(fname, "was saved!");
-  });
+  await makeDir(folder);
+  
+  return new Promise((resolve, reject) =>
+    fs.writeFile(fname, content, err => {
+      if (err) return reject(err);
+      resolve(fname);
+    })
+  );
 }
 
 function processSelector(selector, opts) {
@@ -50,3 +52,5 @@ function processSelector(selector, opts) {
 
   classes.set(cls, elm);
 }
+
+const tap = (v, fn) => { fn(v); return v; };
