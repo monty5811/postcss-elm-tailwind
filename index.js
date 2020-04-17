@@ -11,11 +11,8 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
 
   return (root, result) => {
     // Transform CSS AST here
-    root.walkRules(rule => {
-      rule.selector
-        .split(" ")
-        .map(sel => sel.split(","))
-        .reduce((arr, v) => (arr.push(...v), arr), [])
+    root.walkRules(/^\./, rule => {
+      rule.selectors
         .forEach(selector => processSelector(selector, opts));
     });
 
