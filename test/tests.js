@@ -7,7 +7,8 @@ describe("cleanOpts", () => {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
       prefix: "",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      formats: {}
     });
   });
   it("should not override elmFile", () => {
@@ -15,7 +16,8 @@ describe("cleanOpts", () => {
       elmFile: "src/NotTW.elm",
       elmModuleName: "TW",
       prefix: "",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      formats: {}
     });
   });
   it("should not override prefix", () => {
@@ -23,7 +25,8 @@ describe("cleanOpts", () => {
       elmFile: "src/TW.elm",
       elmModuleName: "TW",
       prefix: "tw--",
-      nameStyle: "snake"
+      nameStyle: "snake",
+      formats: {}
     });
   });
 });
@@ -178,5 +181,37 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass("fa > li")), "fa");
     assert.equal(h.toElmName(h.fixClass("fa> li")), "fa");
     assert.equal(h.toElmName(h.fixClass("fa >li")), "fa");
+  });
+});
+
+describe("elmFunction", () => {
+  it("generates Html attributes", () => {
+    assert.ok(
+      /Html\.Attribute/.test(
+        h.elmFunction(
+          { type: "Html.Attribute msg", fn: "A.class " },
+          "bg-pink-700",
+          "bg_pink_700"
+        )
+      )
+    );
+  });
+  it("generates Svg attributes", () => {
+    assert.ok(
+      /Svg\.Attribute/.test(
+        h.elmFunction(
+          { type: "Svg.Attribute msg", fn: "A.class " },
+          "bg-pink-700",
+          "bg_pink_700"
+        )
+      )
+    );
+  });
+  it("generates strings", () => {
+    assert.ok(
+      /String/.test(
+        h.elmFunction({ type: "String", fn: "" }, "bg-pink-700", "bg_pink_700")
+      )
+    );
   });
 });

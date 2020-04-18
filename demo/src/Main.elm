@@ -5,6 +5,9 @@ import Html exposing (Html)
 import Html.Attributes as A
 import Html.Events as E
 import TLWND as TW
+-- here to make sure we compile the other formats:
+import TLWND.Svg
+import TLWND.String
 
 
 

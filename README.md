@@ -80,6 +80,52 @@ module.exports = {
 
 See the [demo](https://github.com/monty5811/postcss-elm-tailwind/tree/master/demo) for a full example.
 
+### Other output formats
+
+#### SVG
+
+If you want to use Tailwind classes to style `SVG` you can output an `Svg` module like this:
+
+```js
+module.exports = {
+  plugins: [
+    require("tailwindcss"),
+    require("postcss-elm-tailwind")({
+      elmFile: "src/Tailwind.elm",
+      elmModule: "Tailwind",
+      formats: {
+        svg: {
+          elmFile: "src/Tailwind/Svg.elm",
+          elmModuleName: "Tailwind.Svg"
+        }
+      }
+    })
+  ]
+};
+```
+
+#### String
+
+If you want access to the class names themselves, you can output a `String` module as an escape hatch:
+
+```js
+module.exports = {
+  plugins: [
+    require("tailwindcss"),
+    require("postcss-elm-tailwind")({
+      elmFile: "src/Tailwind.elm",
+      elmModule: "Tailwind",
+      formats: {
+        string: {
+          elmFile: "src/Tailwind/String.elm",
+          elmModuleName: "Tailwind.String"
+        }
+      }
+    })
+  ]
+};
+```
+
 ## Other things to note
 
 In order to get a small build, you'll need to build Tailwind twice - once

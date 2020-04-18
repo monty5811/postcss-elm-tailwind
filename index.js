@@ -1,10 +1,10 @@
 const fs = require("fs");
+const path = require("path");
 let postcss = require("postcss");
 
 let h = require("./helpers.js");
 
 let classes = new Map();
-let elm_fns = new Array();
 
 module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
   opts = h.cleanOpts(opts);
@@ -19,19 +19,26 @@ module.exports = postcss.plugin("postcss-elm-tailwind", opts => {
         .forEach(selector => processSelector(selector, opts));
     });
 
-    const elmModule = h.elmHeader(opts.elmModuleName, elm_fns) +
-      h.elmBody(classes);
-
-    // writing to disk
-    fs.writeFile(opts.elmFile, elmModule, err => {
-      if (err) {
-        return console.log(err);
-      }
-
-      console.log(opts.elmFile, "was saved!");
-    });
+    h.formats(opts).forEach(
+      ({ elmFile, elmModuleName, elmBodyFn }) =>
+        writeFile(elmFile, elmBodyFn(elmModuleName, classes))
+    );
   };
 });
+
+function writeFile(fname, content) {
+  folder = path.dirname(fname);
+  if (!fs.existsSync(folder)) {
+    fs.mkdirSync(folder);
+  }
+
+  fs.writeFile(fname, content, err => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(fname, "was saved!");
+  });
+}
 
 function processSelector(selector, opts) {
   if (!selector.startsWith(".")) {
@@ -44,6 +51,5 @@ function processSelector(selector, opts) {
   cls = h.fixClass(selector);
   elm = h.toElmName(cls, opts);
 
-  classes.set(cls, h.elmFunction(cls, elm));
-  elm_fns.push(elm);
+  classes.set(cls, elm);
 }
