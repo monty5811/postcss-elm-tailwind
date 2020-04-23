@@ -17,7 +17,6 @@
   "license": "MIT",
   "repository": "monty5811/postcss-elm-tailwind",
   "dependencies": {
-    "make-dir": "^3.0.2",
     "postcss": "^7.0.18"
   },
   "devDependencies": {
