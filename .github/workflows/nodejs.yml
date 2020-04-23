@@ -1,6 +1,10 @@
 name: Node CI
 
-on: [push, pull_request]
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -9,10 +13,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -23,16 +27,32 @@ jobs:
         yarn test
       env:
         CI: true
-    - name: check demo site builds
-      run: |
-        cd demo
-        yarn
-        yarn build-prod
-      env:
-        NODE_ENV: production
     - name: validate with elm-format
       run: |
         cd demo
         yarn
         yarn build
         yarn check-format
+
+  build-demo:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install module dependencies
+      run: yarn install --frozen-lockfile --production
+    - name: Check demo site builds
+      working-directory: demo
+      env:
+        NODE_ENV: production
+      run: |
+        yarn install --frozen-lockfile
+        yarn run build-prod
