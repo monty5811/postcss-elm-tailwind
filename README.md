@@ -131,4 +131,4 @@ module.exports = {
 In order to get a small build, you'll need to build Tailwind twice - once
 without purgecss to build `TW.elm` with all the classes and once with purgecss
 so that all the unused classes are removed from your production CSS.
-See how this is implemented in the [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L20).
+See how this is implemented in the [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L19).

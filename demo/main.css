@@ -5,11 +5,12 @@
 @tailwind utilities;
 
 
+/* purgecss end ignore */
+
 .test\.with\.a\.dot {
     /* here to test classes with "." in them */
     cursor: pointer;
 }
-
 
 /* test font awesome stuff */
 /*!

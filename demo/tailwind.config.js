@@ -12,5 +12,8 @@ module.exports = {
     ]
   },
   plugins: [require("@tailwindcss/custom-forms")],
-  prefix: "tw-"
+  prefix: "tw-",
+  purge: {
+    content: ['./index.html', './dist/app.js']
+  }
 };
