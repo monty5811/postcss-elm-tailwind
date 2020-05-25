@@ -1,3 +1,5 @@
+demo/src/TLWND.elm
+demo/src/TLWND/*.elm
 node_modules/
 npm-debug.log
 yarn-error.log
