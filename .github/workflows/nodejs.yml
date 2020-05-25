@@ -51,8 +51,6 @@ jobs:
       run: yarn install --frozen-lockfile --production
     - name: Check demo site builds
       working-directory: demo
-      env:
-        NODE_ENV: production
       run: |
-        yarn install --frozen-lockfile
+        yarn install --frozen-lockfile --production
         yarn run build-prod

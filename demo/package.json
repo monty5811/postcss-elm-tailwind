@@ -20,7 +20,7 @@
     "build-tw": "postcss -o dist/main.css main.css",
     "build": "yarn build-tw && yarn build-elm && yarn copy-index",
     "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw && yarn copy-index",
-    "check-format": "elm-format src/TLWND.elm  --validate"
+    "check-format": "elm-format src/TLWND.elm src/TLWND/String.elm src/TLWND/Svg.elm --validate"
   },
   "devDependencies": {}
 }
