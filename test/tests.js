@@ -182,6 +182,10 @@ describe("fixClass -> toElmName", () => {
     assert.equal(h.toElmName(h.fixClass("fa> li")), "fa");
     assert.equal(h.toElmName(h.fixClass("fa >li")), "fa");
   });
+  // regression test for .bottom-0.5
+  it("handle '.bottom-0.5'", () => {
+    assert.equal(h.toElmName(h.fixClass(".bottom-0\.5")), "bottom_0_dot_5");
+  });
 });
 
 describe("elmFunction", () => {
