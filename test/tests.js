@@ -33,18 +33,81 @@ describe("cleanOpts", () => {
 
 describe("fixClass", () => {
   it("should let container pass through", () => {
-    assert.equal(h.fixClass("container"), "container");
+    assert.equal(h.fixClass(".container"), "container");
   });
   it("should let mx-auto pass through", () => {
-    assert.equal(h.fixClass("mx-auto"), "mx-auto");
+    assert.equal(h.fixClass(".mx-auto"), "mx-auto");
   });
   it("responsive", () => {
-    assert.equal(h.fixClass("sm:mx-auto"), "sm:mx-auto");
+    assert.equal(h.fixClass(".sm:mx-auto"), "sm:mx-auto");
   });
-  it("responsive and focus", () => {
+  describe("pseudo-classes", () => {
+    it("removes :after", () => {
+      assert.equal(
+        h.fixClass(".tw-clearfix:after"),
+        "tw-clearfix"
+      );  
+    });
+    it("removes :before", () => {
+      assert.equal(
+        h.fixClass(".fa-accessible-icon:before"),
+        "fa-accessible-icon"
+      );  
+    });
+    it("removes :disabled", () => {
+      assert.equal(
+        h.fixClass(".disabled:tw-bg-transparent:disabled"),
+        "disabled:tw-bg-transparent"
+      );
+    });
+    it("removes :focus-within", () => {
+      assert.equal(
+        h.fixClass(".sm:focus-within:tw-text-transparent:focus-within"),
+        "sm:focus-within:tw-text-transparent"
+      );
+    });
+    it("removes :visited", () => {
+      assert.equal(
+        h.fixClass(".visited:tw-bg-teal-100:visited"),
+        "visited:tw-bg-teal-100"
+      );
+    });
+  });
+  it("removes pseudo-elements (::)", () => {
+    assert.equal(h.fixClass(".tw-form-select::-ms-expand"), "tw-form-select");
+  });
+  it("removes pseudo-classes and psuedo-elements", () => {
+    assert.equal(
+      h.fixClass(".focus:placeholder-gray-400:focus::placeholder"),
+      "focus:placeholder-gray-400"
+    );
+    assert.equal(
+      h.fixClass(".focus:tw-placeholder-transparent:focus::-webkit-input-placeholder"),
+      "focus:tw-placeholder-transparent"
+    );
+  });
+  it("removes chained pseudo-classes", () => {
+    assert.equal(
+      h.fixClass(".tw-form-checkbox:checked:focus"),
+      "tw-form-checkbox"
+    );
+    assert.equal(
+      h.fixClass(".tw-form-checkbox:focus:checked"),
+      "tw-form-checkbox"
+    );
+  });
+  it("handles responsive with pseudo-classes", () => {
+    assert.equal(
+      h.fixClass(".lg:active:tw-text-transparent:active"),
+      "lg:active:tw-text-transparent"
+    );
     assert.equal(
       h.fixClass(".xl:focus:no-underline:focus"),
       "xl:focus:no-underline"
+    );
+    assert.equal(
+      h.fixClass(".lg:hover:tw-text-opacity-50:hover"),
+      "lg:hover:tw-text-opacity-50"
     );
   });
   it("with prefix", () => {
@@ -65,6 +128,10 @@ describe("fixClass", () => {
     assert.equal(
       h.fixClass(".lg:even:bg-pink-700:nth-child(even)"),
       "lg:even:bg-pink-700"
+    );
+    assert.equal(
+      h.fixClass(".first:tw-bg-red-400:first-child"),
+      "first:tw-bg-red-400"
     );
     assert.equal(
       h.fixClass(".last:tw-bg-transparent:last-child"),
