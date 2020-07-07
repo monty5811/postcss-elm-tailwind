@@ -3,12 +3,18 @@ module.exports = {
   variants: {
     backgroundColor: [
       "responsive",
-      "first",
-      "last",
-      "hover",
-      "focus",
+      "active",
+      "disabled",
       "even",
-      "odd"
+      "first",
+      "focus-within",
+      "focus",
+      "group-focus",
+      "group-hover",
+      "hover",
+      "last",
+      "odd",
+      "visited"
     ]
   },
   plugins: [require("@tailwindcss/custom-forms"), require("@tailwindcss/ui")],

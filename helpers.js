@@ -92,27 +92,21 @@ function fixClass(cls) {
   cls = cls.replace(/^(\.)/, "");
   // make other dots safe
   cls = cls.replace(/\\\./g, ".");
-  // remove extras at end
+  // remove > anything
+  cls = cls.replace(/\s?>\s?.*/, "");
+  // remove pseudo-elements (::)
+  cls = cls.replace(/::.*$/, "");
+  // remove pseudo-classes (:)
   cls = cls.replace(
-    /:(focus-within|first-child|last-child|odd|even|hover|focus|active|visited|disabled)$/,
+    /(:(active|after|before|checked|disabled|focus|focus-within|hover|visited|nth-child\((even|odd)\)|(first|last)-child))+$/,
     ""
   );
-  // remove extras at end
-  cls = cls.replace(/::(placeholder)$/, "");
-  cls = cls.replace(/:(first|last)-child/, "");
-  cls = cls.replace(/:before/, "");
-  cls = cls.replace(/:nth-child\((even|odd)\)/, "");
-  cls = cls.replace(/\s?>\s?.*/, "");
-  //
+  // make / safe for elm
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
   cls = cls.replace(/\\([/])/g, "\\\\$1");
   // make \: safe for elm
   cls = cls.replace(/\\([:])/g, "$1");
-  cls = cls.replace(
-    /^(responsive|group-hover|focus-within|first|last|odd|even|hover|focus|active|visited|disabled)\\\\:/,
-    "$1:"
-  );
   return cls;
 }
 
