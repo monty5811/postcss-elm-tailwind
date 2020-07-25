@@ -115,6 +115,7 @@ function removePseudoClass(cls) {
     ""
   );
 
+  // Remove multiple by doing recursion when the result differs
   if (result !== cls) return removePseudoClass(result);
   return result;
 }
