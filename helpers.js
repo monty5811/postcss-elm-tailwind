@@ -99,7 +99,10 @@ function fixClass(cls) {
   // remove not pseudo-classes (:not())
   cls = cls.replace(/:not\([^\)]*\)/g, "");
   // remove pseudo-classes (:)
-  cls = removePseudoClass(cls);
+  cls = cls.replace(
+    /(:(active|after|before|checked|disabled|focus|focus-within|hover|visited|nth-child\((even|odd)\)|(first|last)-child))+$/,
+    ""
+  );
   // make / safe for elm
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
@@ -107,17 +110,6 @@ function fixClass(cls) {
   // make \: safe for elm
   cls = cls.replace(/\\([:])/g, "$1");
   return cls;
-}
-
-function removePseudoClass(cls) {
-  const result = cls.replace(
-    /(:(active|after|before|checked|disabled|focus|focus-within|hover|visited|nth-child\((even|odd)\)|(first|last)-child))+$/,
-    ""
-  );
-
-  // Remove multiple by doing recursion when the result differs
-  if (result !== cls) return removePseudoClass(result);
-  return result;
 }
 
 function toElmName(cls, opts) {
