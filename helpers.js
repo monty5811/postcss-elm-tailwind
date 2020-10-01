@@ -96,6 +96,8 @@ function fixClass(cls) {
   cls = cls.replace(/\s?>\s?.*/, "");
   // remove pseudo-elements (::)
   cls = cls.replace(/::.*$/, "");
+  // remove not pseudo-classes (:not())
+  cls = cls.replace(/:not\([^\)]*\)/g, "");
   // remove pseudo-classes (:)
   cls = cls.replace(
     /(:(active|after|before|checked|disabled|focus|focus-within|hover|visited|nth-child\((even|odd)\)|(first|last)-child))+$/,

@@ -46,13 +46,13 @@ describe("fixClass", () => {
       assert.equal(
         h.fixClass(".tw-clearfix:after"),
         "tw-clearfix"
-      );  
+      );
     });
     it("removes :before", () => {
       assert.equal(
         h.fixClass(".fa-accessible-icon:before"),
         "fa-accessible-icon"
-      );  
+      );
     });
     it("removes :disabled", () => {
       assert.equal(
@@ -66,9 +66,21 @@ describe("fixClass", () => {
         "sm:focus-within:tw-text-transparent"
       );
     });
+    it("removes :not", () => {
+      assert.equal(
+        h.fixClass(".sm:not(:active)"),
+        "sm"
+      );
+    });
     it("removes :visited", () => {
       assert.equal(
         h.fixClass(".visited:tw-bg-teal-100:visited"),
+        "visited:tw-bg-teal-100"
+      );
+    });
+    it("removes chained pseudo classes", () => {
+      assert.equal(
+        h.fixClass(".visited:tw-bg-teal-100:nth-child(odd):active"),
         "visited:tw-bg-teal-100"
       );
     });
