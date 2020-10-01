@@ -5,6 +5,7 @@ import Html exposing (Html)
 import Html.Attributes as A
 import Html.Events as E
 import TLWND as TW
+import TLWND.LG as TW_lg
 -- here to make sure we compile the other formats:
 import TLWND.Svg
 import TLWND.String
@@ -213,8 +214,8 @@ buttonCls =
     , TW.tw_text_lg
     , TW.tw_bg_blue_500
     , TW.hover__tw_bg_blue_700
-    , TW.lg__tw_bg_green_500
-    , TW.lg__hover__tw_bg_green_700
+    , TW_lg.tw_bg_green_500
+    , TW_lg.hover__tw_bg_green_700
     , TW.hover__tw_font_bold
     , TW.tw_mx_auto
     , TW.tw_block
