@@ -51,28 +51,17 @@ npm i -D postcss-elm-tailwind
 
 ## Usage
 
-### No config
-
-```js
-module.exports = {
-  plugins: [
-    require("tailwindcss"),
-    require("postcss-elm-tailwind")()
-]
-};
-```
-
-### With config
-
 ```js
 module.exports = {
   plugins: [
     require("tailwindcss"),
     require("postcss-elm-tailwind")({
-      prefix: "tw-", // you must tell us if you have set a prefix in your tailwind.config.js
+      tailwindConfig: "./tailwind.config.js", // tell us where your tailwind.config.js lives
+      // only the tailwindConfig key is required, the rest are optional:
       elmFile: "src/Tailwind.elm", // change where the generated Elm module is saved
       elmModuleName: "Tailwind", // this must match the file name or Elm will complain
-      nameStyle: "snake" // "snake" for snake case, "camel" for camel case
+      nameStyle: "snake", // "snake" for snake case, "camel" for camel case
+      splitByScreens: true // generate an Elm module for each screen
     })
   ]
 };
@@ -91,6 +80,7 @@ module.exports = {
   plugins: [
     require("tailwindcss"),
     require("postcss-elm-tailwind")({
+      tailwindConfig: "./tailwind.config.js",
       elmFile: "src/Tailwind.elm",
       elmModuleName: "Tailwind",
       formats: {
@@ -113,6 +103,7 @@ module.exports = {
   plugins: [
     require("tailwindcss"),
     require("postcss-elm-tailwind")({
+      tailwindConfig: "./tailwind.config.js",
       elmFile: "src/Tailwind.elm",
       elmModuleName: "Tailwind",
       formats: {
@@ -131,4 +122,4 @@ module.exports = {
 In order to get a small build, you'll need to build Tailwind twice - once
 without purgecss to build `TW.elm` with all the classes and once with purgecss
 so that all the unused classes are removed from your production CSS.
-See how this is implemented in the [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L19).
+See how this is implemented in the [demo](https://github.com/monty5811/postcss-elm-tailwind/blob/master/demo/package.json#L22).

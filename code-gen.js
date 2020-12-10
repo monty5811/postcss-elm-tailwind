@@ -1,5 +1,3 @@
-// code gen stuff
-
 function elmBodyHtml(elmModuleName, classes) {
   return elmHeaderHtml(elmModuleName, classes) +
     elmBody({ type: "Html.Attribute msg", fn: "A.class " }, classes);
@@ -15,9 +13,8 @@ function elmBodySvg(elmModuleName, classes) {
     elmBody({ type: "Svg.Attribute msg", fn: "A.class " }, classes);
 }
 
-
 function elmHeaderExports(elmFns, includeClassList) {
-  let tmp = Array.from(elmFns.values());
+  let tmp = Array.from(elmFns.values()).map(o => o.elm);
   if (includeClassList) {
     tmp.push("classList");
   }
@@ -31,6 +28,7 @@ function elmHeaderHtml(elmModuleName, elmFns) {
   return `module ${elmModuleName} exposing
     ( ${l}
     )
+
 
 import Html
 import Html.Attributes as A
@@ -48,6 +46,7 @@ function elmHeaderSvg(elmModuleName, elmFns) {
   return `module ${elmModuleName} exposing
     ( ${l}
     )
+
 
 import Svg
 import Svg.Attributes as A
@@ -70,7 +69,7 @@ function elmHeaderString(elmModuleName, elmFns) {
 
 function elmBody(config, classes) {
   let body = "";
-  for (let [cls, elm] of classes) {
+  for (let [cls, {elm}] of classes) {
     body = body + elmFunction(config, { cls, elm });
   }
   return body;
@@ -78,7 +77,6 @@ function elmBody(config, classes) {
 
 function elmFunction(config, { cls, elm }) {
   return `
-
 ${elm} : ${config.type}
 ${elm} =
     ${config.fn}"${cls}"
@@ -112,8 +110,18 @@ function fixClass(cls) {
   return cls;
 }
 
+function toScreen(cls, opts) {
+    let screen = null;
+    for (let index = 0; index < opts.screens.length; index++) {
+      const currentScreen = opts.screens[index];
+      if (cls.includes(`${currentScreen}:`)) {
+        screen = currentScreen;
+      }
+    }
+    return screen;
+}
+
 function toElmName(cls, opts) {
-  opts = opts || defaultOpts;
   var elm = cls;
   // handle negative with prefix
   if (opts.prefix) {
@@ -142,62 +150,22 @@ function toElmName(cls, opts) {
   } else {
     elm = elm.replace(/\./g, "_dot_");
   }
+  // remove screens prefix
+  if (opts.splitByScreens) {
+    const screens_re = RegExp(`(${opts.screens.join("|")})__`);
+    elm = elm.replace(screens_re, '');
+  }
   // convert to camel case
   if (opts.nameStyle === "camel") {
-    elm = elm.replace(/(_+\w)/g, g => g.replace(/_/g, "").toUpperCase());
+    elm = elm.replace(/(_+\w)/g, (g) => g.replace(/_/g, "").toUpperCase());
   }
   return elm;
 }
 
-// options stuff
-
-const defaultOpts = {
-  elmFile: "src/TW.elm",
-  elmModuleName: "TW",
-  prefix: "",
-  nameStyle: "snake",
-  formats: {
-  /*
-    string: {
-      elmFile: "src/TW/String.elm",
-      elmModuleName: "TW.String"
-    },
-    svg: {
-      elmFile: "src/TW/Svg.elm",
-      elmModuleName: "TW.Svg",
-    }
-  */
-  }
-};
-
-function cleanOpts(opts) {
-  opts = { ...defaultOpts, ...opts };
-  opts.formats = { ...opts.formats };
-
-  return opts;
-}
-
-function formats(opts) {
-  return [
-    cleanFormat(opts, elmBodyHtml),
-    cleanFormat({ ...opts.formats.string }, elmBodyString),
-    cleanFormat({ ...opts.formats.svg }, elmBodySvg)
-  ].filter(f => f);
-}
-
-function cleanFormat({ elmFile, elmModuleName }, elmBodyFn) {
-  if (!elmFile) return false;
-  if (!elmModuleName) return false;
-
-  return { elmFile, elmModuleName, elmBodyFn };
-}
-
-exports.cleanOpts = cleanOpts;
-exports.defaultOpts = defaultOpts;
 exports.elmBodyHtml = elmBodyHtml;
 exports.elmBodyString = elmBodyString;
 exports.elmBodySvg = elmBodySvg;
 exports.elmFunction = elmFunction;
 exports.fixClass = fixClass;
-exports.formats = formats;
 exports.toElmName = toElmName;
+exports.toScreen = toScreen;
