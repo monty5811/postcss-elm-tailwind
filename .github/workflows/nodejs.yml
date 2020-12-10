@@ -44,12 +44,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Install module dependencies
+      run: yarn install --frozen-lockfile --production
+    - name: Install demo dependencies
+      working-directory: demo
+      run: yarn
+    - name: Build elm files
+      working-directory: demo
+      run: yarn build
     - name: validate with elm-format
-      run: |
-        cd demo
-        yarn
-        yarn build
-        yarn check-format
+      working-directory: demo
+      run: yarn check-format
 
   build-demo:
     runs-on: ubuntu-latest
