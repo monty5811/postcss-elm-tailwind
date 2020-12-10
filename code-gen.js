@@ -29,7 +29,6 @@ function elmHeaderHtml(elmModuleName, elmFns) {
     ( ${l}
     )
 
-
 import Html
 import Html.Attributes as A
 
@@ -46,7 +45,6 @@ function elmHeaderSvg(elmModuleName, elmFns) {
   return `module ${elmModuleName} exposing
     ( ${l}
     )
-
 
 import Svg
 import Svg.Attributes as A
@@ -77,6 +75,7 @@ function elmBody(config, classes) {
 
 function elmFunction(config, { cls, elm }) {
   return `
+
 ${elm} : ${config.type}
 ${elm} =
     ${config.fn}"${cls}"
