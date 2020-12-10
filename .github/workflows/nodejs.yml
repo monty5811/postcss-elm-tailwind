@@ -23,6 +23,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: yarn install and test
       run: |
+        cd demo
+        yarn
+        cd ..
         yarn
         yarn test
       env:
