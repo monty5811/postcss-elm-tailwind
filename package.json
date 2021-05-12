@@ -17,7 +17,7 @@
   "license": "MIT",
   "repository": "monty5811/postcss-elm-tailwind",
   "dependencies": {
-    "postcss": "^7.0.18",
+    "postcss": "^8.2.10",
     "tailwindcss": "^1.1.2"
   },
   "devDependencies": {
