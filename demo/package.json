@@ -9,7 +9,7 @@
     "@tailwindcss/ui": "^0.3.0",
     "elm": "^0.19.1-2",
     "elm-format": "0.8.3",
-    "postcss": "^7.0.18",
+    "postcss": "^8.2.10",
     "postcss-cli": "^7.1.1",
     "purgecss": "^2.2.1",
     "tailwindcss": "^1.1.2"
