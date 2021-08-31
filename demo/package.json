@@ -5,14 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.2.0",
-    "@tailwindcss/custom-forms": "^0.2.1",
-    "@tailwindcss/ui": "^0.3.0",
+    "@tailwindcss/forms": "^0.3.3",
+    "autoprefixer": "^10.3.3",
     "elm": "^0.19.1-2",
     "elm-format": "0.8.3",
-    "postcss": "^7.0.18",
-    "postcss-cli": "^7.1.1",
+    "postcss": "^8.0.0",
+    "postcss-cli": "^8.0.0",
     "purgecss": "^2.2.1",
-    "tailwindcss": "^1.1.2"
+    "tailwindcss": "^2.2.9"
   },
   "scripts": {
     "copy-index": "cp index.html dist/",
@@ -21,6 +21,5 @@
     "build": "yarn build-tw && yarn build-elm && yarn copy-index",
     "build-prod": "yarn build-tw && yarn build-elm && NODE_ENV=production yarn build-tw && yarn copy-index",
     "check-format": "elm-format src/**/*.elm --validate"
-  },
-  "devDependencies": {}
+  }
 }

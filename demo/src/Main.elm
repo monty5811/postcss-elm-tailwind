@@ -106,25 +106,25 @@ view model =
             , Html.label [ TW.tw_block ]
                 [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Name" ]
                 , Html.input
-                    [ TW.tw_form_input, TW.tw_mt_1, TW.tw_block, TW.tw_w_full, A.placeholder "Jane Doe" ]
+                    [ TW.tw_mt_1, TW.tw_block, TW.tw_w_full, TW.tw_border_gray_300, TW.tw_rounded_md, TW.focus__tw_border_blue_300, TW.focus__tw_ring, TW.focus__tw_ring_blue_200, TW.focus__tw_ring_opacity_50, A.placeholder "Jane Doe", A.type_ "text" ]
                     []
                 ]
             , Html.div [ TW.tw_mt_4 ]
                 [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Account Type" ]
                 , Html.div [ TW.tw_mt_2 ]
                     [ Html.label [ TW.tw_inline_flex, TW.tw_items_center ]
-                        [ Html.input [ A.type_ "radio", TW.tw_form_radio, A.name "accountType", A.value "personal" ] []
+                        [ Html.input [ A.type_ "radio", TW.tw_border_gray_300, TW.focus__tw_border_blue_300, TW.focus__tw_ring, TW.focus__tw_ring_blue_200, TW.focus__tw_ring_opacity_50, TW.focus__tw_ring_offset_0, A.name "accountType", A.value "personal" ] []
                         , Html.span [ TW.tw_ml_2 ] [ Html.text "Personal" ]
                         ]
                     , Html.label [ TW.tw_inline_flex, TW.tw_items_center, TW.tw_ml_6 ]
-                        [ Html.input [ A.type_ "radio", TW.tw_form_radio, A.name "accountType", A.value "business" ] []
+                        [ Html.input [ A.type_ "radio", TW.tw_border_gray_300, TW.focus__tw_border_blue_300, TW.focus__tw_ring, TW.focus__tw_ring_blue_200, TW.focus__tw_ring_opacity_50, TW.focus__tw_ring_offset_0, A.name "accountType", A.value "business" ] []
                         , Html.span [ TW.tw_ml_2 ] [ Html.text "Business" ]
                         ]
                     ]
                 ]
             , Html.label [ TW.tw_block, TW.tw_mt_4 ]
                 [ Html.span [ TW.tw_text_gray_700 ] [ Html.text "Requested Limit" ]
-                , Html.select [ TW.tw_form_select, TW.tw_mt_1, TW.tw_block, TW.tw_w_full ]
+                , Html.select [ TW.tw_mt_1, TW.tw_block, TW.tw_w_full, TW.tw_border_gray_300, TW.tw_rounded_md, TW.focus__tw_border_blue_300, TW.focus__tw_ring, TW.focus__tw_ring_blue_200, TW.focus__tw_ring_opacity_50]
                     [ Html.option [] [ Html.text "$1,000" ]
                     , Html.option [] [ Html.text "$5,000" ]
                     , Html.option [] [ Html.text "$10,000" ]
@@ -133,7 +133,7 @@ view model =
                 ]
             , Html.div [ TW.tw_flex, TW.tw_mt_6 ]
                 [ Html.label [ TW.tw_flex, TW.tw_items_center ]
-                    [ Html.input [ A.type_ "checkbox", TW.tw_form_checkbox ] []
+                    [ Html.input [ A.type_ "checkbox", TW.tw_rounded, TW.tw_border_gray_300, TW.tw_text_blue_600, TW.tw_shadow_sm, TW.focus__tw_border_blue_300, TW.focus__tw_ring, TW.focus__tw_ring_offset_0, TW.focus__tw_ring_blue_200, TW.focus__tw_ring_opacity_50 ] []
                     , Html.span [ TW.tw_ml_2 ]
                         [ Html.text "I agree to the "
                         , Html.span [ TW.tw_underline ] [ Html.text "privacy policy" ]
@@ -216,7 +216,7 @@ buttonCls =
     , TW.hover__tw_bg_blue_700
     , TW_lg.tw_bg_green_500
     , TW_lg.hover__tw_bg_green_700
-    , TW.hover__tw_font_bold
+    --, TW.hover__tw_font_bold
     , TW.tw_mx_auto
     , TW.tw_block
     , TW.tw_w_1over4

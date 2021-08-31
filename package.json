@@ -17,15 +17,19 @@
   "license": "MIT",
   "repository": "monty5811/postcss-elm-tailwind",
   "dependencies": {
-    "postcss": "^7.0.18",
-    "tailwindcss": "^1.1.2"
+    "autoprefixer": "^10.3.3",
+    "tailwindcss": "^2.2.9"
+  },
+  "peerDependencies": {
+    "postcss": "^8.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/custom-forms": "^0.2.1",
+    "@tailwindcss/forms": "^0.3.3",
     "elm": "^0.19.1-2",
     "elm-format": "0.8.3",
     "mocha": "^7.2.0",
-    "postcss-cli": "^7.1.1"
+    "postcss": "^8.0.0",
+    "postcss-cli": "^8.0.0"
   },
   "engines": {
     "node": ">=12.0.0"

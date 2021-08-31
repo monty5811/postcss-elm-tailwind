@@ -17,7 +17,7 @@ module.exports = {
       "visited"
     ]
   },
-  plugins: [require("@tailwindcss/custom-forms"), require("@tailwindcss/ui")],
+  plugins: [require('@tailwindcss/forms')],
   prefix: "tw-",
   purge: {
     content: ['./index.html', './dist/app.js']
