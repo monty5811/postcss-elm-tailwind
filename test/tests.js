@@ -1,7 +1,7 @@
 const { fixClass, toElmName, elmFunction } = require("../code-gen.js");
 const { cleanOpts, defaultOpts } = require("../options.js");
 
-var assert = require("assert");
+let assert = require("assert");
 
 function toElmName_(cls) {
   return toElmName(fixClass(cls), {...defaultOpts, screens: ["sm"]})
@@ -20,7 +20,7 @@ describe("cleanOpts", () => {
       formats: {},
       splitByScreens: true,
       tailwindConfig: "./demo/tailwind.config.js",
-      screens: ["sm", "md", "lg", "xl"]
+      screens: ["sm", "md", "lg", "xl", "2xl"]
     });
   });
 });
@@ -220,7 +220,7 @@ describe("fixClass -> toElmName", () => {
       toElmName(fixClass(".xl:tw--my-64"), {
         ...camelCaseOpts,
         prefix: "tw-",
-        
+
       }),
       "xlTwNegMy64"
     );
