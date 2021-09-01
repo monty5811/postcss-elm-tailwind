@@ -4,12 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.2.0",
     "@tailwindcss/forms": "^0.3.3",
     "autoprefixer": "^10.3.3",
     "elm": "^0.19.1-2",
     "elm-format": "0.8.3",
-    "postcss": "^8.0.0",
+    "postcss": "^8.3.6",
     "postcss-cli": "^8.0.0",
     "purgecss": "^2.2.1",
     "tailwindcss": "^2.2.9"
