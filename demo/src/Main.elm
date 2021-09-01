@@ -9,6 +9,8 @@ import TLWND.LG as TW_lg
 -- here to make sure we compile the other formats:
 import TLWND.Svg
 import TLWND.String
+import TLWND.XL
+import TLWND.XXL
 
 
 
@@ -226,4 +228,6 @@ buttonCls =
     , TW.tw_transform
     , TW.hover__tw_neg_translate_y_1
     , TW.hover__tw_scale_110
+    , TLWND.XXL.tw_rounded_md
+    , TLWND.XL.tw_rounded_md
     ]

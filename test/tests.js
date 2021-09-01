@@ -154,6 +154,9 @@ describe("fixClass", () => {
     assert.strictEqual(fixClass("fa >li"), "fa");
     assert.strictEqual(fixClass("fa> li"), "fa");
   });
+  it("handle '\\3' in class names", () => {
+      assert.strictEqual(fixClass(".\\\\32xl:tw-w-5"), "\32xl:tw-w-5");
+  })
 });
 
 describe("fixClass -> toElmName", () => {
@@ -267,6 +270,17 @@ describe("fixClass -> toElmName", () => {
   it("handle '.bottom-0.5'", () => {
     assert.strictEqual(toElmName_(".bottom-0\.5"), "bottom_0_dot_5");
   });
+    // regression test for 2XL
+    it("handle classes starting with numbers", () => {
+        assert.strictEqual(toElmName(fixClass(".\\\\32xl:tw-w-5"), {
+            ...defaultOpts,
+            screens: ["2xl"]
+        }), "tw-w-5");
+        assert.strictEqual(toElmName(fixClass(".\\\\32xl:tw-backdrop-opacity-20"), {
+            ...defaultOpts,
+            screens: ["2xl"]
+        }), "tw_backdrop_opacity_20");
+    });
 });
 
 describe("elmFunction", () => {

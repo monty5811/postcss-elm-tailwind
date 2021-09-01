@@ -50,13 +50,25 @@ function splitByScreens(opts, classesSet, {elmFile, elmModuleName, elmBodyFn}) {
     )
 }
 
+let fixClassStartingWithNumber = (className) =>
+    className.match(/(\d+)/)
+        ? function () {
+            let number = className.match(/(\d+)/)[0]
+            let nName = className.replace(number, '')
+            let firstChar = nName.charAt(0)
+            let multiChars = firstChar.repeat(number)
+            return nName.replace(firstChar, multiChars)
+        }()
+        : className
+
 function extractScreen(screen, elmFile, elmModuleName, elmBodyFn, classesSet) {
     let newFile = elmFile;
     let newModule = elmModuleName;
     if (screen !== null) {
-        const screenUpper = screen.toUpperCase();
-        newFile = newFile.replace(".elm", `/${screenUpper}.elm`);
-        newModule = `${newModule}.${screenUpper}`;
+        let newName = fixClassStartingWithNumber(screen.toUpperCase())
+
+        newFile = newFile.replace(".elm", `/${newName}.elm`);
+        newModule = `${newModule}.${newName}`;
     }
     const newClasses = new Map();
     for (let [cls, val] of classesSet) {
@@ -68,7 +80,7 @@ function extractScreen(screen, elmFile, elmModuleName, elmBodyFn, classesSet) {
 }
 
 async function writeFile(fname, content) {
-    folder = path.dirname(fname);
+    let folder = path.dirname(fname);
     await mkdir(folder, {recursive: true});
 
     return new Promise((resolve, reject) =>
