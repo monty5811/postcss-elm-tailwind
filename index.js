@@ -13,14 +13,14 @@ module.exports = (opts = {}) => {
     opts = cleanOpts(opts);
     return {
         postcssPlugin: 'postcss-elm-tailwind',
-        Once(root) {
-            root.walkRules(rule => {
-                rule.selector
-                    .split(" ")
-                    .map((sel) => sel.split(","))
-                    .reduce((arr, v) => (arr.push(...v), arr), [])
-                    .forEach((selector) => processSelector(selector, opts));
-            })
+        Rule(rule) {
+            rule.selector
+                .split(" ")
+                .map((sel) => sel.split(","))
+                .reduce((arr, v) => (arr.push(...v), arr), [])
+                .forEach((selector) => processSelector(selector, opts));
+        },
+        OnceExit() {
             const formats_ = formats(opts)
                 .map(data => splitByScreens(opts, classes, data))
                 .flat()
