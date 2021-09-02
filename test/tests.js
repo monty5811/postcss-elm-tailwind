@@ -270,17 +270,17 @@ describe("fixClass -> toElmName", () => {
   it("handle '.bottom-0.5'", () => {
     assert.strictEqual(toElmName_(".bottom-0\.5"), "bottom_0_dot_5");
   });
-    // regression test for 2XL
-    it("handle classes starting with numbers", () => {
-        assert.strictEqual(toElmName(fixClass(".\\32xl\\:tw-translate-y-14"), {
-            ...defaultOpts,
-            screens: ["2xl"]
-        }), "tw_translate_y_14");
-        assert.strictEqual(toElmName(fixClass(".\\32xl\\:focus\\:tw-translate-y-52"), {
-            ...defaultOpts,
-            screens: ["2xl"]
-        }), "focus__tw_translate_y_52");
-    });
+  // regression test for 2XL
+  it("handle classes starting with numbers", () => {
+    assert.strictEqual(toElmName(fixClass(".\\32xl\\:tw-translate-y-14"), {
+        ...defaultOpts,
+        screens: ["2xl"]
+    }), "tw_translate_y_14");
+    assert.strictEqual(toElmName(fixClass(".\\32xl\\:focus\\:tw-translate-y-52"), {
+        ...defaultOpts,
+        screens: ["2xl"]
+    }), "focus__tw_translate_y_52");
+  });
 });
 
 describe("elmFunction", () => {
