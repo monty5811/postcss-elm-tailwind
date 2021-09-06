@@ -1,7 +1,7 @@
 const { fixClass, toElmName, elmFunction } = require("../code-gen.js");
 const { cleanOpts, defaultOpts } = require("../options.js");
 
-var assert = require("assert");
+let assert = require("assert");
 
 function toElmName_(cls) {
   return toElmName(fixClass(cls), {...defaultOpts, screens: ["sm"]})
@@ -20,7 +20,7 @@ describe("cleanOpts", () => {
       formats: {},
       splitByScreens: true,
       tailwindConfig: "./demo/tailwind.config.js",
-      screens: ["sm", "md", "lg", "xl"]
+      screens: ["sm", "md", "lg", "xl", "2xl"]
     });
   });
 });
@@ -154,6 +154,9 @@ describe("fixClass", () => {
     assert.strictEqual(fixClass("fa >li"), "fa");
     assert.strictEqual(fixClass("fa> li"), "fa");
   });
+  it("handle '\\3' in class names", () => {
+      assert.strictEqual(fixClass(".\\32xl\\:tw-translate-y-14"), "\\\\32xl:tw-translate-y-14");
+  })
 });
 
 describe("fixClass -> toElmName", () => {
@@ -220,7 +223,7 @@ describe("fixClass -> toElmName", () => {
       toElmName(fixClass(".xl:tw--my-64"), {
         ...camelCaseOpts,
         prefix: "tw-",
-        
+
       }),
       "xlTwNegMy64"
     );
@@ -266,6 +269,17 @@ describe("fixClass -> toElmName", () => {
   // regression test for .bottom-0.5
   it("handle '.bottom-0.5'", () => {
     assert.strictEqual(toElmName_(".bottom-0\.5"), "bottom_0_dot_5");
+  });
+  // regression test for 2XL
+  it("handle classes starting with numbers", () => {
+    assert.strictEqual(toElmName(fixClass(".\\32xl\\:tw-translate-y-14"), {
+        ...defaultOpts,
+        screens: ["2xl"]
+    }), "tw_translate_y_14");
+    assert.strictEqual(toElmName(fixClass(".\\32xl\\:focus\\:tw-translate-y-52"), {
+        ...defaultOpts,
+        screens: ["2xl"]
+    }), "focus__tw_translate_y_52");
   });
 });
 

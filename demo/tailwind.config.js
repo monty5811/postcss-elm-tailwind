@@ -17,9 +17,10 @@ module.exports = {
       "visited"
     ]
   },
-  plugins: [require("@tailwindcss/custom-forms"), require("@tailwindcss/ui")],
+  plugins: [require('@tailwindcss/forms')],
   prefix: "tw-",
   purge: {
-    content: ['./index.html', './dist/app.js']
+    mode: 'all', // Removes unused font-awesome fonts and icons
+    content: ['./index.html', './dist/app.js'],
   }
 };

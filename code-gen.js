@@ -100,6 +100,8 @@ function fixClass(cls) {
     /(:(active|after|before|checked|disabled|focus|focus-within|hover|visited|nth-child\((even|odd)\)|(first|last)-child))+$/,
     ""
   );
+  // make \3 safe for elm
+  cls = cls.replace(/\\3/g, "\\\\3");
   // make / safe for elm
   cls = cls.replace(/\\\//g, "/");
   // make \/ safe for elm
@@ -137,6 +139,8 @@ function toElmName(cls, opts) {
   elm = elm.replace(/:/g, "__");
   // handle fractions
   elm = elm.replace(/\//g, "over");
+  // handle escaping chars \3
+  elm = elm.replace(/\\\\3/g, "")
   // clean up
   elm = elm.replace(/\\__/g, "_");
   elm = elm.replace(/^_/g, "");
